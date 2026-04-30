@@ -10,9 +10,10 @@ using System;
 public sealed class ChariotPhysics : Component
 {
 	[Property, Group( "Joint" )] public Rigidbody HorsePairRb { get; set; }
+	[Property, Group( "Joint" )] public GameObject HitchPoint { get; set; }
 	[Property, Group( "Joint" )] public float YawLimit { get; set; } = 35f;
 
-	[Property, Group( "Stability" ), Range( 0f, 30f )] public float LateralGrip { get; set; } = 2f;
+	[Property, Group( "Stability" ), Range( 0f, 30f )] public float LateralGrip { get; set; } = 0f;
 
 	[Property, Group( "Debug" )] public bool DebugLog { get; set; } = true;
 	[Property, Group( "Debug" ), ReadOnly] public float CurrentSpeed { get; private set; }
@@ -26,6 +27,10 @@ public sealed class ChariotPhysics : Component
 
 	protected override void OnStart()
 	{
+		Tags.Add( "chariot" );
+		if ( HorsePairRb is not null )
+			HorsePairRb.Tags.Add( "chariot" );
+
 		if ( HorsePairRb is not null )
 		{
 			SetupJoint( HorsePairRb );
@@ -40,12 +45,13 @@ public sealed class ChariotPhysics : Component
 	{
 		HorsePairRb = horseRb;
 
-		// Pivot-Child auf der Position des Pferdes anlegen (in WELT-Koordinaten).
-		// Dadurch ist der Anker auf der Chariot-Seite genau da, wo das Pferd jetzt steht
-		// → der Joint bleibt im aktuellen Abstand stabil und zieht die Bodies nicht ineinander.
+		// Pivot sitzt am Deichsel-Joch (HitchPoint), wenn gesetzt — sonst Fallback auf Pferd-Position.
+		// Anker am physischen Verbindungspunkt vermeidet Kippmomente beim Ziehen/Lenken.
+		Vector3 pivotPos = HitchPoint is not null ? HitchPoint.WorldPosition : horseRb.WorldPosition;
+
 		_jointPivot = new GameObject( true, "ChariotJointPivot" );
 		_jointPivot.SetParent( GameObject );
-		_jointPivot.WorldPosition = horseRb.WorldPosition;
+		_jointPivot.WorldPosition = pivotPos;
 		_jointPivot.WorldRotation = WorldRotation; // Hinge-Achse = lokales Z = Welt-Up bei Identity
 
 		_joint = _jointPivot.Components.Create<HingeJoint>();
@@ -55,7 +61,7 @@ public sealed class ChariotPhysics : Component
 		_joint.EnableCollision = false;
 
 		Log.Info( $"[ChariotPhysics] Joint erstellt — YawLimit=±{YawLimit}" );
-		Log.Info( $"[ChariotPhysics] HorsePos={horseRb.WorldPosition} | ChariotPos={WorldPosition} | PivotWorld={_jointPivot.WorldPosition}" );
+		Log.Info( $"[ChariotPhysics] HorsePos={horseRb.WorldPosition} | ChariotPos={WorldPosition} | PivotWorld={_jointPivot.WorldPosition} | HitchPointSet={HitchPoint is not null}" );
 	}
 
 	protected override void OnFixedUpdate()

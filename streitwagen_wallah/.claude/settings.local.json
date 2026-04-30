@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Program Files \\(x86\\)/Steam/steamapps/common/**)",
+      "Read(//c/Program Files/Steam/steamapps/common/**)",
+      "Read(//c//**)"
+    ]
+  }
+}

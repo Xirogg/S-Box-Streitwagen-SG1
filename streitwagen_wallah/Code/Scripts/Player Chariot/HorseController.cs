@@ -3,19 +3,19 @@ using System;
 
 public sealed class HorseController : Component
 {
-	[Property, Group( "Movement" )] public float PullForce { get; set; } = 3000f;
+	[Property, Group( "Movement" )] public float PullForce { get; set; } = 6000f;
 	[Property, Group( "Movement" )] public float MaxSpeed { get; set; } = 400f;
 	[Property, Group( "Movement" )] public float BrakeForce { get; set; } = 2000f;
 	[Property, Group( "Movement" )] public float ReverseForce { get; set; } = 1500f;
 	[Property, Group( "Movement" )] public float MaxReverseSpeed { get; set; } = 150f;
 
-	[Property, Group( "Steering" )] public float SteerTorque { get; set; } = 80000f;
+	[Property, Group( "Steering" )] public float SteerTorque { get; set; } = 160000f;
 	[Property, Group( "Steering" )] public float MaxAngularSpeed { get; set; } = 180f;
 	[Property, Group( "Steering" )] public bool ClampAngular { get; set; } = false;
 	[Property, Group( "Steering" ), Range( 0f, 1f )] public float LowSpeedSteerScale { get; set; } = 0.35f;
 	[Property, Group( "Steering" )] public float SteerFullEffectSpeed { get; set; } = 200f;
 
-	[Property, Group( "Stability" ), Range( 0f, 30f )] public float LateralGrip { get; set; } = 8f;
+	[Property, Group( "Stability" ), Range( 0f, 30f )] public float LateralGrip { get; set; } = 3f;
 
 	[Property, Group( "Debug" )] public bool DebugLog { get; set; } = true;
 
