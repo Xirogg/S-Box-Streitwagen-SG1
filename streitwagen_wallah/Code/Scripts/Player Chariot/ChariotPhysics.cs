@@ -1,103 +1,66 @@
-﻿using Sandbox;
+using Sandbox;
 using System;
-using Sandbox.Physics;
 
-
-public sealed class ChariotPhysics : Component, Component.ICollisionListener
+/// <summary>
+/// Passiver Streitwagen-Körper. Wird vom HorsePair via HingeJoint (Yaw) gezogen.
+/// Der Joint sitzt auf einem auto-erzeugten Pivot-Child, dessen Position automatisch
+/// aus der relativen Lage von Pferd und Wagen im Prefab berechnet wird —
+/// dadurch können sich die beiden Bodies nicht ineinanderziehen.
+/// </summary>
+public sealed class ChariotPhysics : Component
 {
-	[Property, Group( "Joint Configuration" )]
-	public Rigidbody HorsePairRb { get; set; }
+	[Property, Group( "Joint" )] public Rigidbody HorsePairRb { get; set; }
+	[Property, Group( "Joint" )] public float YawLimit { get; set; } = 35f;
 
-	[Property, Group("Joint Configuration")]
-	public Joint _joint; 
+	[Property, Group( "Stability" ), Range( 0f, 30f )] public float LateralGrip { get; set; } = 2f;
 
-	[Property, Group( "Joint Configuration" )]
-	public float YawLimit { get; set; } = 45f;
+	[Property, Group( "Debug" )] public bool DebugLog { get; set; } = true;
+	[Property, Group( "Debug" ), ReadOnly] public float CurrentSpeed { get; private set; }
+	[Property, Group( "Debug" ), ReadOnly] public float DriftAngle { get; private set; }
 
-	[Property, Group( "Joint Configuration" )]
-	public float YawSpring { get; set; } = 50f;
+	[RequireComponent] public Rigidbody Body { get; set; }
 
-	[Property, Group( "Joint Configuration" )]
-	public float YawDamper { get; set; } = 10f;
-
-	[Property, Group( "Stability" )]
-	public float Downforce { get; set; } = 8000f;   // 
-	[Property, Group( "Stability" )]
-	public float AntiFlipTorque { get; set; } = 20000f;
-
-	[Property, Group( "Debug" )]
-	public bool DebugLog { get; set; } = true;
-
-	public float CurrentSpeed { get; private set; }
-	public float DriftAngle { get; private set; }
-
-		private Rigidbody _rb;
-	
+	private HingeJoint _joint;
+	private GameObject _jointPivot;
 	private float _debugTimer;
-	
 
-	/// <summary>
-	/// Referenz auf das Pferde-Rigidbody dieses Spielers — wird für Ram-Checks gebraucht,
-	/// damit der andere Spieler erkennen kann zu wem der getroffene Wagen gehört.
-	/// </summary>
-	public Rigidbody HorsePairRigidbody => HorsePairRb;
-
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
-		InitRigidbody();
+		if ( HorsePairRb is not null )
+		{
+			SetupJoint( HorsePairRb );
+		}
+		else
+		{
+			Log.Warning( "[ChariotPhysics] HorsePairRb ist nicht zugewiesen — Joint wird nicht erstellt." );
+		}
 	}
 
-	private void InitRigidbody()
+	public void SetupJoint( Rigidbody horseRb )
 	{
-		_rb ??= GetComponent<Rigidbody>();
-	}
+		HorsePairRb = horseRb;
 
-	/// <summary>
-	/// Nach dem Positionieren beider Bodies aufrufen, um den HingeJoint zu konfigurieren.
-	/// Anker werden aus den tatsächlichen Weltpositionen berechnet, sodass sie immer passen.
-	/// </summary>
+		// Pivot-Child auf der Position des Pferdes anlegen (in WELT-Koordinaten).
+		// Dadurch ist der Anker auf der Chariot-Seite genau da, wo das Pferd jetzt steht
+		// → der Joint bleibt im aktuellen Abstand stabil und zieht die Bodies nicht ineinander.
+		_jointPivot = new GameObject( true, "ChariotJointPivot" );
+		_jointPivot.SetParent( GameObject );
+		_jointPivot.WorldPosition = horseRb.WorldPosition;
+		_jointPivot.WorldRotation = WorldRotation; // Hinge-Achse = lokales Z = Welt-Up bei Identity
 
+		_joint = _jointPivot.Components.Create<HingeJoint>();
+		_joint.Body = horseRb.GameObject;
+		_joint.MinAngle = -YawLimit;
+		_joint.MaxAngle = YawLimit;
+		_joint.EnableCollision = false;
 
-	// === ICollisionListener ===
-
-	public void OnCollisionStart( Collision collision )
-	{
-		// Wagen-Kollision an die PlayerCollisions des eigenen Spielers weiterleiten,
-		// damit auch ein Wagen-gegen-Wagen oder Wagen-gegen-Pferde Treffer als Ram gewertet wird.
-		EnsureOwnerCollisions();
-		
-	}
-
-	public void OnCollisionUpdate( Collision collision )
-	{
-		// Während der Kontakt anhält, an PlayerCollisions weitergeben — wird für die
-		// Ram-Akkumulation (Q/E ohne A/D, 2 Sekunden Kontakt) gebraucht.
-		EnsureOwnerCollisions();
-		
-	}
-
-	public void OnCollisionStop( CollisionStop collision )
-	{
-		// Optional: hier könntest du z.B. Ram-Akkumulator-State zurücksetzen
-	}
-
-	private void EnsureOwnerCollisions()
-	{
-		// PlaceHolder — die ursprüngliche Unity-Implementierung war hier auch leer.
-		// Wenn deine PlayerCollisions z.B. am Pferde-GameObject hängt, würdest du hier
-		// einmalig den Component holen, etwa:
-		//   if ( _ownerCollisions == null && HorsePairRb != null )
-		//       _ownerCollisions = HorsePairRb.Components.Get<PlayerCollisions>();
-
+		Log.Info( $"[ChariotPhysics] Joint erstellt — YawLimit=±{YawLimit}" );
+		Log.Info( $"[ChariotPhysics] HorsePos={horseRb.WorldPosition} | ChariotPos={WorldPosition} | PivotWorld={_jointPivot.WorldPosition}" );
 	}
 
 	protected override void OnFixedUpdate()
 	{
-		if ( _rb == null ) InitRigidbody();
-		if ( _rb == null ) return;
-
-		ApplyDownforce();
-		ApplyAntiFlip();
+		ApplyLateralGrip();
 		UpdateTelemetry();
 
 		if ( DebugLog )
@@ -106,53 +69,26 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 			if ( _debugTimer >= 0.5f )
 			{
 				_debugTimer = 0f;
-				Log.Info( $"[Chariot] Speed={CurrentSpeed:F2} u/s | DriftAngle={DriftAngle:F1}° | " +
-					$"Pos={WorldPosition} | Vel={_rb.Velocity}" );
+				Log.Info( $"[Chariot] Spd={CurrentSpeed:F1} | Drift={DriftAngle:F1}° | Vel={Body.Velocity}" );
 			}
 		}
 	}
 
-	private void ApplyDownforce()
+	private void ApplyLateralGrip()
 	{
-		// In s&box zeigt Down nach -Z (nicht -Y wie in Unity).
-		_rb.ApplyForce( Vector3.Down * Downforce );
-	}
+		if ( LateralGrip <= 0f ) return;
 
-	private void ApplyAntiFlip()
-	{
-		// In s&box bekommen wir Pitch / Yaw / Roll direkt aus der Rotation.
-		Angles angles = WorldRotation.Angles();
-		float tiltPitch = NormalizeAngle( angles.pitch );
-		float tiltRoll = NormalizeAngle( angles.roll );
-
-		Vector3 correctionTorque = Vector3.Zero;
-		// Drehmoment um die lokale Rechts-Achse, um Pitch zu korrigieren
-		correctionTorque += WorldRotation.Right * (-tiltPitch * AntiFlipTorque * Time.Delta);
-		// Drehmoment um die lokale Forward-Achse, um Roll zu korrigieren
-		correctionTorque += WorldRotation.Forward * (-tiltRoll * AntiFlipTorque * Time.Delta);
-
-		_rb.PhysicsBody.ApplyTorque( correctionTorque );
+		Vector3 right = WorldRotation.Right;
+		float lateralAmount = Vector3.Dot( Body.Velocity, right );
+		float killFactor = 1f - MathF.Exp( -LateralGrip * Time.Delta );
+		Body.Velocity -= right * (lateralAmount * killFactor);
 	}
 
 	private void UpdateTelemetry()
 	{
-		CurrentSpeed = _rb.Velocity.Length;
-
-		if ( CurrentSpeed > 0.5f )
-		{
-			DriftAngle = Vector3.GetAngle( _rb.Velocity, WorldRotation.Forward );
-		}
-		else
-		{
-			DriftAngle = 0f;
-		}
+		CurrentSpeed = Body.Velocity.Length;
+		DriftAngle = CurrentSpeed > 5f
+			? Vector3.GetAngle( Body.Velocity.WithZ( 0f ), WorldRotation.Forward.WithZ( 0f ) )
+			: 0f;
 	}
-
-	private static float NormalizeAngle( float angle )
-	{
-		while ( angle > 180f ) angle -= 360f;
-		while ( angle < -180f ) angle += 360f;
-		return angle;
-	}
- 
 }
