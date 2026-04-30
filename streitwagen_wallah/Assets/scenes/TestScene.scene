@@ -6,7 +6,7 @@
       "__version": 2,
       "Flags": 0,
       "Name": "Main Camera",
-      "Position": "-300,0,100",
+      "Position": "-2266,288,358",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -89,6 +89,212 @@
         }
       ],
       "Children": []
+    },
+    {
+      "__guid": "1e1821bd-7eea-42f3-b0c1-4b302fb01cbc",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "Test",
+      "Position": "-731.107971,-177.19577,259.15567",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [],
+      "Children": []
+    },
+    {
+      "__guid": "67c3ed68-8dd6-4112-a9f0-0d7879eb5a90",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "Ground ",
+      "Position": "-731.107971,-177.19577,259.15567",
+      "Rotation": "0,0,0,1",
+      "Scale": "90.961441,65.5383148,0.211701468",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "e7de7667-9806-4064-bc37-550d6d729d37",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/dev/box.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.34401,0.94419,0.06587,1"
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "869a2be5-95e5-4ffb-a169-f77427824238",
+          "__enabled": true,
+          "Flags": 0,
+          "Center": "0,0,0",
+          "ColliderFlags": 0,
+          "Elasticity": null,
+          "Friction": null,
+          "IsTrigger": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RollingResistance": null,
+          "Scale": "50,50,50",
+          "Static": false,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "94f43836-9fb6-4354-93b2-a9fb4304edf3",
+      "__version": 2,
+      "__Prefab": "prefabs/player.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "92621ae1-2477-4683-bdb6-f01142581bc0"
+            },
+            "Property": "Position",
+            "Value": "-2053.99951,205.999969,194.957291"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "498af0fc-a5f8-4398-9296-a6a8ba938224"
+            },
+            "Property": "_rb",
+            "Value": {
+              "_type": "component",
+              "component_id": "bc080239-e1bd-43df-bf2a-81fbef6b25b4",
+              "go": "af268a60-b740-4d28-912b-f9f0d4ad113e",
+              "component_type": "Rigidbody"
+            }
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "498af0fc-a5f8-4398-9296-a6a8ba938224"
+            },
+            "Property": "DebugLog",
+            "Value": true
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "498af0fc-a5f8-4398-9296-a6a8ba938224"
+            },
+            "Property": "MaxAngularVelocity",
+            "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "498af0fc-a5f8-4398-9296-a6a8ba938224"
+            },
+            "Property": "PullForce",
+            "Value": 1
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "bc080239-e1bd-43df-bf2a-81fbef6b25b4"
+            },
+            "Property": "AngularDamping",
+            "Value": 1
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "bc080239-e1bd-43df-bf2a-81fbef6b25b4"
+            },
+            "Property": "LinearDamping",
+            "Value": 1
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "e3fce8a6-703b-42e2-90ee-48a347e89926"
+            },
+            "Property": "__enabled",
+            "Value": false
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "92621ae1-2477-4683-bdb6-f01142581bc0": "94f43836-9fb6-4354-93b2-a9fb4304edf3",
+        "af268a60-b740-4d28-912b-f9f0d4ad113e": "c5ae1d77-5330-492b-824a-2a7963acbd86",
+        "498af0fc-a5f8-4398-9296-a6a8ba938224": "f8b547b3-2c30-49d9-bb5e-1774beff0976",
+        "bc080239-e1bd-43df-bf2a-81fbef6b25b4": "79dfd2c0-06de-41c6-ba88-f2a29c50be77",
+        "af99c4a3-7164-452d-bf19-15843438c840": "0e848166-c68d-4792-99d2-ee11d75ac79b",
+        "c302ef2a-abd6-4b21-98e0-c5e336d51468": "ce3620d3-7d4b-4bee-ac94-de16a406b8b9",
+        "fbdaaf78-af33-4df7-90ec-758ab745f81d": "f8a8ea29-438d-42a1-a067-8ea5deda9ee6",
+        "bc46d2f8-53d6-497c-8e89-55cc0c50e591": "1d263122-ced2-4dae-821b-452f6772cceb",
+        "f9390106-3b51-4700-a252-0317ab6dbc01": "347b36b6-f187-4980-bff2-2db5d20da7b9",
+        "7561c768-cea8-4a7c-99ff-a85f24357ea1": "ee491436-299d-4828-808b-40be4fc5f082",
+        "5ad7f819-1cf4-4488-9712-1abd6f20ba14": "ac781281-97f7-4b55-9b96-9d38ecdc812f",
+        "fc9721b9-caa9-4586-98ef-34cbc00f1779": "7a9b06b2-fb83-43d0-ad88-baf52f090056",
+        "e3fce8a6-703b-42e2-90ee-48a347e89926": "86e98b40-959b-45ac-b9c2-4d78b47c73e9",
+        "fe6d57de-feaa-40ce-95b7-3265d68c69d8": "af5f5c2e-89eb-4086-a7df-5573c03c9ff4",
+        "d8a5023d-0733-4359-9123-df599642f017": "b96c9eaf-bd95-4455-8550-a9aaec2cdce7",
+        "506b07a6-706c-46e9-90bb-918e9cda4e0a": "36dedd12-6af0-4c96-9287-d1f7d78b008d",
+        "620ec997-a10d-4ef7-a1a3-1a9f776e0e42": "e2de078b-333f-4f31-bd59-133580222a18",
+        "a0d03315-26c7-463f-a388-10b8c275e33d": "c3881137-2485-48ee-b15b-4769c7e29aad",
+        "a91d609e-8b19-4f04-b8d5-bd4588a97fc1": "cab5d41b-8650-488e-8782-f9cc664614f2",
+        "cc813d88-ff80-4518-a538-c0d73a17929f": "dc3f74e2-e80f-4392-8b2b-2d37650dac2a",
+        "0ce44436-8872-40f3-9f67-653cfb36d173": "7f9e29bf-281a-49ac-9b69-e64c9456fbd6",
+        "8725fc31-1a81-4b57-9071-43a43fe9b9b2": "c93f0433-b32b-44e3-a685-25be9dc6dddb",
+        "fa79fcd6-83cb-404f-a26c-35536b9aba16": "2ed5db6a-c55f-4ebb-9d8f-8fef3c936d05",
+        "5dc1b16f-bc56-4346-b755-709e83843772": "4c51901b-d88b-48f0-a2c7-8d83b97cad01",
+        "4bbfa1a5-e3e0-488f-8c5b-5ddf1bcad6b3": "805f99fb-be4e-40e4-b8ce-0a250cf4228e",
+        "9342b038-c943-4b7b-86c9-bb5cd791d518": "d48f84d6-265f-4f90-aee3-91e9cbf75328",
+        "4fe4135b-09ca-41af-b32f-4df4debd2339": "7df08ba0-1735-4a59-9e2e-16e3d5b97027",
+        "33454ff9-7052-404e-9177-b7de913d23ca": "dab13555-3cbc-4873-8d0a-c81ec9ec488f",
+        "bb23d3af-f089-4952-8efc-e6bfde0abc0b": "ed1a6591-00b8-452b-b6ea-5017845faafb",
+        "47e188a9-e19b-41d0-9b69-1963e8d32b3e": "d34a1518-fede-459f-8bc2-44857d44c2da",
+        "cdfee898-825d-4ac3-b468-b52fdf64d4fa": "723d99be-681c-437e-af3c-8d16ebbe6835",
+        "3e82f618-772d-44c2-a43e-e179af0dce3e": "9ad32bdb-915c-4bd9-999b-27b9061b8091",
+        "62d83fe2-71a7-4573-9694-42927bd43e7f": "c9f79520-5993-4d25-a3be-21b3adce61db"
+      }
     }
   ],
   "SceneProperties": {
