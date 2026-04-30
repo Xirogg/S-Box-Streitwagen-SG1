@@ -1,0 +1,23 @@
+[
+  {
+    "Key": "Assets\\Scripts",
+    "Value": {
+      "Color": "0.01395,1,0.93426,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Assets\\Assets",
+    "Value": {
+      "Color": "0.81667,0,1,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Assets\\Prefabs",
+    "Value": {
+      "Color": "0.06178,0.25204,0.63256,1",
+      "Icon": ""
+    }
+  }
+]
