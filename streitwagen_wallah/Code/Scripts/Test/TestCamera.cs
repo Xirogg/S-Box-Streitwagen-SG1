@@ -27,7 +27,7 @@ public sealed class TestCamera : Component
 		Angles targetAngles = TargetGO.WorldRotation.Angles();
 		Rotation yawOnlyRotation = Rotation.FromYaw( targetAngles.yaw );
 
-		Vector3 desiredPosition = TargetGO.WorldPosition * yawOnlyRotation * CameraOffset;
+		Vector3 desiredPosition = TargetGO.WorldPosition + yawOnlyRotation * CameraOffset;
 		WorldPosition = SmoothDamp( WorldPosition, desiredPosition, ref speed, SmoothTime, Time.Delta ); 
 	}
 
