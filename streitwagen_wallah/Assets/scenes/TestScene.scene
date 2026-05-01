@@ -6,7 +6,7 @@
       "__version": 2,
       "Flags": 0,
       "Name": "Main Camera",
-      "Position": "-3600.10742,346.937683,941.925049",
+      "Position": "-3948.97534,346.937683,1035.4032",
       "Rotation": "0,0.130525261,0,0.991444886",
       "Scale": "1,1,1",
       "Tags": "",
@@ -194,15 +194,7 @@
               "IdValue": "71a98175-0ea3-4983-ab02-05c2d758014c"
             },
             "Property": "Position",
-            "Value": "-2243.37769,354.184235,289.448212"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "54d6bc96-950e-4e53-b002-41bdda314d77"
-            },
-            "Property": "Position",
-            "Value": "-470.354492,0,56.9396667"
+            "Value": "-1847.52466,354.184235,289.448212"
           },
           {
             "Target": {
@@ -210,7 +202,31 @@
               "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
             },
             "Property": "__enabled",
-            "Value": false
+            "Value": true
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
+            },
+            "Property": "CameraOffset",
+            "Value": "15,0,0"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
+            },
+            "Property": "SmoothTime",
+            "Value": 55
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d"
+            },
+            "Property": "__enabled",
+            "Value": true
           }
         ],
         "MovedObjects": []
@@ -219,12 +235,17 @@
         "71a98175-0ea3-4983-ab02-05c2d758014c": "7681022b-272b-4456-a74b-6448e591ab44",
         "66e4cb2c-136e-405b-9a51-6a3898f2dd27": "cb51ad78-b089-4e30-930c-c58c2223de2c",
         "b1f1c2d9-b15f-43b6-a04a-35d27c22d864": "9aa2da3b-9b8d-4116-95be-5502fc926325",
-        "f9559336-f419-4760-8a50-9ac7a3804951": "7df2ee14-4ee6-4bfe-97ef-a41de10fad75",
-        "8033af80-b93a-4bfb-ae6e-ef3c72b5427f": "496b0eed-4852-4581-8adb-226ce4503823",
-        "ca0b3747-d764-4f95-84fb-d0406ba98ac0": "7e0f6fd2-a7a0-4cd1-b1c9-ca1c8ccae515",
         "54d6bc96-950e-4e53-b002-41bdda314d77": "c40295d5-b18e-4f61-a30f-1f50fe5e1b29",
         "b858d9fc-548b-4c1f-a0e6-7a12790181dc": "0309c9ce-a3ec-443a-bc67-e83e7fd03360",
-        "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d": "d2ecc2ee-818b-4149-9e32-e66e230fd7f6"
+        "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d": "d2ecc2ee-818b-4149-9e32-e66e230fd7f6",
+        "3a0e8757-7e88-4834-806e-ed4339c20999": "0b583979-2328-4f21-800c-33d94183f697",
+        "337056b5-7f39-4500-aad7-05f14b5297c5": "d19980a6-e141-4add-bd35-406f673aa14b",
+        "096c12ae-7441-4cb5-acb0-3ed9385f7bc4": "6629928e-dea5-4ffb-a88b-62b45a9f44df",
+        "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2": "c6156043-b2bc-4c88-9b53-a338bcf3c24f",
+        "c3c6cc48-1331-42f8-b015-cc11ef08978f": "cd6a2e33-9109-4684-85b4-761e74fe0b99",
+        "4932540a-ba13-4f07-bd43-b3da02c0d833": "1ecb0758-4e68-44bb-b6dd-dc69872e7da2",
+        "2d0b4a5c-cbca-4e38-8a14-4f232ad44dd3": "012d8423-5b06-4fad-b5c7-67271995abd4",
+        "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2": "aeff5867-41fb-45e4-a989-0dfff924b86a"
       }
     }
   ],
@@ -253,13 +274,13 @@
           "SelectionSets": []
         }
       },
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
         }
+      },
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
       }
     }
   },
