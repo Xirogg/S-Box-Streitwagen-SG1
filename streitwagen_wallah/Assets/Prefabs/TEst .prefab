@@ -38,22 +38,22 @@
             "__enabled": true,
             "Flags": 0,
             "BrakeForce": 5,
-            "MaxAngularSpeed": 1000,
-            "MaxVerticalSpeed": 1000,
+            "MaxAngularSpeed": 250,
+            "MaxVerticalSpeed": 250,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
-            "PullForce": 2000,
+            "PullForce": 250000000,
             "Rigidbody": {
               "_type": "component",
               "component_id": "337056b5-7f39-4500-aad7-05f14b5297c5",
               "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
               "component_type": "Rigidbody"
             },
-            "SteerTorque": 200000000
+            "SteerTorque": 250000000
           },
           {
             "__type": "Sandbox.ModelRenderer",
@@ -297,7 +297,7 @@
           {
             "__type": "TestCamera",
             "__guid": "b858d9fc-548b-4c1f-a0e6-7a12790181dc",
-            "__enabled": true,
+            "__enabled": false,
             "Flags": 0,
             "CameraOffset": "-60,0,56",
             "LookHeight": 35,
@@ -316,7 +316,7 @@
           {
             "__type": "Sandbox.CameraComponent",
             "__guid": "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d",
-            "__enabled": true,
+            "__enabled": false,
             "Flags": 0,
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
             "ClearFlags": "All",

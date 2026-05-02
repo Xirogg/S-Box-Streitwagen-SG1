@@ -14,16 +14,23 @@ public sealed class TestControlls : Component
 
 	[Property, Group("GameObjects")] public Rigidbody Rigidbody { get; set; }
 
-	private Vector2 moveInput;
+	[Sync]	private Vector2 moveInput {  get; set; }
 
 
 	protected override void OnUpdate()
 	{
+		// Wenn es nicht der Spieler des Prefabs ist wird alles geskippt
+		if ( IsProxy ) return; 
+
+
 		ApplyInputs(); 
 	}
 
 	protected override void OnFixedUpdate()
 	{
+		if ( IsProxy ) return; 
+
+
 		ApplyLocomotion(moveInput.x);
 		ApplySteering( moveInput.y );
 	}
@@ -43,25 +50,24 @@ public sealed class TestControlls : Component
 
 	private void ApplyLocomotion(float acceleration)
 	{
+		if ( acceleration == 0f ) return;
+
 		Vector3 forward = WorldRotation.Forward;
 		float forwardSpeed = Vector3.Dot( Rigidbody.Velocity, forward );
 
-		float accelerationThreshhold = -12f; 
+		if ( acceleration > 0 && forwardSpeed >= MaxVerticalSpeed ) return;
+		if ( acceleration < 0 && forwardSpeed <= -MaxVerticalSpeed ) return;
 
-		if (acceleration > accelerationThreshhold && forwardSpeed < MaxVerticalSpeed)
-		{
-			Rigidbody.ApplyForce( forward * PullForce * acceleration ); 
-		}
-
-		else if (acceleration < accelerationThreshhold || forwardSpeed > MaxVerticalSpeed )
-		{
-			Rigidbody.ApplyForce( -forward * BrakeForce * acceleration );
-		}
+		float mass = Rigidbody.Mass;
+		Rigidbody.ApplyForce( forward * PullForce * acceleration * mass );
 	}
 
 	private void ApplySteering(float torqueInput)
 	{
-		Vector3 torque = SteerTorque * torqueInput; 
-		Rigidbody.ApplyTorque( torque );
+		if ( torqueInput == 0f ) return;
+		if ( MathF.Abs( Rigidbody.AngularVelocity.z ) >= MaxAngularSpeed ) return;
+
+		float mass = Rigidbody.Mass;
+		Rigidbody.ApplyTorque( Vector3.Up * SteerTorque * torqueInput * mass );
 	}
 }
