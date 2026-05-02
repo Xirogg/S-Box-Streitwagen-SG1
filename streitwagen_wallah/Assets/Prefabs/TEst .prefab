@@ -23,7 +23,7 @@
         "Name": "Antrieb ",
         "Position": "0,0,0",
         "Rotation": "0,0,0,1",
-        "Scale": "1.71938872,1,1",
+        "Scale": "1.70000005,1,1",
         "Tags": "",
         "Enabled": true,
         "NetworkMode": 2,
@@ -46,14 +46,14 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
-            "PullForce": 50000000,
+            "PullForce": 2000,
             "Rigidbody": {
               "_type": "component",
               "component_id": "337056b5-7f39-4500-aad7-05f14b5297c5",
               "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
               "component_type": "Rigidbody"
             },
-            "SteerTorque": 500000000
+            "SteerTorque": 200000000
           },
           {
             "__type": "Sandbox.ModelRenderer",
@@ -283,7 +283,7 @@
         "__version": 2,
         "Flags": 0,
         "Name": "Camera ",
-        "Position": "-470.354492,0,56.9396667",
+        "Position": "-477.484375,0,56.9396667",
         "Rotation": "0,0,0,1",
         "Scale": "-8.78243256,1,5.09823608",
         "Tags": "",
@@ -297,32 +297,31 @@
           {
             "__type": "TestCamera",
             "__guid": "b858d9fc-548b-4c1f-a0e6-7a12790181dc",
-            "__enabled": false,
+            "__enabled": true,
             "Flags": 0,
-            "CameraOffset": "-200,0,0",
-            "LookHeight": 25,
+            "CameraOffset": "-60,0,56",
+            "LookHeight": 35,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
-            "SmoothSpeed": 550,
-            "SmoothTime": 0,
+            "SmoothSpeed": 15,
             "TargetGO": {
               "_type": "gameobject",
-              "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
+              "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2"
             }
           },
           {
             "__type": "Sandbox.CameraComponent",
             "__guid": "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d",
-            "__enabled": false,
+            "__enabled": true,
             "Flags": 0,
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
             "ClearFlags": "All",
             "EnablePostProcessing": true,
-            "FieldOfView": 60,
+            "FieldOfView": 76.46544,
             "FovAxis": "Horizontal",
             "IsMainCamera": true,
             "OnComponentDestroy": null,
@@ -340,8 +339,8 @@
             "RenderTexture": null,
             "TargetEye": "None",
             "Viewport": "0,0,1,1",
-            "ZFar": 10000,
-            "ZNear": 10
+            "ZFar": 31798,
+            "ZNear": 1
           }
         ],
         "Children": []

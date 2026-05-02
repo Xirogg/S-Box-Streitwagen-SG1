@@ -198,11 +198,59 @@
           },
           {
             "Target": {
+              "Type": "GameObject",
+              "IdValue": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
+            },
+            "Property": "Position",
+            "Value": "0,0,-7.83557129"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
+            },
+            "Property": "Scale",
+            "Value": "1.28522456,0.662144065,0.687491357"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "PullForce",
+            "Value": 4000000
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "SteerTorque",
+            "Value": 100000000
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2"
+            },
+            "Property": "Position",
+            "Value": "-175.109131,0,-7.83557129"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2"
+            },
+            "Property": "Scale",
+            "Value": "1.30461323,0.662144065,0.687491357"
+          },
+          {
+            "Target": {
               "Type": "Component",
               "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
             },
             "Property": "__enabled",
-            "Value": true
+            "Value": false
           },
           {
             "Target": {
@@ -210,15 +258,23 @@
               "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
             },
             "Property": "CameraOffset",
-            "Value": "15,0,0"
+            "Value": "-155,0,56"
           },
           {
             "Target": {
               "Type": "Component",
               "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
             },
-            "Property": "SmoothTime",
+            "Property": "LookHeight",
             "Value": 55
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
+            },
+            "Property": "SmoothSpeed",
+            "Value": 5
           },
           {
             "Target": {
@@ -226,7 +282,7 @@
               "IdValue": "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d"
             },
             "Property": "__enabled",
-            "Value": true
+            "Value": false
           }
         ],
         "MovedObjects": []
@@ -269,11 +325,6 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
@@ -281,6 +332,11 @@
       },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
       }
     }
   },
