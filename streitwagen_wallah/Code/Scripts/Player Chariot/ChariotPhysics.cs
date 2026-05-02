@@ -11,9 +11,16 @@ public sealed class ChariotPhysics : Component
 {
 	[Property, Group( "Joint" )] public Rigidbody HorsePairRb { get; set; }
 	[Property, Group( "Joint" )] public GameObject HitchPoint { get; set; }
-	[Property, Group( "Joint" )] public float YawLimit { get; set; } = 35f;
+	[Property, Group( "Joint" )] public float YawLimit { get; set; } = 100f;
 
 	[Property, Group( "Stability" ), Range( 0f, 30f )] public float LateralGrip { get; set; } = 0f;
+
+	[Property, Group( "Drift" )] public float DriftForce { get; set; } = 14000f;
+	[Property, Group( "Drift" )] public float DriftRearOffset { get; set; } = 100f;
+	[Property, Group( "Drift" )] public float DriftMinSpeed { get; set; } = 20f;
+	[Property, Group( "Drift" )] public float DriftFullSpeed { get; set; } = 120f;
+	[Property, Group( "Drift" )] public float DriftMaxYawRate { get; set; } = 6f;
+	[Property, Group( "Drift" ), Range( 0f, 5f )] public float ChariotAngularDamping { get; set; } = 0.15f;
 
 	[Property, Group( "Debug" )] public bool DebugLog { get; set; } = true;
 	[Property, Group( "Debug" ), ReadOnly] public float CurrentSpeed { get; private set; }
@@ -66,7 +73,9 @@ public sealed class ChariotPhysics : Component
 
 	protected override void OnFixedUpdate()
 	{
+		ApplyDriftImpulse();
 		ApplyLateralGrip();
+		DampenYaw();
 		UpdateTelemetry();
 
 		if ( DebugLog )
@@ -78,6 +87,37 @@ public sealed class ChariotPhysics : Component
 				Log.Info( $"[Chariot] Spd={CurrentSpeed:F1} | Drift={DriftAngle:F1}° | Vel={Body.Velocity}" );
 			}
 		}
+	}
+
+	private void ApplyDriftImpulse()
+	{
+		if ( HorsePairRb is null || DriftForce <= 0f ) return;
+
+		float speed = Body.Velocity.Length;
+		if ( speed < DriftMinSpeed ) return;
+
+		float yawRate = MathX.Clamp( HorsePairRb.AngularVelocity.z, -DriftMaxYawRate, DriftMaxYawRate );
+		if ( MathF.Abs( yawRate ) < 0.05f ) return;
+
+		float speedFactor = MathX.Clamp( (speed - DriftMinSpeed) / MathF.Max( DriftFullSpeed - DriftMinSpeed, 1f ), 0f, 1f );
+
+		// Push the rear sideways opposite to the turn direction → back end kicks out.
+		Vector3 right = WorldRotation.Right;
+		Vector3 force = right * (-yawRate * DriftForce * speedFactor);
+		Vector3 rearWorld = WorldPosition - WorldRotation.Forward * DriftRearOffset;
+
+		Body.ApplyForceAt( rearWorld, force );
+	}
+
+	private void DampenYaw()
+	{
+		if ( ChariotAngularDamping <= 0f ) return;
+
+		// Light damping only on the chariot's yaw axis — keeps it from spinning out forever
+		// without snapping it back behind the horses (that's what makes it feel "loose").
+		Vector3 av = Body.AngularVelocity;
+		float keep = MathF.Exp( -ChariotAngularDamping * Time.Delta );
+		Body.AngularVelocity = new Vector3( av.x, av.y, av.z * keep );
 	}
 
 	private void ApplyLateralGrip()

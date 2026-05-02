@@ -10,6 +10,7 @@ public sealed class TestControlls : Component
 
 	[Property, Group( "Steering" )] public float SteerTorque { get; set; } = 10f;
 	[Property, Group( "Steering" )] public float MaxAngularSpeed { get; set; } = 10f;
+	[Property, Group( "Steering" )] public float LateralGrip { get; set; } = 4f;
 
 
 	[Property, Group("GameObjects")] public Rigidbody Rigidbody { get; set; }
@@ -31,6 +32,7 @@ public sealed class TestControlls : Component
 		if ( IsProxy ) return; 
 
 
+		ApplyHorseLateralGrip();
 		ApplyLocomotion(moveInput.x);
 		ApplySteering( moveInput.y );
 	}
@@ -54,12 +56,23 @@ public sealed class TestControlls : Component
 
 		Vector3 forward = WorldRotation.Forward;
 		float forwardSpeed = Vector3.Dot( Rigidbody.Velocity, forward );
+		float planarSpeed = Rigidbody.Velocity.WithZ( 0f ).Length;
 
-		if ( acceleration > 0 && forwardSpeed >= MaxVerticalSpeed ) return;
+		if ( acceleration > 0 && planarSpeed >= MaxVerticalSpeed && forwardSpeed > 0 ) return;
 		if ( acceleration < 0 && forwardSpeed <= -MaxVerticalSpeed ) return;
 
 		float mass = Rigidbody.Mass;
 		Rigidbody.ApplyForce( forward * PullForce * acceleration * mass );
+	}
+
+	private void ApplyHorseLateralGrip()
+	{
+		if ( LateralGrip <= 0f ) return;
+
+		Vector3 right = WorldRotation.Right;
+		float lateral = Vector3.Dot( Rigidbody.Velocity, right );
+		float kill = 1f - MathF.Exp( -LateralGrip * Time.Delta );
+		Rigidbody.Velocity -= right * (lateral * kill);
 	}
 
 	private void ApplySteering(float torqueInput)
