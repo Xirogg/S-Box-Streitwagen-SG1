@@ -50,6 +50,40 @@
       "Children": []
     },
     {
+      "__guid": "72dc6db7-d940-4618-bca9-1de09c4c45fc",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "2D Skybox",
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "skybox",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "ac7915c4-01da-4062-92dd-5761e460e829",
+          "__enabled": true,
+          "Flags": 0,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SkyIndirectLighting": true,
+          "SkyMaterial": "materials/skybox/skybox_sunrise_01.vmat",
+          "Tint": "1,1,1,1"
+        }
+      ],
+      "Children": []
+    },
+    {
       "__guid": "a84c20ca-5c7c-42a4-9b8e-bf11380e96db",
       "__version": 2,
       "Flags": 0,
@@ -72,7 +106,7 @@
           "Flags": 0,
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
+          "LightColor": "0.25581,0.24249,0.12255,1",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -84,7 +118,7 @@
           "ShadowCascadeSplitRatio": 0.91,
           "ShadowHardness": 0,
           "Shadows": true,
-          "SkyColor": "0,0,0,0",
+          "SkyColor": "1,1,1,0",
           "Visualizer": {}
         }
       ],
@@ -109,6 +143,60 @@
       "Children": []
     },
     {
+      "__guid": "eb05bf40-13ba-4131-be0a-60f04e38bb21",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "Terrain",
+      "Position": "-7944.81934,-6250.99219,289.445923",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.Terrain",
+          "__guid": "d387b8dd-43b4-4612-87f4-003612d76874",
+          "__enabled": true,
+          "Flags": 0,
+          "__version": 1,
+          "ClipMapLodExtentTexels": 256,
+          "ClipMapLodLevels": 6,
+          "ColliderFlags": 0,
+          "Elasticity": null,
+          "EnableCollision": true,
+          "Friction": null,
+          "IsTrigger": false,
+          "MaterialOverride": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RenderType": "Off",
+          "RollingResistance": null,
+          "Static": true,
+          "Storage": "environment/terrain.terrain",
+          "SubdivisionFactor": 1,
+          "SubdivisionLodCount": 3,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0",
+          "TerrainHeight": 10000,
+          "TerrainSize": 41169.86
+        }
+      ],
+      "Children": []
+    },
+    {
       "__guid": "67c3ed68-8dd6-4112-a9f0-0d7879eb5a90",
       "__version": 2,
       "Flags": 0,
@@ -116,7 +204,7 @@
       "Position": "-731.107971,-177.19577,259.15567",
       "Rotation": "0,0,0,1",
       "Scale": "430.385193,298.606842,0.211701468",
-      "Tags": "",
+      "Tags": "hidden",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkFlags": 0,
@@ -173,7 +261,7 @@
           "OnTriggerExit": null,
           "RollingResistance": null,
           "Scale": "50,50,50",
-          "Static": false,
+          "Static": true,
           "Surface": null,
           "SurfaceVelocity": "0,0,0"
         }
@@ -194,7 +282,7 @@
               "IdValue": "71a98175-0ea3-4983-ab02-05c2d758014c"
             },
             "Property": "Position",
-            "Value": "-1847.52466,354.184235,289.448212"
+            "Value": "-1847.52466,354.184235,317.466034"
           },
           {
             "Target": {
@@ -235,6 +323,14 @@
             },
             "Property": "Position",
             "Value": "-175.109131,0,-7.83557129"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "2d0b4a5c-cbca-4e38-8a14-4f232ad44dd3"
+            },
+            "Property": "Tint",
+            "Value": "0.27907,0.13097,0.0675,1"
           },
           {
             "Target": {
