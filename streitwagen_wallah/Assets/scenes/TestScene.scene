@@ -115,7 +115,7 @@
       "Name": "Ground ",
       "Position": "-731.107971,-177.19577,259.15567",
       "Rotation": "0,0,0,1",
-      "Scale": "90.961441,65.5383148,0.211701468",
+      "Scale": "430.385193,298.606842,0.211701468",
       "Tags": "",
       "Enabled": true,
       "NetworkMode": 2,
@@ -149,7 +149,7 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
-          "Tint": "0.34401,0.94419,0.06587,1"
+          "Tint": "0.27049,0.64651,0.09622,1"
         },
         {
           "__type": "Sandbox.BoxCollider",
@@ -235,14 +235,6 @@
             },
             "Property": "Position",
             "Value": "-175.109131,0,-7.83557129"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2"
-            },
-            "Property": "Scale",
-            "Value": "1.30461323,0.662144065,0.687491357"
           },
           {
             "Target": {
