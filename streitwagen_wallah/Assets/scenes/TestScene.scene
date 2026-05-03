@@ -106,7 +106,7 @@
           "Flags": 0,
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "0.25581,0.24249,0.12255,1",
+          "LightColor": "0.98605,0.93791,0.50449,1",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -294,14 +294,6 @@
           },
           {
             "Target": {
-              "Type": "GameObject",
-              "IdValue": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
-            },
-            "Property": "Scale",
-            "Value": "1.28522456,0.662144065,0.687491357"
-          },
-          {
-            "Target": {
               "Type": "Component",
               "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
             },
@@ -323,6 +315,18 @@
             },
             "Property": "Position",
             "Value": "-175.109131,0,-7.83557129"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "2d0b4a5c-cbca-4e38-8a14-4f232ad44dd3"
+            },
+            "Property": "Materials",
+            "Value": {
+              "indexed": {
+                "0": "materials/default.vmat"
+              }
+            }
           },
           {
             "Target": {
@@ -413,17 +417,17 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.Clutter.ClutterGridSystem": {
-        "Storage": {
-          "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
-        }
-      },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
       },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
+        }
+      },
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
         }
       }
     }
