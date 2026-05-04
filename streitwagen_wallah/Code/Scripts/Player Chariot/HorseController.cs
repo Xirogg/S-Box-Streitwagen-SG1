@@ -1,8 +1,32 @@
 using Sandbox;
 using System;
+using System.Collections.Generic;
 
-public sealed class HorseController : Component
+public sealed class HorseController : Component, ISpeedModifiable
 {
+	private readonly Dictionary<string, float> _speedModifiers = new();
+	private float _speedMultiplier = 1f;
+
+	public void SetSpeedMultiplier( string key, float multiplier )
+	{
+		_speedModifiers[key] = multiplier;
+		RecomputeSpeedMultiplier();
+	}
+
+	public void ClearSpeedMultiplier( string key )
+	{
+		if ( _speedModifiers.Remove( key ) )
+			RecomputeSpeedMultiplier();
+	}
+
+	private void RecomputeSpeedMultiplier()
+	{
+		float m = 1f;
+		foreach ( var v in _speedModifiers.Values )
+			m *= v;
+		_speedMultiplier = m;
+	}
+
 	[Property, Group( "Movement" )] public float PullForce { get; set; } = 6000f;
 	[Property, Group( "Movement" )] public float MaxSpeed { get; set; } = 400f;
 	[Property, Group( "Movement" )] public float BrakeForce { get; set; } = 2000f;
@@ -63,9 +87,9 @@ public sealed class HorseController : Component
 
 		if ( throttle > 0.01f )
 		{
-			if ( fwdSpeed < MaxSpeed )
+			if ( fwdSpeed < MaxSpeed * _speedMultiplier )
 			{
-				Body.ApplyForce( forward * PullForce * throttle );
+				Body.ApplyForce( forward * PullForce * _speedMultiplier * throttle );
 			}
 		}
 		else if ( throttle < -0.01f )

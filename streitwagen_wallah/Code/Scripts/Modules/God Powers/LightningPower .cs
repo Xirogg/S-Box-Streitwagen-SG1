@@ -24,6 +24,8 @@ public sealed class LightningPower : GodPower
 	[Property, Group( "Lightning Settings" )]
 	public bool AffectOwner { get; set; } = false;
 
+	private const string SpeedKey = "lightning";
+
 	private bool effectActive = false;
 
 	private struct AffectedPlayer
@@ -57,7 +59,7 @@ public sealed class LightningPower : GodPower
 			};
 
 			player.LocalScale = ap.OriginalScale * ShrinkScale;
-			ap.SpeedTarget?.SetSpeedMultiplier( SpeedReduction );
+			ap.SpeedTarget?.SetSpeedMultiplier( SpeedKey, SpeedReduction );
 
 			affectedPlayers.Add( ap );
 		}
@@ -75,7 +77,7 @@ public sealed class LightningPower : GodPower
 			if ( ap.GameObject.IsValid() )
 				ap.GameObject.LocalScale = ap.OriginalScale;
 
-			ap.SpeedTarget?.SetSpeedMultiplier( 1f );
+			ap.SpeedTarget?.ClearSpeedMultiplier( SpeedKey );
 		}
 
 		affectedPlayers.Clear();
