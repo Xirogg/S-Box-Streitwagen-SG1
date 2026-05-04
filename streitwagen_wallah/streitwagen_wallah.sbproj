@@ -38,6 +38,11 @@
       "IgnoreFolders": [],
       "DistinctAssemblyReferences": []
     },
-    "LaunchMode": "QuickPlay"
+    "LaunchMode": "QuickPlay",
+    "ControlModes": {
+      "Keyboard": false,
+      "VR": false,
+      "Gamepad": false
+    }
   }
 }

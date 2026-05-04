@@ -1,0 +1,52 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@using LapSystem;
+@inherits PanelComponent
+@namespace Sandbox
+
+<root>
+	<div class="lap">Lap @LapText</div>
+	<div class="hpbar">
+		<div class="hp-fill" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;"></div>
+	</div>
+</root>
+
+<style>
+	root {
+		position: absolute;
+		left: 32px;
+		top: 32px;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.lap {
+		color: white;
+		font-size: 32px;
+		font-family: Arial;
+		text-shadow: 0px 2px 2px black;
+	}
+	.hpbar {
+		width: 300px;
+		height: 24px;
+		background-color: red;
+		border: 2px solid black;
+	}
+	.hp-fill {
+		height: 100%;
+		background-color: green;
+		transition: width 0.15s linear;
+	}
+</style>
+
+@code
+{
+	PlayerLapTracker Lap => Components.Get<PlayerLapTracker>( FindMode.EverythingInSelfAndAncestors );
+	PlayerDamageSystem Damage => Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndAncestors );
+
+	string LapText => Lap is null ? "-/-" : $"{Lap.CurrentLap}/{Lap.MaxLaps}";
+	float HPPercent => Damage is null ? 0f
+		: MathX.Clamp( Damage.CurrentHP / MathF.Max( Damage.MaxHP, 0.0001f ) * 100f, 0f, 100f );
+
+	protected override int BuildHash() => System.HashCode.Combine( Lap?.CurrentLap, Damage?.CurrentHP );
+}
