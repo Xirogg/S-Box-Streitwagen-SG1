@@ -302,14 +302,20 @@
           "__guid": "cd3aecc8-6e9d-4ba7-8dd5-bdefa9b29d14",
           "__enabled": true,
           "Flags": 0,
-          "IndicatorRoot": null,
+          "IndicatorRoot": {
+            "_type": "gameobject",
+            "go": "938c8cdc-6f62-4453-a25c-54bd5aa66cf6"
+          },
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Owner": null
+          "Owner": {
+            "_type": "gameobject",
+            "go": "938c8cdc-6f62-4453-a25c-54bd5aa66cf6"
+          }
         },
         {
           "__type": "LightningPower",
@@ -390,18 +396,18 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
+        }
       },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
         }
       },
-      "Sandbox.Clutter.ClutterGridSystem": {
-        "Storage": {
-          "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
-        }
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
       }
     }
   },
