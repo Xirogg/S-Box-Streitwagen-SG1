@@ -338,7 +338,12 @@
           "PlayerTag": "player",
           "ShrinkScale": 0.5,
           "SpeedReduction": 0.5,
-          "StartOnCooldown": false
+          "StartOnCooldown": false,
+          "UltimateCooldownDuration": 30,
+          "UltimateDisplayName": "Ultimate",
+          "UltimateIcon": null,
+          "UltimateModifierAction": "Run",
+          "UltimateStartOnCooldown": false
         }
       ],
       "Children": []
@@ -371,6 +376,19 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null
+        },
+        {
+          "__type": "LapSystem.Rankings.RaceRankingManager",
+          "__guid": "f4fdc556-56c7-492d-9748-7aa7e408a8e0",
+          "__enabled": true,
+          "Flags": 0,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "UpdateInterval": 1
         }
       ],
       "Children": []
