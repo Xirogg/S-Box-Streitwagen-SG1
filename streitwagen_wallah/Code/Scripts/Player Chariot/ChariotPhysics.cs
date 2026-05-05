@@ -25,6 +25,8 @@ public sealed class ChariotPhysics : Component
 	[Property, Group( "Debug" )] public bool DebugLog { get; set; } = true;
 	[Property, Group( "Debug" ), ReadOnly] public float CurrentSpeed { get; private set; }
 	[Property, Group( "Debug" ), ReadOnly] public float DriftAngle { get; private set; }
+	[Property] public ParticleEmitter DustEmitter_L { get; set; }
+	[Property] public ParticleEmitter DustEmitter_R { get; set; }
 
 	[RequireComponent] public Rigidbody Body { get; set; }
 
@@ -77,6 +79,13 @@ public sealed class ChariotPhysics : Component
 		ApplyLateralGrip();
 		DampenYaw();
 		UpdateTelemetry();
+
+		// Effekte am Rad
+		if ( DustEmitter_L is not null )
+			DustEmitter_L.Enabled = Body.Velocity.Length > 400f;
+
+		if ( DustEmitter_R is not null )
+			DustEmitter_R.Enabled = Body.Velocity.Length > 400f;
 
 		if ( DebugLog )
 		{

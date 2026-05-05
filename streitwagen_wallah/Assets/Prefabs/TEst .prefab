@@ -47,7 +47,7 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
-            "PullForce": 4500,
+            "PullForce": 2000,
             "Rigidbody": {
               "_type": "component",
               "component_id": "337056b5-7f39-4500-aad7-05f14b5297c5",
@@ -263,6 +263,18 @@
             "DriftMaxYawRate": 3,
             "DriftMinSpeed": 80,
             "DriftRearOffset": 80,
+            "DustEmitter_L": {
+              "_type": "component",
+              "component_id": "9acb5ffe-8478-498d-af33-799bce9e4791",
+              "go": "29b9aa54-682e-405e-aa4b-15126272566f",
+              "component_type": "ParticleSphereEmitter"
+            },
+            "DustEmitter_R": {
+              "_type": "component",
+              "component_id": "131452f1-9f24-4632-b065-3a0c0f3841d7",
+              "go": "b21e4c6a-ad02-46fe-b8b1-28155e157ba5",
+              "component_type": "ParticleSphereEmitter"
+            },
             "HitchPoint": {
               "_type": "gameobject",
               "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
@@ -283,7 +295,92 @@
             "YawLimit": 35
           }
         ],
-        "Children": []
+        "Children": [
+          {
+            "__guid": "29b9aa54-682e-405e-aa4b-15126272566f",
+            "__version": 2,
+            "__Prefab": "vfx/smoke.prefab",
+            "__PrefabInstancePatch": {
+              "AddedObjects": [],
+              "RemovedObjects": [],
+              "PropertyOverrides": [
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "99afadf9-db47-4aa5-b132-39c46c35b917"
+                  },
+                  "Property": "Name",
+                  "Value": "Dust_L"
+                },
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "99afadf9-db47-4aa5-b132-39c46c35b917"
+                  },
+                  "Property": "Position",
+                  "Value": "-9.55744934,18.0532494,-1.86963654"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "f3c0d117-28f7-4215-b82e-44ed10186601"
+                  },
+                  "Property": "Loop",
+                  "Value": false
+                }
+              ],
+              "MovedObjects": []
+            },
+            "__PrefabIdToInstanceId": {
+              "99afadf9-db47-4aa5-b132-39c46c35b917": "29b9aa54-682e-405e-aa4b-15126272566f",
+              "ed19b791-c9d9-4788-8f59-76b0cce740fd": "d8a839fd-49ab-4faf-834a-28331d9ec83b",
+              "5fd3af13-3835-482c-9dce-4be15e632cc0": "40225ade-a550-45aa-b0da-1cf35fff5e8f",
+              "f3c0d117-28f7-4215-b82e-44ed10186601": "9acb5ffe-8478-498d-af33-799bce9e4791"
+            }
+          },
+          {
+            "__guid": "b21e4c6a-ad02-46fe-b8b1-28155e157ba5",
+            "__version": 2,
+            "__Prefab": "vfx/smoke.prefab",
+            "__PrefabInstancePatch": {
+              "AddedObjects": [],
+              "RemovedObjects": [],
+              "PropertyOverrides": [
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "99afadf9-db47-4aa5-b132-39c46c35b917"
+                  },
+                  "Property": "Name",
+                  "Value": "Dust_R"
+                },
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "99afadf9-db47-4aa5-b132-39c46c35b917"
+                  },
+                  "Property": "Position",
+                  "Value": "-9.55744934,-27.5298386,-1.86963654"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "f3c0d117-28f7-4215-b82e-44ed10186601"
+                  },
+                  "Property": "Loop",
+                  "Value": false
+                }
+              ],
+              "MovedObjects": []
+            },
+            "__PrefabIdToInstanceId": {
+              "99afadf9-db47-4aa5-b132-39c46c35b917": "b21e4c6a-ad02-46fe-b8b1-28155e157ba5",
+              "ed19b791-c9d9-4788-8f59-76b0cce740fd": "f0033760-1b08-459d-96a7-16b02574bd1c",
+              "5fd3af13-3835-482c-9dce-4be15e632cc0": "3a10ea6b-a6d2-4d20-9689-59ae2b69f6a6",
+              "f3c0d117-28f7-4215-b82e-44ed10186601": "131452f1-9f24-4632-b065-3a0c0f3841d7"
+            }
+          }
+        ]
       },
       {
         "__guid": "54d6bc96-950e-4e53-b002-41bdda314d77",
