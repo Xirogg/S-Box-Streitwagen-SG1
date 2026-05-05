@@ -24,7 +24,7 @@
         "Position": "0,0,0",
         "Rotation": "0,0,0,1",
         "Scale": "0.5,0.5,0.5",
-        "Tags": "",
+        "Tags": "grape",
         "Enabled": true,
         "NetworkMode": 2,
         "NetworkFlags": 0,

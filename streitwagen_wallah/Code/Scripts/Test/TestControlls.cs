@@ -17,14 +17,32 @@ public sealed class TestControlls : Component
 
 	[Sync]	private Vector2 moveInput {  get; set; }
 
+	[Sync, Property, Group( "Identity" )] public Guid PlayerId { get; set; }
+
+	[Sync] public bool IsDrunk { get; private set; }
+
+	public event Action<bool> OnDrunkChanged;
+
+	public void SetDrunk( bool on )
+	{
+		if ( IsDrunk == on ) return;
+		IsDrunk = on;
+		OnDrunkChanged?.Invoke( on );
+	}
+
+	protected override void OnStart()
+	{
+		if ( PlayerId == Guid.Empty )
+			PlayerId = Guid.NewGuid();
+	}
 
 	protected override void OnUpdate()
 	{
 		// Wenn es nicht der Spieler des Prefabs ist wird alles geskippt
-		if ( IsProxy ) return; 
+		if ( IsProxy ) return;
 
 
-		ApplyInputs(); 
+		ApplyInputs();
 	}
 
 	protected override void OnFixedUpdate()
@@ -46,6 +64,12 @@ public sealed class TestControlls : Component
 		if ( Input.Down( "Backward" ) )  verticalStrength -= 1f; 
 		if (Input.Down("Right")) horizontalStrenght -= 1f;
 		if (Input.Down("Left"))	 horizontalStrenght += 1f;
+
+		if ( IsDrunk )
+		{
+			verticalStrength = -verticalStrength;
+			horizontalStrenght = -horizontalStrenght;
+		}
 
 		moveInput = new Vector2( verticalStrength, horizontalStrenght );
 	}
