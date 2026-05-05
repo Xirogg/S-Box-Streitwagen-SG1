@@ -72,7 +72,7 @@
           "Flags": 0,
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
+          "LightColor": "1,1,0.81395,1",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -115,7 +115,7 @@
       "Name": "Ground ",
       "Position": "0,0,0",
       "Rotation": "0,0,0,1",
-      "Scale": "90.961441,65.5383148,0.211701468",
+      "Scale": "260.431702,205.551102,0.211701468",
       "Tags": "",
       "Enabled": true,
       "NetworkMode": 2,
@@ -149,7 +149,7 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
-          "Tint": "0.34401,0.94419,0.06587,1"
+          "Tint": "0.22126,0.52093,0.08238,1"
         },
         {
           "__type": "Sandbox.BoxCollider",
@@ -282,14 +282,14 @@
       ]
     },
     {
-      "__guid": "938c8cdc-6f62-4453-a25c-54bd5aa66cf6",
+      "__guid": "76d77459-24b6-4e61-bb10-5378140c0a2f",
       "__version": 2,
       "Flags": 0,
-      "Name": "GodPowers",
-      "Position": "547.037964,-2939.4895,1929.33606",
+      "Name": "2D Skybox",
+      "Position": "-2092.64624,310.314484,322.765656",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
-      "Tags": "",
+      "Tags": "skybox",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkFlags": 0,
@@ -298,73 +298,19 @@
       "OwnerTransfer": 1,
       "Components": [
         {
-          "__type": "PowerManager",
-          "__guid": "cd3aecc8-6e9d-4ba7-8dd5-bdefa9b29d14",
+          "__type": "Sandbox.SkyBox2D",
+          "__guid": "0bb31a74-842d-4990-8aef-148c592d658b",
           "__enabled": true,
           "Flags": 0,
-          "IndicatorRoot": null,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Owner": null
-        },
-        {
-          "__type": "LightningPower",
-          "__guid": "86467f7e-5efa-40f2-b199-1e434f3843ac",
-          "__enabled": true,
-          "Flags": 0,
-          "ActivationAction": "Lightning ",
-          "AffectOwner": false,
-          "CooldownDuration": 10,
-          "DisplayName": "Power",
-          "EffectDuration": 5,
-          "Icon": null,
-          "IndicatorPrefab": null,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "PlayerTag": "player",
-          "ShrinkScale": 0.5,
-          "SpeedReduction": 0.5,
-          "StartOnCooldown": false
-        }
-      ],
-      "Children": []
-    },
-    {
-      "__guid": "22ebf889-e68e-4dcf-bdc5-53a7bbbbe13b",
-      "__version": 2,
-      "Flags": 0,
-      "Name": "LapManager",
-      "Position": "547.037964,-2939.4895,1929.33606",
-      "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
-      "Tags": "",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkFlags": 0,
-      "NetworkOrphaned": 0,
-      "NetworkTransmit": true,
-      "OwnerTransfer": 1,
-      "Components": [
-        {
-          "__type": "LapSystem.RaceManager",
-          "__guid": "9b4c074f-3cd8-417b-bcfc-88bb9493b81f",
-          "__enabled": true,
-          "Flags": 0,
-          "MaxLaps": 3,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null
+          "SkyIndirectLighting": true,
+          "SkyMaterial": "materials/skybox/skybox_sunrise_01.vmat",
+          "Tint": "1,0.97814,0.56279,1"
         }
       ],
       "Children": []
@@ -390,9 +336,6 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
-      },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
@@ -402,6 +345,9 @@
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
         }
+      },
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
       }
     }
   },
