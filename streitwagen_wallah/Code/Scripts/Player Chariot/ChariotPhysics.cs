@@ -7,7 +7,7 @@ using System;
 /// aus der relativen Lage von Pferd und Wagen im Prefab berechnet wird —
 /// dadurch können sich die beiden Bodies nicht ineinanderziehen.
 /// </summary>
-public sealed class ChariotPhysics : Component
+public sealed class ChariotPhysics : Component, Component.ICollisionListener
 {
 	[Property, Group( "Joint" )] public Rigidbody HorsePairRb { get; set; }
 	[Property, Group( "Joint" )] public GameObject HitchPoint { get; set; }
@@ -32,6 +32,9 @@ public sealed class ChariotPhysics : Component
 	private GameObject _jointPivot;
 	private float _debugTimer;
 
+
+	private PlayerCollisions _ownerCollisions; 
+
 	protected override void OnStart()
 	{
 		Tags.Add( "chariot" );
@@ -47,6 +50,16 @@ public sealed class ChariotPhysics : Component
 			Log.Warning( "[ChariotPhysics] HorsePairRb ist nicht zugewiesen — Joint wird nicht erstellt." );
 		}
 	}
+
+	void Component.ICollisionListener.OnCollisionStart( Collision other )
+	{
+		if ( _ownerCollisions is null && HorsePairRb is not null )
+			_ownerCollisions = HorsePairRb.Components.Get<PlayerCollisions>();
+		_ownerCollisions?.HandleChariotCollision( other );
+	}
+
+	void Component.ICollisionListener.OnCollisionUpdate( Collision other ) { }
+	void Component.ICollisionListener.OnCollisionStop( CollisionStop other ) { }
 
 	public void SetupJoint( Rigidbody horseRb )
 	{

@@ -62,6 +62,7 @@ public sealed class PlayerLapTracker : Component
 
 		if ( !passedSectors.Add( sector.SectorIndex ) ) return; // schon gehabt
 
+
 		CheckpointsThisLap = passedSectors.Count;
 		LastProgressTime = Time.Now;
 	}
@@ -69,6 +70,8 @@ public sealed class PlayerLapTracker : Component
 	/// <summary> Wird von der StartFinishLine aufgerufen, wenn DIESER Spieler sie kreuzt. </summary>
 	public void HandleStartLineCrossed()
 	{
+
+		Log.Info( "Start Line" ); 
 		if ( !Networking.IsHost ) return;
 		if ( RaceFinished ) return;
 

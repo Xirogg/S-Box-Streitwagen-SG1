@@ -218,7 +218,7 @@
             },
             {
               "_type": "gameobject",
-              "go": "753f6d3c-6150-4dc6-bdbb-f143c32b96c3"
+              "go": "0e4551b1-6088-4093-a8ec-a1c5a97f7cf1"
             }
           ],
           "StartServer": true
@@ -262,13 +262,13 @@
           "Children": []
         },
         {
-          "__guid": "753f6d3c-6150-4dc6-bdbb-f143c32b96c3",
+          "__guid": "0e4551b1-6088-4093-a8ec-a1c5a97f7cf1",
           "__version": 2,
           "Flags": 0,
           "Name": "SP 2",
-          "Position": "0,1993.22009,144.384872",
+          "Position": "-1172.95789,130,144",
           "Rotation": "0,0,0,1",
-          "Scale": "1,1,1",
+          "Scale": "1,3.84500742,1",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -419,13 +419,13 @@
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
         }
       },
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
+      },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
         }
-      },
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
       }
     }
   },

@@ -47,6 +47,7 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
+            "PlayerId": "00000000-0000-0000-0000-000000000000",
             "PullForce": 4500,
             "Rigidbody": {
               "_type": "component",
@@ -54,6 +55,7 @@
               "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
               "component_type": "Rigidbody"
             },
+            "SharpSteerMultiplier": 1.4,
             "SteerTorque": 40000
           },
           {
@@ -283,6 +285,30 @@
             "StartAsleep": false
           },
           {
+            "__type": "PlayerCollisions",
+            "__guid": "5c65fa46-e0d9-49d0-b97b-ac80521a3fe6",
+            "__enabled": true,
+            "Flags": 0,
+            "AngularImpulseFactor": 0.0008,
+            "BaseImpulse": 3500,
+            "ChariotExtraSpin": 1.6,
+            "ChariotImpulseRatio": 1.1,
+            "Cooldown": 0.2,
+            "DebugLog": true,
+            "ImpulsePerClosingSpeed": 1100,
+            "LateralBias": 0.55,
+            "MaxImpulse": 18000,
+            "MinClosingSpeed": 0.8,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "SharpSteerMultiplier": 1.8,
+            "VerticalLift": 0.35
+          },
+          {
             "__type": "PlayerDamageSystem",
             "__guid": "f16cf299-abcb-4ecb-983e-e19dc7a1abe2",
             "__enabled": true,
@@ -338,7 +364,6 @@
             "__guid": "01aaac77-aac1-4d21-aca7-c9019c5f39ac",
             "__enabled": true,
             "Flags": 0,
-            "MyStringValue": "Diggi was das ",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
