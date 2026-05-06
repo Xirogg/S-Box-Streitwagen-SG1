@@ -314,52 +314,6 @@
         }
       ],
       "Children": []
-    },
-    {
-      "__guid": "dc90479f-cf0b-4f2e-83dd-887370876fe9",
-      "__version": 2,
-      "Flags": 0,
-      "Name": "Cube",
-      "Position": "4901.26172,714.518738,1617.56335",
-      "Rotation": "0,0,0,1",
-      "Scale": "97.538147,97.538147,97.538147",
-      "Tags": "",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkFlags": 0,
-      "NetworkOrphaned": 0,
-      "NetworkTransmit": true,
-      "OwnerTransfer": 1,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "451876f9-857a-4afc-af46-0a0e0aa91ebb",
-          "__enabled": true,
-          "Flags": 0,
-          "BodyGroups": 18446744073709551615,
-          "CreateAttachments": false,
-          "LodOverride": null,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Materials": null,
-          "Model": "models/dev/box.vmdl",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderType": "On",
-          "Tint": "1,0,1,1"
-        }
-      ],
-      "Children": []
     }
   ],
   "SceneProperties": {
@@ -382,6 +336,9 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
+      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
@@ -391,9 +348,6 @@
         "Data": {
           "SelectionSets": []
         }
-      },
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
       }
     }
   },
