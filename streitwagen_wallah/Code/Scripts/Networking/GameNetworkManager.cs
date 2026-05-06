@@ -30,13 +30,20 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 		if ( Networking.IsActive )
 		{
 			await Task.DelayRealtimeSeconds( 0.1f );
-			Networking.CreateLobby(); 
+			Networking.CreateLobby( new LobbyConfig()
+			{
+				MaxPlayers = 4,
+				Privacy = LobbyPrivacy.Public,
+				Name = "Prototyping",
+
+			} );
 		}
 	}
 
 
 	public void OnActive( Connection channel)
 	{
+	
 		if (PlayerChariotPrefab is null) return;
 
 		var spawnPosition = Vector3.Zero;
@@ -56,6 +63,8 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 			var player = PlayerChariotPrefab.Clone(spawnPosition, spawnRotaion);
 			player.Name = $"Player ({channel.DisplayName})";
 			player.NetworkSpawn( channel ); 
+
+		
 
 		}
 	}

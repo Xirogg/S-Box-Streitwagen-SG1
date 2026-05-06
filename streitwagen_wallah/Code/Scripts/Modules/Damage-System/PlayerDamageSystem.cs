@@ -76,6 +76,13 @@ public sealed class PlayerDamageSystem : Component, Component.ICollisionListener
 		target?.SetSpeedMultiplier( SpeedKey, multiplier );
 	}
 
+	public void Damage( float amount )
+	{
+		if ( amount <= 0f ) return;
+		CurrentHP = MathF.Max( 0f, CurrentHP - amount );
+		ApplySpeedFromHP();
+	}
+
 	public void Heal( float amount )
 	{
 		if ( amount <= 0f ) return;

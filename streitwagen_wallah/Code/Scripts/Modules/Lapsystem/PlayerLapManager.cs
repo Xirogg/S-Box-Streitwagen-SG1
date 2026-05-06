@@ -18,6 +18,11 @@ public sealed class PlayerLapTracker : Component
 	[Sync] public int CurrentLap { get; set; }
 	[Sync] public bool RaceFinished { get; set; }
 
+	// Fortschritt innerhalb der aktuellen Runde – wird vom RaceRankingManager
+	// fürs Live-Ranking gelesen.
+	[Sync] public int CheckpointsThisLap { get; set; }
+	[Sync] public float LastProgressTime { get; set; }
+
 	public int MaxLaps => RaceManager.Instance?.MaxLaps ?? 3;
 	public bool RaceActive => !RaceFinished;
 
@@ -42,6 +47,8 @@ public sealed class PlayerLapTracker : Component
 
 		CurrentLap = 0;
 		RaceFinished = false;
+		CheckpointsThisLap = 0;
+		LastProgressTime = 0f;
 		passedSectors.Clear();
 		lastLineCrossTime = -999f;
 	}
@@ -53,12 +60,18 @@ public sealed class PlayerLapTracker : Component
 		if ( RaceFinished ) return;
 		if ( CurrentLap == 0 ) return; // erst nach erstem Linien-Crossing zählen
 
-		passedSectors.Add( sector.SectorIndex );
+		if ( !passedSectors.Add( sector.SectorIndex ) ) return; // schon gehabt
+
+
+		CheckpointsThisLap = passedSectors.Count;
+		LastProgressTime = Time.Now;
 	}
 
 	/// <summary> Wird von der StartFinishLine aufgerufen, wenn DIESER Spieler sie kreuzt. </summary>
 	public void HandleStartLineCrossed()
 	{
+
+		Log.Info( "Start Line" ); 
 		if ( !Networking.IsHost ) return;
 		if ( RaceFinished ) return;
 
@@ -73,6 +86,8 @@ public sealed class PlayerLapTracker : Component
 		if ( CurrentLap == 0 )
 		{
 			CurrentLap = 1;
+			CheckpointsThisLap = 0;
+			LastProgressTime = Time.Now;
 			passedSectors.Clear();
 			return;
 		}
@@ -81,6 +96,7 @@ public sealed class PlayerLapTracker : Component
 		if ( passedSectors.Count >= rm.Sectors.Count )
 		{
 			CurrentLap++;
+			LastProgressTime = Time.Now;
 			RpcLapCompleted( CurrentLap - 1 );
 
 			if ( CurrentLap > rm.MaxLaps )
@@ -91,6 +107,7 @@ public sealed class PlayerLapTracker : Component
 				return;
 			}
 
+			CheckpointsThisLap = 0;
 			passedSectors.Clear();
 		}
 		else
