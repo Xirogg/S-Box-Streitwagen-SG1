@@ -30,6 +30,8 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 
 	[RequireComponent] public Rigidbody Body { get; set; }
 
+	[Sync] private bool DustActive { get; set; }
+
 	private HingeJoint _joint;
 	private GameObject _jointPivot;
 	private float _debugTimer;
@@ -43,6 +45,8 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 		if ( HorsePairRb is not null )
 			HorsePairRb.Tags.Add( "chariot" );
 
+		if ( IsProxy ) return; 
+
 		if ( HorsePairRb is not null )
 		{
 			SetupJoint( HorsePairRb );
@@ -55,6 +59,7 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 
 	void Component.ICollisionListener.OnCollisionStart( Collision other )
 	{
+		if (IsProxy) return;
 		if ( _ownerCollisions is null && HorsePairRb is not null )
 			_ownerCollisions = HorsePairRb.Components.Get<PlayerCollisions>();
 		_ownerCollisions?.HandleChariotCollision( other );
@@ -88,17 +93,21 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 
 	protected override void OnFixedUpdate()
 	{
+		// Effekte am Rad — auf allen Clients aus dem synchronisierten Flag gelesen
+		if ( DustEmitter_L is not null )
+			DustEmitter_L.Enabled = DustActive;
+
+		if ( DustEmitter_R is not null )
+			DustEmitter_R.Enabled = DustActive;
+
+		if ( IsProxy ) return;
+
+		UpdateTelemetry();
+		DustActive = Body.Velocity.Length > 400f;
+
 		ApplyDriftImpulse();
 		ApplyLateralGrip();
 		DampenYaw();
-		UpdateTelemetry();
-
-		// Effekte am Rad
-		if ( DustEmitter_L is not null )
-			DustEmitter_L.Enabled = Body.Velocity.Length > 400f;
-
-		if ( DustEmitter_R is not null )
-			DustEmitter_R.Enabled = Body.Velocity.Length > 400f;
 
 		if ( DebugLog )
 		{
