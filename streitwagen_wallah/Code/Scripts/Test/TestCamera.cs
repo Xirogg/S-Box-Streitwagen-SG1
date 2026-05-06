@@ -44,12 +44,21 @@ public sealed class TestCamera : Component
 			_targetRb = TargetGO.Components.Get<Rigidbody>();
 
 		_cam = Components.Get<CameraComponent>();
+
+		if ( IsProxy )
+		{
+			if ( _cam is not null )
+				_cam.Enabled = false;
+			return;
+		}
+
 		if ( _cam is not null )
 			_cam.FieldOfView = BaseFOV;
 	}
 
 	protected override void OnUpdate()
 	{
+		if ( IsProxy ) return;
 		if ( TargetGO is null ) return;
 
 		Angles targetAng = TargetGO.WorldRotation.Angles();

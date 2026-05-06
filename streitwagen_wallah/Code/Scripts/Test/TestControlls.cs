@@ -53,6 +53,8 @@ public sealed class TestControlls : Component
 
 	protected override void OnStart()
 	{
+		if ( IsProxy ) return;
+
 		if ( PlayerId == Guid.Empty )
 			PlayerId = Guid.NewGuid();
 	}
