@@ -176,6 +176,18 @@
             "DriftMaxYawRate": 3,
             "DriftMinSpeed": 80,
             "DriftRearOffset": 80,
+            "DustEmitter_L": {
+              "_type": "component",
+              "component_id": "c770a534-aaf5-444c-a190-452ebdca8d41",
+              "go": "e9d80538-2c87-4d14-9c4c-59bc7646c0a2",
+              "component_type": "ParticleSphereEmitter"
+            },
+            "DustEmitter_R": {
+              "_type": "component",
+              "component_id": "5301bd3c-5b80-4eda-b9cf-b6af8b516253",
+              "go": "41912fdd-101d-44e5-8b06-eeb4d6a24b1f",
+              "component_type": "ParticleSphereEmitter"
+            },
             "HitchPoint": {
               "_type": "gameobject",
               "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
@@ -338,7 +350,6 @@
             "__guid": "01aaac77-aac1-4d21-aca7-c9019c5f39ac",
             "__enabled": true,
             "Flags": 0,
-            "MyStringValue": "Diggi was das ",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -347,7 +358,76 @@
             "OnComponentUpdate": null
           }
         ],
-        "Children": []
+        "Children": [
+          {
+            "__guid": "e9d80538-2c87-4d14-9c4c-59bc7646c0a2",
+            "__version": 2,
+            "__Prefab": "vfx/smoke.prefab",
+            "__PrefabInstancePatch": {
+              "AddedObjects": [],
+              "RemovedObjects": [],
+              "PropertyOverrides": [
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "99afadf9-db47-4aa5-b132-39c46c35b917"
+                  },
+                  "Property": "Name",
+                  "Value": "Dust_L"
+                },
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "99afadf9-db47-4aa5-b132-39c46c35b917"
+                  },
+                  "Property": "Position",
+                  "Value": "-22.6149902,18.8592319,6.90467072"
+                }
+              ],
+              "MovedObjects": []
+            },
+            "__PrefabIdToInstanceId": {
+              "99afadf9-db47-4aa5-b132-39c46c35b917": "e9d80538-2c87-4d14-9c4c-59bc7646c0a2",
+              "ed19b791-c9d9-4788-8f59-76b0cce740fd": "19371234-8505-4a3c-998d-2c916ff9b7d0",
+              "5fd3af13-3835-482c-9dce-4be15e632cc0": "15ebe13d-bce9-4fc3-80ff-02c25fd07c17",
+              "f3c0d117-28f7-4215-b82e-44ed10186601": "c770a534-aaf5-444c-a190-452ebdca8d41"
+            }
+          },
+          {
+            "__guid": "41912fdd-101d-44e5-8b06-eeb4d6a24b1f",
+            "__version": 2,
+            "__Prefab": "vfx/smoke.prefab",
+            "__PrefabInstancePatch": {
+              "AddedObjects": [],
+              "RemovedObjects": [],
+              "PropertyOverrides": [
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "99afadf9-db47-4aa5-b132-39c46c35b917"
+                  },
+                  "Property": "Name",
+                  "Value": "Dust_R"
+                },
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "99afadf9-db47-4aa5-b132-39c46c35b917"
+                  },
+                  "Property": "Position",
+                  "Value": "-22.6149902,-30.893158,6.90467072"
+                }
+              ],
+              "MovedObjects": []
+            },
+            "__PrefabIdToInstanceId": {
+              "99afadf9-db47-4aa5-b132-39c46c35b917": "41912fdd-101d-44e5-8b06-eeb4d6a24b1f",
+              "ed19b791-c9d9-4788-8f59-76b0cce740fd": "71d731f4-2ba8-4afe-a742-13315bab02af",
+              "5fd3af13-3835-482c-9dce-4be15e632cc0": "58b66a5b-b094-4b22-908e-17b7d51f4f8e",
+              "f3c0d117-28f7-4215-b82e-44ed10186601": "5301bd3c-5b80-4eda-b9cf-b6af8b516253"
+            }
+          }
+        ]
       },
       {
         "__guid": "54d6bc96-950e-4e53-b002-41bdda314d77",
@@ -368,7 +448,7 @@
           {
             "__type": "TestCamera",
             "__guid": "b858d9fc-548b-4c1f-a0e6-7a12790181dc",
-            "__enabled": false,
+            "__enabled": true,
             "Flags": 0,
             "BaseFOV": 70,
             "ChariotPhysics": null,
@@ -401,7 +481,7 @@
           {
             "__type": "Sandbox.CameraComponent",
             "__guid": "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d",
-            "__enabled": false,
+            "__enabled": true,
             "Flags": 0,
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
             "ClearFlags": "All",
