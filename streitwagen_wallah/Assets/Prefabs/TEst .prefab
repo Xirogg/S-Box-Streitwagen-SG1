@@ -39,7 +39,7 @@
             "Flags": 0,
             "BrakeForce": 5,
             "LateralGrip": 4,
-            "MaxAngularSpeed": 250,
+            "MaxAngularSpeed": 1,
             "MaxVerticalSpeed": 800,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -55,13 +55,13 @@
               "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
               "component_type": "Rigidbody"
             },
-            "SharpSteerMultiplier": 1.4,
+            "SharpSteerMultiplier": 5000,
             "SteerTorque": 40000
           },
           {
             "__type": "Sandbox.ModelRenderer",
             "__guid": "b1f1c2d9-b15f-43b6-a04a-35d27c22d864",
-            "__enabled": true,
+            "__enabled": false,
             "Flags": 0,
             "BodyGroups": 18446744073709551615,
             "CreateAttachments": false,
@@ -144,9 +144,116 @@
             "OverrideMassCenter": false,
             "RigidbodyFlags": 0,
             "StartAsleep": false
+          },
+          {
+            "__type": "Sandbox.HorseVisuals",
+            "__guid": "c4ece374-a00e-4391-8f19-3b9df2206096",
+            "__enabled": true,
+            "Flags": 0,
+            "LeftHorse": null,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RightHorse": null
           }
         ],
-        "Children": []
+        "Children": [
+          {
+            "__guid": "33653c32-9668-4711-b5b4-f9b30742d3ad",
+            "__version": 2,
+            "Flags": 0,
+            "Name": "Pferd ",
+            "Position": "0,-213.159241,0",
+            "Rotation": "0,0,0,1",
+            "Scale": "1,1,1",
+            "Tags": "",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkFlags": 0,
+            "NetworkOrphaned": 0,
+            "NetworkTransmit": true,
+            "OwnerTransfer": 1,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "a8f75ed4-fdd5-45a8-861c-005290d03085",
+                "__enabled": true,
+                "Flags": 0,
+                "BodyGroups": 18446744073709551615,
+                "CreateAttachments": false,
+                "LodOverride": null,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Materials": null,
+                "Model": "horse.vmdl",
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ],
+            "Children": []
+          },
+          {
+            "__guid": "d50386bd-6a46-49fa-935f-8aab6d289617",
+            "__version": 2,
+            "Flags": 0,
+            "Name": "Pferd ",
+            "Position": "-1.48248196,204.107529,-0.0193214417",
+            "Rotation": "0,0,0,1",
+            "Scale": "1,1,1",
+            "Tags": "",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkFlags": 0,
+            "NetworkOrphaned": 0,
+            "NetworkTransmit": true,
+            "OwnerTransfer": 1,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "97c1258d-10b0-457c-91cd-fe54d6f35d0e",
+                "__enabled": true,
+                "Flags": 0,
+                "BodyGroups": 18446744073709551615,
+                "CreateAttachments": false,
+                "LodOverride": null,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
+                "Materials": null,
+                "Model": "horse.vmdl",
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
+                "RenderType": "On",
+                "Tint": "1,1,1,1"
+              }
+            ],
+            "Children": []
+          }
+        ]
       },
       {
         "__guid": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",

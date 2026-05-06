@@ -25,12 +25,16 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 
 	protected override async Task OnLoad()
 	{
-		if ( Scene.IsEditor ) return;
+		if ( Scene.IsEditor )
+		{
+			Log.Warning( "WARNUNG" ); 
+			return;
+		}
 
-		if ( Networking.IsActive )
+		if ( !Networking.IsActive )
 		{
 			await Task.DelayRealtimeSeconds( 0.1f );
-			Networking.CreateLobby( new LobbyConfig()
+			Networking.CreateLobby( new LobbyConfig
 			{
 				MaxPlayers = 4,
 				Privacy = LobbyPrivacy.Public,
