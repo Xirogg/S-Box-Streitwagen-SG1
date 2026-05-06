@@ -50,6 +50,48 @@
       "Children": []
     },
     {
+      "__guid": "0bc29093-9d1e-4804-adae-1c514460db7a",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "Indirect Light Volume",
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.IndirectLightVolume",
+          "__guid": "53f1b1ee-f5ba-4b9c-9aa9-b1f01677faf4",
+          "__enabled": true,
+          "Flags": 0,
+          "Bounds": {
+            "Mins": "-6526.79248,-5154.77734,-370.907867",
+            "Maxs": "6526.79248,5154.77734,874.308472"
+          },
+          "Contrast": 1,
+          "DistanceTexture": null,
+          "InsideGeometry": "Relocate",
+          "IrradianceTexture": null,
+          "NormalBias": 5,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "ProbeDensity": 5,
+          "RelocationTexture": null
+        }
+      ],
+      "Children": []
+    },
+    {
       "__guid": "a84c20ca-5c7c-42a4-9b8e-bf11380e96db",
       "__version": 2,
       "Flags": 0,
@@ -72,7 +114,7 @@
           "Flags": 0,
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "1,1,0.81395,1",
+          "LightColor": "0.8,0.58419,0.58419,1",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -81,7 +123,7 @@
           "OnComponentUpdate": null,
           "ShadowBias": 0.0005,
           "ShadowCascadeCount": 4,
-          "ShadowCascadeSplitRatio": 0.91,
+          "ShadowCascadeSplitRatio": 0.7096774,
           "ShadowHardness": 0,
           "Shadows": true,
           "SkyColor": "0,0,0,0",
@@ -149,7 +191,7 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
-          "Tint": "0.22126,0.52093,0.08238,1"
+          "Tint": "0.52558,0.39981,0.16623,1"
         },
         {
           "__type": "Sandbox.BoxCollider",
@@ -231,7 +273,7 @@
       "__version": 2,
       "Flags": 0,
       "Name": "SpawnPoints",
-      "Position": "0,-1378.49866,0",
+      "Position": "-2208.58203,-2215.42871,0.000249862671",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -316,13 +358,13 @@
       "Children": []
     },
     {
-      "__guid": "0dd705ea-5b01-45ee-ba8a-5528eb454fbc",
+      "__guid": "defbc7aa-88c0-440c-a699-f6c5be266a60",
       "__version": 2,
       "Flags": 0,
-      "Name": "arena_placeholder",
-      "Position": "-858.845947,109.490692,5.29248667",
+      "Name": "Arena",
+      "Position": "-2358.52881,-502.083069,1212.8291",
       "Rotation": "0,0,0,1",
-      "Scale": "30,30,30",
+      "Scale": "1,1,1",
       "Tags": "",
       "Enabled": true,
       "NetworkMode": 2,
@@ -330,36 +372,768 @@
       "NetworkOrphaned": 0,
       "NetworkTransmit": true,
       "OwnerTransfer": 1,
-      "Components": [
+      "Components": [],
+      "Children": [
         {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "e9ff21d8-f301-4b4b-b932-802f1f88f251",
-          "__enabled": true,
+          "__guid": "03390793-82ed-4542-8f64-00b25912a8d6",
+          "__version": 2,
           "Flags": 0,
-          "BodyGroups": 18446744073709551615,
-          "CreateAttachments": false,
-          "LodOverride": null,
-          "MaterialGroup": null,
-          "MaterialOverride": null,
-          "Materials": null,
-          "Model": "models/arena_placeholder.vmdl",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "RenderOptions": {
-            "GameLayer": true,
-            "OverlayLayer": false,
-            "BloomLayer": false,
-            "AfterUILayer": false
-          },
-          "RenderType": "On",
-          "Tint": "1,0.83953,0.35814,1"
+          "Name": "obelisk_placeholder",
+          "Position": "-229.256348,935.538818,-1162.82166",
+          "Rotation": "0,0,0,1",
+          "Scale": "1.69205368,1.69205368,1.69205368",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "b477c076-0aed-4baa-8d19-941cb534ca01",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/dev/primary_white.vmat"
+                }
+              },
+              "Model": "models/obelisk_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "785bfabe-607a-4766-b4ff-06851ed50961",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "obelisk_placeholder (1)",
+          "Position": "-359.724609,840.603394,-1162.82178",
+          "Rotation": "0,0,0,1",
+          "Scale": "1.69205368,1.69205368,1.69205368",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "0ff16881-eaf3-448b-ba99-415215762323",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/dev/primary_white.vmat"
+                }
+              },
+              "Model": "models/obelisk_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "d4d719c1-e9c1-49e6-bd8d-7945e9150b9a",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "obelisk_placeholder (2)",
+          "Position": "-239.799805,759.680054,-1162.82178",
+          "Rotation": "0,0,0,1",
+          "Scale": "1.69205368,1.69205368,1.69205368",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "db100e3c-9eb7-47a5-b85b-d81ee73e9eda",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/dev/primary_white.vmat"
+                }
+              },
+              "Model": "models/obelisk_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "814eae47-2548-4611-a868-9bb949c8a9cb",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "obelisk_placeholder (5)",
+          "Position": "3885.41943,935.538818,-1162.82166",
+          "Rotation": "0,0,0,1",
+          "Scale": "1.69205368,1.69205368,1.69205368",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "3639413e-20b1-47a1-983c-5cf0bbe31260",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/dev/primary_white.vmat"
+                }
+              },
+              "Model": "models/obelisk_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "4c86a676-94dc-45f5-9fea-443883096c82",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "obelisk_placeholder (4)",
+          "Position": "3754.95117,840.603394,-1162.82178",
+          "Rotation": "0,0,0,1",
+          "Scale": "1.69205368,1.69205368,1.69205368",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "00fe5307-0b71-4977-9f7a-6ca6096a8ace",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/dev/primary_white.vmat"
+                }
+              },
+              "Model": "models/obelisk_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "7324fc9e-3cc2-49cd-b77d-3fb4585849fb",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "obelisk_placeholder (3)",
+          "Position": "3874.87598,759.680054,-1162.82178",
+          "Rotation": "0,0,0,1",
+          "Scale": "1.69205368,1.69205368,1.69205368",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "41eb9993-9766-4c37-9db8-1ebef7e6f32d",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/dev/primary_white.vmat"
+                }
+              },
+              "Model": "models/obelisk_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "89f96c64-90b9-4da7-acc4-6776b9247b4d",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "obelisk_placeholder",
+          "Position": "1820.53552,860.576843,-1087.81567",
+          "Rotation": "0,0,0,1",
+          "Scale": "3,3,3",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "fc308b6a-8106-406e-af34-405135e0e195",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/default.vmat"
+                }
+              },
+              "Model": "models/obelisk_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "b6fbd56a-0459-405a-b811-cd8b7748f218",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "1876.77856,2780.35278,-919.049683",
+          "Rotation": "0,0,0,1",
+          "Scale": "18.5322685,18.5322685,18.5322685",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "fd638c60-0aa7-48fd-ba6f-44896b45f13e",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "08f46594-0534-4cac-b8c3-ca9f80e22290",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "dreieck",
+          "Position": "2011.41821,2600.27344,-454.52063",
+          "Rotation": "0,0,0,1",
+          "Scale": "40,38.6874924,10",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "08719864-8d89-4ea9-b495-4817c0109ca7",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/dev/primary_white.vmat"
+                }
+              },
+              "Model": "models/dreieck.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.5907,0.41376,0.08517,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "0dd705ea-5b01-45ee-ba8a-5528eb454fbc",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "arena_placeholder",
+          "Position": "2177.25244,611.57373,-1567.73669",
+          "Rotation": "0,0,0,1",
+          "Scale": "43.1675949,43.1675949,43.1675949",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "e9ff21d8-f301-4b4b-b932-802f1f88f251",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/dev/primary_white.vmat"
+                }
+              },
+              "Model": "models/arena_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            },
+            {
+              "__type": "Sandbox.ModelCollider",
+              "__guid": "b2589c82-ef87-4fca-b568-73aaac996183",
+              "__enabled": true,
+              "Flags": 0,
+              "ColliderFlags": 0,
+              "Elasticity": null,
+              "Friction": null,
+              "IsTrigger": false,
+              "Model": "models/arena_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "OnObjectTriggerEnter": null,
+              "OnObjectTriggerExit": null,
+              "OnTriggerEnter": null,
+              "OnTriggerExit": null,
+              "RollingResistance": null,
+              "Static": true,
+              "Surface": null,
+              "SurfaceVelocity": "0,0,0"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "8d599c1a-aba1-4919-9381-e6e496147ce4",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "arena_placeholder (1)",
+          "Position": "2187.62158,603.497314,-1491.27686",
+          "Rotation": "0,0,0,1",
+          "Scale": "48.5269318,48.5269318,48.5269318",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "fb524164-d6b6-4b16-9ce0-e7440c59c718",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/dev/primary_white.vmat"
+                }
+              },
+              "Model": "models/arena_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "afc328a6-208c-4490-bb70-ed0a30f4bf9f",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "arena_placeholder (2)",
+          "Position": "2424.03467,438.034698,-1465.20203",
+          "Rotation": "0,0,0,1",
+          "Scale": "58.4005051,58.4005051,58.4005051",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "ac889f39-3acc-4843-9c8e-356dce815368",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": {
+                "indexed": {
+                  "0": "materials/dev/primary_white.vmat"
+                }
+              },
+              "Model": "models/arena_placeholder.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "14684b70-6881-4bbf-82e2-2425863bb53e",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "1787.38989,848.212646,-1148.00964",
+          "Rotation": "0,0,0,1",
+          "Scale": "71.969101,6.69952059,2.39134932",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "504dedc2-6d3e-466b-a532-7d59ed22bc0b",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "902d2674-a57c-426b-b880-ce1b61bbb2ed",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "-277.23877,848.212646,-1148.00964",
+          "Rotation": "0,0,0,1",
+          "Scale": "5.2734127,6.69952059,2.39134932",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "eb2337e8-6650-4d29-9d0d-2093437d063d",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "3286e987-d96d-42b5-abb6-1d8af032d29b",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "Cube",
+          "Position": "3837.43701,848.212646,-1148.00964",
+          "Rotation": "0,0,0,1",
+          "Scale": "5.2734127,6.69952059,2.39134932",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "7c8c79e8-e016-4803-9612-e4382291c43b",
+              "__enabled": true,
+              "Flags": 0,
+              "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": "models/dev/box.vmdl",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Tint": "0.63256,0.544,0.37953,1"
+            }
+          ],
+          "Children": []
         }
-      ],
-      "Children": []
+      ]
     }
   ],
   "SceneProperties": {
@@ -382,17 +1156,17 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
       },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "e8e4452c-2bd8-44a7-9fc7-8c41e03ec2a8"
+        }
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       }
     }

@@ -2,6 +2,107 @@
   "__guid": "325a4042-0696-43dd-a79d-dcc314299ba3",
   "GameObjects": [
     {
+      "__guid": "3ee1c9f4-07be-4e0b-8b23-67bee2d8ec8a",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "Camera",
+      "Position": "-267.451996,-379.653015,297.790314",
+      "Rotation": "-0.144858196,0.286023915,0.427963108,0.845017076",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": false,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "cf3cbf96-22b6-4be4-a5d0-672a96c17f9f",
+          "__enabled": true,
+          "Flags": 0,
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "EnablePostProcessing": true,
+          "FieldOfView": 60,
+          "FovAxis": "Horizontal",
+          "IsMainCamera": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "PostProcessAnchor": null,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "RenderTexture": null,
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        },
+        {
+          "__type": "Sandbox.Bloom",
+          "__guid": "d73ef723-c888-41d4-802e-f797c79318be",
+          "__enabled": true,
+          "Flags": 0,
+          "__version": 1,
+          "Filter": "Bilinear",
+          "Gamma": 2.2,
+          "Mode": "Additive",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Strength": 0.5,
+          "Threshold": 1.25,
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.Tonemapping",
+          "__guid": "9d76f362-7227-40eb-a189-69353c780c46",
+          "__enabled": true,
+          "Flags": 0,
+          "__version": 3,
+          "AutoExposureEnabled": true,
+          "ExposureCompensation": 0,
+          "ExposureMethod": "RGB",
+          "MaximumExposure": 2,
+          "MinimumExposure": 1,
+          "Mode": "HableFilmic",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Rate": 1
+        },
+        {
+          "__type": "Sandbox.Sharpen",
+          "__guid": "0bffee5e-19f2-41c4-88f9-faefbcce6bf4",
+          "__enabled": true,
+          "Flags": 0,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Scale": 0.2,
+          "TexelSize": 1
+        }
+      ],
+      "Children": []
+    },
+    {
       "__guid": "09ec566a-7bcc-4e34-b203-699eafce3e44",
       "__version": 2,
       "Flags": 0,
@@ -62,7 +163,7 @@
           "Flags": 0,
           "FogMode": "Enabled",
           "FogStrength": 1,
-          "LightColor": "0.94419,0.97767,1,1",
+          "LightColor": "2.45,1.93949,0.9914,1",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -71,11 +172,53 @@
           "OnComponentUpdate": null,
           "ShadowBias": 0.0005,
           "ShadowCascadeCount": 4,
-          "ShadowCascadeSplitRatio": 0.91,
+          "ShadowCascadeSplitRatio": 0,
           "ShadowHardness": 0,
           "Shadows": true,
-          "SkyColor": "0.2532,0.32006,0.35349,1",
+          "SkyColor": "0.98667,1,0.6,1",
           "Visualizer": {}
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "71ef4861-f0cd-4958-bf4e-cf23eddbfe71",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "Indirect Light Volume",
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "50,5010,10",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.IndirectLightVolume",
+          "__guid": "9e57b95c-fdd1-43c5-ae87-c7aa3b043c34",
+          "__enabled": true,
+          "Flags": 0,
+          "Bounds": {
+            "Mins": "-512,-512,-256",
+            "Maxs": "512,512,512"
+          },
+          "Contrast": 1,
+          "DistanceTexture": "scenes/egypt_scene_data/ddgi/indirect light volume_distance_9e57b95c-fdd1-43c5-ae87-c7aa3b043c34.vtex",
+          "InsideGeometry": "Relocate",
+          "IrradianceTexture": "scenes/egypt_scene_data/ddgi/indirect light volume_irradiance_9e57b95c-fdd1-43c5-ae87-c7aa3b043c34.vtex",
+          "NormalBias": 5,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "ProbeDensity": 8,
+          "RelocationTexture": "scenes/egypt_scene_data/ddgi/indirect light volume_relocation_9e57b95c-fdd1-43c5-ae87-c7aa3b043c34.vtex"
         }
       ],
       "Children": []
@@ -187,7 +330,7 @@
             "AfterUILayer": false
           },
           "RenderType": "On",
-          "Tint": "1,0.71023,0.17209,1"
+          "Tint": "1,0.67628,0.1907,1"
         },
         {
           "__type": "Sandbox.BoxCollider",
@@ -356,7 +499,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "786.0465,668.1397,0,1"
+              "Tint": "1,0.70196,0,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -432,7 +575,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "786.0465,668.1397,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -508,7 +651,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "786.0465,668.1397,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -584,7 +727,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "786.0465,668.1397,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -660,7 +803,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "786.0465,668.1397,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -736,7 +879,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "786.0465,668.1397,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -812,7 +955,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "786.0465,668.1397,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -888,7 +1031,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "786.0465,668.1397,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -964,7 +1107,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "786.0465,668.1397,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1211,7 +1354,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "1,0.70196,0,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1287,7 +1430,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1363,7 +1506,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1439,7 +1582,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1515,7 +1658,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1591,7 +1734,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1667,7 +1810,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1743,7 +1886,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1819,7 +1962,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1895,7 +2038,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -1990,7 +2133,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "355.37,287.6844,161.9826,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2046,10 +2189,10 @@
               "CreateAttachments": false,
               "LodOverride": null,
               "MaterialGroup": null,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/pyramids.vmat",
               "Materials": {
                 "indexed": {
-                  "0": "materials/dev/primary_white.vmat"
+                  "0": "materials/dev/primary_yellow_additive.vmat"
                 }
               },
               "Model": "models/dev/box.vmdl",
@@ -2066,7 +2209,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "355.37,248.759,0,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2122,7 +2265,7 @@
               "CreateAttachments": false,
               "LodOverride": null,
               "MaterialGroup": null,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/pyramids.vmat",
               "Materials": {
                 "indexed": {
                   "0": "materials/dev/primary_white.vmat"
@@ -2142,7 +2285,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2198,7 +2341,7 @@
               "CreateAttachments": false,
               "LodOverride": null,
               "MaterialGroup": null,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/pyramids.vmat",
               "Materials": {
                 "indexed": {
                   "0": "materials/dev/primary_white.vmat"
@@ -2218,7 +2361,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2274,7 +2417,7 @@
               "CreateAttachments": false,
               "LodOverride": null,
               "MaterialGroup": null,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/pyramids.vmat",
               "Materials": {
                 "indexed": {
                   "0": "materials/dev/primary_white.vmat"
@@ -2294,7 +2437,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2350,7 +2493,7 @@
               "CreateAttachments": false,
               "LodOverride": null,
               "MaterialGroup": null,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/pyramids.vmat",
               "Materials": {
                 "indexed": {
                   "0": "materials/dev/primary_white.vmat"
@@ -2370,7 +2513,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2426,7 +2569,7 @@
               "CreateAttachments": false,
               "LodOverride": null,
               "MaterialGroup": null,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/pyramids.vmat",
               "Materials": {
                 "indexed": {
                   "0": "materials/dev/primary_white.vmat"
@@ -2446,7 +2589,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2502,7 +2645,7 @@
               "CreateAttachments": false,
               "LodOverride": null,
               "MaterialGroup": null,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/pyramids.vmat",
               "Materials": {
                 "indexed": {
                   "0": "materials/dev/primary_white.vmat"
@@ -2522,7 +2665,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2578,7 +2721,7 @@
               "CreateAttachments": false,
               "LodOverride": null,
               "MaterialGroup": null,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/pyramids.vmat",
               "Materials": {
                 "indexed": {
                   "0": "materials/dev/primary_white.vmat"
@@ -2598,7 +2741,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2654,7 +2797,7 @@
               "CreateAttachments": false,
               "LodOverride": null,
               "MaterialGroup": null,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/pyramids.vmat",
               "Materials": {
                 "indexed": {
                   "0": "materials/dev/primary_white.vmat"
@@ -2674,7 +2817,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2730,7 +2873,7 @@
               "CreateAttachments": false,
               "LodOverride": null,
               "MaterialGroup": null,
-              "MaterialOverride": "materials/default.vmat",
+              "MaterialOverride": "materials/pyramids.vmat",
               "Materials": {
                 "indexed": {
                   "0": "materials/dev/primary_white.vmat"
@@ -2750,7 +2893,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "1,0.8,0,1"
+              "Tint": "970.6741,846.0667,347.6368,1"
             },
             {
               "__type": "Sandbox.BoxCollider",
@@ -2782,107 +2925,6 @@
           "Children": []
         }
       ]
-    },
-    {
-      "__guid": "3ee1c9f4-07be-4e0b-8b23-67bee2d8ec8a",
-      "__version": 2,
-      "Flags": 0,
-      "Name": "Camera",
-      "Position": "-267.451996,-379.653015,297.790314",
-      "Rotation": "-0.144858196,0.286023915,0.427963108,0.845017076",
-      "Scale": "1,1,1",
-      "Tags": "",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkFlags": 0,
-      "NetworkOrphaned": 0,
-      "NetworkTransmit": true,
-      "OwnerTransfer": 1,
-      "Components": [
-        {
-          "__type": "Sandbox.CameraComponent",
-          "__guid": "cf3cbf96-22b6-4be4-a5d0-672a96c17f9f",
-          "__enabled": true,
-          "Flags": 0,
-          "BackgroundColor": "0.33333,0.46275,0.52157,1",
-          "ClearFlags": "All",
-          "EnablePostProcessing": true,
-          "FieldOfView": 60,
-          "FovAxis": "Horizontal",
-          "IsMainCamera": true,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Orthographic": false,
-          "OrthographicHeight": 1204,
-          "PostProcessAnchor": null,
-          "Priority": 1,
-          "RenderExcludeTags": "",
-          "RenderTags": "",
-          "RenderTexture": null,
-          "TargetEye": "None",
-          "Viewport": "0,0,1,1",
-          "ZFar": 10000,
-          "ZNear": 10
-        },
-        {
-          "__type": "Sandbox.Bloom",
-          "__guid": "d73ef723-c888-41d4-802e-f797c79318be",
-          "__enabled": true,
-          "Flags": 0,
-          "__version": 1,
-          "Filter": "Bilinear",
-          "Gamma": 2.2,
-          "Mode": "Additive",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Strength": 0.5,
-          "Threshold": 1.25,
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Sandbox.Tonemapping",
-          "__guid": "9d76f362-7227-40eb-a189-69353c780c46",
-          "__enabled": true,
-          "Flags": 0,
-          "__version": 3,
-          "AutoExposureEnabled": true,
-          "ExposureCompensation": 0,
-          "ExposureMethod": "RGB",
-          "MaximumExposure": 2,
-          "MinimumExposure": 1,
-          "Mode": "HableFilmic",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Rate": 1
-        },
-        {
-          "__type": "Sandbox.Sharpen",
-          "__guid": "0bffee5e-19f2-41c4-88f9-faefbcce6bf4",
-          "__enabled": true,
-          "Flags": 0,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "Scale": 0.2,
-          "TexelSize": 1
-        }
-      ],
-      "Children": []
     },
     {
       "__guid": "74515801-a68b-420d-a094-a20d733e3116",
@@ -3003,7 +3045,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "80bf63ba-7b84-4e51-8f3c-2b66be358ba3",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3075,7 +3117,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "1673fd95-fdb6-4856-8ad0-cdc6f93498ef",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3147,7 +3189,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "65a4c728-f21d-4de4-8501-b4254519df87",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3219,7 +3261,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "46bf5aa5-6f8a-468c-b177-5c6866d9614b",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3291,7 +3333,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "68535f93-19c7-44c9-974f-458d9207b95e",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3363,7 +3405,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "6c22fcbe-7fdc-4e10-bc04-81f7ed5c7f4b",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3435,7 +3477,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "a1f54d13-9529-49da-8001-0c649fdf2ce3",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3507,7 +3549,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "133ff97c-b0f0-47a7-ba28-b3e7dc8265e4",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3579,7 +3621,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "6ba5f9e9-0088-4674-bdfb-0d4aef863ae2",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3651,7 +3693,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "f3ddf876-6c26-4bcd-94f4-07ae72fd796b",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3723,7 +3765,7 @@
             {
               "__type": "Sandbox.BoxCollider",
               "__guid": "43c1f600-9371-4715-9214-1dd7c8657952",
-              "__enabled": true,
+              "__enabled": false,
               "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
@@ -3756,9 +3798,9 @@
       "__version": 2,
       "Flags": 0,
       "Name": "obelisk_placeholder",
-      "Position": "-8115.17676,2816.20679,1.18730418E-06",
+      "Position": "-6907.74951,3612.17334,1.18730418E-06",
       "Rotation": "0,0,0,1",
-      "Scale": "5,5,5",
+      "Scale": "3,3,3",
       "Tags": "",
       "Enabled": true,
       "NetworkMode": 2,
@@ -3798,13 +3840,335 @@
       "Children": []
     },
     {
+      "__guid": "4b7a2f14-f942-4193-b77d-4bda4ec240e1",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "obelisk_placeholder (6)",
+      "Position": "-6195.64648,2764.01953,1.18730418E-06",
+      "Rotation": "0,0,0,1",
+      "Scale": "3,3,3",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "76999410-8ff1-4057-bbea-c66dc45be572",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/obelisk_placeholder.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "132.23,59.5035,0,1"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "f441d6aa-89f8-42f6-9302-b8644240ffa6",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "obelisk_placeholder (3)",
+      "Position": "-4967.0542,-2278.8772,-0.000907545094",
+      "Rotation": "0,0,0,1",
+      "Scale": "3,3,3",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "9105fae0-a05d-4a67-986b-05debf5bd847",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/obelisk_placeholder.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "132.23,59.5035,0,1"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "c094ac98-c6d0-484b-9b17-d91ed08322bd",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "obelisk_placeholder (7)",
+      "Position": "-5152.33301,-1210.5011,-0.00116336823",
+      "Rotation": "0,0,0,1",
+      "Scale": "3,3,3",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "9b41213a-64e8-471e-8bff-35b017d96409",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/obelisk_placeholder.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "132.23,59.5035,0,1"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "3fc054bb-b568-4daf-97e3-5e37451e13d6",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "obelisk_placeholder (4)",
+      "Position": "3215.16602,1508.64404,-0.00172318995",
+      "Rotation": "0,0,0,1",
+      "Scale": "3,3,3",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a91bb7e2-aa7a-4318-aac5-6667736019c0",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/obelisk_placeholder.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "132.23,59.5035,0,1"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "8dea87fc-c021-4fed-b2b5-fd5fdbd56e4d",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "obelisk_placeholder (8)",
+      "Position": "3111.65063,376.121216,-0.00172497809",
+      "Rotation": "0,0,0,1",
+      "Scale": "3,3,3",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "092a9b7e-1037-433b-aae3-c3c7ab16f120",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/obelisk_placeholder.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "132.23,59.5035,0,1"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "815c7bcc-8f72-49ec-8358-4b363796c0ec",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "obelisk_placeholder (5)",
+      "Position": "5727.77881,7432.03027,-0.00313987304",
+      "Rotation": "0,0,0,1",
+      "Scale": "3,3,3",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "6b7c1b8a-ebbf-45e4-b5ee-09c33e30b10a",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/obelisk_placeholder.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "132.23,59.5035,0,1"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "220c0caf-79d7-439c-9cb0-2a2453b52ba8",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "obelisk_placeholder (9)",
+      "Position": "5872.88184,8655.5293,-0.00296725798",
+      "Rotation": "0,0,0,1",
+      "Scale": "3,3,3",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ddf7076d-630d-4897-a6cc-01a86863ccda",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/obelisk_placeholder.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "132.23,59.5035,0,1"
+        }
+      ],
+      "Children": []
+    },
+    {
       "__guid": "f20708a7-b88c-4fb1-bc0d-0a545e9a9028",
       "__version": 2,
       "Flags": 0,
       "Name": "obelisk_placeholder (1)",
-      "Position": "977.704102,-362.649902,0.536134005",
+      "Position": "-466.208008,7830.67139,0.535550117",
       "Rotation": "0,0,0,1",
-      "Scale": "5,5,5",
+      "Scale": "3,3,3",
       "Tags": "",
       "Enabled": true,
       "NetworkMode": 2,
@@ -3816,6 +4180,52 @@
         {
           "__type": "Sandbox.ModelRenderer",
           "__guid": "ab607ed0-9da6-4dda-9e58-95569286c418",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/obelisk_placeholder.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "132.23,59.5035,0,1"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "97ae8e8e-d43d-486e-8b3d-dd870516549c",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "obelisk_placeholder (2)",
+      "Position": "525.645508,7830.67139,0.535550117",
+      "Rotation": "0,0,0,1",
+      "Scale": "3,3,3",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "09d24927-ac0b-47fd-a271-e1f18ae9253e",
           "__enabled": true,
           "Flags": 0,
           "BodyGroups": 18446744073709551615,
@@ -3866,17 +4276,17 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
       },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "3cbf77a2-9e45-4eb3-9fb3-b88c7f85b5b5"
+        }
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       }
     }

@@ -83,7 +83,7 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Tint": "0.25581,0.15587,0.05592,1"
           },
           {
             "__type": "Sandbox.BoxCollider",
@@ -234,7 +234,7 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Tint": "0.31996,0.45583,0.67442,1"
           },
           {
             "__type": "Sandbox.BoxCollider",
@@ -295,30 +295,6 @@
             "OverrideMassCenter": false,
             "RigidbodyFlags": 0,
             "StartAsleep": false
-          },
-          {
-            "__type": "PlayerCollisions",
-            "__guid": "5c65fa46-e0d9-49d0-b97b-ac80521a3fe6",
-            "__enabled": true,
-            "Flags": 0,
-            "AngularImpulseFactor": 0.0008,
-            "BaseImpulse": 3500,
-            "ChariotExtraSpin": 1.6,
-            "ChariotImpulseRatio": 1.1,
-            "Cooldown": 0.2,
-            "DebugLog": true,
-            "ImpulsePerClosingSpeed": 1100,
-            "LateralBias": 0.55,
-            "MaxImpulse": 18000,
-            "MinClosingSpeed": 0.8,
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "SharpSteerMultiplier": 1.8,
-            "VerticalLift": 0.35
           },
           {
             "__type": "PlayerDamageSystem",
