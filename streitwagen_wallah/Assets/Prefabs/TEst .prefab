@@ -9,7 +9,7 @@
     "Scale": "1,1,1",
     "Tags": "player",
     "Enabled": true,
-    "NetworkMode": 2,
+    "NetworkMode": 1,
     "NetworkFlags": 0,
     "NetworkOrphaned": 0,
     "NetworkTransmit": true,
@@ -26,7 +26,7 @@
         "Scale": "0.400000006,0.400000006,0.400000006",
         "Tags": "",
         "Enabled": true,
-        "NetworkMode": 2,
+        "NetworkMode": 1,
         "NetworkFlags": 0,
         "NetworkOrphaned": 0,
         "NetworkTransmit": true,
@@ -38,8 +38,8 @@
             "__enabled": true,
             "Flags": 0,
             "BrakeForce": 5,
-            "LateralGrip": 4,
-            "MaxAngularSpeed": 1,
+            "LateralGrip": 2,
+            "MaxAngularSpeed": 3,
             "MaxVerticalSpeed": 800,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -55,8 +55,8 @@
               "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
               "component_type": "Rigidbody"
             },
-            "SharpSteerMultiplier": 5000,
-            "SteerTorque": 40000
+            "SharpSteerMultiplier": 1.5,
+            "SteerTorque": 800
           },
           {
             "__type": "Sandbox.ModelRenderer",
@@ -132,7 +132,7 @@
               "Roll": true
             },
             "MassCenterOverride": "0,0,0",
-            "MassOverride": 250,
+            "MassOverride": 450,
             "MinImpactDamageSpeed": 500,
             "MotionEnabled": true,
             "OnComponentDestroy": null,
@@ -166,7 +166,7 @@
             "__version": 2,
             "Flags": 0,
             "Name": "Pferd ",
-            "Position": "0,-213.159241,0",
+            "Position": "0,-146.9245,0",
             "Rotation": "0,0,0,1",
             "Scale": "1,1,1",
             "Tags": "",
@@ -202,7 +202,7 @@
                   "AfterUILayer": false
                 },
                 "RenderType": "On",
-                "Tint": "1,1,1,1"
+                "Tint": "0.2549,0.15294,0.0549,1"
               }
             ],
             "Children": []
@@ -212,7 +212,7 @@
             "__version": 2,
             "Flags": 0,
             "Name": "Pferd ",
-            "Position": "-1.48248196,204.107529,-0.0193214417",
+            "Position": "-1.48248196,118.87146,-0.0193214417",
             "Rotation": "0,0,0,1",
             "Scale": "1,1,1",
             "Tags": "",
@@ -248,7 +248,7 @@
                   "AfterUILayer": false
                 },
                 "RenderType": "On",
-                "Tint": "1,1,1,1"
+                "Tint": "0.2549,0.15294,0.0549,1"
               }
             ],
             "Children": []
@@ -265,7 +265,7 @@
         "Scale": "1,1,1",
         "Tags": "",
         "Enabled": true,
-        "NetworkMode": 2,
+        "NetworkMode": 1,
         "NetworkFlags": 0,
         "NetworkOrphaned": 0,
         "NetworkTransmit": true,
@@ -548,7 +548,7 @@
         "Scale": "-8.78243256,1,5.09823608",
         "Tags": "",
         "Enabled": true,
-        "NetworkMode": 2,
+        "NetworkMode": 1,
         "NetworkFlags": 0,
         "NetworkOrphaned": 0,
         "NetworkTransmit": true,

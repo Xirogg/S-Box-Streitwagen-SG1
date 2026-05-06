@@ -199,7 +199,7 @@
         {
           "__type": "Sandbox.NetworkHelper",
           "__guid": "b9b34852-8ffe-49e0-a8de-a6afa70be5bd",
-          "__enabled": true,
+          "__enabled": false,
           "Flags": 0,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -222,6 +222,32 @@
             }
           ],
           "StartServer": true
+        },
+        {
+          "__type": "GameNetworkManager",
+          "__guid": "7a947645-0a79-436f-97e9-7445c1f9009e",
+          "__enabled": true,
+          "Flags": 0,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerChariotPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/test .prefab"
+          },
+          "PlayerSpawnPoints": [
+            {
+              "_type": "gameobject",
+              "go": "35275d46-526b-440f-824a-20953251f3f3"
+            },
+            {
+              "_type": "gameobject",
+              "go": "753f6d3c-6150-4dc6-bdbb-f143c32b96c3"
+            }
+          ]
         }
       ],
       "Children": []
@@ -336,17 +362,17 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
+      },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
       },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
-        }
-      },
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
         }
       }
     }
