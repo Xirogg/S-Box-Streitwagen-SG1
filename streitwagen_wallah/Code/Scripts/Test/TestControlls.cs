@@ -12,6 +12,8 @@ public sealed class TestControlls : Component
 	[Property, Group( "Steering" )] public float MaxAngularSpeed { get; set; } = 10f;
 	[Property, Group( "Steering" )] public float LateralGrip { get; set; } = 4f;
 	[Property, Group( "Steering" )] public float SharpSteerMultiplier { get; set; } = 1.4f;
+	[Property, Group( "Steering" )] public float SteerReleaseDamping { get; set; } = 12f;
+	[Property, Group( "Steering" )] public float SteerInputDeadzone { get; set; } = 0.05f;
 
 
 	[Property, Group( "GameObjects" )] public Rigidbody Rigidbody { get; set; }
@@ -148,7 +150,18 @@ public sealed class TestControlls : Component
 
 	private void ApplySteering( float torqueInput )
 	{
-		if ( torqueInput == 0f ) return;
+		if ( MathF.Abs( torqueInput ) < SteerInputDeadzone )
+		{
+			if ( SteerReleaseDamping > 0f )
+			{
+				Vector3 av = Rigidbody.AngularVelocity;
+				float kill = 1f - MathF.Exp( -SteerReleaseDamping * Time.Delta );
+				av.z -= av.z * kill;
+				Rigidbody.AngularVelocity = av;
+			}
+			return;
+		}
+
 		if ( MathF.Abs( Rigidbody.AngularVelocity.z ) >= MaxAngularSpeed ) return;
 
 		float mass = Rigidbody.Mass;
