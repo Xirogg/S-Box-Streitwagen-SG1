@@ -582,6 +582,12 @@
             "OnComponentUpdate": null,
             "PositionSmoothTime": 0.25,
             "RotationSmoothSpeed": 6,
+            "SpeedLines": {
+              "_type": "component",
+              "component_id": "4f1b4337-a8c6-4689-b14e-f42f6c3bc70a",
+              "go": "d433d5ed-a450-4ff1-960d-b9599787f7b4",
+              "component_type": "ParticleConeEmitter"
+            },
             "TargetGO": {
               "_type": "gameobject",
               "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2"
@@ -617,7 +623,39 @@
             "ZNear": 1
           }
         ],
-        "Children": []
+        "Children": [
+          {
+            "__guid": "d433d5ed-a450-4ff1-960d-b9599787f7b4",
+            "__version": 2,
+            "__Prefab": "vfx/speedlines.prefab",
+            "__PrefabInstancePatch": {
+              "AddedObjects": [],
+              "RemovedObjects": [],
+              "PropertyOverrides": [
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "d433d5ed-a450-4ff1-960d-b9599787f7b4"
+                  },
+                  "Property": "Position",
+                  "Value": "-15.3470316,2.59907889,-0.428076297"
+                },
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "d433d5ed-a450-4ff1-960d-b9599787f7b4"
+                  },
+                  "Property": "Scale",
+                  "Value": "-0.113863669,1.36241317,0.218278185"
+                }
+              ],
+              "MovedObjects": []
+            },
+            "__PrefabIdToInstanceId": {
+              "9264ca27-723f-4c2e-bdc3-85dcf1b07642": "4d8501b9-62fc-4b8b-b3ac-5eb7f5325a52"
+            }
+          }
+        ]
       }
     ],
     "__properties": {

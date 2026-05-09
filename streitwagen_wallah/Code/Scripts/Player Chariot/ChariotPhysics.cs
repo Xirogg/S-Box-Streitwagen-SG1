@@ -109,6 +109,7 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 		ApplyLateralGrip();
 		DampenYaw();
 
+
 		if ( DebugLog )
 		{
 			_debugTimer += Time.Delta;
