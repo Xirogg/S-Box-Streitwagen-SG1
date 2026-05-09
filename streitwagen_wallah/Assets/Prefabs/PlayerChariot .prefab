@@ -3,7 +3,7 @@
     "__guid": "71a98175-0ea3-4983-ab02-05c2d758014c",
     "__version": 2,
     "Flags": 0,
-    "Name": "test ",
+    "Name": "playerchariot ",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
@@ -56,6 +56,8 @@
               "component_type": "Rigidbody"
             },
             "SharpSteerMultiplier": 1.5,
+            "SteerInputDeadzone": 0.05,
+            "SteerReleaseDamping": 12,
             "SteerTorque": 800
           },
           {
@@ -582,12 +584,7 @@
             "OnComponentUpdate": null,
             "PositionSmoothTime": 0.25,
             "RotationSmoothSpeed": 6,
-            "SpeedLines": {
-              "_type": "component",
-              "component_id": "4f1b4337-a8c6-4689-b14e-f42f6c3bc70a",
-              "go": "d433d5ed-a450-4ff1-960d-b9599787f7b4",
-              "component_type": "ParticleConeEmitter"
-            },
+            "SpeedLines": null,
             "TargetGO": {
               "_type": "gameobject",
               "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2"
@@ -625,7 +622,7 @@
         ],
         "Children": [
           {
-            "__guid": "d433d5ed-a450-4ff1-960d-b9599787f7b4",
+            "__guid": "577f01fa-d3ca-45cc-a406-2ba3509f8d6e",
             "__version": 2,
             "__Prefab": "vfx/speedlines.prefab",
             "__PrefabInstancePatch": {
@@ -647,12 +644,29 @@
                   },
                   "Property": "Scale",
                   "Value": "-0.113863669,1.36241317,0.218278185"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "b6cd56fa-f187-4032-ad5c-373c40c75db3"
+                  },
+                  "Property": "_owner",
+                  "Value": {
+                    "_type": "component",
+                    "component_id": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4",
+                    "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
+                    "component_type": "TestControlls"
+                  }
                 }
               ],
               "MovedObjects": []
             },
             "__PrefabIdToInstanceId": {
-              "9264ca27-723f-4c2e-bdc3-85dcf1b07642": "4d8501b9-62fc-4b8b-b3ac-5eb7f5325a52"
+              "d433d5ed-a450-4ff1-960d-b9599787f7b4": "577f01fa-d3ca-45cc-a406-2ba3509f8d6e",
+              "fa3ffc2e-ef81-43d2-8623-890cd5d930a5": "a5c6bc3f-db04-4373-bd43-84c33a9f2920",
+              "6a57760c-9996-45da-870a-53f7ee807e70": "d5887d09-04cf-40b7-9711-0490b310850f",
+              "4f1b4337-a8c6-4689-b14e-f42f6c3bc70a": "c4f78c50-8931-4703-b4cb-d89ed68f7c19",
+              "b6cd56fa-f187-4032-ad5c-373c40c75db3": "1cddb0eb-1e04-4db9-b6dc-0cf8b1726290"
             }
           }
         ]

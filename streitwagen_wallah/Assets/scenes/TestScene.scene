@@ -209,7 +209,7 @@
           "OnComponentUpdate": null,
           "PlayerPrefab": {
             "_type": "gameobject",
-            "prefab": "prefabs/test .prefab"
+            "prefab": "prefabs/playerchariot .prefab"
           },
           "SpawnPoints": [
             {
@@ -236,7 +236,7 @@
           "OnComponentUpdate": null,
           "PlayerChariotPrefab": {
             "_type": "gameobject",
-            "prefab": "prefabs/test .prefab"
+            "prefab": "prefabs/playerchariot .prefab"
           },
           "PlayerSpawnPoints": [
             {
@@ -340,6 +340,33 @@
         }
       ],
       "Children": []
+    },
+    {
+      "__guid": "35a9fc2c-c6a9-476f-a8f2-6b76354de2a1",
+      "__version": 2,
+      "__Prefab": "prefabs/debris/chariotdebris.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "37ba38fb-200a-4012-9b53-19606b4a4e51"
+            },
+            "Property": "Position",
+            "Value": "-2544.00244,-606.096558,30.2924805"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "37ba38fb-200a-4012-9b53-19606b4a4e51": "35a9fc2c-c6a9-476f-a8f2-6b76354de2a1",
+        "e5112658-1b99-4ea2-a8ef-a9b6b827f45f": "b7487277-eab0-463e-a080-a8fcbf643ef9",
+        "f72a46b2-d2c8-4a75-8346-92dac966e11f": "4b113ea8-2818-42bf-9b40-28a88945aa5b",
+        "43f8e94c-5801-49d3-8729-b189f500ae43": "1b0da877-ac27-4ace-b7e5-ccc6317a9924",
+        "03438934-320f-47f4-8cdb-b2e85dad0b6d": "b7c54a0b-3784-4ddd-b283-b101307cdeba"
+      }
     }
   ],
   "SceneProperties": {
@@ -362,17 +389,17 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
       },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
+        }
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       }
     }

@@ -302,6 +302,19 @@
         "RateOverDistance": 0,
         "VelocityMultiplier": 1,
         "VelocityRandom": 0
+      },
+      {
+        "__type": "Sandbox.SpeedLinesVisuals",
+        "__guid": "b6cd56fa-f187-4032-ad5c-373c40c75db3",
+        "__enabled": true,
+        "Flags": 0,
+        "_owner": null,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [],
