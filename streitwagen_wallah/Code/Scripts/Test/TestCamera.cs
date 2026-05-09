@@ -1,5 +1,6 @@
 using Sandbox;
 using System;
+using static Sandbox.ModelPhysics;
 
 /// <summary>
 /// Dynamic third-person chariot camera. Yaw-only follow (bumps/roll of the chassis
@@ -30,6 +31,7 @@ public sealed class TestCamera : Component
 	[Property, Group( "Drift" )] public float DriftLateralMax { get; set; } = 120f;
 	[Property, Group( "Drift" )] public float DriftRollMax { get; set; } = 8f;
 	[Property, Group( "Drift" )] public float DriftLerpSpeed { get; set; } = 5f;
+	[Property] public ParticleEmitter SpeedLines { get; set; }
 
 	private Vector3 _posVelocity;
 	private Rigidbody _targetRb;
@@ -108,6 +110,9 @@ public sealed class TestCamera : Component
 			Rotation desired = a.ToRotation();
 			WorldRotation = Rotation.Slerp( WorldRotation, desired, RotationSmoothSpeed * Time.Delta );
 		}
+
+		if ( SpeedLines is not null )
+			SpeedLines.Enabled = planarSpeed > 800f;
 
 		UpdateFOV( planarSpeed );
 	}
