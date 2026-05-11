@@ -620,6 +620,83 @@
           }
         ],
         "Children": []
+      },
+      {
+        "__guid": "fb553f81-4cf5-448d-94a4-fc8d56156c50",
+        "__version": 2,
+        "Flags": 0,
+        "Name": "Powers",
+        "Position": "-177.484375,0,56.9396667",
+        "Rotation": "0,0,0,1",
+        "Scale": "1,1,1",
+        "Tags": "",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkFlags": 0,
+        "NetworkOrphaned": 0,
+        "NetworkTransmit": true,
+        "OwnerTransfer": 1,
+        "Components": [
+          {
+            "__type": "DionysosPower",
+            "__guid": "e8bba6de-59c8-4d06-9cd7-6a8545bad0b5",
+            "__enabled": true,
+            "Flags": 0,
+            "ActivationAction": "God",
+            "CooldownDuration": 10,
+            "DisplayName": "Power",
+            "DrunkDuration": 8,
+            "GrapeCount": 5,
+            "GrapeProjectilePrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/god prefabs/dionysos/traubenbulletprefab .prefab"
+            },
+            "HorseReference": {
+              "_type": "gameobject",
+              "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
+            },
+            "Icon": null,
+            "IndicatorPrefab": null,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "PlayerTag": "player",
+            "ProjectileSpeed": 1500,
+            "SpawnForwardOffset": 50,
+            "SpawnHeightOffset": 30,
+            "SpreadAngleDegrees": 45,
+            "StartOnCooldown": false,
+            "UltimateCooldownDuration": 30,
+            "UltimateDisplayName": "Ultimate",
+            "UltimateIcon": null,
+            "UltimateModifierAction": "Ready",
+            "UltimateStartOnCooldown": false
+          },
+          {
+            "__type": "PowerManager",
+            "__guid": "bb976fac-dd01-419b-a740-5aad185db865",
+            "__enabled": true,
+            "Flags": 0,
+            "IndicatorRoot": {
+              "_type": "gameobject",
+              "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Owner": {
+              "_type": "gameobject",
+              "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
+            }
+          }
+        ],
+        "Children": []
       }
     ],
     "__properties": {

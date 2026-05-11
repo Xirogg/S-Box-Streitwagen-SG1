@@ -30,7 +30,7 @@ public sealed class DionysosPower : GodPower
 	public float SpreadAngleDegrees { get; set; } = 45f;
 
 	[Property, Group( "Grape Shooter" )]
-	public float ProjectileSpeed { get; set; } = 1500f;
+	public float ProjectileSpeed { get; set; } = 3000f;
 
 	[Property, Group( "Grape Shooter" )]
 	public float SpawnForwardOffset { get; set; } = 50f;
@@ -53,6 +53,7 @@ public sealed class DionysosPower : GodPower
 
 	protected override void OnActivate()
 	{
+		Log.Info( "Dionyoss ist dabei meine Freunde" ); 
 		if ( !GrapeProjectilePrefab.IsValid() )
 		{
 			Log.Warning( "[DionysosPower] GrapeProjectilePrefab nicht gesetzt." );
@@ -91,6 +92,7 @@ public sealed class DionysosPower : GodPower
 
 	protected override void OnActivateUltimate()
 	{
+		Log.Info( "Drunk active" ); 
 		drunkActive = true;
 		drunkPlayers.Clear();
 

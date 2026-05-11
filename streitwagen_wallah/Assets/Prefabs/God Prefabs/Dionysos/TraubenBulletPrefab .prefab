@@ -17,13 +17,13 @@
     "Components": [],
     "Children": [
       {
-        "__guid": "8c172bc9-8df7-45df-a285-c55abcd2cd46",
+        "__guid": "cd157981-a3a7-4947-967a-8478d558d1a8",
         "__version": 2,
         "Flags": 0,
-        "Name": "Cube",
+        "Name": "Sphere",
         "Position": "0,0,0",
         "Rotation": "0,0,0,1",
-        "Scale": "0.5,0.5,0.5",
+        "Scale": "1,1,1",
         "Tags": "grape",
         "Enabled": true,
         "NetworkMode": 2,
@@ -34,7 +34,7 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "fd517b82-246e-41ed-9564-adfe73c48bb4",
+            "__guid": "9b980730-6e71-4caa-9f50-79edd0144ff2",
             "__enabled": true,
             "Flags": 0,
             "BodyGroups": 18446744073709551615,
@@ -43,7 +43,7 @@
             "MaterialGroup": null,
             "MaterialOverride": null,
             "Materials": null,
-            "Model": "models/dev/box.vmdl",
+            "Model": "models/dev/sphere.vmdl",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -57,11 +57,45 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Tint": "0,0,0,1"
           },
           {
-            "__type": "Sandbox.BoxCollider",
-            "__guid": "4fcaf83d-8f97-492d-9e4c-b8e62d5d5942",
+            "__type": "Sandbox.Rigidbody",
+            "__guid": "bcba22a6-ea26-41e9-8fca-b8461b40bc96",
+            "__enabled": true,
+            "Flags": 0,
+            "AngularDamping": 0,
+            "EnableImpactDamage": true,
+            "EnhancedCcd": false,
+            "Gravity": true,
+            "GravityScale": 1,
+            "ImpactDamage": 0,
+            "LinearDamping": 0,
+            "Locking": {
+              "X": false,
+              "Y": false,
+              "Z": false,
+              "Pitch": false,
+              "Yaw": false,
+              "Roll": false
+            },
+            "MassCenterOverride": "0,0,0",
+            "MassOverride": 0,
+            "MinImpactDamageSpeed": 500,
+            "MotionEnabled": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OverrideMassCenter": false,
+            "RigidbodyFlags": 0,
+            "StartAsleep": false
+          },
+          {
+            "__type": "Sandbox.SphereCollider",
+            "__guid": "75120606-8bc6-4588-bba7-335350141d0c",
             "__enabled": true,
             "Flags": 0,
             "Center": "0,0,0",
@@ -79,11 +113,26 @@
             "OnObjectTriggerExit": null,
             "OnTriggerEnter": null,
             "OnTriggerExit": null,
+            "Radius": 32,
             "RollingResistance": null,
-            "Scale": "50,50,50",
             "Static": false,
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
+          },
+          {
+            "__type": "DionysosGrapesPrefabs",
+            "__guid": "35513f9c-ef2b-4c48-8b6e-1d2c97808755",
+            "__enabled": true,
+            "Flags": 0,
+            "BounceMultiplier": 1.5,
+            "GrapeTag": "grape",
+            "Lifetime": 10,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
           }
         ],
         "Children": []
