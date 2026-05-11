@@ -288,14 +288,7 @@
             }
           }
         ],
-        "RemovedObjects": [
-          {
-            "Id": {
-              "Type": "Component",
-              "IdValue": "91496376-d206-4eff-b43d-d37ea10fa8e1"
-            }
-          }
-        ],
+        "RemovedObjects": [],
         "PropertyOverrides": [
           {
             "Target": {
@@ -377,13 +370,30 @@
             "Value": "50,50,74.3487167"
           }
         ],
-        "MovedObjects": []
+        "MovedObjects": [
+          {
+            "Id": {
+              "Type": "Component",
+              "IdValue": "4d748162-ce9c-4a4d-ac72-85c03b712fec"
+            },
+            "NewParent": {
+              "Type": "GameObject",
+              "IdValue": "072e0b17-8e6b-41d9-b8df-dd43396e0c44"
+            },
+            "NewContainerProperty": "Components",
+            "IsNewContainerArray": true,
+            "NewPreviousElement": {
+              "Type": "Component",
+              "IdValue": "f4cd5101-66f0-4e97-9b6e-ef5f014c5825"
+            }
+          }
+        ]
       },
       "__PrefabIdToInstanceId": {
         "4c2d86e6-74a1-4d3d-84a3-e76240adabbf": "a35af803-8b0b-425f-b0b9-65776930394a",
-        "91496376-d206-4eff-b43d-d37ea10fa8e1": "54ea5e4b-07d1-4299-b904-1d158dc36170",
         "072e0b17-8e6b-41d9-b8df-dd43396e0c44": "82a0a259-620f-4774-b432-42cff5f60af3",
-        "365a5aed-60da-4e66-b71b-e223f2cc1f03": "59344fee-8849-46f7-950b-70dea77330c3"
+        "365a5aed-60da-4e66-b71b-e223f2cc1f03": "59344fee-8849-46f7-950b-70dea77330c3",
+        "4d748162-ce9c-4a4d-ac72-85c03b712fec": "cc446bd5-06c3-4898-aab0-0104d84dae49"
       }
     },
     {
@@ -502,6 +512,11 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
+      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
@@ -509,11 +524,6 @@
       },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
-      },
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
       }
     }
   },

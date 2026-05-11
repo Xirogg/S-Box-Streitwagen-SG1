@@ -2,6 +2,7 @@
 @using Sandbox;
 @using Sandbox.UI;
 @using LapSystem;
+@using LapSystem.Rankings;
 @inherits PanelComponent
 @namespace Sandbox
 
@@ -10,6 +11,7 @@
 	<div class="hpbar">
 		<div class="hp-fill" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;"></div>
 	</div>
+	<div class="position">@PositionText</div>
 </root>
 
 <style>
@@ -37,6 +39,15 @@
 		background-color: green;
 		transition: width 0.15s linear;
 	}
+	.position {
+		position: absolute;
+		bottom: 132px;
+		left: 132px;
+		color: white;
+		font-size: 132px;
+		font-family: Arial;
+		text-shadow: 0px 2px 4px black;
+	}
 </style>
 
 @code
@@ -48,5 +59,21 @@
 	float HPPercent => Damage is null ? 0f
 		: MathX.Clamp( Damage.CurrentHP / MathF.Max( Damage.MaxHP, 0.0001f ) * 100f, 0f, 100f );
 
-	protected override int BuildHash() => System.HashCode.Combine( Lap?.CurrentLap, Damage?.CurrentHP );
+	int CurrentPosition
+	{
+		get
+		{
+			var mgr = RaceRankingManager.Instance;
+			if ( mgr is null || Lap is null ) return 0;
+			foreach ( var entry in mgr.Rankings )
+			{
+				if ( entry.Tracker == Lap ) return entry.Position;
+			}
+			return 0;
+		}
+	}
+
+	string PositionText => CurrentPosition > 0 ? CurrentPosition.ToString() : "-";
+
+	protected override int BuildHash() => System.HashCode.Combine( Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition );
 }

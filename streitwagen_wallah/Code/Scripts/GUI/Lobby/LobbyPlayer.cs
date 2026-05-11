@@ -23,6 +23,11 @@ public sealed class LobbyPlayer : Component
 			Log.Info( "Ready UP" );
 			SetReady( !IsReady );
 		}
+
+		if ( Input.Pressed( "Change Track" ) )
+		{
+			RequestCycleTrack();
+		}
 	}
 
 	[Rpc.Broadcast]
@@ -30,5 +35,12 @@ public sealed class LobbyPlayer : Component
 	{
 		if ( Networking.IsHost )
 			IsReady = ready;
+	}
+
+	[Rpc.Broadcast]
+	public void RequestCycleTrack()
+	{
+		if ( Networking.IsHost )
+			LobbyManager.Instance?.CycleTrack();
 	}
 }

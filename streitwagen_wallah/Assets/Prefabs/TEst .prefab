@@ -40,7 +40,7 @@
             "BrakeForce": 5,
             "LateralGrip": 2,
             "MaxAngularSpeed": 3,
-            "MaxVerticalSpeed": 800,
+            "MaxVerticalSpeed": 1200,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -48,7 +48,7 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "PlayerId": "00000000-0000-0000-0000-000000000000",
-            "PullForce": 4500,
+            "PullForce": 5500,
             "Rigidbody": {
               "_type": "component",
               "component_id": "337056b5-7f39-4500-aad7-05f14b5297c5",
@@ -56,6 +56,8 @@
               "component_type": "Rigidbody"
             },
             "SharpSteerMultiplier": 1.5,
+            "SteerInputDeadzone": 0.05,
+            "SteerReleaseDamping": 12,
             "SteerTorque": 800
           },
           {

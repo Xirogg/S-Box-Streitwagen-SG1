@@ -43,6 +43,7 @@
       "Keyboard": false,
       "VR": false,
       "Gamepad": false
-    }
+    },
+    "StartupScene": "scenes/gui scenes/lobbyscene .scene"
   }
 }

@@ -239,8 +239,8 @@
       "OwnerTransfer": 1,
       "Components": [
         {
-          "__type": "Sandbox.NetworkHelper",
-          "__guid": "b9b34852-8ffe-49e0-a8de-a6afa70be5bd",
+          "__type": "GameNetworkManager",
+          "__guid": "412c5053-ac90-4b93-b0fe-061181d68d3d",
           "__enabled": true,
           "Flags": 0,
           "OnComponentDestroy": null,
@@ -249,79 +249,45 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "PlayerPrefab": {
+          "PlayerChariotPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/test .prefab"
           },
-          "SpawnPoints": [
+          "PlayerSpawnPoints": [
             {
               "_type": "gameobject",
-              "go": "35275d46-526b-440f-824a-20953251f3f3"
+              "go": "046dc227-497f-401e-b67e-fb40bb77b41f"
             },
             {
               "_type": "gameobject",
-              "go": "753f6d3c-6150-4dc6-bdbb-f143c32b96c3"
+              "go": "e9158cf9-5040-4e8d-8e47-7598a9285c8d"
+            },
+            {
+              "_type": "gameobject",
+              "go": "9e66a0f9-7348-4caf-9571-956528b7fcb2"
+            },
+            {
+              "_type": "gameobject",
+              "go": "3b3d135d-4b98-4e8b-9c48-d3a0190ebc6c"
             }
-          ],
-          "StartServer": true
+          ]
+        },
+        {
+          "__type": "LapSystem.RaceManager",
+          "__guid": "096a865f-8296-49df-8022-17c7ea1463ae",
+          "__enabled": true,
+          "Flags": 0,
+          "LobbyScene": "scenes/gui scenes/lobbyscene .scene",
+          "MaxLaps": 1,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         }
       ],
       "Children": []
-    },
-    {
-      "__guid": "482415f3-4dcc-43df-8578-712ab519e3c7",
-      "__version": 2,
-      "Flags": 0,
-      "Name": "SpawnPoints",
-      "Position": "-2208.58203,-2215.42871,0.000249862671",
-      "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
-      "Tags": "",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkFlags": 0,
-      "NetworkOrphaned": 0,
-      "NetworkTransmit": true,
-      "OwnerTransfer": 1,
-      "Components": [],
-      "Children": [
-        {
-          "__guid": "35275d46-526b-440f-824a-20953251f3f3",
-          "__version": 2,
-          "Flags": 0,
-          "Name": "SP 1",
-          "Position": "0,136.02417,144.384872",
-          "Rotation": "0,0,0,1",
-          "Scale": "1,1,1",
-          "Tags": "",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkFlags": 0,
-          "NetworkOrphaned": 0,
-          "NetworkTransmit": true,
-          "OwnerTransfer": 1,
-          "Components": [],
-          "Children": []
-        },
-        {
-          "__guid": "753f6d3c-6150-4dc6-bdbb-f143c32b96c3",
-          "__version": 2,
-          "Flags": 0,
-          "Name": "SP 2",
-          "Position": "0,1993.22009,144.384872",
-          "Rotation": "0,0,0,1",
-          "Scale": "1,1,1",
-          "Tags": "",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkFlags": 0,
-          "NetworkOrphaned": 0,
-          "NetworkTransmit": true,
-          "OwnerTransfer": 1,
-          "Components": [],
-          "Children": []
-        }
-      ]
     },
     {
       "__guid": "76d77459-24b6-4e61-bb10-5378140c0a2f",
@@ -1134,6 +1100,196 @@
           "Children": []
         }
       ]
+    },
+    {
+      "__guid": "eacdda25-e231-4383-8db7-7057bdfcebc9",
+      "__version": 2,
+      "__Prefab": "prefabs/checkpoints/startfinishprefab .prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "4c2d86e6-74a1-4d3d-84a3-e76240adabbf"
+            },
+            "Property": "Position",
+            "Value": "-772.950684,-420.120789,30.2926025"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "072e0b17-8e6b-41d9-b8df-dd43396e0c44"
+            },
+            "Property": "Rotation",
+            "Value": "0,0,0.707106769,0.707106769"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "072e0b17-8e6b-41d9-b8df-dd43396e0c44"
+            },
+            "Property": "Scale",
+            "Value": "33.8870926,1,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "365a5aed-60da-4e66-b71b-e223f2cc1f03"
+            },
+            "Property": "Center",
+            "Value": "-1.6301403,0,0"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "365a5aed-60da-4e66-b71b-e223f2cc1f03"
+            },
+            "Property": "Scale",
+            "Value": "46.7397194,50,50"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "4c2d86e6-74a1-4d3d-84a3-e76240adabbf": "eacdda25-e231-4383-8db7-7057bdfcebc9",
+        "072e0b17-8e6b-41d9-b8df-dd43396e0c44": "787a88ee-0702-4491-9355-e6833b315d31",
+        "365a5aed-60da-4e66-b71b-e223f2cc1f03": "24379661-0530-4b23-a8e4-25667bc76713",
+        "4d748162-ce9c-4a4d-ac72-85c03b712fec": "7a3b0f5c-7f8d-461d-ba79-0476d4216f5a"
+      }
+    },
+    {
+      "__guid": "8d537b3e-03e3-4145-a7cc-a94e9d230123",
+      "__version": 2,
+      "__Prefab": "prefabs/checkpoints/checkpoint prefab .prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
+            },
+            "Property": "Position",
+            "Value": "-1458.57715,1288.60449,30.2924805"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
+            },
+            "Property": "Rotation",
+            "Value": "0,0,0.707106769,0.707106769"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
+            },
+            "Property": "Scale",
+            "Value": "31.5502548,1,1"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "b451cbb4-02d3-4d5c-9996-5e3fb7653220": "8d537b3e-03e3-4145-a7cc-a94e9d230123",
+        "73dd1024-8a01-4cdd-9b97-d5424895530b": "4e20ffc0-71ca-4372-a984-cb270134dd51",
+        "bef5148d-2c98-4338-aa3c-aea2fcdd0a30": "cc9d7683-170e-42f8-805d-19d922ba2ffd"
+      }
+    },
+    {
+      "__guid": "b81f146b-4157-4165-86ab-a45ae1802fed",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "SpawnPoints",
+      "Position": "-1014.70715,-468.24527,30.2926064",
+      "Rotation": "0,0,0,1",
+      "Scale": "33.8870926,3.54811668,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [],
+      "Children": [
+        {
+          "__guid": "046dc227-497f-401e-b67e-fb40bb77b41f",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "SpawnPoint",
+          "Position": "-8.12501144,6.45079781E-05,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [],
+          "Children": []
+        },
+        {
+          "__guid": "e9158cf9-5040-4e8d-8e47-7598a9285c8d",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "SpawnPoint (1)",
+          "Position": "-15.6078444,8.60106375E-05,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [],
+          "Children": []
+        },
+        {
+          "__guid": "9e66a0f9-7348-4caf-9571-956528b7fcb2",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "SpawnPoint (2)",
+          "Position": "9.87694931,8.171011E-05,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [],
+          "Children": []
+        },
+        {
+          "__guid": "3b3d135d-4b98-4e8b-9c48-d3a0190ebc6c",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "SpawnPoint (3)",
+          "Position": "2.39411044,0.000103212769,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [],
+          "Children": []
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -1156,18 +1312,18 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
       },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "e8e4452c-2bd8-44a7-9fc7-8c41e03ec2a8"
         }
       },
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
       }
     }
   },
