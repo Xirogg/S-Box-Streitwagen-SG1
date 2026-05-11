@@ -4214,8 +4214,8 @@
       "OwnerTransfer": 1,
       "Components": [
         {
-          "__type": "Sandbox.NetworkHelper",
-          "__guid": "76310324-3b75-4f8e-8265-e86ab1d552a2",
+          "__type": "GameNetworkManager",
+          "__guid": "9e7b579c-43b8-4c54-939b-07e746b4cd81",
           "__enabled": true,
           "Flags": 0,
           "OnComponentDestroy": null,
@@ -4224,11 +4224,11 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "PlayerPrefab": {
+          "PlayerChariotPrefab": {
             "_type": "gameobject",
-            "prefab": "prefabs/test .prefab"
+            "prefab": "prefabs/playerchariot .prefab"
           },
-          "SpawnPoints": [
+          "PlayerSpawnPoints": [
             {
               "_type": "gameobject",
               "go": "bd6b2426-a539-425c-99fe-11da2296db71"
@@ -4237,16 +4237,15 @@
               "_type": "gameobject",
               "go": "83317797-c667-4971-bd3d-a86a26ac95d3"
             }
-          ],
-          "StartServer": true
+          ]
         },
         {
           "__type": "LapSystem.RaceManager",
-          "__guid": "b9bfc521-a7c2-4de9-b67d-e31d98b6a6e4",
+          "__guid": "1ce42a6b-b9e7-46d0-bb91-b90659634eaa",
           "__enabled": true,
           "Flags": 0,
-          "LobbyScene": "scenes/gui scenes/lobbyscene .scene",
-          "MaxLaps": 1,
+          "LobbyScene": null,
+          "MaxLaps": 3,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -4256,7 +4255,7 @@
         },
         {
           "__type": "LapSystem.Rankings.RaceRankingManager",
-          "__guid": "27db5091-c703-4646-8745-257c3eb94afe",
+          "__guid": "1b523ffd-0f9f-45ea-936d-1824373ff135",
           "__enabled": true,
           "Flags": 0,
           "OnComponentDestroy": null,
@@ -4308,7 +4307,7 @@
       ]
     },
     {
-      "__guid": "7c2e86d9-c544-45ed-92ee-b0ff18410a8c",
+      "__guid": "9c356835-02eb-4373-9837-91251d94e83c",
       "__version": 2,
       "__Prefab": "prefabs/checkpoints/startfinishprefab .prefab",
       "__PrefabInstancePatch": {
@@ -4321,7 +4320,7 @@
               "IdValue": "4c2d86e6-74a1-4d3d-84a3-e76240adabbf"
             },
             "Property": "Position",
-            "Value": "0,7804.79102,0"
+            "Value": "-83.9216156,7773.30762,25"
           },
           {
             "Target": {
@@ -4329,20 +4328,20 @@
               "IdValue": "072e0b17-8e6b-41d9-b8df-dd43396e0c44"
             },
             "Property": "Scale",
-            "Value": "18.3901806,1,3.39968228"
+            "Value": "36.8973236,1,1"
           }
         ],
         "MovedObjects": []
       },
       "__PrefabIdToInstanceId": {
-        "4c2d86e6-74a1-4d3d-84a3-e76240adabbf": "7c2e86d9-c544-45ed-92ee-b0ff18410a8c",
-        "072e0b17-8e6b-41d9-b8df-dd43396e0c44": "d4512e6d-27c0-4df3-8e98-8e5f67d108db",
-        "365a5aed-60da-4e66-b71b-e223f2cc1f03": "37dfb146-253e-4dfc-8ddd-3c6b12374dfe",
-        "4d748162-ce9c-4a4d-ac72-85c03b712fec": "debcc21d-dda3-4aa5-aa17-42dcc45927cd"
+        "4c2d86e6-74a1-4d3d-84a3-e76240adabbf": "9c356835-02eb-4373-9837-91251d94e83c",
+        "072e0b17-8e6b-41d9-b8df-dd43396e0c44": "252caf82-ad02-47e4-9d06-76fd88bc70b9",
+        "365a5aed-60da-4e66-b71b-e223f2cc1f03": "8e643073-9295-4f58-bc06-736ed8379e73",
+        "4d748162-ce9c-4a4d-ac72-85c03b712fec": "ceeccbe0-e109-44d5-9d01-81d80f3a03d1"
       }
     },
     {
-      "__guid": "1d340358-26b9-4b87-9954-ec0efb0124ba",
+      "__guid": "160b7842-f855-4c9c-a6c7-5d603882a879",
       "__version": 2,
       "__Prefab": "prefabs/checkpoints/checkpoint prefab .prefab",
       "__PrefabInstancePatch": {
@@ -4355,7 +4354,7 @@
               "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
             },
             "Property": "Position",
-            "Value": "-6516.34424,3184.75684,25"
+            "Value": "-6616.62842,3098.19458,25"
           },
           {
             "Target": {
@@ -4367,23 +4366,31 @@
           },
           {
             "Target": {
-              "Type": "GameObject",
-              "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
+              "Type": "Component",
+              "IdValue": "bef5148d-2c98-4338-aa3c-aea2fcdd0a30"
+            },
+            "Property": "Center",
+            "Value": "-0.683769226,0,0"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "bef5148d-2c98-4338-aa3c-aea2fcdd0a30"
             },
             "Property": "Scale",
-            "Value": "24.951746,1.66231334,5.00479078"
+            "Value": "48.6324615,50,50"
           }
         ],
         "MovedObjects": []
       },
       "__PrefabIdToInstanceId": {
-        "b451cbb4-02d3-4d5c-9996-5e3fb7653220": "1d340358-26b9-4b87-9954-ec0efb0124ba",
-        "73dd1024-8a01-4cdd-9b97-d5424895530b": "3345817e-29f6-4017-94d1-b4b9d27c28ce",
-        "bef5148d-2c98-4338-aa3c-aea2fcdd0a30": "f6838846-42ea-48ee-aca7-e06832e241ac"
+        "b451cbb4-02d3-4d5c-9996-5e3fb7653220": "160b7842-f855-4c9c-a6c7-5d603882a879",
+        "73dd1024-8a01-4cdd-9b97-d5424895530b": "5db6a9e8-3597-422a-985f-d10c93d2d5b5",
+        "bef5148d-2c98-4338-aa3c-aea2fcdd0a30": "72757d07-0064-4915-a9e6-0ff5b2cb34da"
       }
     },
     {
-      "__guid": "c929c71a-fd31-430c-b2e9-327817e6af40",
+      "__guid": "9263c56a-5e94-45e2-99df-05cb52e75da6",
       "__version": 2,
       "__Prefab": "prefabs/checkpoints/checkpoint prefab .prefab",
       "__PrefabInstancePatch": {
@@ -4404,7 +4411,7 @@
               "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
             },
             "Property": "Position",
-            "Value": "-4983.70996,-1783.55823,25"
+            "Value": "-5114.33691,-1766.21252,25"
           },
           {
             "Target": {
@@ -4412,15 +4419,7 @@
               "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
             },
             "Property": "Rotation",
-            "Value": "0,0,0.707106769,0.707106769"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
-            },
-            "Property": "Scale",
-            "Value": "24.951746,0.641876817,7.64947414"
+            "Value": "0,0,0.766044438,0.642787635"
           },
           {
             "Target": {
@@ -4434,13 +4433,13 @@
         "MovedObjects": []
       },
       "__PrefabIdToInstanceId": {
-        "b451cbb4-02d3-4d5c-9996-5e3fb7653220": "c929c71a-fd31-430c-b2e9-327817e6af40",
-        "73dd1024-8a01-4cdd-9b97-d5424895530b": "abc3ab93-e46a-4b1e-845d-f96462d6fd4b",
-        "bef5148d-2c98-4338-aa3c-aea2fcdd0a30": "ab8c3ca8-4960-409d-9af6-e8779bf83463"
+        "b451cbb4-02d3-4d5c-9996-5e3fb7653220": "9263c56a-5e94-45e2-99df-05cb52e75da6",
+        "73dd1024-8a01-4cdd-9b97-d5424895530b": "7a2ed119-1191-40b3-beed-b79c8c2e5bff",
+        "bef5148d-2c98-4338-aa3c-aea2fcdd0a30": "2d2fc329-6d3f-4d88-9ea0-2cd065af1db5"
       }
     },
     {
-      "__guid": "53e19ef5-e009-4d83-be43-50459cd8b631",
+      "__guid": "4f38bffe-b14a-46d5-b536-b324f6a0fa92",
       "__version": 2,
       "__Prefab": "prefabs/checkpoints/checkpoint prefab .prefab",
       "__PrefabInstancePatch": {
@@ -4461,7 +4460,7 @@
               "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
             },
             "Property": "Position",
-            "Value": "3199.05737,921.83667,25.0000076"
+            "Value": "3240.88379,967.3125,25.0001259"
           },
           {
             "Target": {
@@ -4473,11 +4472,68 @@
           },
           {
             "Target": {
+              "Type": "Component",
+              "IdValue": "73dd1024-8a01-4cdd-9b97-d5424895530b"
+            },
+            "Property": "SectorIndex",
+            "Value": 2
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "bef5148d-2c98-4338-aa3c-aea2fcdd0a30"
+            },
+            "Property": "Center",
+            "Value": "-6.16308975,0,0"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "bef5148d-2c98-4338-aa3c-aea2fcdd0a30"
+            },
+            "Property": "Scale",
+            "Value": "62.3261795,50,50"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "b451cbb4-02d3-4d5c-9996-5e3fb7653220": "4f38bffe-b14a-46d5-b536-b324f6a0fa92",
+        "73dd1024-8a01-4cdd-9b97-d5424895530b": "45ab2d50-7339-4b7d-828a-c728cfd073bb",
+        "bef5148d-2c98-4338-aa3c-aea2fcdd0a30": "bff93a77-a02f-463d-bb89-64332f250834"
+      }
+    },
+    {
+      "__guid": "a93e8c88-e6ef-44ee-a3ba-2ca2564e62e5",
+      "__version": 2,
+      "__Prefab": "prefabs/checkpoints/checkpoint prefab .prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
               "Type": "GameObject",
               "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
             },
-            "Property": "Scale",
-            "Value": "24.951746,1,6.72043896"
+            "Property": "Name",
+            "Value": "checkpoint prefab  (3)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
+            },
+            "Property": "Position",
+            "Value": "5810.78516,8074.62207,25.0000038"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
+            },
+            "Property": "Rotation",
+            "Value": "0,0,0.707106769,0.707106769"
           },
           {
             "Target": {
@@ -4485,15 +4541,15 @@
               "IdValue": "73dd1024-8a01-4cdd-9b97-d5424895530b"
             },
             "Property": "SectorIndex",
-            "Value": 2
+            "Value": 3
           }
         ],
         "MovedObjects": []
       },
       "__PrefabIdToInstanceId": {
-        "b451cbb4-02d3-4d5c-9996-5e3fb7653220": "53e19ef5-e009-4d83-be43-50459cd8b631",
-        "73dd1024-8a01-4cdd-9b97-d5424895530b": "754717b4-b3c2-4ffe-9b1f-95a3e8134f29",
-        "bef5148d-2c98-4338-aa3c-aea2fcdd0a30": "06622330-5ebf-43c4-814b-561356002018"
+        "b451cbb4-02d3-4d5c-9996-5e3fb7653220": "a93e8c88-e6ef-44ee-a3ba-2ca2564e62e5",
+        "73dd1024-8a01-4cdd-9b97-d5424895530b": "62871578-feb5-47af-b531-503d1bcd1cc6",
+        "bef5148d-2c98-4338-aa3c-aea2fcdd0a30": "560096d7-c2df-427e-bcb9-ed7c6e1fcc44"
       }
     }
   ],
