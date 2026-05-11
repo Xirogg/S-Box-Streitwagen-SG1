@@ -11,7 +11,7 @@
 	<div class="hpbar">
 		<div class="hp-fill" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;"></div>
 	</div>
-	<div class="position">@PositionText</div>
+	<div class="position" style="color: @PositionColor;">@PositionText</div>
 </root>
 
 <style>
@@ -74,6 +74,14 @@
 	}
 
 	string PositionText => CurrentPosition > 0 ? CurrentPosition.ToString() : "-";
+
+	string PositionColor => CurrentPosition switch
+	{
+		1 => "#2e7d32",
+		2 => "#7cb342",
+		3 => "#fdd835",
+		_ => "#e53935"
+	};
 
 	protected override int BuildHash() => System.HashCode.Combine( Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition );
 }
