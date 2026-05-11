@@ -4201,7 +4201,7 @@
       "__guid": "42135494-481f-48f6-97cc-9fe520c908db",
       "__version": 2,
       "Flags": 0,
-      "Name": "NetworkHelper",
+      "Name": "GameNetworkManager",
       "Position": "273.803833,12772.749,1750.95984",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",

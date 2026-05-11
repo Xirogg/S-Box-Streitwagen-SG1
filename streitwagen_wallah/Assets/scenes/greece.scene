@@ -4485,13 +4485,13 @@
       "__guid": "72680da9-446f-45c3-bbaa-170cd089ce44",
       "__version": 2,
       "Flags": 0,
-      "Name": "Soos",
-      "Position": "-5906.52344,-2866.90503,25.7243652",
+      "Name": "Lol",
+      "Position": "-6095.39258,-2734.65723,25.7243614",
       "Rotation": "0,-0,-0.300705791,0.953716934",
       "Scale": "1,1,0.682458758",
       "Tags": "",
       "Enabled": true,
-      "NetworkMode": 1,
+      "NetworkMode": 0,
       "NetworkFlags": 0,
       "NetworkOrphaned": 0,
       "NetworkTransmit": true,
@@ -4570,7 +4570,7 @@
           "OnComponentUpdate": null,
           "PlayerChariotPrefab": {
             "_type": "gameobject",
-            "prefab": "prefabs/test .prefab"
+            "prefab": "prefabs/playerchariot .prefab"
           },
           "PlayerSpawnPoints": [
             {
@@ -4798,18 +4798,18 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
       },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "5af075bd-4187-4b63-acf2-e2a57dc482fe"
         }
       },
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
       }
     }
   },
