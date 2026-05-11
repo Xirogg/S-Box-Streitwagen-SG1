@@ -11,12 +11,15 @@ public sealed class StartFinishLine : Component, Component.ITriggerListener
 {
 	protected override void OnAwake()
 	{
+		
 		var col = Components.Get<BoxCollider>();
+		Log.Info("Yallawwh" + col );
 		if ( col != null ) col.IsTrigger = true;
 	}
 
 	public void OnTriggerEnter( Collider other )
 	{
+		Log.Info("YALLLAH " + other.GameObject.Name );
 		if ( !Networking.IsHost ) return;
 
 		var tracker = FindTracker( other.GameObject );

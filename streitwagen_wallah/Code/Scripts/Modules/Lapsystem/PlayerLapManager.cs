@@ -56,6 +56,7 @@ public sealed class PlayerLapTracker : Component
 	/// <summary> Wird vom SectorCheckpoint aufgerufen, wenn DIESER Spieler ihn passiert. </summary>
 	public void HandleSectorPassed( SectorCheckpoint sector )
 	{
+		Log.Info( $"Sector {sector.SectorIndex}" );
 		if ( !Networking.IsHost ) return;
 		if ( RaceFinished ) return;
 		if ( CurrentLap == 0 ) return; // erst nach erstem Linien-Crossing zählen
@@ -71,7 +72,7 @@ public sealed class PlayerLapTracker : Component
 	public void HandleStartLineCrossed()
 	{
 
-		Log.Info( "Start Line" ); 
+		
 		if ( !Networking.IsHost ) return;
 		if ( RaceFinished ) return;
 
@@ -81,6 +82,8 @@ public sealed class PlayerLapTracker : Component
 
 		var rm = RaceManager.Instance;
 		if ( rm == null ) return;
+
+		Log.Info( "Start Line" + "  " + CurrentLap + " Passed Sectors: " + passedSectors.Count + " | " + rm.Sectors.Count );
 
 		// Erste Überquerung -> Runde 1 startet
 		if ( CurrentLap == 0 )
