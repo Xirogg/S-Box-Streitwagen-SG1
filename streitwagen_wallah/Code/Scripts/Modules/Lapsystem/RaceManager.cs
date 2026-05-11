@@ -1,28 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sandbox;
 
 namespace LapSystem;
 
-/// <summary>
-/// Eine Instanz pro Szene. Hält die globalen Renn-Einstellungen
-/// (z. B. MaxLaps) und kennt alle SectorCheckpoints im Track.
-/// Per-Player-State (Rundenzahl, abgehakte Sektoren) liegt im PlayerLapTracker.
-/// </summary>
 public sealed class RaceManager : Component
 {
 	public static RaceManager Instance { get; private set; }
 
 	[Property] public int MaxLaps { get; set; } = 3;
+	[Property] public SceneFile LobbyScene { get; set; }
 
-	/// <summary> Wird gefeuert, sobald die Szene das Rennen aufgesetzt hat. </summary>
 	public event Action OnRaceStarted;
-
-	/// <summary> Wird gefeuert, wenn ein einzelner Spieler das Rennen abgeschlossen hat. </summary>
 	public event Action<PlayerLapTracker> OnPlayerFinished;
+
+	[Sync] public bool ReturnCountdownActive { get; set; }
+	[Sync] public float ReturnCountdownTimeLeft { get; set; }
 
 	private readonly List<SectorCheckpoint> sectors = new();
 	public IReadOnlyList<SectorCheckpoint> Sectors => sectors;
+
+	private float returnCountdownStartTime;
+	private const float ReturnCountdownDuration = 3f;
 
 	protected override void OnAwake()
 	{
@@ -31,8 +31,6 @@ public sealed class RaceManager : Component
 
 	protected override void OnStart()
 	{
-		// Sektoren einmalig sammeln. Falls du Sektoren zur Laufzeit hinzufügst,
-		// einfach erneut RebuildSectors() aufrufen.
 		RebuildSectors();
 		OnRaceStarted?.Invoke();
 	}
@@ -40,6 +38,36 @@ public sealed class RaceManager : Component
 	protected override void OnDestroy()
 	{
 		if ( Instance == this ) Instance = null;
+	}
+
+	protected override void OnUpdate()
+	{
+		if ( !Networking.IsHost )
+			return;
+
+		if ( ReturnCountdownActive )
+		{
+			float elapsed = Time.Now - returnCountdownStartTime;
+			ReturnCountdownTimeLeft = ReturnCountdownDuration - elapsed;
+
+			if ( ReturnCountdownTimeLeft <= 0f )
+			{
+				ReturnCountdownActive = false;
+				ReturnCountdownTimeLeft = 0f;
+				Scene.LoadFromFile( LobbyScene.ResourcePath );
+			}
+			return;
+		}
+
+		var trackers = Scene.GetAllComponents<PlayerLapTracker>().ToList();
+		if ( trackers.Count == 0 )
+			return;
+
+		if ( trackers.All( t => t.RaceFinished ) )
+		{
+			ReturnCountdownActive = true;
+			returnCountdownStartTime = Time.Now;
+		}
 	}
 
 	public void RebuildSectors()

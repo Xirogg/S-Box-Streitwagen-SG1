@@ -1,0 +1,102 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using System.Linq;
+@inherits PanelComponent
+@using System;
+
+<root>
+	@if ( CountdownActive )
+	{
+		<div class="countdown">@CountdownDisplay</div>
+	}
+	else
+	{
+		<div class="ready-button @ReadyClass" onclick="@ToggleReady">
+			@( LocalIsReady ? "Bereit!" : "Bereit?" )
+		</div>
+	}
+</root>
+
+<style>
+	root {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.ready-button {
+		padding: 24px 64px;
+		font-size: 48px;
+		font-family: Arial;
+		font-weight: bold;
+		color: white;
+		background-color: rgba(80, 80, 80, 0.9);
+		border-radius: 12px;
+		cursor: pointer;
+		text-align: center;
+		transition: background-color 0.2s ease;
+		border: 3px solid rgba(255, 255, 255, 0.3);
+		flex-grow: 0;
+		flex-shrink: 0;
+		align-self: center;
+	}
+
+	.ready-button:hover {
+		background-color: rgba(120, 120, 120, 0.9);
+	}
+
+	.ready-button.is-ready {
+		background-color: rgba(40, 160, 40, 0.9);
+		border-color: rgba(80, 220, 80, 0.6);
+	}
+
+	.ready-button.is-ready:hover {
+		background-color: rgba(30, 130, 30, 0.9);
+	}
+
+	.countdown {
+		font-size: 128px;
+		font-family: Arial;
+		font-weight: bold;
+		color: white;
+		text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
+		flex-grow: 0;
+		flex-shrink: 0;
+		align-self: center;
+	}
+</style>
+
+@code
+{
+	LobbyPlayer LocalPlayer => Scene.GetAllComponents<LobbyPlayer>()
+		.FirstOrDefault( p => p.Network.IsOwner );
+
+	bool LocalIsReady => LocalPlayer?.IsReady ?? false;
+	bool CountdownActive => LobbyManager.Instance?.CountdownActive ?? false;
+	string CountdownDisplay => MathF.Ceiling( LobbyManager.Instance?.CountdownTimeLeft ?? 0f )
+		.ToString( "0" );
+	string ReadyClass => LocalIsReady ? "is-ready" : "";
+
+	void ToggleReady()
+	{
+		var player = LocalPlayer;
+		if ( player is null ) return;
+		player.SetReady( !player.IsReady );
+	}
+
+	protected override int BuildHash()
+	{
+		var hash = new HashCode();
+		hash.Add( CountdownActive );
+		hash.Add( LobbyManager.Instance?.CountdownTimeLeft );
+		foreach ( var p in Scene.GetAllComponents<LobbyPlayer>() )
+		{
+			hash.Add( p.IsReady );
+		}
+		return hash.ToHashCode();
+	}
+}

@@ -45,32 +45,35 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 	}
 
 
-	public void OnActive( Connection channel)
+	public void OnActive( Connection channel )
 	{
-	
-		if (PlayerChariotPrefab is null) return;
+		if ( PlayerChariotPrefab is null )
+		{
+			var lobbyObj = Scene.CreateObject( enabled: true );
+			lobbyObj.Name = $"LobbyPlayer ({channel.DisplayName})";
+			var lobbyPlayer = lobbyObj.Components.Create<LobbyPlayer>();
+			lobbyPlayer.DisplayName = channel.DisplayName;
+			lobbyObj.NetworkSpawn( channel );
+			return;
+		}
 
 		var spawnPosition = Vector3.Zero;
-		var spawnRotaion = Rotation.Identity; 
+		var spawnRotation = Rotation.Identity;
 
-		if (PlayerSpawnPoints.Count > 0 && PlayerSpawnPoints is not null) 
+		if ( PlayerSpawnPoints is not null && PlayerSpawnPoints.Count > 0 )
 		{
+			var spawnPoint = PlayerSpawnPoints[Random.Shared.Next( PlayerSpawnPoints.Count )];
 
-			var spawnPoint = PlayerSpawnPoints[Random.Shared.Next( PlayerSpawnPoints.Count )]; 
-
-			if (spawnPoint != null )
+			if ( spawnPoint != null )
 			{
 				spawnPosition = spawnPoint.WorldPosition;
-				spawnRotaion = spawnPoint.WorldRotation; 
+				spawnRotation = spawnPoint.WorldRotation;
 			}
-
-			var player = PlayerChariotPrefab.Clone(spawnPosition, spawnRotaion);
-			player.Name = $"Player ({channel.DisplayName})";
-			player.NetworkSpawn( channel ); 
-
-		
-
 		}
+
+		var player = PlayerChariotPrefab.Clone( spawnPosition, spawnRotation );
+		player.Name = $"Player ({channel.DisplayName})";
+		player.NetworkSpawn( channel );
 	}
 
 }

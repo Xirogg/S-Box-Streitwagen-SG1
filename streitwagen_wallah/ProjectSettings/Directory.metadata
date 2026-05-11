@@ -19,5 +19,19 @@
       "Color": "0.01395,1,0.93426,1",
       "Icon": ""
     }
+  },
+  {
+    "Key": "Assets\\VFX",
+    "Value": {
+      "Color": "1,0.3,0,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Assets\\Scenes",
+    "Value": {
+      "Color": "0.06667,1,0,1",
+      "Icon": ""
+    }
   }
 ]
