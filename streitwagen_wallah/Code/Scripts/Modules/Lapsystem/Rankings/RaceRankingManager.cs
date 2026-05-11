@@ -123,7 +123,11 @@ public sealed class RaceRankingManager : Component
 
 		// 5. Position vergeben.
 		for ( int i = 0; i < sorted.Count; i++ )
+		{
 			sorted[i].Position = i + 1;
+			var e = sorted[i];
+			Log.Info( $"[Rankings] #{e.Position} Player:{e.PlayerId.ToString().Substring( 0, 8 )} | Lap {e.CurrentLap} | CP {e.CheckpointsThisLap} | Finished: {e.RaceFinished} | FinishOrder: {e.FinishOrder} | Time: {e.LastProgressTime:F2}" );
+		}
 
 		// 6. Event nur feuern, wenn sich die Reihenfolge wirklich verändert hat.
 		bool changed = oldOrder.Length != sorted.Count;

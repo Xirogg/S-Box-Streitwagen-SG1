@@ -3,7 +3,7 @@
     "__guid": "71a98175-0ea3-4983-ab02-05c2d758014c",
     "__version": 2,
     "Flags": 0,
-    "Name": "playerchariot ",
+    "Name": "test ",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
@@ -40,7 +40,7 @@
             "BrakeForce": 5,
             "LateralGrip": 2,
             "MaxAngularSpeed": 3,
-            "MaxVerticalSpeed": 800,
+            "MaxVerticalSpeed": 1200,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -48,7 +48,7 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "PlayerId": "00000000-0000-0000-0000-000000000000",
-            "PullForce": 4500,
+            "PullForce": 5500,
             "Rigidbody": {
               "_type": "component",
               "component_id": "337056b5-7f39-4500-aad7-05f14b5297c5",
@@ -584,7 +584,6 @@
             "OnComponentUpdate": null,
             "PositionSmoothTime": 0.25,
             "RotationSmoothSpeed": 6,
-            "SpeedLines": null,
             "TargetGO": {
               "_type": "gameobject",
               "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2"
@@ -620,56 +619,84 @@
             "ZNear": 1
           }
         ],
-        "Children": [
+        "Children": []
+      },
+      {
+        "__guid": "fb553f81-4cf5-448d-94a4-fc8d56156c50",
+        "__version": 2,
+        "Flags": 0,
+        "Name": "Powers",
+        "Position": "-177.484375,0,56.9396667",
+        "Rotation": "0,0,0,1",
+        "Scale": "1,1,1",
+        "Tags": "",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkFlags": 0,
+        "NetworkOrphaned": 0,
+        "NetworkTransmit": true,
+        "OwnerTransfer": 1,
+        "Components": [
           {
-            "__guid": "577f01fa-d3ca-45cc-a406-2ba3509f8d6e",
-            "__version": 2,
-            "__Prefab": "vfx/speedlines.prefab",
-            "__PrefabInstancePatch": {
-              "AddedObjects": [],
-              "RemovedObjects": [],
-              "PropertyOverrides": [
-                {
-                  "Target": {
-                    "Type": "GameObject",
-                    "IdValue": "d433d5ed-a450-4ff1-960d-b9599787f7b4"
-                  },
-                  "Property": "Position",
-                  "Value": "-15.3470316,2.59907889,-0.428076297"
-                },
-                {
-                  "Target": {
-                    "Type": "GameObject",
-                    "IdValue": "d433d5ed-a450-4ff1-960d-b9599787f7b4"
-                  },
-                  "Property": "Scale",
-                  "Value": "-0.113863669,1.36241317,0.218278185"
-                },
-                {
-                  "Target": {
-                    "Type": "Component",
-                    "IdValue": "b6cd56fa-f187-4032-ad5c-373c40c75db3"
-                  },
-                  "Property": "_owner",
-                  "Value": {
-                    "_type": "component",
-                    "component_id": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4",
-                    "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
-                    "component_type": "TestControlls"
-                  }
-                }
-              ],
-              "MovedObjects": []
+            "__type": "DionysosPower",
+            "__guid": "e8bba6de-59c8-4d06-9cd7-6a8545bad0b5",
+            "__enabled": true,
+            "Flags": 0,
+            "ActivationAction": "God",
+            "CooldownDuration": 10,
+            "DisplayName": "Power",
+            "DrunkDuration": 8,
+            "GrapeCount": 5,
+            "GrapeProjectilePrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/god prefabs/dionysos/traubenbulletprefab .prefab"
             },
-            "__PrefabIdToInstanceId": {
-              "d433d5ed-a450-4ff1-960d-b9599787f7b4": "577f01fa-d3ca-45cc-a406-2ba3509f8d6e",
-              "fa3ffc2e-ef81-43d2-8623-890cd5d930a5": "a5c6bc3f-db04-4373-bd43-84c33a9f2920",
-              "6a57760c-9996-45da-870a-53f7ee807e70": "d5887d09-04cf-40b7-9711-0490b310850f",
-              "4f1b4337-a8c6-4689-b14e-f42f6c3bc70a": "c4f78c50-8931-4703-b4cb-d89ed68f7c19",
-              "b6cd56fa-f187-4032-ad5c-373c40c75db3": "1cddb0eb-1e04-4db9-b6dc-0cf8b1726290"
+            "HorseReference": {
+              "_type": "gameobject",
+              "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
+            },
+            "Icon": null,
+            "IndicatorPrefab": null,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "PlayerTag": "player",
+            "ProjectileSpeed": 1500,
+            "SpawnForwardOffset": 50,
+            "SpawnHeightOffset": 30,
+            "SpreadAngleDegrees": 45,
+            "StartOnCooldown": false,
+            "UltimateCooldownDuration": 30,
+            "UltimateDisplayName": "Ultimate",
+            "UltimateIcon": null,
+            "UltimateModifierAction": "Ready",
+            "UltimateStartOnCooldown": false
+          },
+          {
+            "__type": "PowerManager",
+            "__guid": "bb976fac-dd01-419b-a740-5aad185db865",
+            "__enabled": true,
+            "Flags": 0,
+            "IndicatorRoot": {
+              "_type": "gameobject",
+              "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Owner": {
+              "_type": "gameobject",
+              "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
             }
           }
-        ]
+        ],
+        "Children": []
       }
     ],
     "__properties": {
