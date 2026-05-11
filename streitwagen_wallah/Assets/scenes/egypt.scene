@@ -297,7 +297,7 @@
       "Position": "0,0,0",
       "Rotation": "0,0,0,1",
       "Scale": "600,600,5.00000143",
-      "Tags": "",
+      "Tags": "ground",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkFlags": 0,
@@ -4575,9 +4575,6 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "3cbf77a2-9e45-4eb3-9fb3-b88c7f85b5b5"
@@ -4587,6 +4584,9 @@
         "Data": {
           "SelectionSets": []
         }
+      },
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
       }
     }
   },

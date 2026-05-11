@@ -11,16 +11,16 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 {
 	[Property, Group( "Joint" )] public Rigidbody HorsePairRb { get; set; }
 	[Property, Group( "Joint" )] public GameObject HitchPoint { get; set; }
-	[Property, Group( "Joint" )] public float YawLimit { get; set; } = 100f;
+	[Property, Group( "Joint" )] public float YawLimit { get; set; } = 170f;
 
 	[Property, Group( "Stability" ), Range( 0f, 30f )] public float LateralGrip { get; set; } = 0f;
 
-	[Property, Group( "Drift" )] public float DriftForce { get; set; } = 14000f;
+	[Property, Group( "Drift" )] public float DriftForce { get; set; } = 24000f;
 	[Property, Group( "Drift" )] public float DriftRearOffset { get; set; } = 100f;
-	[Property, Group( "Drift" )] public float DriftMinSpeed { get; set; } = 20f;
+	[Property, Group( "Drift" )] public float DriftMinSpeed { get; set; } = 15f;
 	[Property, Group( "Drift" )] public float DriftFullSpeed { get; set; } = 120f;
-	[Property, Group( "Drift" )] public float DriftMaxYawRate { get; set; } = 6f;
-	[Property, Group( "Drift" ), Range( 0f, 5f )] public float ChariotAngularDamping { get; set; } = 0.15f;
+	[Property, Group( "Drift" )] public float DriftMaxYawRate { get; set; } = 10f;
+	[Property, Group( "Drift" ), Range( 0f, 5f )] public float ChariotAngularDamping { get; set; } = 0.04f;
 
 	[Property, Group( "Debug" )] public bool DebugLog { get; set; } = true;
 	[Property, Group( "Debug" ), ReadOnly] public float CurrentSpeed { get; private set; }
@@ -85,7 +85,7 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 		_joint.Body = horseRb.GameObject;
 		_joint.MinAngle = -YawLimit;
 		_joint.MaxAngle = YawLimit;
-		_joint.EnableCollision = false;
+		_joint.EnableCollision = true;
 
 		Log.Info( $"[ChariotPhysics] Joint erstellt — YawLimit=±{YawLimit}" );
 		Log.Info( $"[ChariotPhysics] HorsePos={horseRb.WorldPosition} | ChariotPos={WorldPosition} | PivotWorld={_jointPivot.WorldPosition} | HitchPointSet={HitchPoint is not null}" );

@@ -42,6 +42,8 @@ public sealed class PlayerDamageSystem : Component, Component.ICollisionListener
 		var otherRoot = o.Other.GameObject?.Root;
 		if ( otherRoot == GameObject.Root ) return;
 
+		if ( o.Other.GameObject?.Tags.Has( "ground" ) == true ) return;
+
 		float speed = Body.IsValid() ? Body.Velocity.Length : 0f;
 		float t = MathX.Clamp( (speed - MinDamageSpeed) / MathF.Max( MaxDamageSpeed - MinDamageSpeed, 0.0001f ), 0f, 1f );
 		float damage = MathX.Lerp( MinHitDamage, MaxHitDamage, t ) * DamageMultiplier;

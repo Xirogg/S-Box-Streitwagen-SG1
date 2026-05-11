@@ -15,6 +15,9 @@ public sealed class TestControlls : Component
 	[Property, Group( "Steering" )] public float SteerReleaseDamping { get; set; } = 12f;
 	[Property, Group( "Steering" )] public float SteerInputDeadzone { get; set; } = 0.05f;
 
+	[Property, Group( "Ram Lurch" )] public float LurchImpulse { get; set; } = 800f;
+	[Property, Group( "Ram Lurch" )] public float LurchForwardOffset { get; set; } = 60f;
+
 
 	[Property, Group( "GameObjects" )] public Rigidbody Rigidbody { get; set; }
 
@@ -68,6 +71,7 @@ public sealed class TestControlls : Component
 
 
 		ApplyInputs();
+		TryApplyLurch();
 	}
 
 	protected override void OnFixedUpdate()
@@ -121,6 +125,25 @@ public sealed class TestControlls : Component
 		IsSharpSteering = sharpSteering;
 		IsRamAttempting = ramAttempt;
 		RamDirection = sharpInputDir;
+	}
+
+	private void TryApplyLurch()
+	{
+		if ( !Input.Down( "Forward" ) ) return;
+		if ( Input.Down( "Left" ) || Input.Down( "Right" ) ) return;
+
+		bool leftPressed = Input.Pressed( "RamLeft" );
+		bool rightPressed = Input.Pressed( "RamRight" );
+
+		if ( leftPressed == rightPressed ) return;
+
+		float dir = leftPressed ? 1f : -1f;
+		if ( IsDrunk ) dir = -dir;
+
+		Vector3 right = WorldRotation.Right;
+		Vector3 impulse = -right * dir * LurchImpulse * Rigidbody.Mass;
+		Vector3 frontWorld = WorldPosition + WorldRotation.Forward * LurchForwardOffset;
+		Rigidbody.ApplyImpulseAt( frontWorld, impulse );
 	}
 
 	private void ApplyLocomotion( float acceleration )

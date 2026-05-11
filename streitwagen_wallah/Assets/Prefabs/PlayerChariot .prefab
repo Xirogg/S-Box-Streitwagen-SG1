@@ -3,7 +3,7 @@
     "__guid": "71a98175-0ea3-4983-ab02-05c2d758014c",
     "__version": 2,
     "Flags": 0,
-    "Name": "test ",
+    "Name": "playerchariot ",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
@@ -38,8 +38,10 @@
             "__enabled": true,
             "Flags": 0,
             "BrakeForce": 5,
-            "LateralGrip": 2,
-            "MaxAngularSpeed": 3,
+            "LateralGrip": 5,
+            "LurchForwardOffset": 60,
+            "LurchImpulse": 800,
+            "MaxAngularSpeed": 15000,
             "MaxVerticalSpeed": 1200,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -57,8 +59,8 @@
             },
             "SharpSteerMultiplier": 1.5,
             "SteerInputDeadzone": 0.05,
-            "SteerReleaseDamping": 12,
-            "SteerTorque": 800
+            "SteerReleaseDamping": 15,
+            "SteerTorque": 5500
           },
           {
             "__type": "Sandbox.ModelRenderer",
@@ -134,7 +136,7 @@
               "Roll": true
             },
             "MassCenterOverride": "0,0,0",
-            "MassOverride": 450,
+            "MassOverride": 550,
             "MinImpactDamageSpeed": 500,
             "MotionEnabled": true,
             "OnComponentDestroy": null,
@@ -262,9 +264,9 @@
         "__version": 2,
         "Flags": 0,
         "Name": "Wagen ",
-        "Position": "-228.859772,0,-27.4198742",
+        "Position": "-369.26178,-0.972475708,-27.4198742",
         "Rotation": "0,0,0,1",
-        "Scale": "1,1,1",
+        "Scale": "1.25,1.25,1.25",
         "Tags": "",
         "Enabled": true,
         "NetworkMode": 1,
@@ -299,10 +301,7 @@
               "go": "41912fdd-101d-44e5-8b06-eeb4d6a24b1f",
               "component_type": "ParticleSphereEmitter"
             },
-            "HitchPoint": {
-              "_type": "gameobject",
-              "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
-            },
+            "HitchPoint": null,
             "HorsePairRb": {
               "_type": "component",
               "component_id": "337056b5-7f39-4500-aad7-05f14b5297c5",
@@ -350,7 +349,7 @@
             "__guid": "c3c6cc48-1331-42f8-b015-cc11ef08978f",
             "__enabled": true,
             "Flags": 0,
-            "Center": "0,0,11.818923",
+            "Center": "0,0,7.77148533",
             "ColliderFlags": 0,
             "Elasticity": null,
             "Friction": null,
@@ -366,7 +365,7 @@
             "OnTriggerEnter": null,
             "OnTriggerExit": null,
             "RollingResistance": null,
-            "Scale": "50,50,26.362154",
+            "Scale": "50,50,18.2672749",
             "Static": false,
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
@@ -467,6 +466,30 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null
+          },
+          {
+            "__type": "PlayerCollisions",
+            "__guid": "04b3de93-2d79-4e77-861d-90846bc9b7b5",
+            "__enabled": true,
+            "Flags": 0,
+            "AngularImpulseFactor": 0.0008,
+            "BaseImpulse": 7500,
+            "ChariotExtraSpin": 1.6,
+            "ChariotImpulseRatio": 1.1,
+            "Cooldown": 0.2,
+            "DebugLog": true,
+            "ImpulsePerClosingSpeed": 9000,
+            "LateralBias": 0.55,
+            "MaxImpulse": 150000,
+            "MinClosingSpeed": 0.8,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "SharpSteerMultiplier": 1.8,
+            "VerticalLift": 0.35
           }
         ],
         "Children": [
@@ -537,6 +560,24 @@
               "5fd3af13-3835-482c-9dce-4be15e632cc0": "58b66a5b-b094-4b22-908e-17b7d51f4f8e",
               "f3c0d117-28f7-4215-b82e-44ed10186601": "5301bd3c-5b80-4eda-b9cf-b6af8b516253"
             }
+          },
+          {
+            "__guid": "d155d8cb-a3be-40cd-a7c9-e867d53337da",
+            "__version": 2,
+            "Flags": 0,
+            "Name": "Hitchpoint",
+            "Position": "101.464111,0,12.6039305",
+            "Rotation": "0,0,0,1",
+            "Scale": "1,1,1",
+            "Tags": "",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkFlags": 0,
+            "NetworkOrphaned": 0,
+            "NetworkTransmit": true,
+            "OwnerTransfer": 1,
+            "Components": [],
+            "Children": []
           }
         ]
       },
@@ -545,7 +586,7 @@
         "__version": 2,
         "Flags": 0,
         "Name": "Camera ",
-        "Position": "-477.484375,0,56.9396667",
+        "Position": "-596.822144,0,56.9396667",
         "Rotation": "0,0,0,1",
         "Scale": "-8.78243256,1,5.09823608",
         "Tags": "",
@@ -584,6 +625,7 @@
             "OnComponentUpdate": null,
             "PositionSmoothTime": 0.25,
             "RotationSmoothSpeed": 6,
+            "SpeedLines": null,
             "TargetGO": {
               "_type": "gameobject",
               "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2"
