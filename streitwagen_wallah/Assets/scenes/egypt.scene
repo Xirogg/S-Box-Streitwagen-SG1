@@ -56,7 +56,7 @@
           "__guid": "1ce42a6b-b9e7-46d0-bb91-b90659634eaa",
           "__enabled": true,
           "Flags": 0,
-          "LobbyScene": null,
+          "LobbyScene": "scenes/gui scenes/lobbyscene .scene",
           "MaxLaps": 3,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,

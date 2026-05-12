@@ -57,7 +57,7 @@
           "__enabled": true,
           "Flags": 0,
           "LobbyScene": "scenes/gui scenes/lobbyscene .scene",
-          "MaxLaps": 1,
+          "MaxLaps": 3,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
