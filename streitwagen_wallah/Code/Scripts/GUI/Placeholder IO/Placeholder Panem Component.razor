@@ -12,6 +12,11 @@
 		<div class="hp-fill" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;"></div>
 	</div>
 	<div class="position" style="color: @PositionColor;">@PositionText</div>
+
+	@if ( ShowCountdown )
+	{
+		<div class="countdown">@CountdownDisplay</div>
+	}
 </root>
 
 <style>
@@ -48,6 +53,17 @@
 		font-family: Arial;
 		text-shadow: 0px 2px 4px black;
 	}
+	.countdown {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		color: white;
+		font-size: 256px;
+		font-family: Arial;
+		font-weight: bold;
+		text-shadow: 0px 4px 8px black;
+	}
 </style>
 
 @code
@@ -83,5 +99,20 @@
 		_ => "#e53935"
 	};
 
-	protected override int BuildHash() => System.HashCode.Combine( Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition );
+	LapSystem.RaceManager Race => LapSystem.RaceManager.Instance;
+
+	bool ShowCountdown => Race is not null && Race.StartCountdownActive;
+
+	string CountdownDisplay
+	{
+		get
+		{
+			if ( Race is null ) return "";
+			float t = Race.StartCountdownTimeLeft;
+			if ( t > 0f ) return MathF.Ceiling( t ).ToString( "0" );
+			return "GO!";
+		}
+	}
+
+	protected override int BuildHash() => System.HashCode.Combine( Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft );
 }

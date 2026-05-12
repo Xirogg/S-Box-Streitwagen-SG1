@@ -20,7 +20,9 @@ using System.Threading.Tasks;
 public sealed class GameNetworkManager : Component, Component.INetworkListener
 {
 	[Property] public GameObject PlayerChariotPrefab {  get; set; }
-	[Property] public List<GameObject> PlayerSpawnPoints { get; set; } = new(); 
+	[Property] public List<GameObject> PlayerSpawnPoints { get; set; } = new();
+
+	private int _nextSpawnIndex = 0; 
 	
 
 	protected override async Task OnLoad()
@@ -62,7 +64,8 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 
 		if ( PlayerSpawnPoints is not null && PlayerSpawnPoints.Count > 0 )
 		{
-			var spawnPoint = PlayerSpawnPoints[Random.Shared.Next( PlayerSpawnPoints.Count )];
+			var spawnPoint = PlayerSpawnPoints[_nextSpawnIndex % PlayerSpawnPoints.Count];
+			_nextSpawnIndex++;
 
 			if ( spawnPoint != null )
 			{

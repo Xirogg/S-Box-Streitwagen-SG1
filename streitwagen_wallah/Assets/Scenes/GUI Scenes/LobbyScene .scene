@@ -5,7 +5,7 @@
       "__guid": "7d1e150f-702a-4305-852b-ad1ab60d4644",
       "__version": 2,
       "Flags": 0,
-      "Name": "GameNetworkManager",
+      "Name": "-- MANAGERS",
       "Position": "149.994965,149.994995,-212.124985",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
@@ -32,47 +32,48 @@
           "PlayerSpawnPoints": []
         }
       ],
-      "Children": []
-    },
-    {
-      "__guid": "65a498b8-0793-447a-a88b-f99f1c0dabaa",
-      "__version": 2,
-      "Flags": 0,
-      "Name": "Lobby Scripts",
-      "Position": "149.994965,149.994995,-212.124985",
-      "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
-      "Tags": "",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkFlags": 0,
-      "NetworkOrphaned": 0,
-      "NetworkTransmit": true,
-      "OwnerTransfer": 1,
-      "Components": [
+      "Children": [
         {
-          "__type": "LobbyManager",
-          "__guid": "777d50bc-ed11-4e4b-8062-9f79be8cc162",
-          "__enabled": true,
+          "__guid": "65a498b8-0793-447a-a88b-f99f1c0dabaa",
+          "__version": 2,
           "Flags": 0,
-          "AegyptenScene": "scenes/egypt.scene",
-          "AkropolisScene": "scenes/greece.scene",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "RomScene": "scenes/rome(notdone).scene"
+          "Name": "Lobby Manager",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "LobbyManager",
+              "__guid": "777d50bc-ed11-4e4b-8062-9f79be8cc162",
+              "__enabled": true,
+              "Flags": 0,
+              "AegyptenScene": "scenes/egypt.scene",
+              "AkropolisScene": "scenes/greece.scene",
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RomScene": "scenes/rome(notdone).scene"
+            }
+          ],
+          "Children": []
         }
-      ],
-      "Children": []
+      ]
     },
     {
       "__guid": "ddefb55d-e479-4800-bcd3-e3ab823d4dbb",
       "__version": 2,
       "Flags": 0,
-      "Name": "Screen",
+      "Name": "-- GUI",
       "Position": "149.994965,149.994995,-212.124985",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
@@ -126,7 +127,7 @@
       "__guid": "435b303c-90d5-4185-acbe-1738d95861ea",
       "__version": 2,
       "Flags": 0,
-      "Name": "Camera",
+      "Name": "-- CAMERA",
       "Position": "161.994965,459.334167,-229.095551",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",

@@ -1,4 +1,5 @@
 using Sandbox;
+using LapSystem;
 using System;
 
 public sealed class TestControlls : Component
@@ -66,9 +67,13 @@ public sealed class TestControlls : Component
 
 	protected override void OnUpdate()
 	{
-		// Wenn es nicht der Spieler des Prefabs ist wird alles geskippt
 		if ( IsProxy ) return;
 
+		if ( RaceManager.Instance?.StartCountdownTimeLeft > 0f )
+		{
+			moveInput = Vector2.Zero;
+			return;
+		}
 
 		ApplyInputs();
 		TryApplyLurch();

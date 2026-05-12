@@ -18,11 +18,18 @@ public sealed class RaceManager : Component
 	[Sync] public bool ReturnCountdownActive { get; set; }
 	[Sync] public float ReturnCountdownTimeLeft { get; set; }
 
+	[Sync] public bool StartCountdownActive { get; set; }
+	[Sync] public float StartCountdownTimeLeft { get; set; }
+
 	private readonly List<SectorCheckpoint> sectors = new();
 	public IReadOnlyList<SectorCheckpoint> Sectors => sectors;
 
 	private float returnCountdownStartTime;
 	private const float ReturnCountdownDuration = 3f;
+
+	private float startCountdownStartTime;
+	private const float StartCountdownDuration = 5f;
+	private const float GoDisplayDuration = 1f;
 
 	protected override void OnAwake()
 	{
@@ -33,6 +40,12 @@ public sealed class RaceManager : Component
 	{
 		RebuildSectors();
 		OnRaceStarted?.Invoke();
+
+		if ( Networking.IsHost )
+		{
+			StartCountdownActive = true;
+			startCountdownStartTime = Time.Now;
+		}
 	}
 
 	protected override void OnDestroy()
@@ -44,6 +57,18 @@ public sealed class RaceManager : Component
 	{
 		if ( !Networking.IsHost )
 			return;
+
+		if ( StartCountdownActive )
+		{
+			float elapsed = Time.Now - startCountdownStartTime;
+			StartCountdownTimeLeft = StartCountdownDuration - elapsed;
+
+			if ( StartCountdownTimeLeft <= -GoDisplayDuration )
+			{
+				StartCountdownActive = false;
+				StartCountdownTimeLeft = 0f;
+			}
+		}
 
 		if ( ReturnCountdownActive )
 		{

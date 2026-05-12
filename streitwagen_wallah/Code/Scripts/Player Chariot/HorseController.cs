@@ -1,4 +1,5 @@
 using Sandbox;
+using LapSystem;
 using System;
 using System.Collections.Generic;
 
@@ -50,6 +51,12 @@ public sealed class HorseController : Component, ISpeedModifiable
 
 	protected override void OnUpdate()
 	{
+		if ( RaceManager.Instance?.StartCountdownTimeLeft > 0f )
+		{
+			_moveInput = Vector2.Zero;
+			return;
+		}
+
 		float vertical = 0f;
 		float horizontal = 0f;
 
