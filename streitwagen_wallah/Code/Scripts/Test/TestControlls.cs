@@ -83,10 +83,20 @@ public sealed class TestControlls : Component
 	{
 		if ( IsProxy ) return;
 
-
 		ApplyHorseLateralGrip();
 		ApplyLocomotion( moveInput.x );
 		ApplySteering( moveInput.y );
+		ClampPlanarSpeed();
+	}
+
+	private void ClampPlanarSpeed()
+	{
+		Vector3 vel = Rigidbody.Velocity;
+		Vector3 planar = vel.WithZ( 0f );
+		if ( planar.Length <= MaxVerticalSpeed ) return;
+
+		planar = planar.Normal * MaxVerticalSpeed;
+		Rigidbody.Velocity = new Vector3( planar.x, planar.y, vel.z );
 	}
 
 	private void ApplyInputs()
