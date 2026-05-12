@@ -19,9 +19,6 @@ public sealed class StartFinishLine : Component, Component.ITriggerListener
 
 	public void OnTriggerEnter( Collider other )
 	{
-		Log.Info("YALLLAH " + other.GameObject.Name );
-		if ( !Networking.IsHost ) return;
-
 		var tracker = FindTracker( other.GameObject );
 		if ( tracker == null ) return;
 

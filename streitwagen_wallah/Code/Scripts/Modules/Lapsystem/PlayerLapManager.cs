@@ -6,12 +6,12 @@ namespace LapSystem;
 
 /// <summary>
 /// Liegt auf jedem Spieler-GameObject. Trackt Rundenzahl und besuchte Sektoren
-/// für genau diesen Spieler. Host-autoritativ: nur der Host schreibt den State,
-/// Clients erhalten die Werte über [Sync].
+/// fuer genau diesen Spieler. Owner-autoritativ: nur der besitzende Client
+/// schreibt den State, alle anderen erhalten die Werte ueber [Sync].
 /// </summary>
 public sealed class PlayerLapTracker : Component
 {
-	
+
 	public float RetriggerCooldown { get; set; } = 1.5f;
 
 	// Replizierter State – auf allen Clients sichtbar (UI, HUD usw.)
@@ -19,7 +19,7 @@ public sealed class PlayerLapTracker : Component
 	[Sync] public bool RaceFinished { get; set; }
 
 	// Fortschritt innerhalb der aktuellen Runde – wird vom RaceRankingManager
-	// fürs Live-Ranking gelesen.
+	// fuers Live-Ranking gelesen.
 	[Sync] public int CheckpointsThisLap { get; set; }
 	[Sync] public float LastProgressTime { get; set; }
 
@@ -31,19 +31,19 @@ public sealed class PlayerLapTracker : Component
 	public event Action OnFinished;
 	public event Action OnInvalidLap;
 
-	// Host-only state (wird nicht synchronisiert, lebt nur auf der Host-Seite)
+	// Owner-only state (wird nicht synchronisiert, lebt nur auf der Owner-Seite)
 	private readonly HashSet<int> passedSectors = new();
 	private float lastLineCrossTime = -999f;
 
 	protected override void OnStart()
 	{
-		if ( Networking.IsHost )
+		if ( Network.IsOwner )
 			ResetForNewRace();
 	}
 
 	public void ResetForNewRace()
 	{
-		if ( !Networking.IsHost ) return;
+		if ( !Network.IsOwner ) return;
 
 		CurrentLap = 0;
 		RaceFinished = false;
@@ -56,13 +56,11 @@ public sealed class PlayerLapTracker : Component
 	/// <summary> Wird vom SectorCheckpoint aufgerufen, wenn DIESER Spieler ihn passiert. </summary>
 	public void HandleSectorPassed( SectorCheckpoint sector )
 	{
-		Log.Info( $"Sector {sector.SectorIndex}" );
-		if ( !Networking.IsHost ) return;
+		if ( !Network.IsOwner ) return;
 		if ( RaceFinished ) return;
-		if ( CurrentLap == 0 ) return; // erst nach erstem Linien-Crossing zählen
+		if ( CurrentLap == 0 ) return; // erst nach erstem Linien-Crossing zaehlen
 
 		if ( !passedSectors.Add( sector.SectorIndex ) ) return; // schon gehabt
-
 
 		CheckpointsThisLap = passedSectors.Count;
 		LastProgressTime = Time.Now;
@@ -71,9 +69,7 @@ public sealed class PlayerLapTracker : Component
 	/// <summary> Wird von der StartFinishLine aufgerufen, wenn DIESER Spieler sie kreuzt. </summary>
 	public void HandleStartLineCrossed()
 	{
-
-		
-		if ( !Networking.IsHost ) return;
+		if ( !Network.IsOwner ) return;
 		if ( RaceFinished ) return;
 
 		// Per-Player Cooldown gegen Mehrfach-Trigger durch viele Colliders
@@ -83,9 +79,7 @@ public sealed class PlayerLapTracker : Component
 		var rm = RaceManager.Instance;
 		if ( rm == null ) return;
 
-		Log.Info( "Start Line" + "  " + CurrentLap + " Passed Sectors: " + passedSectors.Count + " | " + rm.Sectors.Count );
-
-		// Erste Überquerung -> Runde 1 startet
+		// Erste Ueberquerung -> Runde 1 startet
 		if ( CurrentLap == 0 )
 		{
 			CurrentLap = 1;
@@ -106,7 +100,7 @@ public sealed class PlayerLapTracker : Component
 			{
 				RaceFinished = true;
 				RpcFinished();
-				rm.NotifyPlayerFinished( this );
+				RpcNotifyHostFinished();
 				return;
 			}
 
@@ -115,7 +109,7 @@ public sealed class PlayerLapTracker : Component
 		}
 		else
 		{
-			// Sektor übersprungen -> Runde ungültig (z. B. Abkürzung)
+			// Sektor uebersprungen -> Runde ungueltig (z. B. Abkuerzung)
 			RpcInvalidLap();
 		}
 	}
@@ -128,4 +122,14 @@ public sealed class PlayerLapTracker : Component
 
 	[Rpc.Broadcast]
 	private void RpcInvalidLap() => OnInvalidLap?.Invoke();
+
+	/// <summary>
+	/// Teilt dem Host mit, dass dieser Spieler ins Ziel gekommen ist,
+	/// damit der RaceManager den FinishOrder vergeben kann.
+	/// </summary>
+	[Rpc.Host]
+	private void RpcNotifyHostFinished()
+	{
+		RaceManager.Instance?.NotifyPlayerFinished( this );
+	}
 }

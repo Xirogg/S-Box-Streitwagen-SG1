@@ -20,15 +20,8 @@ public sealed class SectorCheckpoint : Component, Component.ITriggerListener
 
 	public void OnTriggerEnter( Collider other )
 	{
-		
-		// Trigger-Auswertung läuft nur auf dem Host (autoritativ)
-		if ( !Networking.IsHost ) return;
-
-
-
 		var tracker = FindTracker( other.GameObject );
 		if ( tracker == null ) return;
-		
 
 		tracker.HandleSectorPassed( this );
 	}
