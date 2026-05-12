@@ -266,7 +266,54 @@
                 "Tint": "0.2549,0.15294,0.0549,1"
               }
             ],
-            "Children": []
+            "Children": [
+              {
+                "__guid": "c164725e-dd0b-4bfa-a633-031473eaa4a8",
+                "__version": 2,
+                "Flags": 0,
+                "Name": "Sphere (1)",
+                "Position": "148.666382,-1.71916962,138.148453",
+                "Rotation": "0,0,0,1",
+                "Scale": "0.399423808,0.494561076,0.366162986",
+                "Tags": "",
+                "Enabled": true,
+                "NetworkMode": 2,
+                "NetworkFlags": 0,
+                "NetworkOrphaned": 0,
+                "NetworkTransmit": true,
+                "OwnerTransfer": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "2b683798-6567-4157-b15e-2e954095c9b7",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "LodOverride": null,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Materials": null,
+                    "Model": "models/dev/sphere.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "0.2549,0.15294,0.0549,1"
+                  }
+                ],
+                "Children": []
+              }
+            ]
           },
           {
             "__guid": "d50386bd-6a46-49fa-935f-8aab6d289617",
@@ -312,7 +359,54 @@
                 "Tint": "0.2549,0.15294,0.0549,1"
               }
             ],
-            "Children": []
+            "Children": [
+              {
+                "__guid": "78f5213e-caf2-4763-8bb4-cbeb74b9d9a6",
+                "__version": 2,
+                "Flags": 0,
+                "Name": "Sphere (1)",
+                "Position": "150.148865,0.360660553,138.16777",
+                "Rotation": "0,0,0,1",
+                "Scale": "0.399423808,0.494561076,0.366162986",
+                "Tags": "",
+                "Enabled": true,
+                "NetworkMode": 2,
+                "NetworkFlags": 0,
+                "NetworkOrphaned": 0,
+                "NetworkTransmit": true,
+                "OwnerTransfer": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "84922da1-0e3d-4f85-aae4-b3908f7720a5",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "LodOverride": null,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Materials": null,
+                    "Model": "models/dev/sphere.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "0.2549,0.15294,0.0549,1"
+                  }
+                ],
+                "Children": []
+              }
+            ]
           }
         ]
       },
@@ -399,7 +493,7 @@
               "AfterUILayer": false
             },
             "RenderType": "On",
-            "Tint": "0.31996,0.45583,0.67442,1"
+            "Tint": "0.19784,0.58144,0.72093,1"
           },
           {
             "__type": "Sandbox.BoxCollider",
@@ -551,6 +645,366 @@
         ],
         "Children": [
           {
+            "__guid": "2cb28573-770e-4ea5-a66f-21ad37355b9f",
+            "__version": 2,
+            "Flags": 0,
+            "Name": "Chonki",
+            "Position": "10.0166016,-12.5926504,63.8659477",
+            "Rotation": "0,0,0,1",
+            "Scale": "0.800000012,0.800000012,0.800000012",
+            "Tags": "",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkFlags": 0,
+            "NetworkOrphaned": 0,
+            "NetworkTransmit": true,
+            "OwnerTransfer": 1,
+            "Components": [],
+            "Children": [
+              {
+                "__guid": "caa3e8a6-568b-42af-b829-d5dbfe6dfd8c",
+                "__version": 2,
+                "Flags": 0,
+                "Name": "HisBodyIsROUND",
+                "Position": "-6.73538208,9.0153141,-39.903286",
+                "Rotation": "0,0,0,1",
+                "Scale": "0.683229566,0.683229566,0.869235873",
+                "Tags": "",
+                "Enabled": true,
+                "NetworkMode": 2,
+                "NetworkFlags": 0,
+                "NetworkOrphaned": 0,
+                "NetworkTransmit": true,
+                "OwnerTransfer": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "32430311-2815-4871-920b-771e9f83b35f",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "LodOverride": null,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Materials": null,
+                    "Model": "models/dev/sphere.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ],
+                "Children": []
+              },
+              {
+                "__guid": "a627759c-c7c3-42ef-86d7-cc7021b3708c",
+                "__version": 2,
+                "Flags": 0,
+                "Name": "HisBodyIsROUND",
+                "Position": "-6.73538208,9.0153141,-15.1033974",
+                "Rotation": "0,0,0,1",
+                "Scale": "0.29750368,0.29750368,0.313873708",
+                "Tags": "",
+                "Enabled": true,
+                "NetworkMode": 2,
+                "NetworkFlags": 0,
+                "NetworkOrphaned": 0,
+                "NetworkTransmit": true,
+                "OwnerTransfer": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "40ff8f73-cf75-4d4e-93bb-931c8495c3c7",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "LodOverride": null,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Materials": null,
+                    "Model": "models/dev/sphere.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ],
+                "Children": []
+              },
+              {
+                "__guid": "e3666051-b5e7-4e08-b634-00cc12179d09",
+                "__version": 2,
+                "Flags": 0,
+                "Name": "Sphere",
+                "Position": "4.02554321,24.6109314,-21.0667801",
+                "Rotation": "0,0,0,1",
+                "Scale": "0.152428478,0.167892501,0.116533272",
+                "Tags": "",
+                "Enabled": true,
+                "NetworkMode": 2,
+                "NetworkFlags": 0,
+                "NetworkOrphaned": 0,
+                "NetworkTransmit": true,
+                "OwnerTransfer": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "989c582f-e8f5-42dd-826f-da25f6cdf04c",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "LodOverride": null,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Materials": null,
+                    "Model": "models/dev/sphere.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ],
+                "Children": []
+              },
+              {
+                "__guid": "a87dd6d3-e03d-44f3-86c6-dc8becffda73",
+                "__version": 2,
+                "Flags": 0,
+                "Name": "Sphere (1)",
+                "Position": "4.02554321,6.66675186,-13.8638916",
+                "Rotation": "0,0,0,1",
+                "Scale": "0.251111954,0.167892501,0.116533272",
+                "Tags": "",
+                "Enabled": true,
+                "NetworkMode": 2,
+                "NetworkFlags": 0,
+                "NetworkOrphaned": 0,
+                "NetworkTransmit": true,
+                "OwnerTransfer": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "f0f4af8e-ccf7-4a14-a33e-6721003ec268",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "LodOverride": null,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Materials": null,
+                    "Model": "models/dev/sphere.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ],
+                "Children": []
+              },
+              {
+                "__guid": "6478875a-a16f-410e-9b58-ad03b5014a92",
+                "__version": 2,
+                "Flags": 0,
+                "Name": "Sphere",
+                "Position": "4.02554321,-6.14521217,-21.0667801",
+                "Rotation": "0,0,0,1",
+                "Scale": "0.152428478,0.167892501,0.116533272",
+                "Tags": "",
+                "Enabled": true,
+                "NetworkMode": 2,
+                "NetworkFlags": 0,
+                "NetworkOrphaned": 0,
+                "NetworkTransmit": true,
+                "OwnerTransfer": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "161965bd-da75-443f-9d68-9f740c72843f",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "LodOverride": null,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Materials": null,
+                    "Model": "models/dev/sphere.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "1,1,1,1"
+                  }
+                ],
+                "Children": []
+              }
+            ]
+          },
+          {
+            "__guid": "94842905-bee4-427a-a878-a60e184b543b",
+            "__version": 2,
+            "Flags": 0,
+            "Name": "Deichsel",
+            "Position": "160.326935,-7.55042171,24.8604069",
+            "Rotation": "0,-0.121600993,0,0.992579043",
+            "Scale": "5.63807678,0.0548043028,0.0538356788",
+            "Tags": "",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkFlags": 0,
+            "NetworkOrphaned": 0,
+            "NetworkTransmit": true,
+            "OwnerTransfer": 1,
+            "Components": [],
+            "Children": [
+              {
+                "__guid": "1e737cc5-9e18-481b-ba1a-bc3f43eb7cba",
+                "__version": 2,
+                "Flags": 0,
+                "Name": "Cube (1)",
+                "Position": "0.315498173,0,176.638672",
+                "Rotation": "0.00010188669,0.0194343105,0.00524155237,0.999797463",
+                "Scale": "1,1,1",
+                "Tags": "",
+                "Enabled": true,
+                "NetworkMode": 2,
+                "NetworkFlags": 0,
+                "NetworkOrphaned": 0,
+                "NetworkTransmit": true,
+                "OwnerTransfer": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "ef6aa77a-f5f4-4704-9d7f-48739d9320d5",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "LodOverride": null,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Materials": null,
+                    "Model": "models/dev/box.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "0.2549,0.15294,0.0549,1"
+                  }
+                ],
+                "Children": []
+              },
+              {
+                "__guid": "e38ccb9b-053f-483d-b7ce-05b3bc9faf44",
+                "__version": 2,
+                "Flags": 0,
+                "Name": "Cube (1)",
+                "Position": "25.8609142,0,19.2646904",
+                "Rotation": "-0.0996089801,0.0996089801,-0.700055718,0.700055718",
+                "Scale": "0.384540647,1,1",
+                "Tags": "",
+                "Enabled": true,
+                "NetworkMode": 2,
+                "NetworkFlags": 0,
+                "NetworkOrphaned": 0,
+                "NetworkTransmit": true,
+                "OwnerTransfer": 1,
+                "Components": [
+                  {
+                    "__type": "Sandbox.ModelRenderer",
+                    "__guid": "ec96744d-03fa-4ba3-8aa8-9a6477159167",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "BodyGroups": 18446744073709551615,
+                    "CreateAttachments": false,
+                    "LodOverride": null,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Materials": null,
+                    "Model": "models/dev/box.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Tint": "0.25581,0.15587,0.05592,1"
+                  }
+                ],
+                "Children": []
+              }
+            ]
+          },
+          {
             "__guid": "e9d80538-2c87-4d14-9c4c-59bc7646c0a2",
             "__version": 2,
             "__Prefab": "vfx/smoke.prefab",
@@ -659,21 +1113,23 @@
             "__guid": "b858d9fc-548b-4c1f-a0e6-7a12790181dc",
             "__enabled": true,
             "Flags": 0,
-            "BaseFOV": 70,
+            "BaseFOV": 60,
             "ChariotPhysics": null,
             "DriftDeadzone": 8,
             "DriftLateralMax": 120,
             "DriftLerpSpeed": 5,
             "DriftMaxAngle": 35,
             "DriftRollMax": 8,
-            "FovCurvePower": 1.6,
-            "FovLerpSpeed": 6,
+            "FovCurvePower": 5,
+            "FovLerpSpeed": 2,
             "LookAheadFactor": 0.18,
             "LookAheadMax": 300,
             "LookHeight": 35,
             "MaxFOV": 100,
             "MaxSpeed": 1500,
-            "Offset": "-280,0,140",
+            "NodLerpSpeed": 1,
+            "NodMax": 1,
+            "Offset": "-400,0,100",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -682,6 +1138,9 @@
             "OnComponentUpdate": null,
             "PositionSmoothTime": 0.25,
             "RotationSmoothSpeed": 6,
+            "ShakeFrequency": 300,
+            "ShakeIntensity": 1,
+            "ShakeMaxSpeed": 1500,
             "SpeedLines": null,
             "TargetGO": {
               "_type": "gameobject",

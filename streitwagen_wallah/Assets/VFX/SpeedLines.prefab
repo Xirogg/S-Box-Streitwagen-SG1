@@ -290,7 +290,7 @@
         "DestroyOnEnd": false,
         "Duration": 29.480017,
         "InVolume": false,
-        "Loop": false,
+        "Loop": true,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,

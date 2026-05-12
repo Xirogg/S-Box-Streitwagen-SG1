@@ -76,6 +76,12 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 
 		var player = PlayerChariotPrefab.Clone( spawnPosition, spawnRotation );
 		player.Name = $"Player ({channel.DisplayName})";
+
+		//Farbe setzen
+		Color randomColor = Color.Random.WithAlpha( 1f );
+		foreach ( var renderer in player.Components.GetAll<ModelRenderer>( FindMode.EverythingInSelfAndDescendants ) )
+			renderer.Tint = randomColor;
+
 		player.NetworkSpawn( channel );
 	}
 

@@ -219,7 +219,7 @@
         "Delay": 0,
         "DestroyOnEnd": false,
         "Duration": 5,
-        "Loop": false,
+        "Loop": true,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,

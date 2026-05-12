@@ -3150,7 +3150,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -3222,7 +3222,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -3294,7 +3294,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -3366,7 +3366,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -3438,7 +3438,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -3510,7 +3510,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -3582,7 +3582,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -3654,7 +3654,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -3726,7 +3726,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -3798,7 +3798,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -3870,7 +3870,7 @@
                     "AfterUILayer": false
                   },
                   "RenderType": "On",
-                  "Tint": "1,1,1,1"
+                  "Tint": "0.38605,0.32777,0.17237,1"
                 },
                 {
                   "__type": "Sandbox.BoxCollider",
@@ -4629,13 +4629,13 @@
           "$blob": "3cbf77a2-9e45-4eb3-9fb3-b88c7f85b5b5"
         }
       },
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
-      },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
         }
+      },
+      "Sandbox.MovieMaker.MovieRecorderSystem": {
+        "DisableClientRecording": false
       }
     }
   },
