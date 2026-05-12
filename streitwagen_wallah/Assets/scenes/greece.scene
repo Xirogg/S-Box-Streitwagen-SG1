@@ -123,13 +123,26 @@
           "__enabled": true,
           "Flags": 0,
           "LobbyScene": "scenes/gui scenes/lobbyscene .scene",
-          "MaxLaps": 1,
+          "MaxLaps": 3,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null
+        },
+        {
+          "__type": "LapSystem.Rankings.RaceRankingManager",
+          "__guid": "3b04f621-e6d7-44a9-a90a-a96b5c498276",
+          "__enabled": true,
+          "Flags": 0,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "UpdateInterval": 0.2
         }
       ],
       "Children": [
@@ -5011,17 +5024,17 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "5af075bd-4187-4b63-acf2-e2a57dc482fe"
+        }
+      },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
       },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
-        }
-      },
-      "Sandbox.Clutter.ClutterGridSystem": {
-        "Storage": {
-          "$blob": "5af075bd-4187-4b63-acf2-e2a57dc482fe"
         }
       }
     }
