@@ -40,6 +40,18 @@ public sealed class TestCamera : Component
 	private float _currentDriftLateral;
 	private bool _initialized;
 
+	//Road Shake
+	private float _shakeTime;
+	private float _prevSpeed;
+	[Property, Group( "Road Shake" )] public float ShakeIntensity { get; set; } = 1.2f;
+	[Property, Group( "Road Shake" )] public float ShakeFrequency { get; set; } = 18f;
+	[Property, Group( "Road Shake" )] public float ShakeMaxSpeed { get; set; } = 1500f;
+
+	// G-Force Nod
+	private float _currentNod;
+	[Property, Group( "G-Force" )] public float NodMax { get; set; } = 4f;
+	[Property, Group( "G-Force" )] public float NodLerpSpeed { get; set; } = 8f;
+
 	protected override void OnStart()
 	{
 		if ( TargetGO is not null )
@@ -124,6 +136,7 @@ public sealed class TestCamera : Component
 			SpeedLines.Enabled = planarSpeed > 800f;
 
 		UpdateFOV( planarSpeed );
+		ApplyRacerShake( planarSpeed );
 	}
 
 	private void UpdateFOV( float planarSpeed )
@@ -136,6 +149,39 @@ public sealed class TestCamera : Component
 
 		float t = 1f - MathF.Exp( -MathF.Max( 0f, FovLerpSpeed ) * Time.Delta );
 		_cam.FieldOfView = MathX.Lerp( _cam.FieldOfView, targetFOV, t );
+	}
+
+	private void ApplyRacerShake( float planarSpeed )
+	{
+		// --- Road Shake (überlagerte Sinus = unregelmäßig genug für Fahrzeuge) ---
+		float intensity = MathX.Remap( planarSpeed, 0f, ShakeMaxSpeed, 0f, 1f );
+		_shakeTime += Time.Delta * ShakeFrequency;
+
+		float shakeY = (MathF.Sin( _shakeTime * 1.00f ) * 0.50f
+					   + MathF.Sin( _shakeTime * 2.70f ) * 0.30f
+					   + MathF.Sin( _shakeTime * 5.13f ) * 0.20f)
+					   * ShakeIntensity * intensity;
+
+		float shakeX = (MathF.Sin( _shakeTime * 1.37f ) * 0.50f
+					   + MathF.Sin( _shakeTime * 3.10f ) * 0.30f
+					   + MathF.Sin( _shakeTime * 6.77f ) * 0.20f)
+					   * ShakeIntensity * 0.4f * intensity;
+
+		WorldPosition += WorldRotation.Up * shakeY
+					   + WorldRotation.Right * shakeX;
+
+		// --- G-Force Nod (Beschleunigung/Bremsen) ---
+		float accel = (planarSpeed - _prevSpeed) / Time.Delta;
+		_prevSpeed = planarSpeed;
+
+		float targetNod = Math.Clamp( -accel / MaxSpeed * NodMax, -NodMax, NodMax );
+		float t = 1f - MathF.Exp( -NodLerpSpeed * Time.Delta );
+		_currentNod = MathX.Lerp( _currentNod, targetNod, t );
+
+		// Nod als Pitch-Offset auf die aktuelle Rotation draufrechnen
+		Angles a = WorldRotation.Angles();
+		a.pitch += _currentNod;
+		WorldRotation = a.ToRotation();
 	}
 
 	private static Vector3 SmoothDamp( Vector3 current, Vector3 target, ref Vector3 currentVelocity, float smoothTime, float deltaTime )
