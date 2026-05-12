@@ -34,6 +34,9 @@ public sealed class RaceManager : Component
 	protected override void OnAwake()
 	{
 		Instance = this;
+
+		if ( Networking.IsHost )
+			GameObject.NetworkSpawn();
 	}
 
 	protected override void OnStart()
@@ -79,7 +82,13 @@ public sealed class RaceManager : Component
 			{
 				ReturnCountdownActive = false;
 				ReturnCountdownTimeLeft = 0f;
-				Scene.LoadFromFile( LobbyScene.ResourcePath );
+
+				if ( LobbyScene is not null )
+				{
+					var options = new SceneLoadOptions();
+					options.SetScene( LobbyScene );
+					Game.ChangeScene( options );
+				}
 			}
 			return;
 		}

@@ -6,7 +6,7 @@
       "__version": 2,
       "Flags": 0,
       "Name": "Main Camera",
-      "Position": "-2266,288,358",
+      "Position": "-1956.5708,-98.3275452,358",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -509,6 +509,14 @@
           },
           {
             "Target": {
+              "Type": "GameObject",
+              "IdValue": "71a98175-0ea3-4983-ab02-05c2d758014c"
+            },
+            "Property": "Enabled",
+            "Value": false
+          },
+          {
+            "Target": {
               "Type": "Component",
               "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
             },
@@ -562,7 +570,8 @@
         "e8bba6de-59c8-4d06-9cd7-6a8545bad0b5": "95cc2018-34fe-42f8-934f-6aca69f106fb",
         "bb976fac-dd01-419b-a740-5aad185db865": "0b5ccbce-0038-4979-9168-a2c6ab3116cd",
         "04b3de93-2d79-4e77-861d-90846bc9b7b5": "746f6f84-e1b6-47bc-8de3-0a6d5aa099c8",
-        "d155d8cb-a3be-40cd-a7c9-e867d53337da": "6235fcb4-cc71-4197-bb67-9b2983a873bf"
+        "d155d8cb-a3be-40cd-a7c9-e867d53337da": "6235fcb4-cc71-4197-bb67-9b2983a873bf",
+        "8af48939-9962-4a5a-8718-3683016330d1": "4ec72d82-f55b-493c-89e8-3c70bb4b502a"
       }
     }
   ],
@@ -586,11 +595,6 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
@@ -598,6 +602,11 @@
       },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
       }
     }
   },

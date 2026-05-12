@@ -4532,6 +4532,39 @@
           "Children": []
         }
       ]
+    },
+    {
+      "__guid": "778211b6-5318-456a-8fc0-e41ac9b415f8",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "-- SFX",
+      "Position": "525.533142,10687.0117,966.862122",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.BackgroundMucis",
+          "__guid": "76031005-b453-4031-8c55-2403d2fa8f72",
+          "__enabled": true,
+          "Flags": 0,
+          "Music": "music/bgm/provisional bgm.sound",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Volume": 1
+        }
+      ],
+      "Children": []
     }
   ],
   "SceneProperties": {
@@ -4554,11 +4587,6 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "3cbf77a2-9e45-4eb3-9fb3-b88c7f85b5b5"
@@ -4566,6 +4594,11 @@
       },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
       }
     }
   },

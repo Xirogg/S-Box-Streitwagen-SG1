@@ -30,11 +30,10 @@ public sealed class LobbyPlayer : Component
 		}
 	}
 
-	[Rpc.Broadcast]
+	[Rpc.Owner]
 	public void SetReady( bool ready )
 	{
-		if ( Networking.IsHost )
-			IsReady = ready;
+		IsReady = ready;
 	}
 
 	[Rpc.Broadcast]

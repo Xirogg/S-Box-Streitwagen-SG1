@@ -28,6 +28,9 @@ public sealed class LobbyManager : Component
 	protected override void OnAwake()
 	{
 		Instance = this;
+
+		if ( Networking.IsHost )
+			GameObject.NetworkSpawn();
 	}
 
 	protected override void OnDestroy()
@@ -98,7 +101,11 @@ public sealed class LobbyManager : Component
 
 				var sceneFile = GetSelectedSceneFile();
 				if ( sceneFile is not null )
-					Scene.LoadFromFile( sceneFile.ResourcePath );
+				{
+					var options = new SceneLoadOptions();
+					options.SetScene( sceneFile );
+					Game.ChangeScene( options );
+				}
 			}
 		}
 	}

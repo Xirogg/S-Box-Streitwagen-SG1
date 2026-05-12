@@ -33,7 +33,6 @@ public sealed class RaceRankingManager : Component
 	// Host-only – stabile Zähl-Quelle für FinishOrder
 	private int nextFinishOrder = 1;
 	private float nextRebuildTime;
-
 	protected override void OnAwake()
 	{
 		Instance = this;
