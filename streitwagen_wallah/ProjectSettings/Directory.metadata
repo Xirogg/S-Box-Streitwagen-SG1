@@ -30,7 +30,7 @@
   {
     "Key": "Assets\\Scenes",
     "Value": {
-      "Color": "0.06667,1,0,1",
+      "Color": "1,0,0.75,1",
       "Icon": ""
     }
   },
@@ -38,6 +38,90 @@
     "Key": "Assets\\Music",
     "Value": {
       "Color": "0.09804,0.95814,0.34174,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Assets\\Environment",
+    "Value": {
+      "Color": "0,1,0.03333,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Assets\\materials",
+    "Value": {
+      "Color": "0.48519,0.59943,0.82791,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Assets\\Models",
+    "Value": {
+      "Color": "1,1,1,1",
+      "Icon": "3d_rotation"
+    }
+  },
+  {
+    "Key": "Assets\\UI",
+    "Value": {
+      "Color": "0.76744,0.69442,0.01071,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Code\\Scripts\\God Powers",
+    "Value": {
+      "Color": "1,0.05116,0.05116,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Code\\Scripts\\GUI",
+    "Value": {
+      "Color": "1,0.55,0,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Code\\Scripts\\Modules",
+    "Value": {
+      "Color": "1,0.90351,0,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Code\\Scripts\\Networking",
+    "Value": {
+      "Color": "0.71667,1,0,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Code\\Scripts\\Particles",
+    "Value": {
+      "Color": "0,0.96744,0.61271,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Code\\Scripts\\Player Chariot",
+    "Value": {
+      "Color": "0.00593,0.31105,0.63721,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Code\\Scripts\\SFX",
+    "Value": {
+      "Color": "1,0,1,1",
+      "Icon": ""
+    }
+  },
+  {
+    "Key": "Code\\Scripts\\Test",
+    "Value": {
+      "Color": "1,0,0,1",
       "Icon": ""
     }
   }
