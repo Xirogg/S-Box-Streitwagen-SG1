@@ -209,7 +209,7 @@
           {
             "__type": "Sandbox.HorseVisuals",
             "__guid": "c4ece374-a00e-4391-8f19-3b9df2206096",
-            "__enabled": true,
+            "__enabled": false,
             "Flags": 0,
             "LeftHorse": null,
             "OnComponentDestroy": null,
@@ -339,7 +339,7 @@
             "Flags": 0,
             "ChariotAngularDamping": 0.15,
             "CurrentSpeed": 0,
-            "DebugLog": true,
+            "DebugLog": false,
             "DriftAngle": 0,
             "DriftForce": 4000,
             "DriftFullSpeed": 250,

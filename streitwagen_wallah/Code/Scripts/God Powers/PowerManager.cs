@@ -46,7 +46,7 @@ public sealed class PowerManager : Component
 			SpawnIndicator( power );
 		}
 
-		Log.Info( $"[PowerManager] Registered {powers.Count} powers for {Owner.Name}" );
+		//Log.Info( $"[PowerManager] Registered {powers.Count} powers for {Owner.Name}" );
 	}
 
 	private void SpawnIndicator( GodPower power )

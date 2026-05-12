@@ -41,7 +41,7 @@ public sealed class LavernaPower : GodPower
 		float deficit = ownerDamage.MaxHP - casterHP;
 		if ( deficit <= 0f )
 		{
-			Log.Info( "[LavernaPower] Caster ist bereits voll — nichts zu stehlen." );
+			//Log.Info( "[LavernaPower] Caster ist bereits voll — nichts zu stehlen." );
 			return;
 		}
 
@@ -56,7 +56,7 @@ public sealed class LavernaPower : GodPower
 
 		if ( donors.Count == 0 )
 		{
-			Log.Info( "[LavernaPower] Kein reicherer Mitspieler gefunden." );
+			//Log.Info( "[LavernaPower] Kein reicherer Mitspieler gefunden." );
 			return;
 		}
 
@@ -78,7 +78,7 @@ public sealed class LavernaPower : GodPower
 
 		if ( donors.Count == 0 )
 		{
-			Log.Info( "[LavernaPower] Alle Spender hatten Karma-Schild." );
+			//Log.Info( "[LavernaPower] Alle Spender hatten Karma-Schild." );
 			return;
 		}
 
@@ -94,6 +94,6 @@ public sealed class LavernaPower : GodPower
 
 		ownerDamage.Heal( totalStolen );
 
-		Log.Info( $"[LavernaPower] {donors.Count} Spender × {perPlayer} HP → {totalStolen} gestohlen, Caster HP={ownerDamage.CurrentHP}/{ownerDamage.MaxHP}" );
+		//Log.Info( $"[LavernaPower] {donors.Count} Spender × {perPlayer} HP → {totalStolen} gestohlen, Caster HP={ownerDamage.CurrentHP}/{ownerDamage.MaxHP}" );
 	}
 }

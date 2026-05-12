@@ -25,7 +25,7 @@ public sealed class RaceManager : Component
 	public IReadOnlyList<SectorCheckpoint> Sectors => sectors;
 
 	private float returnCountdownStartTime;
-	private const float ReturnCountdownDuration = 3f;
+	private const float ReturnCountdownDuration = 6f;
 
 	private float startCountdownStartTime;
 	private const float StartCountdownDuration = 5f;

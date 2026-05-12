@@ -101,7 +101,7 @@ public sealed class MaatPower : GodPower
 				ApplyDebuff( speed );
 		}
 
-		Log.Info( $"[MaatPower] Buff: {buffed.Count}, Debuff: {debuffed.Count} für {EffectDuration}s" );
+		//Log.Info( $"[MaatPower] Buff: {buffed.Count}, Debuff: {debuffed.Count} für {EffectDuration}s" );
 
 		Invoke( EffectDuration, RevertEffect );
 	}

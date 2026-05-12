@@ -87,8 +87,8 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 		_joint.MaxAngle = YawLimit;
 		_joint.EnableCollision = true;
 
-		Log.Info( $"[ChariotPhysics] Joint erstellt — YawLimit=±{YawLimit}" );
-		Log.Info( $"[ChariotPhysics] HorsePos={horseRb.WorldPosition} | ChariotPos={WorldPosition} | PivotWorld={_jointPivot.WorldPosition} | HitchPointSet={HitchPoint is not null}" );
+		//Log.Info( $"[ChariotPhysics] Joint erstellt — YawLimit=±{YawLimit}" );
+		//Log.Info( $"[ChariotPhysics] HorsePos={horseRb.WorldPosition} | ChariotPos={WorldPosition} | PivotWorld={_jointPivot.WorldPosition} | HitchPointSet={HitchPoint is not null}" );
 	}
 
 	protected override void OnFixedUpdate()

@@ -8,7 +8,7 @@ public sealed class LobbyPlayer : Component
 
 	protected override void OnStart()
 	{
-		Log.Info( "Lobby dude is here" ); 
+		//Log.Info( "Lobby dude is here" );
 	}
 	protected override void OnUpdate()
 	{
@@ -20,7 +20,7 @@ public sealed class LobbyPlayer : Component
 		
 		if ( Input.Pressed( "Ready" ) )
 		{
-			Log.Info( "Ready UP" );
+			//Log.Info( "Ready UP" );
 			SetReady( !IsReady );
 		}
 

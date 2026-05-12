@@ -64,7 +64,7 @@ public sealed class LightningPower : GodPower
 			affectedPlayers.Add( ap );
 		}
 
-		Log.Info( $"[LightningPower] {affectedPlayers.Count} players affected for {EffectDuration}s" );
+		//Log.Info( $"[LightningPower] {affectedPlayers.Count} players affected for {EffectDuration}s" );
 
 		// s&box equivalent of Unity's WaitForSeconds — schedules a callback.
 		Invoke( EffectDuration, RevertEffect );

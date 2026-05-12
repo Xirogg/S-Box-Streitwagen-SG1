@@ -7,15 +7,28 @@
 @namespace Sandbox
 
 <root>
-	<div class="lap">Lap @LapText</div>
-	<div class="hpbar">
-		<div class="hp-fill" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;"></div>
-	</div>
-	<div class="position" style="color: @PositionColor;">@PositionText</div>
-
-	@if ( ShowCountdown )
+	@if ( !IsProxy )
 	{
-		<div class="countdown">@CountdownDisplay</div>
+		<div class="lap">Lap @LapText</div>
+		<div class="hpbar">
+			<div class="hp-fill" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;"></div>
+		</div>
+		<div class="position" style="color: @PositionColor;">@PositionText</div>
+
+		@if ( ShowCountdown )
+		{
+			<div class="countdown">@CountdownDisplay</div>
+		}
+
+		@if ( ShowFinishMessage )
+		{
+			<div class="finish-overlay" style="color: @FinishColour;">
+				<div class="finish-box" style="color: @FinishColour;">
+					<div class="finish-text">@FinishMessage </div>
+					<div class="finish-waiting">Warte auf alle Spieler...</div>
+				</div>
+			</div>
+		}
 	}
 </root>
 
@@ -63,6 +76,40 @@
 		font-family: Arial;
 		font-weight: bold;
 		text-shadow: 0px 4px 8px black;
+	}
+
+	.finish-overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.finish-box {
+		padding: 48px 96px;
+		background-color: rgba(200, 200, 200, 0.85);
+		border-radius: 24px;
+		border: 4px solid rgba(255, 255, 255, 0.4);
+		flex-direction: column;
+		align-items: center;
+		gap: 16px;
+	}
+
+	.finish-text {
+		font-size: 64px;
+		font-family: Arial;
+		font-weight: bold;
+		color: rgba(30, 30, 30, 1);
+		text-align: center;
+	}
+
+	.finish-waiting {
+		font-size: 32px;
+		font-family: Arial;
+		color: rgba(60, 60, 60, 0.8);
 	}
 </style>
 
@@ -114,5 +161,52 @@
 		}
 	}
 
-	protected override int BuildHash() => System.HashCode.Combine( Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft );
+	PlayerRankingEntry LocalRankingEntry
+	{
+		get
+		{
+			var mgr = RaceRankingManager.Instance;
+			if ( mgr is null || Lap is null ) return null;
+			foreach ( var entry in mgr.Rankings )
+			{
+				if ( entry.Tracker == Lap ) return entry;
+			}
+			return null;
+		}
+	}
+
+	bool ShowFinishMessage => LocalRankingEntry is not null && LocalRankingEntry.RaceFinished;
+
+	string FinishMessage
+	{
+		get
+		{
+			var entry = LocalRankingEntry;
+			if ( entry is null ) return "";
+			return entry.FinishOrder switch
+			{
+				1 => "Gewinner Gewinner  Huenchenabdendessen",
+				2 => "Knapp daneben ist auch vorbei",
+				_ => "Du bist eine Schande"
+			};
+		}
+	}
+
+	string FinishColour
+	{
+		get
+		{
+			var entry = LocalRankingEntry;
+			if (entry is null) return "";
+			return entry.FinishOrder switch
+			{
+				1 => "#2e7d32",
+				2 => "#7cb342",
+				3 => "#fdd835",
+				_ => "#e53935"
+			};
+		}
+	}
+
+	protected override int BuildHash() => System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder );
 }

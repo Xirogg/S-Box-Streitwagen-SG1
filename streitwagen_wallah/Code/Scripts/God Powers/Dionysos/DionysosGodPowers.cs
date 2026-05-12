@@ -53,7 +53,7 @@ public sealed class DionysosPower : GodPower
 
 	protected override void OnActivate()
 	{
-		Log.Info( "Dionyoss ist dabei meine Freunde" ); 
+		//Log.Info( "Dionyoss ist dabei meine Freunde" );
 		if ( !GrapeProjectilePrefab.IsValid() )
 		{
 			Log.Warning( "[DionysosPower] GrapeProjectilePrefab nicht gesetzt." );
@@ -92,7 +92,7 @@ public sealed class DionysosPower : GodPower
 
 	protected override void OnActivateUltimate()
 	{
-		Log.Info( "Drunk active" ); 
+		//Log.Info( "Drunk active" );
 		drunkActive = true;
 		drunkPlayers.Clear();
 
@@ -115,7 +115,7 @@ public sealed class DionysosPower : GodPower
 			drunkPlayers.Add( controls );
 		}
 
-		Log.Info( $"[DionysosPower] {drunkPlayers.Count} Spieler betrunken für {DrunkDuration}s" );
+		//Log.Info( $"[DionysosPower] {drunkPlayers.Count} Spieler betrunken für {DrunkDuration}s" );
 
 		Invoke( DrunkDuration, RevertDrunk );
 	}
