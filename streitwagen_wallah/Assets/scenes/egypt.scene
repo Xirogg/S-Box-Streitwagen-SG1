@@ -4550,17 +4550,54 @@
       "OwnerTransfer": 1,
       "Components": [
         {
-          "__type": "Sandbox.BackgroundMucis",
-          "__guid": "76031005-b453-4031-8c55-2403d2fa8f72",
+          "__type": "Sandbox.SoundBoxComponent",
+          "__guid": "b8b13e40-ac5f-455a-acab-5dd578bd5ded",
           "__enabled": true,
           "Flags": 0,
-          "Music": "music/bgm/provisional bgm.sound",
+          "Distance": 512,
+          "DistanceAttenuation": false,
+          "DistanceAttenuationOverride": false,
+          "Falloff": [
+            {
+              "x": 0,
+              "y": 1,
+              "in": 3.1415927,
+              "out": -3.1415927,
+              "mode": "Mirrored"
+            },
+            {
+              "x": 1,
+              "y": 0,
+              "in": 0,
+              "out": 0,
+              "mode": "Mirrored"
+            }
+          ],
+          "Force2d": false,
+          "MaxRepeatTime": 1,
+          "MinRepeatTime": 1,
+          "Occlusion": false,
+          "OcclusionOverride": false,
+          "OcclusionRadius": 32,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
+          "Pitch": 1,
+          "PlayOnStart": true,
+          "ReflectionOverride": false,
+          "Reflections": false,
+          "Repeat": false,
+          "Scale": "50000,50000,500000",
+          "SoundEvent": "music/bgm/provisional bgm.sound",
+          "SoundOverride": false,
+          "StopOnNew": false,
+          "TargetMixer": {
+            "Name": "unknown",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
           "Volume": 1
         }
       ],

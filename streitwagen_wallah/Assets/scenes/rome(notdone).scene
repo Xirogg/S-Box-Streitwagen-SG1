@@ -89,7 +89,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SpawnPoint",
-              "Position": "-8.12501144,6.45079781E-05,0",
+              "Position": "1.1090548,76.2294159,197.89093",
               "Rotation": "0,0,0,1",
               "Scale": "1,1,1",
               "Tags": "",
@@ -107,7 +107,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SpawnPoint (1)",
-              "Position": "-15.6078444,8.60106375E-05,0",
+              "Position": "2.71477199,-89.5358047,0",
               "Rotation": "0,0,0,1",
               "Scale": "1,1,1",
               "Tags": "",
@@ -125,7 +125,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SpawnPoint (2)",
-              "Position": "9.87694931,8.171011E-05,0",
+              "Position": "-23.5565586,98.8536453,0",
               "Rotation": "0,0,0,1",
               "Scale": "1,1,1",
               "Tags": "",
@@ -143,7 +143,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SpawnPoint (3)",
-              "Position": "2.39411044,0.000103212769,0",
+              "Position": "-24.5642319,-117.3974,0",
               "Rotation": "0,0,0,1",
               "Scale": "1,1,1",
               "Tags": "",
@@ -1282,6 +1282,76 @@
           "Children": []
         }
       ]
+    },
+    {
+      "__guid": "0395a80b-df72-45ce-85d4-3a3b6cb58b6a",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "-- SFX",
+      "Position": "525.533142,10687.0117,966.862122",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.SoundBoxComponent",
+          "__guid": "630f4e31-ba38-42f5-81d7-57ba18e30cbd",
+          "__enabled": true,
+          "Flags": 0,
+          "Distance": 512,
+          "DistanceAttenuation": false,
+          "DistanceAttenuationOverride": false,
+          "Falloff": [
+            {
+              "x": 0,
+              "y": 1,
+              "in": 3.1415927,
+              "out": -3.1415927,
+              "mode": "Mirrored"
+            },
+            {
+              "x": 1,
+              "y": 0,
+              "in": 0,
+              "out": 0,
+              "mode": "Mirrored"
+            }
+          ],
+          "Force2d": false,
+          "MaxRepeatTime": 1,
+          "MinRepeatTime": 1,
+          "Occlusion": false,
+          "OcclusionOverride": false,
+          "OcclusionRadius": 32,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Pitch": 1,
+          "PlayOnStart": true,
+          "ReflectionOverride": false,
+          "Reflections": false,
+          "Repeat": false,
+          "Scale": "50000,50000,500000",
+          "SoundEvent": "music/bgm/provisional bgm.sound",
+          "SoundOverride": false,
+          "StopOnNew": false,
+          "TargetMixer": {
+            "Name": "unknown",
+            "Id": "00000000-0000-0000-0000-000000000000"
+          },
+          "Volume": 1
+        }
+      ],
+      "Children": []
     }
   ],
   "SceneProperties": {
@@ -1304,13 +1374,18 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "6c9569fc-ca64-40bb-af19-c464fbf0dc0a"
         }
       },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
       }
     }
   },

@@ -4921,11 +4921,11 @@
       ]
     },
     {
-      "__guid": "4c67431a-7f96-40ef-a938-d73eec5a0112",
+      "__guid": "0fda72f0-2f09-402e-a159-69d88c2c3fb0",
       "__version": 2,
       "Flags": 0,
-      "Name": "-- MUSIC ",
-      "Position": "-6591.7915,-3106.40381,316.243713",
+      "Name": "-- SFX",
+      "Position": "525.533142,10687.0117,966.862122",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -4938,7 +4938,7 @@
       "Components": [
         {
           "__type": "Sandbox.SoundBoxComponent",
-          "__guid": "b89e1982-2613-45bc-9c45-a43bfb49051b",
+          "__guid": "7d3c7b90-1327-4093-a5a0-cc44219067e3",
           "__enabled": true,
           "Flags": 0,
           "Distance": 512,
@@ -4977,8 +4977,8 @@
           "ReflectionOverride": false,
           "Reflections": false,
           "Repeat": false,
-          "Scale": "50,50,50",
-          "SoundEvent": null,
+          "Scale": "50000,50000,500000",
+          "SoundEvent": "music/bgm/provisional bgm.sound",
           "SoundOverride": false,
           "StopOnNew": false,
           "TargetMixer": {
@@ -5011,11 +5011,6 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "5af075bd-4187-4b63-acf2-e2a57dc482fe"
@@ -5023,6 +5018,11 @@
       },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
       }
     }
   },
