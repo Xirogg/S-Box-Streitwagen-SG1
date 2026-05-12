@@ -56,6 +56,8 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 	[Property, Group( "Activation" )]
 	public float SharpSteerMultiplier { get; set; } = 1.8f;
 
+	[Property, Group( "Prefab" )]
+	public GameObject CollisionDebrisPrefab { get; set; } 
 	[Property, Group( "Debug" )]
 	public bool DebugLog { get; set; } = true;
 
@@ -67,6 +69,7 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 
 	void Component.ICollisionListener.OnCollisionStart( Collision other )
 	{
+		
 		TryRam( other );
 	}
 
@@ -97,6 +100,7 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 		Vector3 pushDirRaw = -contactNormal;
 		pushDirRaw.z = 0f; // Z-up: nur horizontalen Anteil weiterverwenden
 		if ( pushDirRaw.LengthSquared < 0.0001f ) return;
+		var prefabInstance = CollisionDebrisPrefab.Clone( WorldPosition );
 		Vector3 pushDir = pushDirRaw.Normal;
 
 		Vector3 myVelFlat = Body.Velocity; myVelFlat.z = 0f;
