@@ -10,6 +10,7 @@
 	<div class="track-section">
 		<div class="track-label">Ausgewählte Strecke:</div>
 		<div class="track-name @TrackClass">
+			<div class="track-preview" style="background-image: url(@TrackImagePath);"></div>
 			<div class="track-title">@TrackDisplayName</div>
 			<div class="track-hotkey">Tab</div>
 		</div>
@@ -71,14 +72,24 @@
 	}
 
 	.track-name {
-		padding: 20px 48px;
+		padding: 20px 32px;
 		font-family: Arial;
 		color: white;
 		border-radius: 16px;
 		text-align: center;
 		flex-direction: column;
 		align-items: center;
-		gap: 8px;
+		gap: 12px;
+	}
+
+	.track-preview {
+		width: 480px;
+		height: 270px;
+		border-radius: 10px;
+		background-size: cover;
+		background-position: center;
+		background-color: rgba(0, 0, 0, 0.4);
+		border: 3px solid rgba(255, 255, 255, 0.2);
 	}
 
 	.track-title {
@@ -211,6 +222,14 @@
 	string CountdownDisplay => MathF.Ceiling( LobbyManager.Instance?.CountdownTimeLeft ?? 0f )
 		.ToString( "0" );
 	string ReadyClass => LocalIsReady ? "is-ready" : "";
+
+	string TrackImagePath => CurrentTrack switch
+	{
+		TrackSelection.Rom => "/ui/tracks/track_rom.png",
+		TrackSelection.Aegypten => "/ui/tracks/track_aegypten.png",
+		TrackSelection.Akropolis => "/ui/tracks/track_akropolis.png",
+		_ => ""
+	};
 
 	string TrackDisplayName => CurrentTrack switch
 	{
