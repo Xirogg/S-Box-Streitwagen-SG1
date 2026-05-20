@@ -5,10 +5,6 @@ public sealed class PlayerDamageSystem : Component, Component.ICollisionListener
 {
 	[Property, Group( "Health" )] public float MaxHP { get; set; } = 100f;
 
-	[Property, Group( "Damage" )] public float MinHitDamage { get; set; } = 5f;
-	[Property, Group( "Damage" )] public float MaxHitDamage { get; set; } = 20f;
-	[Property, Group( "Damage" )] public float MinDamageSpeed { get; set; } = 100f;
-	[Property, Group( "Damage" )] public float MaxDamageSpeed { get; set; } = 400f;
 	[Property, Group( "Damage" )] public float HitCooldown { get; set; } = 0.5f;
 
 	// Hook for later (powerups, difficulty). Leave at 1.0 for now.
@@ -16,6 +12,8 @@ public sealed class PlayerDamageSystem : Component, Component.ICollisionListener
 
 	[Property, Group( "Speed Penalty" ), Range( 0f, 1f )]
 	public float MinSpeedMultiplier { get; set; } = 0.6f;
+
+	[Property, Group( "Refs" )] public PlayerStats Stats { get; set; }
 
 	[Property, Group( "Debug" )] public bool DebugLog { get; set; } = true;
 
@@ -30,6 +28,9 @@ public sealed class PlayerDamageSystem : Component, Component.ICollisionListener
 
 	protected override void OnStart()
 	{
+		Stats ??= Components.Get<PlayerStats>( FindMode.EverythingInSelfAndDescendants )
+				?? GameObject.Root?.Components.Get<PlayerStats>( FindMode.EverythingInSelfAndDescendants );
+
 		CurrentHP = MaxHP;
 		ApplySpeedFromHP();
 	}
@@ -41,13 +42,12 @@ public sealed class PlayerDamageSystem : Component, Component.ICollisionListener
 
 		var otherRoot = o.Other.GameObject?.Root;
 		if ( otherRoot == GameObject.Root ) return;
-
 		if ( o.Other.GameObject?.Tags.Has( "ground" ) == true ) return;
 
-		float speed = Body.IsValid() ? Body.Velocity.Length : 0f;
-		float t = MathX.Clamp( (speed - MinDamageSpeed) / MathF.Max( MaxDamageSpeed - MinDamageSpeed, 0.0001f ), 0f, 1f );
-		float damage = MathX.Lerp( MinHitDamage, MaxHitDamage, t ) * DamageMultiplier;
+		var attackerStats = otherRoot?.Components.Get<PlayerStats>( FindMode.EverythingInSelfAndDescendants );
+		if ( attackerStats is null || Stats is null ) return;
 
+		float damage = Stats.ComputeIncomingDamage( attackerStats ) * DamageMultiplier;
 		if ( damage <= 0f ) return;
 
 		_lastHitTime = Time.Now;
@@ -55,7 +55,7 @@ public sealed class PlayerDamageSystem : Component, Component.ICollisionListener
 		ApplySpeedFromHP();
 
 		if ( DebugLog )
-			Log.Info( $"[Damage] hit by {otherRoot?.Name ?? "?"} | spd={speed:F0} dmg={damage:F1} hp={CurrentHP:F1}/{MaxHP:F0}" );
+			Log.Info( $"[Damage] hit by {otherRoot?.Name ?? "?"} | dmg={damage:F1} hp={CurrentHP:F1}/{MaxHP:F0}" );
 	}
 
 	public void OnCollisionUpdate( Collision o ) { }

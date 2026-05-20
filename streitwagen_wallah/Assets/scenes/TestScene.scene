@@ -571,7 +571,29 @@
         "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d": "18cdeaa1-f78f-400c-bfe7-8d94bce25b74",
         "fb553f81-4cf5-448d-94a4-fc8d56156c50": "8f4876f8-91f2-4ce2-9e63-2cd60d4e8c49",
         "e8bba6de-59c8-4d06-9cd7-6a8545bad0b5": "8a577a4b-29ae-4e53-8953-1edd14b8a1bc",
-        "bb976fac-dd01-419b-a740-5aad185db865": "75ffe73b-6bc1-4d1a-819b-d001a69e7eb2"
+        "bb976fac-dd01-419b-a740-5aad185db865": "75ffe73b-6bc1-4d1a-819b-d001a69e7eb2",
+        "c164725e-dd0b-4bfa-a633-031473eaa4a8": "be5f356c-fd9f-452d-b0e2-d92e7c996f6b",
+        "78f5213e-caf2-4763-8bb4-cbeb74b9d9a6": "88a64cea-5947-4e09-8736-60de970f55ad",
+        "2cb28573-770e-4ea5-a66f-21ad37355b9f": "1e04513e-5015-4aa3-beb5-d51ceddb0068",
+        "caa3e8a6-568b-42af-b829-d5dbfe6dfd8c": "8c1daa02-a959-4e5d-84d2-b760bac3b17d",
+        "a627759c-c7c3-42ef-86d7-cc7021b3708c": "ca3a7773-ccb1-43e9-8fd1-5bbc9799f8ed",
+        "e3666051-b5e7-4e08-b634-00cc12179d09": "2d47db93-5d18-4466-bbdb-b899baec6391",
+        "a87dd6d3-e03d-44f3-86c6-dc8becffda73": "1beebe91-4a14-4671-a4c1-6a2358e61093",
+        "6478875a-a16f-410e-9b58-ad03b5014a92": "ab9e6ab4-8d11-4080-a66b-f4f7a1863e27",
+        "94842905-bee4-427a-a878-a60e184b543b": "0448cbfb-14f6-4c6a-a046-7cd9a98560d3",
+        "1e737cc5-9e18-481b-ba1a-bc3f43eb7cba": "29fcf813-282c-4bd5-8743-2dbb2a860d88",
+        "e38ccb9b-053f-483d-b7ce-05b3bc9faf44": "e8e7d505-43b5-4660-b418-9cad9de6e611",
+        "2b683798-6567-4157-b15e-2e954095c9b7": "cabb24bc-c2c2-4ebb-92c9-99cc827d98aa",
+        "84922da1-0e3d-4f85-aae4-b3908f7720a5": "d2f4c858-07bd-4b39-8852-5ff358c23c36",
+        "32430311-2815-4871-920b-771e9f83b35f": "f8a74efb-ffd5-47bc-a6e2-b5571acde46e",
+        "40ff8f73-cf75-4d4e-93bb-931c8495c3c7": "8fc15214-d6f5-4fd1-aadf-b13fd8917624",
+        "989c582f-e8f5-42dd-826f-da25f6cdf04c": "6084fcf8-c353-4221-8891-d8d7b391cee3",
+        "f0f4af8e-ccf7-4a14-a33e-6721003ec268": "c6857b7d-564b-4eda-a0c4-29ee6f7f6c2e",
+        "161965bd-da75-443f-9d68-9f740c72843f": "724160b9-15bf-45a8-b252-835b0ec34372",
+        "ef6aa77a-f5f4-4704-9d7f-48739d9320d5": "87b100bb-a041-46fb-9869-f9f470f1c523",
+        "ec96744d-03fa-4ba3-8aa8-9a6477159167": "a63a3064-aa07-4de0-bea6-39dba66f2566",
+        "226876a7-be32-4f0c-9233-b3c549a6816c": "f3af1eeb-1a0f-41bd-b4d9-75aad597415d",
+        "975490d9-4229-428a-98fc-d64a4b021542": "260aab2d-1497-4aad-a321-126ae93824e4"
       }
     }
   ],
@@ -595,17 +617,17 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
+      },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
       },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
-        }
-      },
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
         }
       }
     }

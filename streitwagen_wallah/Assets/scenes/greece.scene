@@ -4765,7 +4765,7 @@
           "Position": "6591.7915,3106.40381,-316.243713",
           "Rotation": "0,0,0,1",
           "Scale": "600,600,5.00000143",
-          "Tags": "",
+          "Tags": "ground",
           "Enabled": true,
           "NetworkMode": 2,
           "NetworkFlags": 0,
@@ -5024,17 +5024,17 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.Clutter.ClutterGridSystem": {
-        "Storage": {
-          "$blob": "5af075bd-4187-4b63-acf2-e2a57dc482fe"
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       },
       "Sandbox.MovieMaker.MovieRecorderSystem": {
         "DisableClientRecording": false
       },
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "5af075bd-4187-4b63-acf2-e2a57dc482fe"
         }
       }
     }

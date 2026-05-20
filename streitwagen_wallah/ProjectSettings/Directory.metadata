@@ -124,5 +124,12 @@
       "Color": "1,0,0,1",
       "Icon": ""
     }
+  },
+  {
+    "Key": "Code\\Scripts\\Player Chariot\\Player Stats",
+    "Value": {
+      "Color": "0,0.18333,1,1",
+      "Icon": "3d_rotation"
+    }
   }
 ]

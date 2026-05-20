@@ -1,5 +1,6 @@
 using Sandbox;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Passiver Streitwagen-Körper. Wird vom HorsePair via HingeJoint (Yaw) gezogen.
@@ -7,11 +8,38 @@ using System;
 /// aus der relativen Lage von Pferd und Wagen im Prefab berechnet wird —
 /// dadurch können sich die beiden Bodies nicht ineinanderziehen.
 /// </summary>
-public sealed class ChariotPhysics : Component, Component.ICollisionListener
+public sealed class ChariotPhysics : Component, Component.ICollisionListener, ISpeedModifiable
 {
 	[Property, Group( "Joint" )] public Rigidbody HorsePairRb { get; set; }
 	[Property, Group( "Joint" )] public GameObject HitchPoint { get; set; }
 	[Property, Group( "Joint" )] public float YawLimit { get; set; } = 170f;
+
+	[Property, Group( "Movement" )] public float MaxSpeed { get; set; } = 2500f;
+
+	private readonly Dictionary<string, float> _speedModifiers = new();
+	private float _speedMultiplier = 1f;
+
+	public void SetSpeedMultiplier( string key, float multiplier )
+	{
+		_speedModifiers[key] = multiplier;
+		RecomputeSpeedMultiplier();
+	}
+
+	public void ClearSpeedMultiplier( string key )
+	{
+		if ( _speedModifiers.Remove( key ) )
+			RecomputeSpeedMultiplier();
+	}
+
+	private void RecomputeSpeedMultiplier()
+	{
+		float m = 1f;
+		foreach ( var v in _speedModifiers.Values )
+			m *= v;
+		_speedMultiplier = m;
+	}
+
+	public float EffectiveMaxSpeed => MaxSpeed * _speedMultiplier;
 
 	[Property, Group( "Stability" ), Range( 0f, 30f )] public float LateralGrip { get; set; } = 0f;
 
@@ -108,6 +136,7 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 		ApplyDriftImpulse();
 		ApplyLateralGrip();
 		DampenYaw();
+		ClampMaxSpeed();
 
 
 		if ( DebugLog )
@@ -150,6 +179,17 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener
 		Vector3 av = Body.AngularVelocity;
 		float keep = MathF.Exp( -ChariotAngularDamping * Time.Delta );
 		Body.AngularVelocity = new Vector3( av.x, av.y, av.z * keep );
+	}
+
+	private void ClampMaxSpeed()
+	{
+		float cap = EffectiveMaxSpeed;
+		if ( cap <= 0f ) return;
+
+		Vector3 vel = Body.Velocity;
+		float speed = vel.Length;
+		if ( speed > cap )
+			Body.Velocity = vel * (cap / speed);
 	}
 
 	private void ApplyLateralGrip()

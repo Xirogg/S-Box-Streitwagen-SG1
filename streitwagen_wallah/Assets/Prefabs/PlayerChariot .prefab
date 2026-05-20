@@ -204,6 +204,7 @@
             "OnComponentUpdate": null,
             "OverrideMassCenter": false,
             "RigidbodyFlags": 0,
+            "SleepThreshold": 2,
             "StartAsleep": false
           },
           {
@@ -460,6 +461,7 @@
               "component_type": "Rigidbody"
             },
             "LateralGrip": 0,
+            "MaxSpeed": 2500,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -553,6 +555,7 @@
             "OnComponentUpdate": null,
             "OverrideMassCenter": false,
             "RigidbodyFlags": 0,
+            "SleepThreshold": 2,
             "StartAsleep": false
           },
           {
@@ -563,18 +566,15 @@
             "DamageMultiplier": 1,
             "DebugLog": true,
             "HitCooldown": 0.5,
-            "MaxDamageSpeed": 400,
-            "MaxHitDamage": 20,
             "MaxHP": 100,
-            "MinDamageSpeed": 100,
-            "MinHitDamage": 5,
             "MinSpeedMultiplier": 0.6,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
-            "OnComponentUpdate": null
+            "OnComponentUpdate": null,
+            "Stats": null
           },
           {
             "__type": "LapSystem.PlayerLapTracker",
@@ -1255,6 +1255,66 @@
             "Owner": {
               "_type": "gameobject",
               "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
+            }
+          }
+        ],
+        "Children": []
+      },
+      {
+        "__guid": "226876a7-be32-4f0c-9233-b3c549a6816c",
+        "__version": 2,
+        "Flags": 0,
+        "Name": "Stats",
+        "Position": "-434.304443,335.42865,164.040588",
+        "Rotation": "0,0,0,1",
+        "Scale": "1,1,1",
+        "Tags": "",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkFlags": 0,
+        "NetworkOrphaned": 0,
+        "NetworkTransmit": true,
+        "OwnerTransfer": 1,
+        "Components": [
+          {
+            "__type": "PlayerStats",
+            "__guid": "975490d9-4229-428a-98fc-d64a4b021542",
+            "__enabled": true,
+            "Flags": 0,
+            "Attack": {
+              "BaseValue": 30,
+              "Value": 30
+            },
+            "Chariot": {
+              "_type": "component",
+              "component_id": "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2",
+              "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
+              "component_type": "ChariotPhysics"
+            },
+            "ChariotWagenGO": {
+              "_type": "component",
+              "component_id": "4932540a-ba13-4f07-bd43-b3da02c0d833",
+              "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
+              "component_type": "Rigidbody"
+            },
+            "DebugLog": false,
+            "Defense": {
+              "BaseValue": 100,
+              "Value": 100
+            },
+            "MaxSpeedPercent": {
+              "BaseValue": 100,
+              "Value": 100
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Weight": {
+              "BaseValue": 100,
+              "Value": 100
             }
           }
         ],
