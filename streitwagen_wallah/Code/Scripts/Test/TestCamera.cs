@@ -60,10 +60,10 @@ public sealed class TestCamera : Component
 	[Property, Group( "G-Force" )] public float NodLerpSpeed { get; set; } = 8f;
 
 	// Impact Shake — triggered by chariot collisions, scales with closing speed
-	[Property, Group( "Impact Shake" )] public float ImpactShakeMax { get; set; } = 8f;
-	[Property, Group( "Impact Shake" )] public float ImpactShakeDecay { get; set; } = 5f;
-	[Property, Group( "Impact Shake" )] public float ImpactMinClosingSpeed { get; set; } = 100f;
-	[Property, Group( "Impact Shake" )] public List<string> IgnoredImpactTags { get; set; } = new() { "ground", "terrain" };
+	[Property, Group( "Cam Shake" )] public float ImpactShakeMax { get; set; } = 8f;
+	[Property, Group( "Cam Shake" )] public float ImpactShakeDecay { get; set; } = 5f;
+	[Property, Group( "Cam Shake" )] public float ImpactMinClosingSpeed { get; set; } = 100f;
+	[Property, Group( "Cam Shake" )] public List<string> IgnoredImpactTags { get; set; } = new() { "ground", "terrain" };
 
 	private float _impactShake;
 	private readonly Random _impactRng = new();
