@@ -85,12 +85,15 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 		}
 	}
 
+	public event Action<Collision> ImpactStarted;
+
 	void Component.ICollisionListener.OnCollisionStart( Collision other )
 	{
 		if (IsProxy) return;
 		if ( _ownerCollisions is null && HorsePairRb is not null )
 			_ownerCollisions = HorsePairRb.Components.Get<PlayerCollisions>();
 		_ownerCollisions?.HandleChariotCollision( other );
+		ImpactStarted?.Invoke( other );
 	}
 
 	void Component.ICollisionListener.OnCollisionUpdate( Collision other ) { }

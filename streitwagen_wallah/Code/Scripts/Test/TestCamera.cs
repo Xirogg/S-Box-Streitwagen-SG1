@@ -1,5 +1,6 @@
 using Sandbox;
 using System;
+using System.Collections.Generic;
 using static Sandbox.ModelPhysics;
 
 /// <summary>
@@ -17,20 +18,26 @@ public sealed class TestCamera : Component
 	[Property, Group( "Follow" )] public float RotationSmoothSpeed { get; set; } = 6f;
 	[Property, Group( "Follow" )] public float LookHeight { get; set; } = 40f;
 
-	[Property, Group( "Look-Ahead" )] public float LookAheadFactor { get; set; } = 0.18f;
-	[Property, Group( "Look-Ahead" )] public float LookAheadMax { get; set; } = 300f;
+	// How far ahead of the chariot the camera looks, scaled by velocity (0 = no look-ahead, 0.2 = subtle, 0.5 = aggressive)
+	[Property, Group( "Look-Ahead" )] public float LookAheadStrength { get; set; } = 0.18f;
 
 	[Property, Group( "Speed FOV" )] public float BaseFOV { get; set; } = 70f;
 	[Property, Group( "Speed FOV" )] public float MaxFOV { get; set; } = 100f;
-	[Property, Group( "Speed FOV" )] public float MaxSpeed { get; set; } = 1500f;
-	[Property, Group( "Speed FOV" )] public float FovCurvePower { get; set; } = 1.6f;
 	[Property, Group( "Speed FOV" )] public float FovLerpSpeed { get; set; } = 6f;
 
-	[Property, Group( "Drift" )] public float DriftDeadzone { get; set; } = 8f;
-	[Property, Group( "Drift" )] public float DriftMaxAngle { get; set; } = 35f;
-	[Property, Group( "Drift" )] public float DriftLateralMax { get; set; } = 120f;
-	[Property, Group( "Drift" )] public float DriftRollMax { get; set; } = 8f;
-	[Property, Group( "Drift" )] public float DriftLerpSpeed { get; set; } = 5f;
+	// Drift tuning is intentionally hardcoded to keep the editor simple. Tweak here if needed.
+	private const float DriftDeadzone = 8f;
+	private const float DriftMaxAngle = 35f;
+	private const float DriftLateralMax = 120f;
+	private const float DriftRollMax = 8f;
+	private const float DriftLerpSpeed = 5f;
+
+	// FOV ramp shape: 1 = linear, >1 = FOV stays calm at low speed and ramps hard near top speed.
+	private const float FovCurvePower = 1.6f;
+
+	// Hard cap on look-ahead distance so the camera doesn't aim off-screen at very high speeds.
+	private const float LookAheadMax = 300f;
+
 	[Property] public ParticleEmitter SpeedLines { get; set; }
 
 	private Vector3 _posVelocity;
@@ -52,6 +59,15 @@ public sealed class TestCamera : Component
 	[Property, Group( "G-Force" )] public float NodMax { get; set; } = 4f;
 	[Property, Group( "G-Force" )] public float NodLerpSpeed { get; set; } = 8f;
 
+	// Impact Shake — triggered by chariot collisions, scales with closing speed
+	[Property, Group( "Impact Shake" )] public float ImpactShakeMax { get; set; } = 8f;
+	[Property, Group( "Impact Shake" )] public float ImpactShakeDecay { get; set; } = 5f;
+	[Property, Group( "Impact Shake" )] public float ImpactMinClosingSpeed { get; set; } = 100f;
+	[Property, Group( "Impact Shake" )] public List<string> IgnoredImpactTags { get; set; } = new() { "ground", "terrain" };
+
+	private float _impactShake;
+	private readonly Random _impactRng = new();
+
 	protected override void OnStart()
 	{
 		if ( TargetGO is not null )
@@ -68,6 +84,50 @@ public sealed class TestCamera : Component
 
 		if ( _cam is not null )
 			_cam.FieldOfView = BaseFOV;
+
+		if ( ChariotPhysics is not null )
+			ChariotPhysics.ImpactStarted += HandleImpact;
+	}
+
+	protected override void OnDestroy()
+	{
+		if ( ChariotPhysics is not null )
+			ChariotPhysics.ImpactStarted -= HandleImpact;
+	}
+
+	private void HandleImpact( Collision collision )
+	{
+		if ( IsProxy ) return;
+		if ( collision.Other.GameObject is null ) return;
+
+		// Skip ignored surfaces (ground, terrain, etc.) — check both the hit GO and its root
+		var hitGo = collision.Other.GameObject;
+		foreach ( var tag in IgnoredImpactTags )
+		{
+			if ( hitGo.Tags.Has( tag ) ) return;
+			if ( hitGo.Root is not null && hitGo.Root.Tags.Has( tag ) ) return;
+		}
+
+		// Closing speed = how fast we were heading INTO the surface along the contact normal
+		Vector3 myVel = _targetRb is not null ? _targetRb.Velocity : Vector3.Zero;
+		float closingSpeed = MathF.Abs( Vector3.Dot( myVel, -collision.Contact.Normal ) );
+		if ( closingSpeed < ImpactMinClosingSpeed ) return;
+
+		float maxSpeed = ChariotPhysics is not null ? ChariotPhysics.MaxSpeed : 1500f;
+		float norm = Math.Clamp( closingSpeed / maxSpeed, 0f, 1f );
+		_impactShake = MathF.Max( _impactShake, norm * ImpactShakeMax );
+	}
+
+	private void ApplyImpactShake()
+	{
+		if ( _impactShake < 0.01f ) return;
+
+		float dx = ((float)_impactRng.NextDouble() * 2f - 1f) * _impactShake;
+		float dy = ((float)_impactRng.NextDouble() * 2f - 1f) * _impactShake;
+		float dz = ((float)_impactRng.NextDouble() * 2f - 1f) * _impactShake;
+		WorldPosition += new Vector3( dx, dy, dz );
+
+		_impactShake *= MathF.Exp( -ImpactShakeDecay * Time.Delta );
 	}
 
 	protected override void OnUpdate()
@@ -117,7 +177,7 @@ public sealed class TestCamera : Component
 		Vector3 lookTarget = TargetGO.WorldPosition + Vector3.Up * LookHeight;
 		if ( _targetRb is not null )
 		{
-			Vector3 lookAhead = _targetRb.Velocity * LookAheadFactor;
+			Vector3 lookAhead = _targetRb.Velocity * LookAheadStrength;
 			if ( lookAhead.Length > LookAheadMax )
 				lookAhead = lookAhead.Normal * LookAheadMax;
 			lookTarget += lookAhead;
@@ -137,13 +197,15 @@ public sealed class TestCamera : Component
 
 		UpdateFOV( planarSpeed );
 		ApplyRacerShake( planarSpeed );
+		ApplyImpactShake();
 	}
 
 	private void UpdateFOV( float planarSpeed )
 	{
 		if ( _cam is null ) return;
 
-		float ratio = MaxSpeed > 0.01f ? Math.Clamp( planarSpeed / MaxSpeed, 0f, 1f ) : 0f;
+		float maxSpeed = ChariotPhysics is not null ? ChariotPhysics.MaxSpeed : 1500f;
+		float ratio = maxSpeed > 0.01f ? Math.Clamp( planarSpeed / maxSpeed, 0f, 1f ) : 0f;
 		float curved = MathF.Pow( ratio, FovCurvePower );
 		float targetFOV = MathX.Lerp( BaseFOV, MaxFOV, curved );
 
@@ -174,7 +236,8 @@ public sealed class TestCamera : Component
 		float accel = (planarSpeed - _prevSpeed) / Time.Delta;
 		_prevSpeed = planarSpeed;
 
-		float targetNod = Math.Clamp( -accel / MaxSpeed * NodMax, -NodMax, NodMax );
+		float maxSpeed = ChariotPhysics is not null ? ChariotPhysics.MaxSpeed : 1500f;
+		float targetNod = Math.Clamp( -accel / maxSpeed * NodMax, -NodMax, NodMax );
 		float t = 1f - MathF.Exp( -NodLerpSpeed * Time.Delta );
 		_currentNod = MathX.Lerp( _currentNod, targetNod, t );
 
