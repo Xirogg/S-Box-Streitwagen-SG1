@@ -518,10 +518,69 @@
           {
             "Target": {
               "Type": "Component",
+              "IdValue": "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2"
+            },
+            "Property": "MaxSpeed",
+            "Value": 2500
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "f16cf299-abcb-4ecb-983e-e19dc7a1abe2"
+            },
+            "Property": "Stats",
+            "Value": null
+          },
+          {
+            "Target": {
+              "Type": "Component",
               "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
             },
             "Property": "__enabled",
             "Value": false
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
+            },
+            "Property": "IgnoredImpactTags",
+            "Value": [
+              "ground",
+              "terrain"
+            ]
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
+            },
+            "Property": "ImpactMinClosingSpeed",
+            "Value": 100
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
+            },
+            "Property": "ImpactShakeDecay",
+            "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
+            },
+            "Property": "ImpactShakeMax",
+            "Value": 8
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
+            },
+            "Property": "LookAheadStrength",
+            "Value": 0.18
           },
           {
             "Target": {
@@ -593,7 +652,7 @@
         "ef6aa77a-f5f4-4704-9d7f-48739d9320d5": "87b100bb-a041-46fb-9869-f9f470f1c523",
         "ec96744d-03fa-4ba3-8aa8-9a6477159167": "a63a3064-aa07-4de0-bea6-39dba66f2566",
         "226876a7-be32-4f0c-9233-b3c549a6816c": "f3af1eeb-1a0f-41bd-b4d9-75aad597415d",
-        "975490d9-4229-428a-98fc-d64a4b021542": "260aab2d-1497-4aad-a321-126ae93824e4"
+        "32431016-07fc-4e9b-8095-0f64965e6fc6": "84e3684e-e392-45c4-9e6b-318c3f48899d"
       }
     }
   ],
@@ -617,14 +676,14 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
+        }
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       }
     }
