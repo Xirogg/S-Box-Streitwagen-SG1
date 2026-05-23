@@ -96,10 +96,8 @@
             "Flags": 0,
             "BrakeForce": 5,
             "LateralGrip": 5,
-            "LurchForwardOffset": 60,
             "LurchImpulse": 800,
             "MaxAngularSpeed": 15000,
-            "MaxVerticalSpeed": 1200,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -115,7 +113,6 @@
               "component_type": "Rigidbody"
             },
             "SharpSteerMultiplier": 1.5,
-            "SteerInputDeadzone": 0.05,
             "SteerReleaseDamping": 15,
             "SteerTorque": 5500
           },
@@ -438,7 +435,6 @@
             "DriftAngle": 0,
             "DriftForce": 4000,
             "DriftFullSpeed": 250,
-            "DriftMaxYawRate": 3,
             "DriftMinSpeed": 80,
             "DriftRearOffset": 80,
             "DustEmitter_L": {
@@ -460,7 +456,7 @@
               "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
               "component_type": "Rigidbody"
             },
-            "LateralGrip": 0,
+            "LateralGrip": 0.45454547,
             "MaxSpeed": 2500,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,

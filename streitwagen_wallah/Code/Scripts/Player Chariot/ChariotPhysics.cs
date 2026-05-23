@@ -47,7 +47,7 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 	[Property, Group( "Drift" )] public float DriftRearOffset { get; set; } = 100f;
 	[Property, Group( "Drift" )] public float DriftMinSpeed { get; set; } = 15f;
 	[Property, Group( "Drift" )] public float DriftFullSpeed { get; set; } = 120f;
-	[Property, Group( "Drift" )] public float DriftMaxYawRate { get; set; } = 10f;
+	public float DriftMaxYawRate { get; set; } = 10f;
 	[Property, Group( "Drift" ), Range( 0f, 5f )] public float ChariotAngularDamping { get; set; } = 0.04f;
 
 	[Property, Group( "Debug" )] public bool DebugLog { get; set; } = true;
