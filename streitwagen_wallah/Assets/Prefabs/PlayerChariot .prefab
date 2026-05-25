@@ -70,6 +70,22 @@
         },
         "Volume": 1,
         "WorldspacePlayback": true
+      },
+      {
+        "__type": "Sandbox.ItemPrefab",
+        "__guid": "26918ddb-189b-4ff6-890f-4652208d94ce",
+        "__enabled": true,
+        "Flags": 0,
+        "MaxRespawnSeconds": 40,
+        "MinRespawnSeconds": 20,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Renderer": null,
+        "Trigger": null
       }
     ],
     "Children": [
