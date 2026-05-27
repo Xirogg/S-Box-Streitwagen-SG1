@@ -141,12 +141,39 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 
 		_lastRamTime = Time.Now;
 
+		AwardRamCurrency( otherHorseRb );
+
 		if ( DebugLog )
 		{
 			Log.Info( $"[PlayerCollisions {GameObject.Name}] closing={closingSpeed:F2} | sharp={(sharpMult > 1f)} | " +
 				$"impulse={magnitude:F0} (Pferde) + {magnitude * ChariotImpulseRatio:F0} (Wagen) | " +
 				$"dir={finalDir} | sideSign={sideSign}" );
 		}
+	}
+
+	// --- Currency hook ----------------------------------------------------------
+
+	/// <summary>
+	/// PG &amp; Balancing rule "+5 PG für jeden physischen Treffer mit Q/E".
+	/// Runs on the local attacker's side (collisions fire on the owning peer);
+	/// NotifyRamHit forwards to the host via Rpc.Host. Only awards when Q/E was
+	/// actually held (ram attempt or sharp steer) so casual side-rubs don't grind PG.
+	/// </summary>
+	private void AwardRamCurrency( Rigidbody victimHorseRb )
+	{
+		if ( victimHorseRb is null ) return;
+
+		var attackerRoot = GameObject.Root;
+		var ctrl = attackerRoot?.Components.Get<TestControlls>( FindMode.EverythingInSelfAndDescendants );
+		if ( ctrl is null ) return;
+		if ( !ctrl.IsRamAttempting && !ctrl.IsSharpSteering ) return;
+
+		// Only the owning peer reports — otherwise every client that simulates
+		// the same collision would double-count it on the host.
+		if ( IsProxy ) return;
+
+		var victimRoot = victimHorseRb.GameObject?.Root;
+		PublicityCurrencyManager.NotifyRamHit( attackerRoot, victimRoot );
 	}
 
 	// --- Direction-Helpers ------------------------------------------------------

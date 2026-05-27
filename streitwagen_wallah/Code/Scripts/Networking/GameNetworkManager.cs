@@ -60,6 +60,8 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 
 			} );
 		}
+
+		PublicityCurrencyManager.EnsureExists( Scene );
 	}
 
 

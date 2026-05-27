@@ -1,19 +1,20 @@
 using Sandbox;
 using System;
+using System.Linq;
 
 namespace Sandbox;
 
 /// <summary>
 /// Mario-Kart-style item box. Place instances of this prefab around the level
-/// as item spawn locations. When a player's collider enters the trigger, the
-/// host grants that player a random GodPower from their PlayerItemTracker.ItemPool,
-/// then hides the box for a random duration in [MinRespawnSeconds, MaxRespawnSeconds].
+/// as item spawn locations. When a player's collider enters the trigger and
+/// the player isn't already holding something, the host picks a random key
+/// from that player's PlayerItemTracker.ItemPool and grants it. The box then
+/// hides for a random duration in [MinRespawnSeconds, MaxRespawnSeconds].
 ///
 /// Networking:
-///   - This component lives on a scene-placed (host-owned) GameObject.
-///   - Available is [Sync] from host → all clients render/collide consistently.
-///   - OnTriggerEnter fires on every client; only the host actually processes pickups.
-///   - The host calls a [Rpc.Owner] method on the player's tracker to hand them the item.
+///   - Scene-placed (host-owned). Available is [Sync] from host.
+///   - OnTriggerEnter fires on every client; only the host processes pickups.
+///   - Host calls [Rpc.Owner] GrantItemRpc on the player's tracker.
 /// </summary>
 public sealed class ItemPrefab : Component, Component.ITriggerListener
 {
@@ -62,11 +63,17 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 		var tracker = other.GameObject.Components.Get<PlayerItemTracker>(
 			FindMode.EverythingInSelfAndAncestors );
 		if ( tracker is null ) return;
-		if ( tracker.HasItem ) return;            // Mario Kart: only one item at a time.
-		if ( tracker.ItemPool.Count == 0 ) return; // Nothing to give.
 
-		int index = Random.Shared.Next( 0, tracker.ItemPool.Count );
-		tracker.GrantItemRpc( index );
+		// Mario-Kart rule: if this player is already holding an item, leave the
+		// box completely untouched — it stays available on the ground for the
+		// next player. We intentionally return BEFORE flipping Available.
+		if ( tracker.HasItem ) return;
+		if ( tracker.ItemPool.Count == 0 ) return;
+
+		// Uniform-random pick from the configured pool keys.
+		string key = tracker.ItemPool.Keys.ElementAt(
+			Random.Shared.Next( 0, tracker.ItemPool.Count ) );
+		tracker.GrantItemRpc( key );
 
 		Available = false;
 		float wait = Random.Shared.Float( MinRespawnSeconds, MaxRespawnSeconds );

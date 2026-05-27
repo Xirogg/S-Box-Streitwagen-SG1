@@ -9,62 +9,70 @@ namespace Sandbox;
 /// "ticket" at a time. When the owner presses UseAction, the held power's
 /// TryActivate() is called and the slot empties.
 ///
+/// Item pool:
+///   ItemPool is a Dictionary&lt;string, GodPower&gt;. The KEY is a free-form
+///   id you choose ("grapes", "shield", "lightning", ...). The VALUE is the
+///   GodPower component on this player that the key maps to. To control which
+///   items can drop, add or remove entries in the inspector — pickups randomly
+///   pick one of the dictionary keys.
+///
 /// Networking:
-///   - This component lives on the player chariot prefab (owner-owned).
-///   - HeldPowerIndex is [Sync] (owner-authoritative) so other clients can
-///     read it for UI / observation.
-///   - GrantItemRpc is [Rpc.Owner], called by the host's ItemPrefab when a
-///     pickup happens. The actual write to HeldPowerIndex therefore happens
-///     on the owning client, which then replicates it out via [Sync].
+///   - Lives on the player chariot prefab (owner-owned).
+///   - HeldItemKey is [Sync] (owner-authoritative) so other clients can read
+///     it for UI / observation.
+///   - GrantItemRpc is [Rpc.Owner]: the host's ItemPrefab calls it on pickup,
+///     it runs on the owning client, which writes HeldItemKey, which then
+///     replicates back out via [Sync].
 ///
 /// Setup:
-///   1. Drag the GodPower components attached to this player into ItemPool
-///      (e.g. DionysosPower, LavernaGodPower, MaatGodPower). The index in
-///      the list = the item id.
-///   2. Add an input action named "UseItem" in Project Settings → Input,
-///      or change UseAction to whatever you already have bound.
-///   3. If you don't want powers to be activatable WITHOUT a pickup, clear
-///      the ActivationAction on each GodPower component in the prefab.
+///   1. Attach to the player chariot prefab.
+///   2. Fill ItemPool with key → GodPower entries (drag GodPower components
+///      already attached to this player in as the values).
+///   3. Add an input action "UseItem" in Project Settings → Input, or change
+///      UseAction to whatever you have bound.
+///   4. If you want powers to be ONLY usable via item pickup, clear the
+///      ActivationAction field on each GodPower component in the prefab.
 /// </summary>
 public sealed class PlayerItemTracker : Component
 {
 	/// <summary>
-	/// Possible items this player can receive. References to GodPower components
-	/// already attached to this player (discovered by PowerManager). The index in
-	/// this list is the item id used by GrantItemRpc.
+	/// Available items, keyed by id. The id is what gets synced on pickup.
+	/// Removing an entry takes that power out of the random pool.
 	/// </summary>
 	[Property, Group( "Items" )]
-	public List<GodPower> ItemPool { get; set; } = new();
+	public Dictionary<string, GodPower> ItemPool { get; set; } = new();
 
-	/// <summary>Input action that consumes the held item. Defined in Project Settings → Input.</summary>
+	/// <summary>Input action that consumes the held item.</summary>
 	[Property, Group( "Input" )]
 	public string UseAction { get; set; } = "UseItem";
 
-	/// <summary>-1 = empty. Otherwise an index into ItemPool. Replicated to all clients.</summary>
-	[Sync] public int HeldPowerIndex { get; set; } = -1;
+	/// <summary>Empty string = no item held. Otherwise a key into ItemPool. Replicated.</summary>
+	[Sync] public string HeldItemKey { get; set; } = "";
 
-	public bool HasItem => HeldPowerIndex >= 0 && HeldPowerIndex < ItemPool.Count;
+	public bool HasItem =>
+		!string.IsNullOrEmpty( HeldItemKey ) && ItemPool.ContainsKey( HeldItemKey );
 
-	public GodPower HeldPower => HasItem ? ItemPool[HeldPowerIndex] : null;
+	public GodPower HeldPower => HasItem ? ItemPool[HeldItemKey] : null;
 
-	/// <summary>Fires on the owning client when an item is granted (use for HUD / SFX).</summary>
-	public event Action<GodPower> OnItemGranted;
+	/// <summary>Owner-side event. Fires when an item is granted. Useful for HUD / SFX.</summary>
+	public event Action<string, GodPower> OnItemGranted;
 
-	/// <summary>Fires on the owning client when the held item is consumed.</summary>
-	public event Action<GodPower> OnItemUsed;
+	/// <summary>Owner-side event. Fires when the held item is consumed.</summary>
+	public event Action<string, GodPower> OnItemUsed;
 
 	/// <summary>
 	/// Called by the host's ItemPrefab on pickup. Runs on the owning client so
-	/// the owner-authoritative [Sync] write to HeldPowerIndex is legal.
+	/// the owner-authoritative [Sync] write to HeldItemKey is legal.
 	/// </summary>
 	[Rpc.Owner]
-	public void GrantItemRpc( int index )
+	public void GrantItemRpc( string key )
 	{
-		if ( index < 0 || index >= ItemPool.Count ) return;
+		if ( string.IsNullOrEmpty( key ) ) return;
+		if ( !ItemPool.ContainsKey( key ) ) return;
 		if ( HasItem ) return; // Defensive: host already checked, but races happen.
 
-		HeldPowerIndex = index;
-		OnItemGranted?.Invoke( HeldPower );
+		HeldItemKey = key;
+		OnItemGranted?.Invoke( key, HeldPower );
 	}
 
 	protected override void OnUpdate()
@@ -79,19 +87,20 @@ public sealed class PlayerItemTracker : Component
 	}
 
 	/// <summary>
-	/// Consume the held item. Calls TryActivate on the held GodPower —
-	/// success/failure follows the existing cooldown/CanActivate rules in
-	/// GodPower. On success, the slot empties.
+	/// Consume the held item. Delegates the actual effect to the existing
+	/// GodPower.TryActivate() path (cooldown, CanActivate, OnActivate). On
+	/// success, the slot empties.
 	/// </summary>
 	public void UseHeldItem()
 	{
 		if ( Network.IsProxy ) return;
 
+		var key = HeldItemKey;
 		var power = HeldPower;
 		if ( power is null ) return;
 		if ( !power.TryActivate() ) return;
 
-		OnItemUsed?.Invoke( power );
-		HeldPowerIndex = -1;
+		OnItemUsed?.Invoke( key, power );
+		HeldItemKey = "";
 	}
 }
