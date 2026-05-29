@@ -42,9 +42,17 @@ public sealed class PlayerItemTracker : Component
 	[Property, Group( "Items" )]
 	public Dictionary<string, GodPower> ItemPool { get; set; } = new();
 
-	/// <summary>Input action that consumes the held item.</summary>
+	/// <summary>Input action that consumes the held item (fires the Normal ability).</summary>
 	[Property, Group( "Input" )]
 	public string UseAction { get; set; } = "UseItem";
+
+	/// <summary>
+	/// Hold this action while pressing UseAction to fire the Ultimate instead of the
+	/// Normal ability. Mirrors the GodPower's own UltimateModifierAction convention.
+	/// Leave empty to disable Ultimate-via-item.
+	/// </summary>
+	[Property, Group( "Input" )]
+	public string UltimateModifierAction { get; set; } = "Run";
 
 	/// <summary>Empty string = no item held. Otherwise a key into ItemPool. Replicated.</summary>
 	[Sync] public string HeldItemKey { get; set; } = "";
@@ -60,6 +68,27 @@ public sealed class PlayerItemTracker : Component
 	/// <summary>Owner-side event. Fires when the held item is consumed.</summary>
 	public event Action<string, GodPower> OnItemUsed;
 
+	protected override void OnStart()
+	{
+		// Listen for each pool power being consumed so the held item + UI always
+		// clear, no matter which code path actually fired the power. OnConsumed only
+		// fires on the owning client (activation is owner-driven), but we guard anyway.
+		foreach ( var kv in ItemPool )
+		{
+			if ( kv.Value.IsValid() )
+				kv.Value.OnConsumed += HandlePowerConsumed;
+		}
+	}
+
+	protected override void OnDestroy()
+	{
+		foreach ( var kv in ItemPool )
+		{
+			if ( kv.Value.IsValid() )
+				kv.Value.OnConsumed -= HandlePowerConsumed;
+		}
+	}
+
 	/// <summary>
 	/// Called by the host's ItemPrefab on pickup. Runs on the owning client so
 	/// the owner-authoritative [Sync] write to HeldItemKey is legal.
@@ -68,8 +97,11 @@ public sealed class PlayerItemTracker : Component
 	public void GrantItemRpc( string key )
 	{
 		if ( string.IsNullOrEmpty( key ) ) return;
-		if ( !ItemPool.ContainsKey( key ) ) return;
+		if ( !ItemPool.TryGetValue( key, out var power ) ) return;
 		if ( HasItem ) return; // Defensive: host already checked, but races happen.
+
+		// Re-arm the (previously spent) power so the fresh item is usable once.
+		power?.Rearm();
 
 		HeldItemKey = key;
 		OnItemGranted?.Invoke( key, HeldPower );
@@ -83,24 +115,40 @@ public sealed class PlayerItemTracker : Component
 		if ( string.IsNullOrEmpty( UseAction ) ) return;
 		if ( !Input.Pressed( UseAction ) ) return;
 
-		UseHeldItem();
+		bool ultimate = !string.IsNullOrEmpty( UltimateModifierAction )
+			&& Input.Down( UltimateModifierAction );
+
+		UseHeldItem( ultimate );
 	}
 
 	/// <summary>
-	/// Consume the held item. Delegates the actual effect to the existing
-	/// GodPower.TryActivate() path (cooldown, CanActivate, OnActivate). On
-	/// success, the slot empties.
+	/// Consume the held item. Fires either the Normal or the Ultimate ability of the
+	/// held GodPower (single-use is enforced inside GodPower). On success the power
+	/// marks itself spent and OnConsumed clears the slot + UI.
 	/// </summary>
-	public void UseHeldItem()
+	public void UseHeldItem( bool ultimate )
 	{
 		if ( Network.IsProxy ) return;
 
 		var key = HeldItemKey;
 		var power = HeldPower;
 		if ( power is null ) return;
-		if ( !power.TryActivate() ) return;
+
+		bool ok = ultimate ? power.TryActivateUltimate() : power.TryActivate();
+		if ( !ok ) return;
 
 		OnItemUsed?.Invoke( key, power );
-		HeldItemKey = "";
+		// HeldItemKey is normally cleared via HandlePowerConsumed already; this is a
+		// no-op safety net in case SingleUse was turned off on the power.
+		if ( HeldItemKey == key )
+			HeldItemKey = "";
+	}
+
+	/// <summary>Clears the held item when its power reports it was consumed.</summary>
+	private void HandlePowerConsumed( GodPower power )
+	{
+		if ( Network.IsProxy ) return;
+		if ( HeldPower == power )
+			HeldItemKey = "";
 	}
 }

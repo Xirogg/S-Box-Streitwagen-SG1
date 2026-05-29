@@ -57,6 +57,7 @@
           "OnComponentUpdate": null,
           "Priority": 0,
           "Projection": "Sphere",
+          "RenderExcludeTags": "",
           "Resolution": "Small",
           "Texture": "textures/cubemaps/default2.vtex",
           "TintColor": "1,1,1,1",
@@ -4885,7 +4886,8 @@
               "OnComponentStart": null,
               "OnComponentUpdate": null,
               "ProbeDensity": 8,
-              "RelocationTexture": null
+              "RelocationTexture": null,
+              "RenderExcludeTags": ""
             }
           ],
           "Children": []
@@ -5028,9 +5030,6 @@
         "Data": {
           "SelectionSets": []
         }
-      },
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
       },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {

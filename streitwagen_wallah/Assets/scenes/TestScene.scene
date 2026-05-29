@@ -231,20 +231,6 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null
-        },
-        {
-          "__type": "Sandbox.PlayerItemTracker",
-          "__guid": "0ec96a4a-c01c-42b6-a033-d59b7ed71e9e",
-          "__enabled": true,
-          "Flags": 0,
-          "ItemPool": [],
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "UseAction": "UseItem"
         }
       ],
       "Children": []
@@ -524,38 +510,6 @@
           {
             "Target": {
               "Type": "Component",
-              "IdValue": "26918ddb-189b-4ff6-890f-4652208d94ce"
-            },
-            "Property": "MaxRespawnSeconds",
-            "Value": 40
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "26918ddb-189b-4ff6-890f-4652208d94ce"
-            },
-            "Property": "MinRespawnSeconds",
-            "Value": 20
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "26918ddb-189b-4ff6-890f-4652208d94ce"
-            },
-            "Property": "Renderer",
-            "Value": null
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "26918ddb-189b-4ff6-890f-4652208d94ce"
-            },
-            "Property": "Trigger",
-            "Value": null
-          },
-          {
-            "Target": {
-              "Type": "Component",
               "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
             },
             "Property": "__enabled",
@@ -640,7 +594,7 @@
         "ec96744d-03fa-4ba3-8aa8-9a6477159167": "a63a3064-aa07-4de0-bea6-39dba66f2566",
         "226876a7-be32-4f0c-9233-b3c549a6816c": "f3af1eeb-1a0f-41bd-b4d9-75aad597415d",
         "975490d9-4229-428a-98fc-d64a4b021542": "260aab2d-1497-4aad-a321-126ae93824e4",
-        "26918ddb-189b-4ff6-890f-4652208d94ce": "e3025af5-0c68-42ef-8d22-337fb8c054f4"
+        "fd15c6a9-5ca8-4669-81ae-59bade57ca3a": "28d40b57-56ad-4898-a8f8-408e75803b95"
       }
     }
   ],

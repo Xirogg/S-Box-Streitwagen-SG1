@@ -15,6 +15,8 @@
 		</div>
 		<div class="position" style="color: @PositionColor;">@PositionText</div>
 
+		<div class="item">Power: @ItemDisplay</div>
+
 		@if ( ShowCountdown )
 		{
 			<div class="countdown">@CountdownDisplay</div>
@@ -63,6 +65,15 @@
 		left: 132px;
 		color: white;
 		font-size: 132px;
+		font-family: Arial;
+		text-shadow: 0px 2px 4px black;
+	}
+	.item {
+		position: absolute;
+		top: 0px;
+		right: 132px;
+		color: white;
+		font-size: 64px;
 		font-family: Arial;
 		text-shadow: 0px 2px 4px black;
 	}
@@ -117,6 +128,24 @@
 {
 	PlayerLapTracker Lap => Components.Get<PlayerLapTracker>( FindMode.EverythingInSelfAndAncestors );
 	PlayerDamageSystem Damage => Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndAncestors );
+	PlayerItemTracker Items => Components.Get<PlayerItemTracker>( FindMode.EverythingInSelfAndAncestors );
+
+	// Top-right "Power:" label. Shows the first two letters of the held item key
+	// (e.g. "dionysos" -> "DI", "ma at" -> "MA"), or "none" when empty.
+	string ItemDisplay
+	{
+		get
+		{
+			var t = Items;
+			if ( t is null || !t.HasItem ) return "none";
+
+			var key = ( t.HeldItemKey ?? "" ).Replace( " ", "" );
+			if ( string.IsNullOrEmpty( key ) ) return "none";
+
+			var two = key.Length >= 2 ? key.Substring( 0, 2 ) : key;
+			return two.ToUpperInvariant();
+		}
+	}
 
 	string LapText => Lap is null ? "-/-" : $"{Lap.CurrentLap}/{Lap.MaxLaps}";
 	float HPPercent => Damage is null ? 0f
@@ -209,5 +238,5 @@
 		}
 	}
 
-	protected override int BuildHash() => System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder );
+	protected override int BuildHash() => System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder, Items?.HeldItemKey );
 }

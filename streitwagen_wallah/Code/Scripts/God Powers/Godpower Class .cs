@@ -67,6 +67,30 @@ public abstract class GodPower : Component
 	[Property, Group( "Input" )]
 	public string UltimateModifierAction { get; set; } = "Run";
 
+	/// <summary>
+	/// If true, the power can also be triggered by its own ActivationAction hotkey
+	/// (legacy behaviour). For item-only powers leave this false so the ONLY way to
+	/// fire it is through PlayerItemTracker after picking up an item.
+	/// </summary>
+	[Property, Group( "Input" )]
+	public bool AllowDirectInput { get; set; } = false;
+
+	// ---------- Single Use (Item) ----------
+
+	/// <summary>
+	/// If true, the power is consumed after a single activation (Normal OR Ultimate)
+	/// and cannot be used again until Rearm() is called (the item system does this on
+	/// </summary>
+	[Property, Group( "Single Use" )]
+	public bool SingleUse { get; set; } = true;
+
+	/// <summary>
+	/// If true, the power begins life already spent, so it can't be activated until it
+	/// is granted via the item system. Leave true for item-only powers.
+	/// </summary>
+	[Property, Group( "Single Use" )]
+	public bool StartSpent { get; set; } = true;
+
 	// ---------- UI ----------
 
 	/// <summary>
@@ -100,6 +124,14 @@ public abstract class GodPower : Component
 	/// <summary>True if the Ultimate ability is off cooldown.</summary>
 	public bool IsUltimateReady => UltimateCooldownRemaining <= 0f;
 
+	// ---------- Runtime State (Single Use) ----------
+
+	/// <summary>
+	/// True once the power has been used (and SingleUse is on). Blocks any further
+	/// activation until Rearm() is called.
+	/// </summary>
+	public bool IsSpent { get; private set; }
+
 	// ---------- Owner & Events ----------
 
 	/// <summary>
@@ -114,6 +146,13 @@ public abstract class GodPower : Component
 	/// <summary>Fires after a successful Ultimate activation (after OnActivateUltimate returns).</summary>
 	public event Action OnUltimateActivated;
 
+	/// <summary>
+	/// Fires when the power is consumed (single-use). The item system listens to this
+	/// to clear the player's held item and update the UI. The component is intentionally
+	/// NOT disabled here, so any timed after-effects still finish.
+	/// </summary>
+	public event Action<GodPower> OnConsumed;
+
 	// ---------- Lifecycle ----------
 
 	protected override void OnEnabled()
@@ -123,6 +162,10 @@ public abstract class GodPower : Component
 
 		if ( UltimateStartOnCooldown )
 			UltimateCooldownRemaining = UltimateCooldownDuration;
+
+		// Item-only powers begin spent: they can't be fired until granted via an item.
+		if ( StartSpent )
+			IsSpent = true;
 	}
 
 	protected override void OnUpdate()
@@ -134,9 +177,12 @@ public abstract class GodPower : Component
 		if ( UltimateCooldownRemaining > 0f )
 			UltimateCooldownRemaining = MathF.Max( 0f, UltimateCooldownRemaining - Time.Delta );
 
+		// Legacy hotkey path. Off by default for item-only powers (AllowDirectInput=false)
+		// and always blocked once the power is spent.
 		// NOTE: For networked multiplayer, gate this with `if ( Network.IsProxy ) return;`
 		// so only the owning client can press to activate.
-		if ( !string.IsNullOrEmpty( ActivationAction ) && Input.Pressed( ActivationAction ) )
+		if ( AllowDirectInput && !IsSpent
+			&& !string.IsNullOrEmpty( ActivationAction ) && Input.Pressed( ActivationAction ) )
 		{
 			bool modifierHeld = !string.IsNullOrEmpty( UltimateModifierAction )
 				&& Input.Down( UltimateModifierAction );
@@ -153,12 +199,17 @@ public abstract class GodPower : Component
 	/// <summary>Tries to activate the Normal ability. Returns true on success.</summary>
 	public bool TryActivate()
 	{
+		if ( IsSpent ) return false;
 		if ( !IsReady ) return false;
 		if ( !CanActivate() ) return false;
 
 		OnActivate();
 		CooldownRemaining = CooldownDuration;
 		OnActivated?.Invoke();
+
+		if ( SingleUse )
+			MarkSpent();
+
 		return true;
 	}
 
@@ -176,12 +227,17 @@ public abstract class GodPower : Component
 	/// <summary>Tries to activate the Ultimate ability. Returns true on success.</summary>
 	public bool TryActivateUltimate()
 	{
+		if ( IsSpent ) return false;
 		if ( !IsUltimateReady ) return false;
 		if ( !CanActivateUltimate() ) return false;
 
 		OnActivateUltimate();
 		UltimateCooldownRemaining = UltimateCooldownDuration;
 		OnUltimateActivated?.Invoke();
+
+		if ( SingleUse )
+			MarkSpent();
+
 		return true;
 	}
 
@@ -196,4 +252,31 @@ public abstract class GodPower : Component
 	/// Optional — default is no-op so existing single-ability subclasses keep working.
 	/// </summary>
 	protected virtual void OnActivateUltimate() { }
+
+	// ---------- Single-Use Helpers ----------
+
+	/// <summary>
+	/// Marks the power as spent and notifies listeners (the item system clears the held
+	/// item + UI). Intentionally does NOT disable or destroy the component, so timed
+	/// after-effects that revert via Invoke (e.g. Dionysos drunk, Ma'at judgement) still
+	/// finish cleanly. The spent flag + the cleared item are what make it "disappear".
+	/// </summary>
+	public void MarkSpent()
+	{
+		if ( IsSpent ) return;
+		IsSpent = true;
+		OnConsumed?.Invoke( this );
+	}
+
+	/// <summary>
+	/// Re-arms the power so it can be used once more. Called by the item system when a
+	/// new item is granted. Clears the spent flag and both cooldowns so the freshly
+	/// picked-up item is immediately usable.
+	/// </summary>
+	public void Rearm()
+	{
+		IsSpent = false;
+		CooldownRemaining = 0f;
+		UltimateCooldownRemaining = 0f;
+	}
 }

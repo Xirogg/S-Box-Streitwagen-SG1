@@ -98,7 +98,8 @@ public sealed class TestControlls : Component
 		float horizontalStrenght = 0f;
 		float sharpInputDir = 0f;
 
-		if ( Input.Down( "Forward" ) ) verticalStrength = 1f;
+		if ( Input.Down( "Forward" ) ) verticalStrength += 1f;
+		if ( Input.Down( "Backward" ) ) verticalStrength -= 1f;
 		if ( Input.Down( "Right" ) ) horizontalStrenght -= 1f;
 		if ( Input.Down( "Left" ) ) horizontalStrenght += 1f;
 		if ( Input.Down( "RamLeft" ) ) sharpInputDir += 1f;   // +1 = links (gleiche Konvention wie Left)
@@ -123,6 +124,7 @@ public sealed class TestControlls : Component
 
 		if ( IsDrunk )
 		{
+			verticalStrength = -verticalStrength;
 			horizontalStrenght = -horizontalStrenght;
 			sharpInputDir = -sharpInputDir;
 		}
@@ -152,22 +154,19 @@ public sealed class TestControlls : Component
 		Rigidbody.ApplyImpulseAt( frontWorld, impulse );
 	}
 
-	private void ApplyLocomotion( float accelerateInput )
+	private void ApplyLocomotion( float acceleration )
 	{
+		if ( acceleration == 0f ) return;
+
 		Vector3 forward = WorldRotation.Forward;
 		float forwardSpeed = Vector3.Dot( Rigidbody.Velocity, forward );
 		float planarSpeed = Rigidbody.Velocity.WithZ( 0f ).Length;
-		float mass = Rigidbody.Mass;
 
-		if ( accelerateInput > 0f )
-		{
-			if ( planarSpeed >= MaxVerticalSpeed && forwardSpeed > 0 ) return;
-			Rigidbody.ApplyForce( forward * PullForce * mass );
-		}
-		else if ( forwardSpeed > 0.01f )
-		{
-			Rigidbody.ApplyForce( -forward * BrakeForce * mass );
-		}
+		if ( acceleration > 0 && planarSpeed >= MaxVerticalSpeed && forwardSpeed > 0 ) return;
+		if ( acceleration < 0 && forwardSpeed <= -MaxVerticalSpeed ) return;
+
+		float mass = Rigidbody.Mass;
+		Rigidbody.ApplyForce( forward * PullForce * acceleration * mass );
 	}
 
 	private void ApplyHorseLateralGrip()
