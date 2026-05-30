@@ -1,0 +1,79 @@
+{
+  "RootObject": {
+    "__guid": "1c41deff-01f9-410c-81e5-eb1928a6e6a1",
+    "__version": 2,
+    "Flags": 0,
+    "Name": "dionysosscriptprefab",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkFlags": 0,
+    "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
+    "OwnerTransfer": 1,
+    "Components": [
+      {
+        "__type": "DionysosPower",
+        "__guid": "b5eef372-dd51-4993-ad2e-95aa58cd39bb",
+        "__enabled": true,
+        "Flags": 0,
+        "DisplayName": "Power",
+        "DrunkDuration": 8,
+        "GrapeCount": 5,
+        "GrapeProjectilePrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/god prefabs/dionysos/traubenbulletprefab .prefab"
+        },
+        "HorseReference": null,
+        "Icon": null,
+        "LingerAfterNormal": 0,
+        "LingerAfterUltimate": 0,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "PlayerTag": "player",
+        "ProjectileSpeed": 3000,
+        "SpawnForwardOffset": 50,
+        "SpawnHeightOffset": 30,
+        "SpreadAngleDegrees": 45,
+        "UltimateDisplayName": "Ultimate",
+        "UltimateIcon": null
+      }
+    ],
+    "Children": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": false,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
+      }
+    },
+    "__variables": []
+  },
+  "ResourceVersion": 2,
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "__references": [],
+  "__version": 2
+}

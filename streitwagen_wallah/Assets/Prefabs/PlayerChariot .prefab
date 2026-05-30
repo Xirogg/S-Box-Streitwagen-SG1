@@ -81,7 +81,7 @@
         "Position": "0,0,0",
         "Rotation": "0,0,0,1",
         "Scale": "0.400000006,0.400000006,0.400000006",
-        "Tags": "",
+        "Tags": "wagen",
         "Enabled": true,
         "NetworkMode": 1,
         "NetworkFlags": 0,
@@ -98,6 +98,7 @@
             "LateralGrip": 5,
             "LurchImpulse": 800,
             "MaxAngularSpeed": 15000,
+            "MaxVerticalSpeed": 1000,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -190,7 +191,7 @@
               "Roll": true
             },
             "MassCenterOverride": "0,0,0",
-            "MassOverride": 550,
+            "MassOverride": 110,
             "MinImpactDamageSpeed": 500,
             "MotionEnabled": true,
             "OnComponentDestroy": null,
@@ -416,7 +417,7 @@
         "Position": "-369.26178,-0.972475708,-27.4198742",
         "Rotation": "0,0,0,1",
         "Scale": "1.25,1.25,1.25",
-        "Tags": "",
+        "Tags": "wagen",
         "Enabled": true,
         "NetworkMode": 1,
         "NetworkFlags": 0,
@@ -540,7 +541,7 @@
               "Roll": true
             },
             "MassCenterOverride": "0,0,0",
-            "MassOverride": 55,
+            "MassOverride": 80,
             "MinImpactDamageSpeed": 500,
             "MotionEnabled": true,
             "OnComponentDestroy": null,
@@ -1194,52 +1195,10 @@
         "OwnerTransfer": 1,
         "Components": [
           {
-            "__type": "DionysosPower",
-            "__guid": "e8bba6de-59c8-4d06-9cd7-6a8545bad0b5",
-            "__enabled": true,
-            "Flags": 0,
-            "ActivationAction": "God",
-            "CooldownDuration": 10,
-            "DisplayName": "Power",
-            "DrunkDuration": 8,
-            "GrapeCount": 5,
-            "GrapeProjectilePrefab": {
-              "_type": "gameobject",
-              "prefab": "prefabs/god prefabs/dionysos/traubenbulletprefab .prefab"
-            },
-            "HorseReference": {
-              "_type": "gameobject",
-              "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
-            },
-            "Icon": null,
-            "IndicatorPrefab": null,
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "PlayerTag": "player",
-            "ProjectileSpeed": 1500,
-            "SpawnForwardOffset": 50,
-            "SpawnHeightOffset": 30,
-            "SpreadAngleDegrees": 45,
-            "StartOnCooldown": false,
-            "UltimateCooldownDuration": 30,
-            "UltimateDisplayName": "Ultimate",
-            "UltimateIcon": null,
-            "UltimateModifierAction": "Ready",
-            "UltimateStartOnCooldown": false
-          },
-          {
             "__type": "PowerManager",
             "__guid": "bb976fac-dd01-419b-a740-5aad185db865",
             "__enabled": true,
             "Flags": 0,
-            "IndicatorRoot": {
-              "_type": "gameobject",
-              "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
-            },
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -1250,6 +1209,29 @@
               "_type": "gameobject",
               "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
             }
+          },
+          {
+            "__type": "Sandbox.PlayerItemTracker",
+            "__guid": "9aaf4c7e-6b78-4798-985f-11fb38c53b83",
+            "__enabled": true,
+            "Flags": 0,
+            "DebugLog": true,
+            "ItemHost": {
+              "_type": "gameobject",
+              "go": "fb553f81-4cf5-448d-94a4-fc8d56156c50"
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "PlayerRoot": {
+              "_type": "gameobject",
+              "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
+            },
+            "UltimateModifierAction": "Run",
+            "UseAction": "UseItem"
           }
         ],
         "Children": []

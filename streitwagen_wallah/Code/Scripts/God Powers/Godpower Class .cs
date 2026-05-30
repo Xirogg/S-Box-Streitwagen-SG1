@@ -2,198 +2,128 @@ using Sandbox;
 using System;
 
 /// <summary>
-/// Base class for all god powers. Handles cooldown bookkeeping and input binding
-/// for two abilities per power: a Normal ability and an Ultimate (Göttlich) ability.
-/// Subclasses implement OnActivate() for the Normal effect and may override
-/// OnActivateUltimate() for the Ulti effect (optional, default is no-op).
-/// Attach a subclass component to a child GameObject of the PowerManager;
-/// it will be auto-discovered.
+/// Base class for all god powers under the new item-driven architecture.
+///
+/// Lifecycle:
+///   1. Spawned as a clone of a GodPower-prefab by PlayerItemTracker on pickup.
+///   2. Tracker calls TryActivate() or TryActivateUltimate() exactly once when the
+///      player presses Use (modifier = Ultimate).
+///   3. After activation the component lives for ActiveLingerDuration seconds so any
+///      timed after-effects (drunk, judgement) finish, then it is destroyed.
+///
+/// There are no cooldowns anymore — the "you have one shot" gate is IsSpent, which
+/// flips true after the first successful activation.
 /// </summary>
 public abstract class GodPower : Component
 {
 	// ---------- Display ----------
 
-	/// <summary>Human-readable name of the Normal ability (shown in UI).</summary>
 	[Property, Group( "Display" )]
 	public string DisplayName { get; set; } = "Power";
 
-	/// <summary>Icon texture shown for the Normal ability in the UI.</summary>
 	[Property, Group( "Display" )]
 	public Texture Icon { get; set; }
 
-	/// <summary>Human-readable name of the Ultimate (Göttlich) ability.</summary>
 	[Property, Group( "Display" )]
 	public string UltimateDisplayName { get; set; } = "Ultimate";
 
-	/// <summary>Icon texture shown for the Ultimate ability in the UI.</summary>
 	[Property, Group( "Display" )]
 	public Texture UltimateIcon { get; set; }
 
-	// ---------- Cooldown (Normal) ----------
-
-	/// <summary>Cooldown duration in seconds after Normal activation.</summary>
-	[Property, Group( "Normal Cooldown" )]
-	public float CooldownDuration { get; set; } = 10f;
-
-	/// <summary>If true, the Normal ability starts on cooldown when enabled.</summary>
-	[Property, Group( "Normal Cooldown" )]
-	public bool StartOnCooldown { get; set; } = false;
-
-	// ---------- Cooldown (Ultimate) ----------
-
-	/// <summary>Cooldown duration in seconds after Ultimate activation.</summary>
-	[Property, Group( "Ultimate Cooldown" )]
-	public float UltimateCooldownDuration { get; set; } = 30f;
-
-	/// <summary>If true, the Ultimate ability starts on cooldown when enabled.</summary>
-	[Property, Group( "Ultimate Cooldown" )]
-	public bool UltimateStartOnCooldown { get; set; } = false;
-
-	// ---------- Input ----------
+	// ---------- Linger ----------
 
 	/// <summary>
-	/// Input action name as defined in Project Settings → Input.
-	/// Pressing this action activates the Normal ability (when modifier is NOT held)
-	/// or the Ultimate ability (when modifier IS held).
-	/// Leave empty to disable hotkey activation (then trigger via TryActivate / TryActivateUltimate).
+	/// Seconds the spawned GameObject must stay alive AFTER a successful Normal
+	/// activation, so timed after-effects can run to completion. PlayerItemTracker
+	/// reads this and destroys the instance when the timer elapses. 0 = destroy
+	/// immediately.
 	/// </summary>
-	[Property, Group( "Input" )]
-	public string ActivationAction { get; set; } = "PowerActivate";
+	[Property, Group( "Linger" )]
+	public float LingerAfterNormal { get; set; } = 0f;
 
 	/// <summary>
-	/// Input action that, when held during ActivationAction press, triggers the Ultimate ability.
-	/// Leave empty to disable hotkey-based Ultimate activation.
+	/// Seconds the spawned GameObject must stay alive after a successful Ultimate
+	/// activation. Set this to at least the longest revert delay your Ultimate
+	/// schedules (Dionysos drunk = 8s, Ma'at judgement = 6s).
 	/// </summary>
-	[Property, Group( "Input" )]
-	public string UltimateModifierAction { get; set; } = "Run";
+	[Property, Group( "Linger" )]
+	public float LingerAfterUltimate { get; set; } = 0f;
 
-	// ---------- UI ----------
-
-	/// <summary>
-	/// Cooldown indicator prefab spawned for this power.
-	/// The PowerManager instantiates it and binds it to this power.
-	/// </summary>
-	[Property, Group( "UI" )]
-	public GameObject IndicatorPrefab { get; set; }
-
-	// ---------- Runtime State (Normal) ----------
-
-	/// <summary>Seconds remaining on the Normal cooldown (0 = ready).</summary>
-	public float CooldownRemaining { get; private set; }
-
-	/// <summary>0 = just activated, 1 = ready. Useful for radial fill UI.</summary>
-	public float CooldownProgress =>
-		CooldownDuration <= 0f ? 1f : 1f - MathX.Clamp( CooldownRemaining / CooldownDuration, 0f, 1f );
-
-	/// <summary>True if the Normal ability is off cooldown.</summary>
-	public bool IsReady => CooldownRemaining <= 0f;
-
-	// ---------- Runtime State (Ultimate) ----------
-
-	/// <summary>Seconds remaining on the Ultimate cooldown (0 = ready).</summary>
-	public float UltimateCooldownRemaining { get; private set; }
-
-	/// <summary>0 = just activated, 1 = ready. Useful for radial fill UI.</summary>
-	public float UltimateCooldownProgress =>
-		UltimateCooldownDuration <= 0f ? 1f : 1f - MathX.Clamp( UltimateCooldownRemaining / UltimateCooldownDuration, 0f, 1f );
-
-	/// <summary>True if the Ultimate ability is off cooldown.</summary>
-	public bool IsUltimateReady => UltimateCooldownRemaining <= 0f;
-
-	// ---------- Owner & Events ----------
+	// ---------- Runtime ----------
 
 	/// <summary>
-	/// The player/agent that owns this power. Set by the PowerManager,
-	/// or assign manually if you spawn powers another way.
+	/// The player root this power belongs to. Assigned by PlayerItemTracker right
+	/// after cloning. Subclasses use this to find the player's horse, damage system,
+	/// etc.
 	/// </summary>
 	public GameObject Owner { get; set; }
 
-	/// <summary>Fires after a successful Normal activation (after OnActivate returns).</summary>
-	public event Action OnActivated;
+	/// <summary>True once the power has been used. Blocks any further activation.</summary>
+	public bool IsSpent { get; private set; }
 
-	/// <summary>Fires after a successful Ultimate activation (after OnActivateUltimate returns).</summary>
+	/// <summary>
+	/// The linger value picked at activation time (LingerAfterNormal or
+	/// LingerAfterUltimate). PlayerItemTracker reads this immediately after a
+	/// successful TryActivate* call to schedule destruction.
+	/// </summary>
+	public float ActiveLingerDuration { get; private set; }
+
+	// ---------- Events ----------
+
+	public event Action OnActivated;
 	public event Action OnUltimateActivated;
 
-	// ---------- Lifecycle ----------
+	/// <summary>
+	/// Fires when the power is marked spent (after a successful activation). The
+	/// item system uses this if it wants to react before the linger destroy.
+	/// </summary>
+	public event Action<GodPower> OnConsumed;
 
-	protected override void OnEnabled()
-	{
-		if ( StartOnCooldown )
-			CooldownRemaining = CooldownDuration;
+	// ---------- Activation ----------
 
-		if ( UltimateStartOnCooldown )
-			UltimateCooldownRemaining = UltimateCooldownDuration;
-	}
-
-	protected override void OnUpdate()
-	{
-		// Tick cooldowns locally for everyone so UI stays in sync.
-		if ( CooldownRemaining > 0f )
-			CooldownRemaining = MathF.Max( 0f, CooldownRemaining - Time.Delta );
-
-		if ( UltimateCooldownRemaining > 0f )
-			UltimateCooldownRemaining = MathF.Max( 0f, UltimateCooldownRemaining - Time.Delta );
-
-		// NOTE: For networked multiplayer, gate this with `if ( Network.IsProxy ) return;`
-		// so only the owning client can press to activate.
-		if ( !string.IsNullOrEmpty( ActivationAction ) && Input.Pressed( ActivationAction ) )
-		{
-			bool modifierHeld = !string.IsNullOrEmpty( UltimateModifierAction )
-				&& Input.Down( UltimateModifierAction );
-
-			if ( modifierHeld )
-				TryActivateUltimate();
-			else
-				TryActivate();
-		}
-	}
-
-	// ---------- Activation (Normal) ----------
-
-	/// <summary>Tries to activate the Normal ability. Returns true on success.</summary>
 	public bool TryActivate()
 	{
-		if ( !IsReady ) return false;
+		if ( IsSpent ) return false;
 		if ( !CanActivate() ) return false;
 
 		OnActivate();
-		CooldownRemaining = CooldownDuration;
 		OnActivated?.Invoke();
+		ActiveLingerDuration = LingerAfterNormal;
+		MarkSpent();
 		return true;
 	}
 
-	/// <summary>
-	/// Override for extra gating on the Normal ability (e.g. an effect is already running).
-	/// Default: allows activation whenever off cooldown.
-	/// </summary>
+	public bool TryActivateUltimate()
+	{
+		if ( IsSpent ) return false;
+		if ( !CanActivateUltimate() ) return false;
+
+		OnActivateUltimate();
+		OnUltimateActivated?.Invoke();
+		ActiveLingerDuration = LingerAfterUltimate;
+		MarkSpent();
+		return true;
+	}
+
+	/// <summary>Override for extra gating on the Normal ability. Default: always allowed.</summary>
 	protected virtual bool CanActivate() => true;
+
+	/// <summary>Override for extra gating on the Ultimate ability. Default: always allowed.</summary>
+	protected virtual bool CanActivateUltimate() => true;
 
 	/// <summary>Implement the Normal effect of the power.</summary>
 	protected abstract void OnActivate();
 
-	// ---------- Activation (Ultimate) ----------
-
-	/// <summary>Tries to activate the Ultimate ability. Returns true on success.</summary>
-	public bool TryActivateUltimate()
-	{
-		if ( !IsUltimateReady ) return false;
-		if ( !CanActivateUltimate() ) return false;
-
-		OnActivateUltimate();
-		UltimateCooldownRemaining = UltimateCooldownDuration;
-		OnUltimateActivated?.Invoke();
-		return true;
-	}
-
 	/// <summary>
-	/// Override for extra gating on the Ultimate ability.
-	/// Default: allows activation whenever off cooldown.
-	/// </summary>
-	protected virtual bool CanActivateUltimate() => true;
-
-	/// <summary>
-	/// Implement the Ultimate (Göttlich) effect of the power.
-	/// Optional — default is no-op so existing single-ability subclasses keep working.
+	/// Implement the Ultimate effect of the power. Default no-op so subclasses without
+	/// an Ultimate keep working.
 	/// </summary>
 	protected virtual void OnActivateUltimate() { }
+
+	private void MarkSpent()
+	{
+		if ( IsSpent ) return;
+		IsSpent = true;
+		OnConsumed?.Invoke( this );
+	}
 }

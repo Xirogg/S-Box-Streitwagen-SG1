@@ -37,6 +37,8 @@ public sealed class RaceManager : Component
 
 		if ( Networking.IsHost )
 			GameObject.NetworkSpawn();
+
+		PublicityCurrencyManager.EnsureExists( Scene );
 	}
 
 	protected override void OnStart()
