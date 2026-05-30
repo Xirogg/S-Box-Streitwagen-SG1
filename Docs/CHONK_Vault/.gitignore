@@ -1,0 +1,13 @@
+# Lokale Obsidian-Workspace-Dateien (nicht teilen)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Obsidian-Git interne Dateien
+.obsidian/plugins/obsidian-git/data.json
+
+# Die übrige .obsidian/-Konfiguration wird bewusst geteilt (gleiches Setup für alle).

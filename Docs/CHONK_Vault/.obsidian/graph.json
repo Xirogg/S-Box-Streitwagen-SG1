@@ -1,0 +1,12 @@
+{
+  "colorGroups": [
+    {"query": "path:01_Producing", "color": {"rgb": 5814783, "a": 1}},
+    {"query": "path:02_GameDesign", "color": {"rgb": 7053314, "a": 1}},
+    {"query": "path:03_Programming", "color": {"rgb": 14245634, "a": 1}},
+    {"query": "path:04_Art_TechArt", "color": {"rgb": 14721304, "a": 1}},
+    {"query": "path:05_Marktforschung", "color": {"rgb": 5025616, "a": 1}},
+    {"query": "path:06_Meetings", "color": {"rgb": 9737364, "a": 1}}
+  ],
+  "showTags": true,
+  "showAttachments": false
+}

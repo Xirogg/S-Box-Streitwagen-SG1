@@ -1,0 +1,14 @@
+{
+  "legacyEditor": false,
+  "livePreview": true,
+  "defaultViewMode": "preview",
+  "foldHeading": true,
+  "foldIndent": true,
+  "showFrontmatter": true,
+  "readableLineLength": true,
+  "showLineNumber": false,
+  "tabSize": 2,
+  "attachmentFolderPath": "_Assets",
+  "newFileLocation": "current",
+  "alwaysUpdateLinks": true
+}
