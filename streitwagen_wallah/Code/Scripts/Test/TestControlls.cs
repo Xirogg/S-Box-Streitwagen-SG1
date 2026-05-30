@@ -7,8 +7,7 @@ public sealed class TestControlls : Component
 	[Property, Group( "Speed" )] public float PullForce { get; set; } = 5f;
 	[Property, Group( "Speed" )] public float BrakeForce { get; set; } = 5f;
 
-	//[Property, Group( "Speed" )]
-	public float MaxVerticalSpeed { get; set; } = 10f;
+	[Property, Group( "Speed" )] public float MaxVerticalSpeed { get; set; } = 1500f;
 
 	[Property, Group( "Steering" )] public float SteerTorque { get; set; } = 10f;
 	[Property, Group( "Steering" )] public float MaxAngularSpeed { get; set; } = 10f;

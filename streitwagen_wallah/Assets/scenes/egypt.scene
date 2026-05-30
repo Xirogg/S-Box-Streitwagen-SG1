@@ -4438,6 +4438,7 @@
               "OnComponentUpdate": null,
               "Priority": 0,
               "Projection": "Sphere",
+              "RenderExcludeTags": "",
               "Resolution": "Small",
               "Texture": "textures/cubemaps/default2.vtex",
               "TintColor": "1,1,1,1",
@@ -4526,7 +4527,8 @@
               "OnComponentStart": null,
               "OnComponentUpdate": null,
               "ProbeDensity": 8,
-              "RelocationTexture": null
+              "RelocationTexture": null,
+              "RenderExcludeTags": ""
             }
           ],
           "Children": []
@@ -4602,6 +4604,77 @@
         }
       ],
       "Children": []
+    },
+    {
+      "__guid": "ddfd0a2b-690a-44e8-bb38-d23894c6813e",
+      "__version": 2,
+      "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
+            },
+            "Property": "Position",
+            "Value": "71.0581055,5271.72266,25"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "71306516-0416-4962-ad57-604bccf93274"
+            },
+            "Property": "Center",
+            "Value": "-0.333126068,0,0"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "71306516-0416-4962-ad57-604bccf93274"
+            },
+            "Property": "Scale",
+            "Value": "50.6662521,50,50"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "ItemPool",
+            "Value": {
+              "Dio": {
+                "_type": "gameobject",
+                "prefab": "prefabs/god prefabs/dionysos/dionysosscriptprefab.prefab"
+              }
+            }
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "MaxRespawnSeconds",
+            "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "MinRespawnSeconds",
+            "Value": 1
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "eea33dba-6300-4d41-b7a3-f10869e90daa": "ddfd0a2b-690a-44e8-bb38-d23894c6813e",
+        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "42850fb4-c081-426a-8298-26065d678cee",
+        "71306516-0416-4962-ad57-604bccf93274": "9d6c6c38-ef4f-49b5-9cbb-2f79972442da",
+        "143114ab-4f92-4888-96ae-a120972ec204": "57d53e98-01ea-4f47-8fb9-08392bbfe0fe"
+      }
     }
   ],
   "SceneProperties": {
@@ -4624,9 +4697,6 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "3cbf77a2-9e45-4eb3-9fb3-b88c7f85b5b5"

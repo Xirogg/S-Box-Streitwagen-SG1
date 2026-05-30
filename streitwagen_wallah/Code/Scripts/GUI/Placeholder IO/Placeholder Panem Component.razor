@@ -128,7 +128,24 @@
 {
 	PlayerLapTracker Lap => Components.Get<PlayerLapTracker>( FindMode.EverythingInSelfAndAncestors );
 	PlayerDamageSystem Damage => Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndAncestors );
-	PlayerItemTracker Items => Components.Get<PlayerItemTracker>( FindMode.EverythingInSelfAndAncestors );
+
+	// The tracker can live on a sibling subtree of the UI panel (e.g. under
+	// "Powers"). EverythingInSelfAndAncestors would miss it, so we walk up the
+	// chain and search each level's whole subtree — same pattern ItemPrefab uses.
+	PlayerItemTracker Items
+	{
+		get
+		{
+			var node = GameObject;
+			while ( node.IsValid() )
+			{
+				var t = node.Components.Get<PlayerItemTracker>( FindMode.EverythingInSelfAndDescendants );
+				if ( t is not null ) return t;
+				node = node.Parent;
+			}
+			return null;
+		}
+	}
 
 	// Top-right "Power:" label. Shows the first two letters of the held item key
 	// (e.g. "dionysos" -> "DI", "ma at" -> "MA"), or "none" when empty.

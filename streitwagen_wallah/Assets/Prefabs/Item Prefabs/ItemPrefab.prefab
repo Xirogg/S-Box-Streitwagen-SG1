@@ -67,6 +67,32 @@
         "Static": false,
         "Surface": null,
         "SurfaceVelocity": "0,0,0"
+      },
+      {
+        "__type": "Sandbox.ItemPrefab",
+        "__guid": "143114ab-4f92-4888-96ae-a120972ec204",
+        "__enabled": true,
+        "Flags": 0,
+        "MaxRespawnSeconds": 40,
+        "MinRespawnSeconds": 20,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Renderer": {
+          "_type": "component",
+          "component_id": "854a9a97-dde3-4d54-83c1-83f9e60b44f5",
+          "go": "eea33dba-6300-4d41-b7a3-f10869e90daa",
+          "component_type": "ModelRenderer"
+        },
+        "Trigger": {
+          "_type": "component",
+          "component_id": "71306516-0416-4962-ad57-604bccf93274",
+          "go": "eea33dba-6300-4d41-b7a3-f10869e90daa",
+          "component_type": "BoxCollider"
+        }
       }
     ],
     "Children": [],
