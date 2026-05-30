@@ -1,0 +1,11 @@
+# Obsidian – lokale Workspace-Dateien (nicht teilen)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# Betriebssystem
+.DS_Store
+Thumbs.db
+
+# Obsidian-Konfiguration (.obsidian/ selbst NICHT ignorieren)
+# → Plugins, Themes und app.json werden geteilt, damit alle dasselbe Setup haben
