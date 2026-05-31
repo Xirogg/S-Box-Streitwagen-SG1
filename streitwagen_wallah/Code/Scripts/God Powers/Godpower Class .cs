@@ -51,12 +51,29 @@ public abstract class GodPower : Component
 
 	// ---------- Runtime ----------
 
+	private GameObject _owner;
+
 	/// <summary>
 	/// The player root this power belongs to. Assigned by PlayerItemTracker right
 	/// after cloning. Subclasses use this to find the player's horse, damage system,
 	/// etc.
 	/// </summary>
-	public GameObject Owner { get; set; }
+	public GameObject Owner
+	{
+		get => _owner;
+		set
+		{
+			if ( _owner == value ) return;
+			_owner = value;
+			OnOwnerAssigned();
+		}
+	}
+
+	/// <summary>
+	/// Called after <see cref="Owner"/> is set. Override to do one-time per-player
+	/// setup like resolving references to nodes in the player's chariot prefab.
+	/// </summary>
+	protected virtual void OnOwnerAssigned() { }
 
 	/// <summary>True once the power has been used. Blocks any further activation.</summary>
 	public bool IsSpent { get; private set; }

@@ -64,6 +64,23 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 	[RequireComponent] public Rigidbody Body { get; set; }
 
 	private float _lastRamTime = -999f;
+	private PlayerStats _attackerStats;
+
+	/// <summary>
+	/// PlayerStats sitting somewhere on this player's hierarchy. Resolved lazily on
+	/// the first ram and cached, so we don't pay for a tree walk every collision.
+	/// </summary>
+	private PlayerStats AttackerStats
+	{
+		get
+		{
+			if ( _attackerStats.IsValid() ) return _attackerStats;
+			var root = GameObject.Root;
+			if ( root is null ) return null;
+			_attackerStats = root.Components.Get<PlayerStats>( FindMode.EverythingInSelfAndDescendants );
+			return _attackerStats;
+		}
+	}
 
 	// --- ICollisionListener -----------------------------------------------------
 
@@ -122,7 +139,9 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 		// var hc = Components.Get<HorseController>();
 		// if ( hc is not null && hc.IsSharpSteering ) sharpMult = SharpSteerMultiplier;
 
-		float magnitude = (BaseImpulse + ImpulsePerClosingSpeed * closingSpeed) * sharpMult;
+		float weightMult = AttackerStats is not null ? AttackerStats.WeightMultiplier : 1f;
+
+		float magnitude = (BaseImpulse + ImpulsePerClosingSpeed * closingSpeed) * sharpMult * weightMult;
 		magnitude = MathF.Min( magnitude, MaxImpulse );
 
 		float sideSign = ComputeSideSign( pushDir );
@@ -146,6 +165,7 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 		if ( DebugLog )
 		{
 			Log.Info( $"[PlayerCollisions {GameObject.Name}] closing={closingSpeed:F2} | sharp={(sharpMult > 1f)} | " +
+				$"weightMult={weightMult:F2} | " +
 				$"impulse={magnitude:F0} (Pferde) + {magnitude * ChariotImpulseRatio:F0} (Wagen) | " +
 				$"dir={finalDir} | sideSign={sideSign}" );
 		}
