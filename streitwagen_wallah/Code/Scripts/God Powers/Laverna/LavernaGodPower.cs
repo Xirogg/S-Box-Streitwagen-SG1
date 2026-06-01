@@ -1,39 +1,129 @@
+using LapSystem.Rankings;
 using Sandbox;
 using System;
 using System.Collections.Generic;
 
 /// <summary>
 /// Laverna:
-///   Ultimate — Göttlicher Hehler: Laverna stiehlt von allen Mitspielern, die
-///   mehr HP haben als der Caster, einen gleichen HP-Anteil — bis der Caster
-///   wieder volle HP hat. Aufgerundet pro Spender, daher kann ein bisschen HP
-///   "verloren" gehen (z.B. 5 HP fehlen, 3 reichere Spieler → 2 HP von jedem
-///   = 6 gestohlen, Caster heilt nur 5).
+///   Normal (Item-Dieb): pick a random opponent who is currently holding an item
+///   (excluding last place) and rip the item out of their tracker into the
+///   caster's tracker. The victim loses the GodPower clone immediately, the
+///   thief receives the same prefab via the regular grant path.
 ///
-///   Normal (Item-Dieb): noch nicht implementiert — Item-System fehlt.
+///   Ultimate (Göttlicher Hehler): steal HP from every player richer than the
+///   caster, distributed as evenly as possible, until the caster is full again.
+///   Donors with a Ma'at Karma Shield refund their full HP back to themselves
+///   and the caster eats that as damage instead.
 /// </summary>
 public sealed class LavernaPower : GodPower
 {
 	[Property, Group( "Heist" )]
 	public string PlayerTag { get; set; } = "player";
 
+	[Property, Group( "Item Dieb" )]
+	public bool ExcludeLastPlace { get; set; } = true;
+
+	/// <summary>
+	/// Short delay between the activation frame and the actual item transfer.
+	/// The caster's tracker still has *this* power in its slot the moment we
+	/// run OnActivate; deferring by one Invoke gives it time to finalize its
+	/// own use-cleanup (FinishUse clears HeldItemKey), so the incoming grant
+	/// is not rejected by the HasItem check.
+	/// </summary>
+	[Property, Group( "Item Dieb" )]
+	public float TransferDelay { get; set; } = 0.05f;
+
+	[Property, Group( "Debug" )]
+	public bool DebugLog { get; set; } = false;
+
+	// ---------- Normal: Item-Dieb ----------
+
 	protected override void OnActivate()
 	{
-		// Item-Dieb noch nicht eingebaut.
+		if ( !Owner.IsValid() )
+		{
+			Log.Warning( "[LavernaPower] No owner assigned — Item-Dieb skipped." );
+			return;
+		}
+
+		var thief = Owner.Components.Get<PlayerItemTracker>( FindMode.EverythingInSelfAndDescendants );
+		if ( thief is null )
+		{
+			Log.Warning( "[LavernaPower] Owner has no PlayerItemTracker — Item-Dieb skipped." );
+			return;
+		}
+
+		Guid lastPlaceId = Guid.Empty;
+		if ( ExcludeLastPlace ) lastPlaceId = ResolveLastPlaceId();
+
+		var candidates = new List<PlayerItemTracker>();
+		foreach ( var t in Scene.GetAllComponents<PlayerItemTracker>() )
+		{
+			if ( t == thief ) continue;
+			if ( !t.HasItem ) continue;
+
+			if ( lastPlaceId != Guid.Empty && ResolvePlayerId( t ) == lastPlaceId )
+				continue;
+
+			candidates.Add( t );
+		}
+
+		if ( candidates.Count == 0 )
+		{
+			if ( DebugLog ) Log.Info( "[LavernaPower] Item-Dieb found no eligible victim (nobody else is holding an item)." );
+			return;
+		}
+
+		var victim = candidates[Random.Shared.Next( 0, candidates.Count )];
+
+		if ( DebugLog )
+			Log.Info( $"[LavernaPower] Stealing '{victim.HeldItemKey}' from {victim.GameObject?.Name} in {TransferDelay}s." );
+
+		// Capture the references — by the time the lambda fires the Laverna instance
+		// itself is gone, but the tracker survives because it lives on the chariot.
+		var thiefRef = thief;
+		var victimRef = victim;
+		thief.Invoke( TransferDelay, () =>
+		{
+			if ( !victimRef.IsValid() || !thiefRef.IsValid() ) return;
+			victimRef.TransferHeldItemRpc( thiefRef );
+		} );
 	}
+
+	private Guid ResolveLastPlaceId()
+	{
+		var mgr = RaceRankingManager.Instance;
+		if ( mgr is null ) return Guid.Empty;
+
+		var rankings = mgr.Rankings;
+		if ( rankings is null || rankings.Count == 0 ) return Guid.Empty;
+
+		// Rankings are sorted with #1 at index 0, so the last entry is the lowest position.
+		var last = rankings[rankings.Count - 1];
+		return last.PlayerId;
+	}
+
+	private static Guid ResolvePlayerId( PlayerItemTracker tracker )
+	{
+		var root = tracker.PlayerRoot.IsValid() ? tracker.PlayerRoot : tracker.GameObject?.Root;
+		var ctrl = root?.Components.Get<TestControlls>( FindMode.EverythingInSelfAndDescendants );
+		return ctrl is not null ? ctrl.PlayerId : Guid.Empty;
+	}
+
+	// ---------- Ultimate: Göttlicher Hehler ----------
 
 	protected override void OnActivateUltimate()
 	{
 		if ( !Owner.IsValid() )
 		{
-			Log.Warning( "[LavernaPower] Kein Owner zugewiesen." );
+			Log.Warning( "[LavernaPower] No owner assigned — Ultimate skipped." );
 			return;
 		}
 
 		var ownerDamage = Owner.Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndDescendants );
 		if ( ownerDamage is null )
 		{
-			Log.Warning( "[LavernaPower] Owner hat kein PlayerDamageSystem." );
+			Log.Warning( "[LavernaPower] Owner has no PlayerDamageSystem — Ultimate skipped." );
 			return;
 		}
 
@@ -41,10 +131,11 @@ public sealed class LavernaPower : GodPower
 		float deficit = ownerDamage.MaxHP - casterHP;
 		if ( deficit <= 0f )
 		{
-			//Log.Info( "[LavernaPower] Caster ist bereits voll — nichts zu stehlen." );
+			if ( DebugLog ) Log.Info( "[LavernaPower] Caster already full — nothing to steal." );
 			return;
 		}
 
+		// Find every other player tagged "player" with strictly more HP than caster.
 		var donors = new List<PlayerDamageSystem>();
 		foreach ( var player in Scene.FindAllWithTag( PlayerTag ) )
 		{
@@ -56,11 +147,11 @@ public sealed class LavernaPower : GodPower
 
 		if ( donors.Count == 0 )
 		{
-			//Log.Info( "[LavernaPower] Kein reicherer Mitspieler gefunden." );
+			if ( DebugLog ) Log.Info( "[LavernaPower] No richer opponent — Ultimate finds nothing to steal." );
 			return;
 		}
 
-		// Karma-Schild: geschützte Spender heilen sich voll, Caster zahlt mit HP.
+		// Karma Shield: protected donors refund themselves and the steal backfires onto the caster.
 		for ( int i = donors.Count - 1; i >= 0; i-- )
 		{
 			var donor = donors[i];
@@ -76,24 +167,35 @@ public sealed class LavernaPower : GodPower
 			donors.RemoveAt( i );
 		}
 
-		if ( donors.Count == 0 )
+		// Recompute deficit — Karma backfire above may have moved caster HP.
+		float remaining = ownerDamage.MaxHP - ownerDamage.CurrentHP;
+		if ( remaining <= 0f || donors.Count == 0 )
 		{
-			//Log.Info( "[LavernaPower] Alle Spender hatten Karma-Schild." );
+			if ( DebugLog ) Log.Info( $"[LavernaPower] Ultimate ended after Karma — caster HP={ownerDamage.CurrentHP}/{ownerDamage.MaxHP}, donors left={donors.Count}." );
 			return;
 		}
 
-		float perPlayer = MathF.Ceiling( deficit / donors.Count );
+		// Even split, rounded up so we always cover the deficit. Cap each take by both
+		// the donor's current HP and the still-needed amount so nobody overpays.
+		float perPlayer = MathF.Ceiling( remaining / donors.Count );
 		float totalStolen = 0f;
+
 		foreach ( var donor in donors )
 		{
+			if ( remaining <= 0f ) break;
+
 			float take = MathF.Min( perPlayer, donor.CurrentHP );
+			take = MathF.Min( take, remaining );
 			if ( take <= 0f ) continue;
+
 			donor.Damage( take );
 			totalStolen += take;
+			remaining -= take;
 		}
 
 		ownerDamage.Heal( totalStolen );
 
-		//Log.Info( $"[LavernaPower] {donors.Count} Spender × {perPlayer} HP → {totalStolen} gestohlen, Caster HP={ownerDamage.CurrentHP}/{ownerDamage.MaxHP}" );
+		if ( DebugLog )
+			Log.Info( $"[LavernaPower] {donors.Count} donors × ~{perPlayer:F0} HP → stole {totalStolen:F0}, caster now {ownerDamage.CurrentHP:F0}/{ownerDamage.MaxHP:F0}." );
 	}
 }

@@ -61,6 +61,17 @@ public sealed class PlayerItemTracker : Component
 	private GodPower heldPower;
 
 	/// <summary>
+	/// The source prefab that produced <see cref="heldInstance"/>. Cached so that
+	/// powers like Laverna's Item-Dieb can transfer an item to another tracker
+	/// without needing to know the original item pool — we hand the same prefab
+	/// to the recipient's GrantItemRpc.
+	/// </summary>
+	private GameObject heldPrefab;
+
+	/// <summary>The prefab the current held item was cloned from. Null if none held.</summary>
+	public GameObject HeldPrefab => heldPrefab;
+
+	/// <summary>
 	/// True while an item is held — including the linger phase after activation,
 	/// so the box rejects a new pickup until the previous use fully cleans up.
 	/// </summary>
@@ -94,6 +105,7 @@ public sealed class PlayerItemTracker : Component
 				heldInstance.Destroy();
 				heldInstance = null;
 				heldPower = null;
+				heldPrefab = null;
 			}
 		}
 	}
@@ -145,6 +157,7 @@ public sealed class PlayerItemTracker : Component
 
 		heldPower.Owner = PlayerRoot.IsValid() ? PlayerRoot : FindRoot( GameObject );
 
+		heldPrefab = prefab;
 		HeldItemKey = key;
 		OnItemGranted?.Invoke( key, heldPower );
 
@@ -195,6 +208,7 @@ public sealed class PlayerItemTracker : Component
 		var instanceToDestroy = heldInstance;
 		heldInstance = null;
 		heldPower = null;
+		heldPrefab = null;
 
 		if ( linger > 0f )
 			Invoke( linger, () => FinishUse( instanceToDestroy, key ) );
@@ -212,10 +226,57 @@ public sealed class PlayerItemTracker : Component
 
 		// Only clear if a NEW item wasn't granted during the linger (rare race).
 		if ( HeldItemKey == key )
+		{
 			HeldItemKey = "";
+			heldPrefab = null;
+		}
 
 		if ( DebugLog )
 			Log.Info( $"[PlayerItemTracker] Finalized '{key}' — instance destroyed, slot clear." );
+	}
+
+	/// <summary>
+	/// Laverna's Item-Dieb hook. Runs on the VICTIM's owner client: pops the
+	/// current held item out of this tracker, then hands the same (key, prefab)
+	/// to the recipient via the regular GrantItemRpc path. The recipient's
+	/// GrantItemRpc will be rejected if their slot is still occupied, so the
+	/// thief side schedules this call AFTER its own use-cleanup has run.
+	/// </summary>
+	[Rpc.Owner]
+	public void TransferHeldItemRpc( PlayerItemTracker recipient )
+	{
+		if ( !HasItem )
+		{
+			if ( DebugLog ) Log.Info( "[PlayerItemTracker] TransferHeldItemRpc called but slot is empty — nothing to steal." );
+			return;
+		}
+		if ( !heldPrefab.IsValid() )
+		{
+			if ( DebugLog ) Log.Warning( $"[PlayerItemTracker] TransferHeldItemRpc: no cached prefab for '{HeldItemKey}' — can't transfer." );
+			return;
+		}
+		if ( !recipient.IsValid() )
+		{
+			if ( DebugLog ) Log.Warning( "[PlayerItemTracker] TransferHeldItemRpc: recipient invalid." );
+			return;
+		}
+
+		string stolenKey = HeldItemKey;
+		var stolenPrefab = heldPrefab;
+
+		// Wipe victim slot — destroys their clone of the power so they lose access immediately.
+		if ( heldInstance.IsValid() )
+			heldInstance.Destroy();
+		heldInstance = null;
+		heldPower = null;
+		heldPrefab = null;
+		HeldItemKey = "";
+
+		if ( DebugLog )
+			Log.Info( $"[PlayerItemTracker] Robbed of '{stolenKey}' by {recipient.GameObject?.Name} — forwarding to recipient." );
+
+		// Routes to the recipient's owner client and clones the same prefab into their tracker.
+		recipient.GrantItemRpc( stolenKey, stolenPrefab );
 	}
 
 	private static GameObject FindRoot( GameObject from )
