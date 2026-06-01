@@ -38,6 +38,12 @@ public sealed class DionysosPower : GodPower
 	[Property, Group( "Grape Shooter" )]
 	public float SpawnHeightOffset { get; set; } = 30f;
 
+	/// <summary>Auto-resolved "Antrieb" node from the owning chariot. Preferred over HorseReference when valid.</summary>
+	private GameObject antriebNode;
+
+	private const string AntriebName = "Antrieb";
+	private const float AntriebForwardOffset = 2f;
+
 	// ---------- Drunk Drive (Ultimate) ----------
 
 	[Property, Group( "Drunk Drive" )]
@@ -48,6 +54,30 @@ public sealed class DionysosPower : GodPower
 
 	private readonly List<TestControlls> drunkPlayers = new();
 	private bool drunkActive;
+
+	// ---------- Owner Hookup ----------
+
+	protected override void OnOwnerAssigned()
+	{
+		antriebNode = Owner.IsValid() ? FindDescendantByName( Owner, AntriebName ) : null;
+
+		if ( antriebNode is null )
+			Log.Warning( $"[DionysosPower] Konnte '{AntriebName}'-Node im Owner '{Owner?.Name}' nicht finden." );
+	}
+
+	private static GameObject FindDescendantByName( GameObject root, string name )
+	{
+		foreach ( var child in root.Children )
+		{
+			if ( child is null ) continue;
+			if ( string.Equals( child.Name?.Trim(), name, StringComparison.OrdinalIgnoreCase ) )
+				return child;
+
+			var deeper = FindDescendantByName( child, name );
+			if ( deeper is not null ) return deeper;
+		}
+		return null;
+	}
 
 	// ---------- Normal ----------
 
@@ -60,17 +90,28 @@ public sealed class DionysosPower : GodPower
 			return;
 		}
 
-		var basis = HorseReference.IsValid() ? HorseReference : Owner;
-		if ( !basis.IsValid() )
-		{
-			Log.Warning( "[DionysosPower] Keine Schussbasis (HorseReference und Owner ungültig)." );
-			return;
-		}
+		Vector3 spawnPos;
+		Rotation baseRot;
 
-		Rotation baseRot = basis.WorldRotation;
-		Vector3 spawnPos = basis.WorldPosition
-			+ baseRot.Forward * SpawnForwardOffset
-			+ Vector3.Up * SpawnHeightOffset;
+		if ( antriebNode.IsValid() )
+		{
+			baseRot = antriebNode.WorldRotation;
+			spawnPos = antriebNode.WorldPosition + baseRot.Forward * AntriebForwardOffset;
+		}
+		else
+		{
+			var basis = HorseReference.IsValid() ? HorseReference : Owner;
+			if ( !basis.IsValid() )
+			{
+				Log.Warning( "[DionysosPower] Keine Schussbasis (Antrieb, HorseReference und Owner ungültig)." );
+				return;
+			}
+
+			baseRot = basis.WorldRotation;
+			spawnPos = basis.WorldPosition
+				+ baseRot.Forward * SpawnForwardOffset
+				+ Vector3.Up * SpawnHeightOffset;
+		}
 
 		for ( int i = 0; i < GrapeCount; i++ )
 		{

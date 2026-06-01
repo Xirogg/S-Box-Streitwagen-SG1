@@ -9,9 +9,12 @@ using System.Collections.Generic;
 /// </summary>
 public sealed class PlayerStats : Component
 {
-	[Property, Group( "Refs" )] public Rigidbody ChariotWagenGO { get; set; }
 	[Property, Group( "Refs" )] public ChariotPhysics Chariot { get; set; }
 
+	/// <summary>
+	/// Percent-based ram weight. 100 = normal force, 110 = 10% more, 90 = 10% less.
+	/// Read by PlayerCollisions to scale ram impulses; no longer touches Rigidbody mass.
+	/// </summary>
 	[Property, Group( "Weight" )] public Stat Weight { get; set; } = new() { BaseValue = 100f };
 	[Property, Group( "MaxSpeed" )] public Stat MaxSpeedPercent { get; set; } = new() { BaseValue = 100f };
 	[Property, Group( "Attack" )] public Stat Attack { get; set; } = new() { BaseValue = 30f };
@@ -19,19 +22,20 @@ public sealed class PlayerStats : Component
 
 	[Property, Group( "Debug" )] public bool DebugLog { get; set; } = false;
 
-	private const float WeightBaseline = 100f;
+	public const float WeightBaseline = 100f;
 	private const float SpeedBaseline = 100f;
 	private const string SpeedKey = "stats";
 
-	private float _baseMassOverride;
 	private bool _initialized;
+
+	/// <summary>
+	/// Weight as a 0..n multiplier (100 -> 1.0, 110 -> 1.1, 90 -> 0.9). Clamped to >=0
+	/// so a debuff can't invert direction.
+	/// </summary>
+	public float WeightMultiplier => MathF.Max( Weight.Value, 0f ) / WeightBaseline;
 
 	protected override void OnStart()
 	{
-		if ( ChariotWagenGO.IsValid() )
-			_baseMassOverride = ChariotWagenGO.MassOverride;
-
-		
 		_initialized = true;
 		ApplyAll();
 	}
@@ -44,16 +48,7 @@ public sealed class PlayerStats : Component
 
 	private void ApplyAll()
 	{
-		ApplyWeight();
 		ApplyMaxSpeed();
-	}
-
-	private void ApplyWeight()
-	{
-		if ( !ChariotWagenGO.IsValid() ) return;
-		ChariotWagenGO.MassOverride = _baseMassOverride + (Weight.Value - WeightBaseline);
-
-		//Log.Info( ChariotWagenGO.MassOverride + "  " + Weight.Value );
 	}
 
 	private void ApplyMaxSpeed()
