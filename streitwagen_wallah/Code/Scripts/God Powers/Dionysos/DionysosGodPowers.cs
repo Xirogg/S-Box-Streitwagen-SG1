@@ -1,14 +1,15 @@
 using Sandbox;
 using System;
-using System.Collections.Generic;
 
 /// <summary>
 /// Dionysos:
 ///   Normal — Trauben-Schütze: schießt mehrere Trauben in einem Spread-Kegel
 ///   nach vorne (kein Auto-Aim, Bounce-Verhalten kommt vom Projektil-Prefab).
 ///
-///   Ultimate — Trunkenheit am Steuer: alle Spieler außer dem Caster
-///   bekommen invertierte Steuerung für DrunkDuration Sekunden.
+///   Ultimate — Trunkenheit am Steuer: addiert DrunkDuration Sekunden auf den
+///   TestControlls-Drunk-Timer aller anderen Spieler. Das Power-Objekt kann sofort
+///   entsorgt werden (kein Linger nötig); mehrfache Ults stapeln sauber, weil
+///   der Timer auf TestControlls liegt und sich nur addiert.
 ///   Der bunte Filter wird separat angebunden via TestControlls.OnDrunkChanged.
 /// </summary>
 public sealed class DionysosPower : GodPower
@@ -51,9 +52,6 @@ public sealed class DionysosPower : GodPower
 
 	[Property, Group( "Drunk Drive" )]
 	public string PlayerTag { get; set; } = "player";
-
-	private readonly List<TestControlls> drunkPlayers = new();
-	private bool drunkActive;
 
 	// ---------- Owner Hookup ----------
 
@@ -129,14 +127,8 @@ public sealed class DionysosPower : GodPower
 
 	// ---------- Ultimate ----------
 
-	protected override bool CanActivateUltimate() => !drunkActive;
-
 	protected override void OnActivateUltimate()
 	{
-		//Log.Info( "Drunk active" );
-		drunkActive = true;
-		drunkPlayers.Clear();
-
 		Guid casterId = Guid.Empty;
 		if ( Owner.IsValid() )
 		{
@@ -145,36 +137,21 @@ public sealed class DionysosPower : GodPower
 				casterId = ownerControls.PlayerId;
 		}
 
+		int hits = 0;
 		var players = Scene.FindAllWithTag( PlayerTag );
 		foreach ( var player in players )
 		{
 			var controls = player.Components.Get<TestControlls>( FindMode.EverythingInSelfAndDescendants );
 			if ( controls is null ) continue;
+
+			// Filter out the caster via PlayerId so we don't drunk-drive ourselves.
 			if ( casterId != Guid.Empty && controls.PlayerId == casterId ) continue;
 
-			controls.SetDrunk( true );
-			drunkPlayers.Add( controls );
+			// Routes to the player's owning peer; stacks with any timer already running.
+			controls.AddDrunkTime( DrunkDuration );
+			hits++;
 		}
 
-		//Log.Info( $"[DionysosPower] {drunkPlayers.Count} Spieler betrunken für {DrunkDuration}s" );
-
-		Invoke( DrunkDuration, RevertDrunk );
-	}
-
-	private void RevertDrunk()
-	{
-		foreach ( var controls in drunkPlayers )
-		{
-			if ( controls.IsValid() )
-				controls.SetDrunk( false );
-		}
-		drunkPlayers.Clear();
-		drunkActive = false;
-	}
-
-	protected override void OnDisabled()
-	{
-		if ( drunkActive )
-			RevertDrunk();
+		//Log.Info( $"[DionysosPower] {hits} Spieler bekommen +{DrunkDuration}s Drunk" );
 	}
 }

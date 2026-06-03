@@ -17,18 +17,61 @@ public sealed class TestControlls : Component
 
 	private const float SteerInputDeadzone = 0.01f;
 
-	[Property, Group( "Ram Lurch" )] public float LurchImpulse { get; set; } = 800f;
-	//[Property, Group( "Ram Lurch" )]
-	public float LurchForwardOffset { get; set; } = 60f;
-
+	[Property, Group( "Ram Lurch" )] public float LurchSpeed { get; set; } = 700f;
+	[Property, Group( "Ram Lurch" )] public float LurchDuration { get; set; } = 0.25f;
+	[Property, Group( "Ram Lurch" ), Range( 0f, 2f )] public float ChariotLurchScale { get; set; } = 1f;
+	[Property, Group( "Ram Lurch" )] public float LurchYawImpulse { get; set; } = 0f;
+	[Property, Group( "Ram Lurch" )] public float LurchForwardBoost { get; set; } = 0f;
 
 	[Property, Group( "GameObjects" )] public Rigidbody Rigidbody { get; set; }
+	[Property, Group( "GameObjects" )] public Rigidbody ChariotRigidbody { get; set; }
 
 	[Sync] private Vector2 moveInput { get; set; }
 
 	[Sync, Property, Group( "Identity" )] public Guid PlayerId { get; set; }
 
+	// --- Drunk Drive Timer ---------------------------------------------------------
+	//
+	// Single source of truth for drunk-driving state. The timer is owner-authoritative
+	// and synced to all peers, so anyone (VFX, UI) can read IsDrunk without going
+	// through this script directly.
+	//
+	// AddDrunkTime is [Rpc.Owner] so any peer (e.g. the Dionysos caster) can stack
+	// drunk time onto a remote player — the call routes to that player's owning peer,
+	// which mutates the synced state.
+
+	/// <summary>Seconds of drunk-driving left. Ticks down on the owning peer.</summary>
+	[Sync] public float DrunkDriveTimer { get; private set; }
+
+	/// <summary>True while <see cref="DrunkDriveTimer"/> &gt; 0.</summary>
 	[Sync] public bool IsDrunk { get; private set; }
+
+	private bool _lastObservedDrunk;
+
+	/// <summary>
+	/// Stack drunk time onto this player. Routed to the owning peer so the timer
+	/// ticks authoritatively and stacking from multiple casters Just Works.
+	/// </summary>
+	[Rpc.Owner]
+	public void AddDrunkTime( float seconds )
+	{
+		if ( seconds <= 0f ) return;
+		DrunkDriveTimer += seconds;
+		if ( !IsDrunk ) IsDrunk = true;
+	}
+
+	private void TickDrunkTimer()
+	{
+		if ( DrunkDriveTimer <= 0f )
+		{
+			if ( IsDrunk ) IsDrunk = false;
+			return;
+		}
+
+		DrunkDriveTimer = MathF.Max( 0f, DrunkDriveTimer - Time.Delta );
+		if ( DrunkDriveTimer <= 0f )
+			IsDrunk = false;
+	}
 
 	/// <summary>
 	/// True solange der Spieler Left/Right UND zusätzlich RamLeft/RamRight (Q/E) drückt.
@@ -52,15 +95,15 @@ public sealed class TestControlls : Component
 
 	public event Action<bool> OnDrunkChanged;
 
-	public void SetDrunk( bool on )
-	{
-		if ( IsDrunk == on ) return;
-		IsDrunk = on;
-		OnDrunkChanged?.Invoke( on );
-	}
+	private float _lurchUntil = -999f;
+	private Vector3 _lurchDir;
+
+	private bool LurchActive => Time.Now < _lurchUntil;
 
 	protected override void OnStart()
 	{
+		_lastObservedDrunk = IsDrunk;
+
 		if ( IsProxy ) return;
 
 		if ( PlayerId == Guid.Empty )
@@ -69,6 +112,15 @@ public sealed class TestControlls : Component
 
 	protected override void OnUpdate()
 	{
+		// Drunk transition observer runs on all peers so the visual filter hooked to
+		// OnDrunkChanged fires for proxies too.
+		bool drunkNow = IsDrunk;
+		if ( drunkNow != _lastObservedDrunk )
+		{
+			_lastObservedDrunk = drunkNow;
+			OnDrunkChanged?.Invoke( drunkNow );
+		}
+
 		if ( IsProxy ) return;
 
 		if ( RaceManager.Instance?.StartCountdownTimeLeft > 0f )
@@ -85,10 +137,12 @@ public sealed class TestControlls : Component
 	{
 		if ( IsProxy ) return;
 
+		TickDrunkTimer();
 
 		ApplyHorseLateralGrip();
 		ApplyLocomotion( moveInput.x );
 		ApplySteering( moveInput.y );
+		MaintainLurch();
 	}
 
 	private void ApplyInputs()
@@ -147,10 +201,54 @@ public sealed class TestControlls : Component
 		float dir = leftPressed ? 1f : -1f;
 		if ( IsDrunk ) dir = -dir;
 
-		Vector3 right = WorldRotation.Right;
-		Vector3 impulse = -right * dir * LurchImpulse * Rigidbody.Mass;
-		Vector3 frontWorld = WorldPosition + WorldRotation.Forward * LurchForwardOffset;
-		Rigidbody.ApplyImpulseAt( frontWorld, impulse );
+		// Q (dir=+1) swings left, E (dir=-1) swings right. Locked to the horses' right
+		// vector so both bodies use one shared sideways direction.
+		Vector3 swing = -WorldRotation.Right * dir;
+		swing.z = 0f;
+		if ( swing.LengthSquared < 0.0001f ) return;
+		swing = swing.Normal;
+
+		// Open a short window. MaintainLurch keeps re-injecting the swing velocity every
+		// fixed tick and ApplyHorseLateralGrip backs off while the window is open, so the
+		// horses can't bleed off the swing faster than the chariot. End result: both bodies
+		// translate in lockstep regardless of mass, grip, or joint reaction.
+		_lurchDir = swing;
+		_lurchUntil = Time.Now + LurchDuration;
+
+		Vector3 forwardBoost = WorldRotation.Forward * LurchForwardBoost;
+		ForceSetLateralVelocity( Rigidbody, swing, LurchSpeed, forwardBoost );
+		if ( ChariotRigidbody is not null )
+			ForceSetLateralVelocity( ChariotRigidbody, swing, LurchSpeed * ChariotLurchScale, forwardBoost );
+
+		if ( LurchYawImpulse != 0f )
+		{
+			Vector3 yawKick = Vector3.Up * (LurchYawImpulse * dir);
+			Rigidbody.AngularVelocity += yawKick;
+			if ( ChariotRigidbody is not null )
+				ChariotRigidbody.AngularVelocity += yawKick;
+		}
+	}
+
+	private void MaintainLurch()
+	{
+		if ( !LurchActive ) return;
+		if ( Rigidbody is null ) return;
+
+		// Keep both bodies pinned to the target lateral speed for the whole window so
+		// nothing (grip, joint, drift impulse) can pull them out of sync mid-swing.
+		ForceSetLateralVelocity( Rigidbody, _lurchDir, LurchSpeed, Vector3.Zero );
+		if ( ChariotRigidbody is not null )
+			ForceSetLateralVelocity( ChariotRigidbody, _lurchDir, LurchSpeed * ChariotLurchScale, Vector3.Zero );
+	}
+
+	private static void ForceSetLateralVelocity( Rigidbody body, Vector3 swingDir, float swingSpeed, Vector3 extra )
+	{
+		// Replace the component of velocity along swingDir with exactly swingSpeed, keep
+		// the rest (forward, vertical) untouched.
+		Vector3 vel = body.Velocity;
+		float currentAlong = Vector3.Dot( vel, swingDir );
+		vel += swingDir * (swingSpeed - currentAlong);
+		body.Velocity = vel + extra;
 	}
 
 	private void ApplyLocomotion( float acceleration )
@@ -171,6 +269,7 @@ public sealed class TestControlls : Component
 	private void ApplyHorseLateralGrip()
 	{
 		if ( LateralGrip <= 0f ) return;
+		if ( LurchActive ) return;
 
 		Vector3 right = WorldRotation.Right;
 		float lateral = Vector3.Dot( Rigidbody.Velocity, right );

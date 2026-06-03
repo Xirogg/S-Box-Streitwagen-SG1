@@ -137,6 +137,12 @@ public sealed class PublicityCurrencyManager : Component
 	public static int GetCurrency( GameObject playerRoot )
 		=> GetCurrency( ResolveSteamId( playerRoot ) );
 
+	/// <summary> Steam ID of the local peer, or 0 when offline / in the editor. </summary>
+	public static ulong LocalSteamId => Connection.Local?.SteamId ?? 0UL;
+
+	/// <summary> Convenience: the local peer's current PG total. Cheap dictionary lookup. </summary>
+	public static int LocalCurrency => GetCurrency( LocalSteamId );
+
 	public static bool HasBounty( ulong steamId ) => Bounties.Contains( steamId );
 
 	// ---------- Write API (host-only; calls on clients are no-ops) ----------

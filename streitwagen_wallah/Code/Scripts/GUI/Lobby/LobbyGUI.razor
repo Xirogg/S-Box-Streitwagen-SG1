@@ -36,6 +36,8 @@
 		<div class="quit-title">Quit Game</div>
 		<div class="quit-hotkey">DEL</div>
 	</div>
+
+	<div class="currency-label">Currency: @LocalCurrency</div>
 </root>
 
 <style>
@@ -203,6 +205,20 @@
 		font-family: Arial;
 		color: rgba(255, 255, 255, 0.5);
 	}
+
+	.currency-label {
+		position: absolute;
+		bottom: 48px;
+		left: 48px;
+		padding: 16px 32px;
+		font-size: 40px;
+		font-family: Arial;
+		color: rgba(255, 220, 80, 1);
+		background-color: rgba(0, 0, 0, 0.55);
+		border: 3px solid rgba(255, 220, 80, 0.6);
+		border-radius: 12px;
+		text-shadow: 0px 2px 4px black;
+	}
 </style>
 
 @code
@@ -218,6 +234,10 @@
 
 	int ReadyCount => AllPlayers.Count( p => p.IsReady );
 	int TotalCount => AllPlayers.Count();
+
+	// Local player's PG. The host pushes per-peer mirrors via RpcSetCurrency,
+	// so each peer reads its own total without trusting other clients.
+	int LocalCurrency => PublicityCurrencyManager.LocalCurrency;
 
 	string CountdownDisplay => MathF.Ceiling( LobbyManager.Instance?.CountdownTimeLeft ?? 0f )
 		.ToString( "0" );
@@ -273,6 +293,7 @@
 		hash.Add( LobbyManager.Instance?.CountdownTimeLeft );
 		hash.Add( CurrentTrack );
 		hash.Add( TotalCount );
+		hash.Add( LocalCurrency );
 		foreach ( var p in AllPlayers )
 		{
 			hash.Add( p.IsReady );

@@ -95,8 +95,18 @@
             "__enabled": true,
             "Flags": 0,
             "BrakeForce": 5,
+            "ChariotLurchScale": 1,
+            "ChariotRigidbody": {
+              "_type": "component",
+              "component_id": "4932540a-ba13-4f07-bd43-b3da02c0d833",
+              "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
+              "component_type": "Rigidbody"
+            },
             "LateralGrip": 5,
-            "LurchImpulse": 800,
+            "LurchDuration": 0.25,
+            "LurchForwardBoost": 0,
+            "LurchSpeed": 600,
+            "LurchYawImpulse": 0,
             "MaxAngularSpeed": 15000,
             "MaxVerticalSpeed": 1000,
             "OnComponentDestroy": null,
@@ -1266,12 +1276,6 @@
               "component_id": "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2",
               "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
               "component_type": "ChariotPhysics"
-            },
-            "ChariotWagenGO": {
-              "_type": "component",
-              "component_id": "4932540a-ba13-4f07-bd43-b3da02c0d833",
-              "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
-              "component_type": "Rigidbody"
             },
             "DebugLog": false,
             "Defense": {

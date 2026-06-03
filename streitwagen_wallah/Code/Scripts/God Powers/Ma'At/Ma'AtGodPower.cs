@@ -33,8 +33,8 @@ public sealed class MaatPower : GodPower
 	private const string BuffKey = "maat_buff";
 	private const string DebuffKey = "maat_debuff";
 
-	private readonly List<ISpeedModifiable> buffed = new();
-	private readonly List<ISpeedModifiable> debuffed = new();
+	private readonly List<ChariotPhysics> buffed = new();
+	private readonly List<ChariotPhysics> debuffed = new();
 	private bool effectActive;
 
 	// ---------- Normal ----------
@@ -70,15 +70,19 @@ public sealed class MaatPower : GodPower
 		Shuffle( players );
 		int half = (players.Count + 1) / 2; // bei ungerader Zahl bekommt der Buff einen mehr
 
-		var ownerSpeed = Owner.IsValid()
-			? Owner.Components.Get<ISpeedModifiable>( FindMode.EverythingInSelfAndDescendants )
+		var ownerChariot = Owner.IsValid()
+			? Owner.Components.Get<ChariotPhysics>( FindMode.EverythingInSelfAndDescendants )
 			: null;
 
 		for ( int i = 0; i < players.Count; i++ )
 		{
 			var player = players[i];
-			var speed = player.Components.Get<ISpeedModifiable>( FindMode.EverythingInSelfAndDescendants );
-			if ( speed is null ) continue;
+			var chariot = player.Components.Get<ChariotPhysics>( FindMode.EverythingInSelfAndDescendants );
+			if ( chariot is null )
+			{
+				Log.Warning( $"[MaatPower] Spieler '{player.Name}' hat keine ChariotPhysics — übersprungen." );
+				continue;
+			}
 
 			bool wantsBuff = i < half;
 
@@ -88,17 +92,17 @@ public sealed class MaatPower : GodPower
 				var shield = player.Components.Get<MaatKarmaShield>( FindMode.EverythingInSelfAndDescendants );
 				if ( shield is not null && shield.TryConsume() )
 				{
-					ApplyBuff( speed );
-					if ( ownerSpeed is not null && ownerSpeed != speed )
-						ApplyDebuff( ownerSpeed );
+					ApplyBuff( chariot );
+					if ( ownerChariot is not null && ownerChariot != chariot )
+						ApplyDebuff( ownerChariot );
 					continue;
 				}
 			}
 
 			if ( wantsBuff )
-				ApplyBuff( speed );
+				ApplyBuff( chariot );
 			else
-				ApplyDebuff( speed );
+				ApplyDebuff( chariot );
 		}
 
 		//Log.Info( $"[MaatPower] Buff: {buffed.Count}, Debuff: {debuffed.Count} für {EffectDuration}s" );
@@ -106,26 +110,30 @@ public sealed class MaatPower : GodPower
 		Invoke( EffectDuration, RevertEffect );
 	}
 
-	private void ApplyBuff( ISpeedModifiable speed )
+	private void ApplyBuff( ChariotPhysics chariot )
 	{
-		speed.SetSpeedMultiplier( BuffKey, BuffMultiplier );
-		if ( !buffed.Contains( speed ) )
-			buffed.Add( speed );
+		chariot.SetSpeedMultiplier( BuffKey, BuffMultiplier );
+		if ( !buffed.Contains( chariot ) )
+			buffed.Add( chariot );
 	}
 
-	private void ApplyDebuff( ISpeedModifiable speed )
+	private void ApplyDebuff( ChariotPhysics chariot )
 	{
-		speed.SetSpeedMultiplier( DebuffKey, DebuffMultiplier );
-		if ( !debuffed.Contains( speed ) )
-			debuffed.Add( speed );
+		chariot.SetSpeedMultiplier( DebuffKey, DebuffMultiplier );
+		if ( !debuffed.Contains( chariot ) )
+			debuffed.Add( chariot );
 	}
 
 	private void RevertEffect()
 	{
-		foreach ( var s in buffed )
-			s?.ClearSpeedMultiplier( BuffKey );
-		foreach ( var s in debuffed )
-			s?.ClearSpeedMultiplier( DebuffKey );
+		foreach ( var c in buffed )
+		{
+			if ( c.IsValid() ) c.ClearSpeedMultiplier( BuffKey );
+		}
+		foreach ( var c in debuffed )
+		{
+			if ( c.IsValid() ) c.ClearSpeedMultiplier( DebuffKey );
+		}
 
 		buffed.Clear();
 		debuffed.Clear();

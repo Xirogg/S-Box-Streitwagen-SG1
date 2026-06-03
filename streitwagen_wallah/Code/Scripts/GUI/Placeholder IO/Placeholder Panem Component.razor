@@ -11,9 +11,12 @@
 	{
 		<div class="lap">Lap @LapText</div>
 		<div class="hpbar">
-			<div class="hp-fill" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;"></div>
+			<div class="hp-fill-clip" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;">
+				<div class="hp-fill"></div>
+			</div>
 		</div>
 		<div class="position" style="color: @PositionColor;">@PositionText</div>
+		<div class="currency">@LocalCurrency</div>
 
 		<div class="item">Power: @ItemDisplay</div>
 
@@ -48,16 +51,47 @@
 		font-family: Arial;
 		text-shadow: 0px 2px 2px black;
 	}
-	.hpbar {
-		width: 300px;
-		height: 24px;
-		background-color: red;
-		border: 2px solid black;
+	.currency {
+		position: absolute;
+		bottom: 290px;
+		left: 132px;
+		color: rgba(255, 220, 80, 1);
+		font-size: 96px;
+		font-family: Arial;
+		text-shadow: 0px 2px 4px black;
 	}
-	.hp-fill {
-		height: 100%;
-		background-color: green;
+	/* Outline acts as the frame + empty-state visual. When the green shrinks
+	   below 100% the brown interior of this texture shows through — no red. */
+	.hpbar {
+		width: 500px;
+		height: 80px;
+		background-image: url( "/ui/ingame gui/hp bar/hp outline.png" );
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		position: relative;
+	}
+	/* Clip box: its width is driven by HPPercent and it hides any green that
+	   spills past the right edge. Inset to sit inside the outline's frame. */
+	.hp-fill-clip {
+		position: absolute;
+		top: 18%;
+		bottom: 18%;
+		left: 4%;
+		max-width: 92%;
+		overflow: hidden;
 		transition: width 0.15s linear;
+	}
+	/* The green is drawn at the FULL clip width (440px = 500 * 92%) so it
+	   doesn't squish as HP drops — it just gets cut off on the right. */
+	.hp-fill {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 460px;
+		height: 100%;
+		background-image: url( "/ui/ingame gui/hp bar/hp green.png" );
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
 	}
 	.position {
 		position: absolute;
@@ -165,6 +199,9 @@
 	}
 
 	string LapText => Lap is null ? "-/-" : $"{Lap.CurrentLap}/{Lap.MaxLaps}";
+
+	// Local player's PG total. Host pushes per-peer mirrors via RpcSetCurrency.
+	int LocalCurrency => PublicityCurrencyManager.LocalCurrency;
 	float HPPercent => Damage is null ? 0f
 		: MathX.Clamp( Damage.CurrentHP / MathF.Max( Damage.MaxHP, 0.0001f ) * 100f, 0f, 100f );
 
@@ -255,5 +292,8 @@
 		}
 	}
 
-	protected override int BuildHash() => System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder, Items?.HeldItemKey );
+	protected override int BuildHash() => System.HashCode.Combine(
+		System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder, Items?.HeldItemKey ),
+		LocalCurrency
+	);
 }
