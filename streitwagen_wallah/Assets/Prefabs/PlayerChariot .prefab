@@ -102,12 +102,12 @@
               "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
               "component_type": "Rigidbody"
             },
-            "LateralGrip": 5,
+            "LateralGrip": 6,
             "LurchDuration": 0.25,
             "LurchForwardBoost": 0,
             "LurchSpeed": 600,
             "LurchYawImpulse": 0,
-            "MaxAngularSpeed": 15000,
+            "MaxAngularSpeed": 150,
             "MaxVerticalSpeed": 1000,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -125,7 +125,7 @@
             },
             "SharpSteerMultiplier": 1.5,
             "SteerReleaseDamping": 15,
-            "SteerTorque": 5500
+            "SteerTorque": 1000
           },
           {
             "__type": "Sandbox.ModelRenderer",
@@ -440,7 +440,7 @@
             "__guid": "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2",
             "__enabled": true,
             "Flags": 0,
-            "ChariotAngularDamping": 0.15,
+            "ChariotAngularDamping": 1.8,
             "CurrentSpeed": 0,
             "DebugLog": false,
             "DriftAngle": 0,
@@ -573,7 +573,7 @@
             "DamageMultiplier": 1,
             "DebugLog": true,
             "HitCooldown": 0.5,
-            "MaxHP": 100,
+            "MaxHP": 1500,
             "MinSpeedMultiplier": 0.6,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -1268,8 +1268,8 @@
             "__enabled": true,
             "Flags": 0,
             "Attack": {
-              "BaseValue": 30,
-              "Value": 30
+              "BaseValue": 100,
+              "Value": 100
             },
             "Chariot": {
               "_type": "component",
@@ -1279,8 +1279,8 @@
             },
             "DebugLog": false,
             "Defense": {
-              "BaseValue": 100,
-              "Value": 100
+              "BaseValue": 300,
+              "Value": 300
             },
             "MaxSpeedPercent": {
               "BaseValue": 100,

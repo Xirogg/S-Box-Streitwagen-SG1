@@ -5295,14 +5295,14 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.Clutter.ClutterGridSystem": {
-        "Storage": {
-          "$blob": "3cbf77a2-9e45-4eb3-9fb3-b88c7f85b5b5"
-        }
-      },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
+        }
+      },
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "3cbf77a2-9e45-4eb3-9fb3-b88c7f85b5b5"
         }
       }
     }
