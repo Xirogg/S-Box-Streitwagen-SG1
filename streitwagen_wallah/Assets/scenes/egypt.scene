@@ -85,7 +85,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "SpawnPoints",
-          "Position": "0,0,0",
+          "Position": "0,-5025.80615,308.223267",
           "Rotation": "0,0,0,1",
           "Scale": "1,1,1",
           "Tags": "",
@@ -120,7 +120,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "-131.122681,-3116.10059,-1750.55664",
+              "Position": "176.182739,-2286.55029,-1750.55652",
               "Rotation": "0,0,-0.707106769,0.707106769",
               "Scale": "1,1,1",
               "Tags": "",
@@ -138,7 +138,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "-516.545532,-3126.53223,-1758.12585",
+              "Position": "263.425903,-2688.00146,-1758.12573",
               "Rotation": "0,-0,-0.707106769,0.707106769",
               "Scale": "1,1,1",
               "Tags": "",
@@ -156,7 +156,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "-728.576782,-3126.53223,-1758.12585",
+              "Position": "106.986206,-2021.28027,-1758.12573",
               "Rotation": "0,-0,-0.707106769,0.707106769",
               "Scale": "1,1,1",
               "Tags": "",
@@ -195,7 +195,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "CHECKPOINTS",
-          "Position": "0,0,0",
+          "Position": "0,0,809.344421",
           "Rotation": "0,0,0,1",
           "Scale": "1,1,1",
           "Tags": "",
@@ -221,7 +221,7 @@
                       "IdValue": "4c2d86e6-74a1-4d3d-84a3-e76240adabbf"
                     },
                     "Property": "Position",
-                    "Value": "-609.454773,-2913.7041,-941.862122"
+                    "Value": "-127.532562,-3842.47559,-941.862122"
                   },
                   {
                     "Target": {
@@ -312,7 +312,7 @@
                       "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
                     },
                     "Property": "Position",
-                    "Value": "-5639.87012,-12453.2246,-941.862122"
+                    "Value": "-6055.36914,-11834.4531,-941.862061"
                   },
                   {
                     "Target": {
@@ -361,7 +361,7 @@
                       "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
                     },
                     "Property": "Position",
-                    "Value": "2715.35059,-9719.69922,-941.862"
+                    "Value": "2637.56226,-8896.64648,-1257.34668"
                   },
                   {
                     "Target": {
@@ -426,7 +426,7 @@
                       "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
                     },
                     "Property": "Position",
-                    "Value": "5285.25195,-2612.38965,-941.862122"
+                    "Value": "4389.09814,-4437.17773,-1157.21191"
                   },
                   {
                     "Target": {
@@ -434,7 +434,7 @@
                       "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
                     },
                     "Property": "Rotation",
-                    "Value": "0,0,0.707106769,0.707106769"
+                    "Value": "0,0,0.481317639,0.876546264"
                   },
                   {
                     "Target": {
@@ -460,9 +460,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Pyramid3",
-          "Position": "2915.39697,-6022.63379,-427.407166",
+          "Position": "2388.22827,-6231.50342,-91.3875732",
           "Rotation": "0,0,0.087155737,0.99619472",
-          "Scale": "60,60,5",
+          "Scale": "30,30,2.5",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -1315,9 +1315,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Pyramid2",
-          "Position": "-4550.80713,-9280.55078,-545.71228",
+          "Position": "-4956.60791,-8701.00586,-181.662354",
           "Rotation": "0,0,0.300705791,0.953716934",
-          "Scale": "50,50,4",
+          "Scale": "20,20,1.60000002",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -2170,7 +2170,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Pyramid1",
-          "Position": "4340.53076,-15620.0918,-566.862671",
+          "Position": "2396.09741,-13709.834,227.980408",
           "Rotation": "0,0,0,1",
           "Scale": "100,100,7",
           "Tags": "",
@@ -3025,7 +3025,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Floor",
-          "Position": "-525.533142,-10687.0117,-966.862122",
+          "Position": "-525.533142,-10687.0117,-1030.1228",
           "Rotation": "0,0,0,1",
           "Scale": "600,600,5.00000143",
           "Tags": "ground",
@@ -3906,7 +3906,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder",
-              "Position": "-514.690552,-22.5759563,23.7701111",
+              "Position": "-497.605072,-21.4093761,1084.66919",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -3952,7 +3952,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (6)",
-              "Position": "-462.111908,-28.9019814,23.7701111",
+              "Position": "-448.604095,-26.0096188,1084.66919",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -3998,7 +3998,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (3)",
-              "Position": "-371.397919,-66.5148468,23.768568",
+              "Position": "-395.773285,-61.3223114,771.425171",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4044,7 +4044,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (7)",
-              "Position": "-385.078094,-58.5462723,23.7681332",
+              "Position": "-405.384857,-55.6065483,603.11676",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4090,7 +4090,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (4)",
-              "Position": "232.742188,-38.2653046,23.7671833",
+              "Position": "228.511566,-33.4451637,481.343292",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4136,7 +4136,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (8)",
-              "Position": "225.099045,-46.7123184,23.7671795",
+              "Position": "225.099045,-39.3142052,509.576569",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4182,7 +4182,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (5)",
-              "Position": "418.262756,5.91476154,23.7647781",
+              "Position": "326.295776,-5.88389683,474.052551",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4228,7 +4228,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (9)",
-              "Position": "428.976532,15.0403299,23.7650719",
+              "Position": "362.718384,-0.0756966025,405.158905",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4274,7 +4274,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (1)",
-              "Position": "-39.0747032,8.88805962,24.6793995",
+              "Position": "-17.1102333,-9.02058411,413.702179",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4320,7 +4320,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (2)",
-              "Position": "34.1595116,8.88805962,24.6793995",
+              "Position": "42.7834091,-7.70690489,436.133026",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4619,7 +4619,7 @@
               "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
             },
             "Property": "Position",
-            "Value": "71.0581055,5271.72266,25"
+            "Value": "1165.59802,5271.72266,25"
           },
           {
             "Target": {
@@ -4675,6 +4675,60 @@
         "71306516-0416-4962-ad57-604bccf93274": "9d6c6c38-ef4f-49b5-9cbb-2f79972442da",
         "143114ab-4f92-4888-96ae-a120972ec204": "57d53e98-01ea-4f47-8fb9-08392bbfe0fe"
       }
+    },
+    {
+      "__guid": "55f7ddf2-8fd1-4b0f-8745-50a9453d5fe0",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "Terrain (1)",
+      "Position": "-10093.8867,-8158.0293,-462.009949",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.Terrain",
+          "__guid": "8904a8b5-ab37-423b-ae9b-12437466bb5e",
+          "__enabled": true,
+          "Flags": 0,
+          "__version": 1,
+          "ClipMapLodExtentTexels": 256,
+          "ClipMapLodLevels": 6,
+          "ColliderFlags": 0,
+          "Elasticity": null,
+          "EnableCollision": true,
+          "Friction": null,
+          "IsTrigger": false,
+          "MaterialOverride": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RenderType": "Off",
+          "RollingResistance": null,
+          "Static": true,
+          "Storage": "scenes/terrain/desert2.terrain",
+          "SubdivisionFactor": 1,
+          "SubdivisionLodCount": 3,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0",
+          "TerrainHeight": 10000,
+          "TerrainSize": 19968
+        }
+      ],
+      "Children": []
     }
   ],
   "SceneProperties": {
@@ -4697,11 +4751,6 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.Clutter.ClutterGridSystem": {
-        "Storage": {
-          "$blob": "3cbf77a2-9e45-4eb3-9fb3-b88c7f85b5b5"
-        }
-      },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
