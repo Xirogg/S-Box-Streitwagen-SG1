@@ -1,0 +1,72 @@
+{
+  "RootObject": {
+    "__guid": "fd7ffc96-df5f-4184-b672-cb2696237967",
+    "__version": 2,
+    "Flags": 0,
+    "Name": "ma'atscriptprefab ",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkFlags": 0,
+    "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
+    "OwnerTransfer": 1,
+    "Components": [
+      {
+        "__type": "MaatPower",
+        "__guid": "5cf9a6ab-afac-48c6-956a-a931862fba38",
+        "__enabled": true,
+        "Flags": 0,
+        "BuffMultiplier": 1.5,
+        "DebuffMultiplier": 0.6,
+        "DisplayName": "Power",
+        "EffectDuration": 6,
+        "Icon": null,
+        "LingerAfterNormal": 0,
+        "LingerAfterUltimate": 0,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "PlayerTag": "player",
+        "ShieldDuration": 8,
+        "UltimateDisplayName": "Ultimate",
+        "UltimateIcon": null
+      }
+    ],
+    "Children": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": false,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
+      }
+    },
+    "__variables": []
+  },
+  "ResourceVersion": 2,
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "__references": [],
+  "__version": 2
+}

@@ -90,11 +90,18 @@ public sealed class DionysosPower : GodPower
 
 		Vector3 spawnPos;
 		Rotation baseRot;
+		Vector3 fireDir;
 
 		if ( antriebNode.IsValid() )
 		{
-			baseRot = antriebNode.WorldRotation;
-			spawnPos = antriebNode.WorldPosition + baseRot.Forward * AntriebForwardOffset;
+			// Direction comes from the Owner/chariot root — the Antrieb node's own local
+			// rotation can be flipped relative to the chariot (which would shoot bullets
+			// backwards), so we only borrow its position.
+			var dirBasis = Owner.IsValid() ? Owner : antriebNode;
+			baseRot = dirBasis.WorldRotation;
+			// Chariot's authored "forward" axis points backwards visually — flip it.
+			fireDir = -baseRot.Forward;
+			spawnPos = antriebNode.WorldPosition + fireDir * AntriebForwardOffset;
 		}
 		else
 		{
@@ -106,15 +113,19 @@ public sealed class DionysosPower : GodPower
 			}
 
 			baseRot = basis.WorldRotation;
+			fireDir = -baseRot.Forward;
 			spawnPos = basis.WorldPosition
-				+ baseRot.Forward * SpawnForwardOffset
+				+ fireDir * SpawnForwardOffset
 				+ Vector3.Up * SpawnHeightOffset;
 		}
+
+		// Build a rotation whose forward = fireDir, so the spread cone stays correct.
+		Rotation shotBase = Rotation.LookAt( fireDir, Vector3.Up );
 
 		for ( int i = 0; i < GrapeCount; i++ )
 		{
 			float yawOffset = Random.Shared.Float( -SpreadAngleDegrees, SpreadAngleDegrees );
-			Rotation shotRot = baseRot * Rotation.FromYaw( yawOffset );
+			Rotation shotRot = shotBase * Rotation.FromYaw( yawOffset );
 
 			var clone = GrapeProjectilePrefab.Clone( spawnPos, shotRot );
 			if ( !clone.IsValid() ) continue;

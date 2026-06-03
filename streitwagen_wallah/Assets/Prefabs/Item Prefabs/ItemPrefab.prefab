@@ -73,6 +73,25 @@
         "__guid": "143114ab-4f92-4888-96ae-a120972ec204",
         "__enabled": true,
         "Flags": 0,
+        "DebugLog": true,
+        "ItemPool": {
+          "Dionysos": {
+            "_type": "gameobject",
+            "prefab": "prefabs/god prefabs/dionysos/dionysosscriptprefab.prefab"
+          },
+          "Laverna": {
+            "_type": "gameobject",
+            "prefab": "prefabs/god prefabs/laverna/lavernascriptprefab.prefab"
+          },
+          "Ma'at": {
+            "_type": "gameobject",
+            "prefab": "prefabs/god prefabs/ma'at/ma'atscriptprefab .prefab"
+          },
+          "Taranis": {
+            "_type": "gameobject",
+            "prefab": "prefabs/god prefabs/taranis/taranisscriptprefab.prefab"
+          }
+        },
         "MaxRespawnSeconds": 40,
         "MinRespawnSeconds": 20,
         "OnComponentDestroy": null,
@@ -92,7 +111,8 @@
           "component_id": "71306516-0416-4962-ad57-604bccf93274",
           "go": "eea33dba-6300-4d41-b7a3-f10869e90daa",
           "component_type": "BoxCollider"
-        }
+        },
+        "WagenTag": "wagen"
       }
     ],
     "Children": [],
