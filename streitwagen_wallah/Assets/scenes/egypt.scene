@@ -4998,6 +4998,19 @@
             },
             "Property": "Position",
             "Value": "-158.483765,5577.38379,25"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "ItemPool",
+            "Value": {
+              "Dionysos": {
+                "_type": "gameobject",
+                "prefab": "prefabs/god prefabs/dionysos/dionysosscriptprefab.prefab"
+              }
+            }
           }
         ],
         "MovedObjects": []
