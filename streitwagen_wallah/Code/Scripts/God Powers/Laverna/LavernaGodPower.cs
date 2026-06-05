@@ -76,8 +76,13 @@ public sealed class LavernaPower : GodPower
 
 		var victim = candidates[Random.Shared.Next( 0, candidates.Count )];
 
+		// Read the key now — by the time the deferred transfer runs the victim's
+		// slot has been wiped, so we'd lose the name otherwise.
+		string stolenKey = victim.HeldItemKey;
+		ResolveNotifier()?.Show( $"Meiner {stolenKey}" );
+
 		if ( DebugLog )
-			Log.Info( $"[LavernaPower] Stealing '{victim.HeldItemKey}' from {victim.GameObject?.Name} in {TransferDelay}s." );
+			Log.Info( $"[LavernaPower] Stealing '{stolenKey}' from {victim.GameObject?.Name} in {TransferDelay}s." );
 
 		// Capture the references — by the time the lambda fires the Laverna instance
 		// itself is gone, but the tracker survives because it lives on the chariot.
@@ -119,6 +124,8 @@ public sealed class LavernaPower : GodPower
 			Log.Warning( "[LavernaPower] No owner assigned — Ultimate skipped." );
 			return;
 		}
+
+		ResolveNotifier()?.Show( "Heute gestohlen morgen in Polen" );
 
 		var ownerDamage = Owner.Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndDescendants );
 		if ( ownerDamage is null )

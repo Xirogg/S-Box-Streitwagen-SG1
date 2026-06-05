@@ -51,6 +51,15 @@ public sealed class MaatPower : GodPower
 		}
 
 		shield.Activate( ShieldDuration );
+
+		// Stay visible exactly as long as the shield itself is up — it can be
+		// consumed early by an incoming reflect, in which case the HUD should
+		// drop the line the moment the shield flips inactive.
+		var shieldRef = shield;
+		ResolveNotifier()?.ShowDynamic(
+			"Shield active",
+			() => shieldRef.IsValid() && shieldRef.IsActive ? 1f : 0f,
+			withCountdown: false );
 	}
 
 	// ---------- Ult ----------
@@ -62,6 +71,7 @@ public sealed class MaatPower : GodPower
 		effectActive = true;
 		buffed.Clear();
 		debuffed.Clear();
+		ResolveNotifier()?.ShowTimed( "Kaaarma", EffectDuration );
 
 		var players = new List<GameObject>( Scene.FindAllWithTag( PlayerTag ) );
 		if ( players.Count == 0 ) return;

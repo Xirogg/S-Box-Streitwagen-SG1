@@ -82,6 +82,8 @@ public sealed class DionysosPower : GodPower
 	protected override void OnActivate()
 	{
 		//Log.Info( "Dionyoss ist dabei meine Freunde" );
+		ResolveNotifier()?.Show( "Pew Pew" );
+
 		if ( !GrapeProjectilePrefab.IsValid() )
 		{
 			Log.Warning( "[DionysosPower] GrapeProjectilePrefab nicht gesetzt." );
@@ -140,6 +142,8 @@ public sealed class DionysosPower : GodPower
 
 	protected override void OnActivateUltimate()
 	{
+		ResolveNotifier()?.ShowTimed( "Jääägermeister", DrunkDuration );
+
 		Guid casterId = Guid.Empty;
 		if ( Owner.IsValid() )
 		{

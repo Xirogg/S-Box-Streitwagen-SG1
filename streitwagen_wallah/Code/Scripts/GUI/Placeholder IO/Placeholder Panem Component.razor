@@ -20,6 +20,11 @@
 
 		<div class="item">Power: @ItemDisplay</div>
 
+		@if ( ShowPowerMessage )
+		{
+			<div class="power-message">@PowerMessage</div>
+		}
+
 		@if ( ShowCountdown )
 		{
 			<div class="countdown">@CountdownDisplay</div>
@@ -122,6 +127,21 @@
 		font-weight: bold;
 		text-shadow: 0px 4px 8px black;
 	}
+	.power-message {
+		position: absolute;
+		top: 132px;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 24px 48px;
+		background-color: rgba(0, 0, 0, 0.45);
+		border-radius: 16px;
+		color: white;
+		font-size: 64px;
+		font-family: Arial;
+		font-weight: bold;
+		text-shadow: 0px 2px 4px black;
+		white-space: nowrap;
+	}
 
 	.finish-overlay {
 		position: absolute;
@@ -180,6 +200,26 @@
 			return null;
 		}
 	}
+
+	// Same ancestor-walk pattern as Items — the notifier lives on the player root
+	// (auto-created by GodPower.ResolveNotifier on first activation).
+	GodPowerNotifier Notifier
+	{
+		get
+		{
+			var node = GameObject;
+			while ( node.IsValid() )
+			{
+				var n = node.Components.Get<GodPowerNotifier>( FindMode.EverythingInSelfAndDescendants );
+				if ( n is not null ) return n;
+				node = node.Parent;
+			}
+			return null;
+		}
+	}
+
+	string PowerMessage => Notifier?.CurrentText ?? "";
+	bool ShowPowerMessage => !string.IsNullOrEmpty( PowerMessage );
 
 	// Top-right "Power:" label. Shows the first two letters of the held item key
 	// (e.g. "dionysos" -> "DI", "ma at" -> "MA"), or "none" when empty.
@@ -294,6 +334,6 @@
 
 	protected override int BuildHash() => System.HashCode.Combine(
 		System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder, Items?.HeldItemKey ),
-		LocalCurrency
+		System.HashCode.Combine( LocalCurrency, PowerMessage )
 	);
 }

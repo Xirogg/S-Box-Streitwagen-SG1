@@ -5,7 +5,12 @@
 @using System;
 
 <root>
-	<div class="bg-gradient"></div>
+	<div class="scroll-bg-wrap">
+		<div class="scroll-bg-track">
+			<div class="scroll-bg-tile"></div>
+			<div class="scroll-bg-tile"></div>
+		</div>
+	</div>
 
 	<div class="track-section">
 		<div class="track-label">Ausgewählte Strecke:</div>
@@ -49,13 +54,42 @@
 		height: 100%;
 	}
 
-	.bg-gradient {
+	/* Seamless scrolling background. Two identical tiles sit side-by-side inside
+	   a 200%-wide track; the track translateX-animates from 0 to -50% (= exactly
+	   one tile width) on infinite linear loop, so when the second tile snaps
+	   back to start it visually equals the first, hiding the seam. */
+	.scroll-bg-wrap {
 		position: absolute;
 		left: 0;
 		top: 0;
 		width: 100%;
 		height: 100%;
+		overflow: hidden;
 		background-color: rgba(15, 20, 45, 1);
+	}
+
+	.scroll-bg-track {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 200%;
+		height: 100%;
+		flex-direction: row;
+		animation: scroll-bg-x 40s linear infinite;
+	}
+
+	.scroll-bg-tile {
+		width: 50%;
+		height: 100%;
+		background-image: url( "/ui/ingame gui/lobby/main_scroll_bg.jpg" );
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	@@keyframes scroll-bg-x {
+		0%   { transform: translateX( 0% ); }
+		100% { transform: translateX( -50% ); }
 	}
 
 	.track-section {

@@ -142,6 +142,7 @@ public sealed class LightningPower : GodPower
 	protected override void OnActivate()
 	{
 		fuseLit = true;
+		ResolveNotifier()?.ShowTimed( "Charging", FuseTime );
 		// Detonation will use the LIVE position of the Wagen, not a snapshot — the
 		// chariot keeps moving during the fuse, the bomb travels with it.
 		Invoke( FuseTime, Detonate );
@@ -154,6 +155,7 @@ public sealed class LightningPower : GodPower
 			: (Owner.IsValid() ? Owner.WorldPosition : WorldPosition);
 
 		LastLightningOrigin = origin;
+		ResolveNotifier()?.Show( "Juunge was ein Feuerball" );
 
 		int hitCount = 0;
 		float radiusSq = BombRadius * BombRadius;
@@ -184,6 +186,7 @@ public sealed class LightningPower : GodPower
 	{
 		ultimateActive = true;
 		boosted.Clear();
+		ResolveNotifier()?.ShowTimed( "Boden Charged", UltimateDuration );
 
 		// Caster immunity: stash and zero their incoming-damage multiplier.
 		casterDamage = Owner.IsValid()
