@@ -1,6 +1,9 @@
 ---
 titel: CHONK – Projekt-Home
-tags: [moc, start, übersicht]
+tags:
+  - moc
+  - start
+  - übersicht
 status: living
 aktualisiert: 2026-05-30
 ---
@@ -22,7 +25,7 @@ Team **AngryPike** · Studiengang Game-Produktion und Management · Modul *Game 
 | 🎮 Game Design | [[02_GameDesign/README\|GameDesign-Übersicht]] | Sandra Gehrke |
 | 💻 Programming | [[03_Programming/README\|Programming-Übersicht]] | Jonathan Lange |
 | 🎨 Art / Tech Art | [[04_Art_TechArt/README\|Art-Übersicht]] | Emmeline Felsing |
-| 📊 Marktforschung | [[05_Marktforschung/README\|Marktforschung-Übersicht]] | Michael Würfl |
+| 📊 Marktforschung | [[01_Producing/Marktforschung/README\|Marktforschung-Übersicht]] | Michael Würfl |
 | 🗓️ Meetings | [[06_Meetings/README\|Protokolle]] | alle |
 | 📚 Quellen | [[07_Quellen/Quellenverzeichnis_APA\|APA-Quellenverzeichnis]] | alle |
 
@@ -36,7 +39,7 @@ Team **AngryPike** · Studiengang Game-Produktion und Management · Modul *Game 
 - [[01_Producing/Rollen_und_RACI|👥 Rollen & RACI-Matrix]]
 - [[01_Producing/Tool-Stack|🛠️ Tool-Stack]]
 - [[03_Programming/Tech-Stack_und_Engine|⚙️ Engine & Tech-Stack]]
-- [[05_Marktforschung/Wettbewerbsanalyse_Review-Auswertung|🔍 Review-Auswertung Wettbewerber]]
+- [[Wettbewerbsanalyse_Review-Auswertung|🔍 Review-Auswertung Wettbewerber]]
 
 ---
 

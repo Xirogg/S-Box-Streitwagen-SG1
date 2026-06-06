@@ -36,6 +36,6 @@ Im Segment Arcade/Combat-Racer dominiert historisch das **Premium-Einmalkauf-Mod
 Tools (Codecks, Miro, Discord, GitHub) liegen bei 0–10 €/Monat über Free-Tier oder Bildungslizenz (Research Bible Producing, Würfl, 2026).
 
 ## Verknüpft
-- Friendslop-Daten → [[05_Marktforschung/Friendslop-Markt]]
-- Akzeptierte/abgelehnte Monetarisierung → [[05_Marktforschung/Personas]]
+- Friendslop-Daten → [[Friendslop-Markt]]
+- Akzeptierte/abgelehnte Monetarisierung → [[Personas]]
 - Risiken (Wishlist, Next Fest) → [[01_Producing/Risiken]]

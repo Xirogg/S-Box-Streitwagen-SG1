@@ -36,4 +36,4 @@ Systematische Auswertung von **Nutzer-Reviews** zweier Referenztitel: **Circus M
 
 ## Quellenbasis der Reviews
 
-Metacritic- und GameFAQs-User-Reviews (Circus Maximus, 2002–2023) sowie Steam-User-Reviews (Disney Speedstorm, 2023–2026). Personas → [[05_Marktforschung/Personas]].
+Metacritic- und GameFAQs-User-Reviews (Circus Maximus, 2002–2023) sowie Steam-User-Reviews (Disney Speedstorm, 2023–2026). Personas → [[Personas]].

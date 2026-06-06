@@ -8,7 +8,7 @@ aktualisiert: 2026-05-30
 
 # Personas
 
-Drei aus der Review-Auswertung abgeleitete Personas ([[05_Marktforschung/Wettbewerbsanalyse_Review-Auswertung]]).
+Drei aus der Review-Auswertung abgeleitete Personas ([[Wettbewerbsanalyse_Review-Auswertung]]).
 
 ## A — Kompetitiver Arcade-Racer
 

@@ -2,7 +2,7 @@
 titel: Producing – Übersicht
 tags: [producing, moc]
 status: living
-aktualisiert: 2026-05-30
+aktualisiert: 2026-06-03
 ---
 
 # 📋 Producing
@@ -21,6 +21,7 @@ Letzte Entscheidung über: **Scope, Deadlines, Priorität** (Research Bible Prod
 - [[01_Producing/QM_Definition_of_Done|Qualität & Definition of Done]]
 - [[01_Producing/Risiken|Risiken & Maßnahmen]]
 - [[01_Producing/KI-Workflow_Protokoll|KI-Workflow & Protokoll]]
+- [[01_Producing/Bug-Tracking|🐛 Bug-Tracking]]
 
 ## Verknüpft
 

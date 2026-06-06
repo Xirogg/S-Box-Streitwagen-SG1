@@ -11,10 +11,10 @@ Zuständig: **Michael Würfl** — Marktanalyse, Geschäftsmodell, Preisstrategi
 
 ## Notizen
 
-- [[05_Marktforschung/Friendslop-Markt|Friendslop-Markt]]
+- [[Friendslop-Markt|Friendslop-Markt]]
 - [[05_Marktforschung/Geschäftsmodell_Preisstrategie|Geschäftsmodell & Preisstrategie]]
-- [[05_Marktforschung/Wettbewerbsanalyse_Review-Auswertung|Wettbewerbsanalyse (Review-Auswertung)]]
-- [[05_Marktforschung/Personas|Personas]]
+- [[Wettbewerbsanalyse_Review-Auswertung|Wettbewerbsanalyse (Review-Auswertung)]]
+- [[Personas|Personas]]
 
 Quelle: Game Economics Research Bible, Friendslop Research Bible, Research Bible Producing Teil 2 (Würfl, 2026); Review_Auswertungsschema.xlsx.
 

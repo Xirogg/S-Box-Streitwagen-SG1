@@ -34,4 +34,4 @@ Wegpunkt-Navigation entlang der Ideallinie mit dynamischem **Rubberbanding**: we
 
 ## Verknüpft
 - Meta-Progression/Freischaltung → [[02_GameDesign/Game-Loop#4-erholungs-phase-meta-progression]]
-- Wettbewerber-Strecken/Setting-Belege → [[05_Marktforschung/Wettbewerbsanalyse_Review-Auswertung]]
+- Wettbewerber-Strecken/Setting-Belege → [[Wettbewerbsanalyse_Review-Auswertung]]

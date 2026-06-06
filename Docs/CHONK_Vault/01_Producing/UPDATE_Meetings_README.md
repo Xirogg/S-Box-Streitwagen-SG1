@@ -20,8 +20,11 @@ Team B – AngryPike. Chronologisch. Neue Protokolle aus [[06_Meetings/_Template
 | 07  | 16.05.2026  | Stage-Gate-1-Feedback, Engine-/Themen-Pivot       | [[06_Meetings/2026-05-16_M07]] |
 | 08  | 18.05.2026  | **Engine-Entscheidung: s&box**                    | [[06_Meetings/2026-05-18_M08]] |
 | 09  | 20.05.2026  | Prof-Feedback, Pipelines, Feature-Planung         | [[06_Meetings/2026-05-20_M09]] |
-| 10  | 25.05.2026  | *(Dublette von M09)*                              | [[06_Meetings/2026-05-20_M10]] |
+| 10  | 25.05.2026  | Gruppen Update                                    |                                |
 | 11  | 28.05.2026  | Currency/Combat/Kopfgeld implementiert            | [[06_Meetings/2026-05-28_M11]] |
 | 12  | 30.05.2026  | Item-System, Robustheit, Playtest-Plan            | [[06_Meetings/2026-05-30_M12]] |
+
+| 13 | 03.06.2026 | Gruppenupdate, Playtesting-Vorbereitung, Level Design | [[06_Meetings/2026-06-03_M13]] |
+| PT1 | 03.06.2026 | **Playtesting Session 1** (intern, 14:30–15:05) | [[06_Meetings/2026-06-03_Playtest_1]] |
 
 #meeting
