@@ -95,7 +95,11 @@
             "__enabled": true,
             "Flags": 0,
             "BrakeForce": 5,
+            "GroundProbeDistance": 60,
+            "GroundStickGap": 30,
+            "GroundStickStrength": 300,
             "LateralGrip": 5,
+            "LowSpeedSteerBoost": 3,
             "LurchImpulse": 800,
             "MaxAngularSpeed": 15000,
             "MaxVerticalSpeed": 1000,
@@ -114,6 +118,7 @@
               "component_type": "Rigidbody"
             },
             "SharpSteerMultiplier": 1.5,
+            "SteerBoostFullSpeed": 400,
             "SteerReleaseDamping": 15,
             "SteerTorque": 5500
           },
@@ -465,6 +470,7 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
+            "PitchLimit": 45,
             "YawLimit": 35
           },
           {
@@ -1212,7 +1218,7 @@
           },
           {
             "__type": "Sandbox.PlayerItemTracker",
-            "__guid": "9aaf4c7e-6b78-4798-985f-11fb38c53b83",
+            "__guid": "daed10fc-d232-4c3d-ab75-aad226fc0bf9",
             "__enabled": true,
             "Flags": 0,
             "DebugLog": true,
@@ -1266,12 +1272,6 @@
               "component_id": "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2",
               "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
               "component_type": "ChariotPhysics"
-            },
-            "ChariotWagenGO": {
-              "_type": "component",
-              "component_id": "4932540a-ba13-4f07-bd43-b3da02c0d833",
-              "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
-              "component_type": "Rigidbody"
             },
             "DebugLog": false,
             "Defense": {

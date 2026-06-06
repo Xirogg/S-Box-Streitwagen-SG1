@@ -15,12 +15,47 @@ public sealed class TestControlls : Component
 	[Property, Group( "Steering" )] public float SharpSteerMultiplier { get; set; } = 1.4f;
 	[Property, Group( "Steering" )] public float SteerReleaseDamping { get; set; } = 12f;
 
+	/// <summary>
+	/// Multiplies <see cref="SteerTorque"/> at very low forward speed (e.g. climbing
+	/// a steep hill) and tapers back to 1.0 by the time the player reaches
+	/// <see cref="SteerBoostFullSpeed"/>. Compensates for the friction that the
+	/// pitch/roll-locked box collider drags along the slope when it rests on
+	/// one edge — without this, turning while crawling uphill feels dead.
+	///
+	/// Keep this modest (≈1.5). Higher values combined with the very low yaw
+	/// inertia at standstill make the horse spin out in place when the player
+	/// just taps a direction without moving.
+	/// </summary>
+	[Property, Group( "Steering" )] public float LowSpeedSteerBoost { get; set; } = 1.5f;
+	[Property, Group( "Steering" )] public float SteerBoostFullSpeed { get; set; } = 400f;
+
 	private const float SteerInputDeadzone = 0.01f;
 
 	[Property, Group( "Ram Lurch" )] public float LurchImpulse { get; set; } = 800f;
 	//[Property, Group( "Ram Lurch" )]
 	public float LurchForwardOffset { get; set; } = 60f;
 
+	/// <summary>
+	/// How far below the horse to probe for ground when redirecting the pull
+	/// force along the slope. If the raycast misses (the horse is genuinely
+	/// airborne), pull falls back to plain horizontal.
+	/// </summary>
+	[Property, Group( "Terrain" )] public float GroundProbeDistance { get; set; } = 60f;
+
+	/// <summary>
+	/// Downward force (scaled by mass) applied while the body is in the small
+	/// gap above the terrain. Keeps the box collider in contact when going
+	/// over slope edges so friction-based steering keeps working. Set to 0
+	/// to disable. Don't set this very high — it will fight legitimate jumps
+	/// over bumps.
+	/// </summary>
+	[Property, Group( "Terrain" )] public float GroundStickStrength { get; set; } = 600f;
+
+	/// <summary>
+	/// Vertical gap (in cm) above the ground in which the stick force applies.
+	/// Inside this gap → pull down. Outside → assume genuinely airborne.
+	/// </summary>
+	[Property, Group( "Terrain" )] public float GroundStickGap { get; set; } = 30f;
 
 	[Property, Group( "GameObjects" )] public Rigidbody Rigidbody { get; set; }
 
@@ -89,6 +124,7 @@ public sealed class TestControlls : Component
 		ApplyHorseLateralGrip();
 		ApplyLocomotion( moveInput.x );
 		ApplySteering( moveInput.y );
+		StickToGround();
 	}
 
 	private void ApplyInputs()
@@ -157,22 +193,91 @@ public sealed class TestControlls : Component
 	{
 		if ( acceleration == 0f ) return;
 
-		Vector3 forward = WorldRotation.Forward;
-		float forwardSpeed = Vector3.Dot( Rigidbody.Velocity, forward );
-		float planarSpeed = Rigidbody.Velocity.WithZ( 0f ).Length;
+		// Start from the body's facing direction in the horizontal plane.
+		Vector3 forward = WorldRotation.Forward.WithZ( 0f );
+		if ( forward.LengthSquared < 0.0001f ) return;
+		forward = forward.Normal;
+
+		// Redirect the pull force along the slope surface beneath the horse.
+		// Reason: with pitch/roll locked, the box collider stays level and
+		// rams into slope edges with a horizontal force. The contact normal
+		// then bounces the body upward and the player goes briefly airborne,
+		// losing steering until they land. Projecting forward onto the local
+		// ground plane sends the force *along* the slope instead of into it,
+		// so the body climbs smoothly without launching.
+		Vector3 normal = ProbeGroundNormal();
+		Vector3 surfaceForward = forward - normal * Vector3.Dot( forward, normal );
+		if ( surfaceForward.LengthSquared < 0.0001f ) surfaceForward = forward;
+		else surfaceForward = surfaceForward.Normal;
+
+		// MaxVerticalSpeed gates are measured against horizontal motion in the
+		// player's facing direction — same as before, but using the horizontal
+		// (not surface-projected) forward so the cap stays consistent across
+		// flat and sloped ground.
+		Vector3 planarVel = Rigidbody.Velocity.WithZ( 0f );
+		float forwardSpeed = Vector3.Dot( planarVel, forward );
+		float planarSpeed = planarVel.Length;
 
 		if ( acceleration > 0 && planarSpeed >= MaxVerticalSpeed && forwardSpeed > 0 ) return;
 		if ( acceleration < 0 && forwardSpeed <= -MaxVerticalSpeed ) return;
 
 		float mass = Rigidbody.Mass;
-		Rigidbody.ApplyForce( forward * PullForce * acceleration * mass );
+		Rigidbody.ApplyForce( surfaceForward * PullForce * acceleration * mass );
+	}
+
+	/// <summary>
+	/// Casts a ray straight down from the body to find the ground normal.
+	/// Used to align the pull force with the slope. Returns world up when no
+	/// ground is found within <see cref="GroundProbeDistance"/> (treats the
+	/// body as airborne and lets the regular horizontal pull apply).
+	/// </summary>
+	private Vector3 ProbeGroundNormal()
+	{
+		Vector3 from = WorldPosition;
+		Vector3 to = from + Vector3.Down * GroundProbeDistance;
+		var tr = Scene.Trace
+			.Ray( from, to )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.Run();
+		return tr.Hit ? tr.Normal : Vector3.Up;
+	}
+
+	/// <summary>
+	/// Applies a small downward force when the horse is in the gap just above
+	/// the terrain. Prevents the brief "launch" off a slope edge that strips
+	/// friction and kills steering. Disabled at <see cref="GroundStickStrength"/>
+	/// = 0 so the player can still jump over genuine bumps.
+	/// </summary>
+	private void StickToGround()
+	{
+		if ( GroundStickStrength <= 0f ) return;
+
+		Vector3 from = WorldPosition;
+		Vector3 to = from + Vector3.Down * GroundProbeDistance;
+		var tr = Scene.Trace
+			.Ray( from, to )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.Run();
+
+		if ( !tr.Hit ) return;
+		if ( tr.Distance > GroundStickGap ) return; // genuinely airborne — let gravity handle it
+		if ( Rigidbody.Velocity.z <= 0f ) return;    // already falling, no need to pull harder
+
+		Rigidbody.ApplyForce( Vector3.Down * GroundStickStrength * Rigidbody.Mass );
 	}
 
 	private void ApplyHorseLateralGrip()
 	{
 		if ( LateralGrip <= 0f ) return;
 
-		Vector3 right = WorldRotation.Right;
+		// Project Right onto the horizontal plane. On a slope the body's local
+		// Right is tilted, so dotting velocity against it picks up part of the
+		// vertical (gravity) component and the velocity subtraction cancels
+		// gravity — which made the horse appear to float on inclines.
+		Vector3 right = WorldRotation.Right.WithZ( 0f );
+		if ( right.LengthSquared < 0.0001f ) return;
+		right = right.Normal;
+
 		float lateral = Vector3.Dot( Rigidbody.Velocity, right );
 		float kill = 1f - MathF.Exp( -LateralGrip * Time.Delta );
 		Rigidbody.Velocity -= right * (lateral * kill);
@@ -180,21 +285,38 @@ public sealed class TestControlls : Component
 
 	private void ApplySteering( float torqueInput )
 	{
+		// Steer around the body's own Up axis. With pitch/roll locked on the
+		// rigidbody this is identical to world Up, but the projection keeps the
+		// code correct if those locks are ever removed.
+		Vector3 yawAxis = WorldRotation.Up;
+		float yawRate = Vector3.Dot( Rigidbody.AngularVelocity, yawAxis );
+
 		if ( MathF.Abs( torqueInput ) < SteerInputDeadzone )
 		{
 			if ( SteerReleaseDamping > 0f )
 			{
-				Vector3 av = Rigidbody.AngularVelocity;
 				float kill = 1f - MathF.Exp( -SteerReleaseDamping * Time.Delta );
-				av.z -= av.z * kill;
-				Rigidbody.AngularVelocity = av;
+				Rigidbody.AngularVelocity -= yawAxis * (yawRate * kill);
 			}
 			return;
 		}
 
-		if ( MathF.Abs( Rigidbody.AngularVelocity.z ) >= MaxAngularSpeed ) return;
+		// Counter-steer fix: previously this returned whenever |yawRate| hit the
+		// cap, which blocked every torque — including the one that would slow
+		// or reverse the current spin. Only block torque that would push the
+		// spin further past the cap in the same direction it's already going.
+		bool pushingSameWay = MathF.Sign( yawRate ) == MathF.Sign( torqueInput );
+		if ( pushingSameWay && MathF.Abs( yawRate ) >= MaxAngularSpeed ) return;
+
+		// Boost steering torque at low forward speed. Climbing a hill, the
+		// box collider rests on its downhill edge and yaw torque gets eaten
+		// by friction against the slope. Without this scaling, the player
+		// can get "stranded" mid-turn on an incline.
+		float planarSpeed = Rigidbody.Velocity.WithZ( 0f ).Length;
+		float speedFactor = MathX.Clamp( planarSpeed / MathF.Max( SteerBoostFullSpeed, 1f ), 0f, 1f );
+		float boost = MathX.Lerp( LowSpeedSteerBoost, 1f, speedFactor );
 
 		float mass = Rigidbody.Mass;
-		Rigidbody.ApplyTorque( Vector3.Up * SteerTorque * torqueInput * mass );
+		Rigidbody.ApplyTorque( yawAxis * SteerTorque * torqueInput * mass * boost );
 	}
 }

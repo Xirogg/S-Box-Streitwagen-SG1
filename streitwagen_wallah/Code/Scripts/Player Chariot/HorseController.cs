@@ -130,7 +130,11 @@ public sealed class HorseController : Component, ISpeedModifiable
 	{
 		if ( LateralGrip <= 0f ) return;
 
-		Vector3 right = WorldRotation.Right;
+		// Project to horizontal so grip doesn't fight gravity on slopes.
+		Vector3 right = WorldRotation.Right.WithZ( 0f );
+		if ( right.LengthSquared < 0.0001f ) return;
+		right = right.Normal;
+
 		float lateralAmount = Vector3.Dot( Body.Velocity, right );
 		float killFactor = 1f - MathF.Exp( -LateralGrip * Time.Delta );
 		Body.Velocity -= right * (lateralAmount * killFactor);
