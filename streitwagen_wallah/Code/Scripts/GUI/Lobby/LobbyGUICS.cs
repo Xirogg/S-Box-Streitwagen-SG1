@@ -18,7 +18,22 @@ public sealed class LobbyManager : Component
 	[Property] public SceneFile AegyptenScene { get; set; }
 	[Property] public SceneFile AkropolisScene { get; set; }
 
-	public TrackSelection SelectedTrack { get; set; } = TrackSelection.Rom;
+	// Strongly-typed Texture properties. The asset pipeline's reference scanner
+	// can ONLY see references like this — it cannot see a "/ui/tracks/..." string
+	// built at runtime inside the razor's TrackImagePath getter. Without these
+	// references the PNGs aren't bundled into the package that joining clients
+	// download, so the host (running the editor with all files on local disk)
+	// sees the previews but everyone else gets a blank box. Assign these in the
+	// inspector to the same PNGs the URL switch used to point at.
+	[Property] public Texture RomTrackImage { get; set; }
+	[Property] public Texture AegyptenTrackImage { get; set; }
+	[Property] public Texture AkropolisTrackImage { get; set; }
+
+	// Was un-synced; only RpcSetTrack pushed it, so a client joining after the
+	// host had already cycled the track would default to Rom forever. [Sync]
+	// makes the current value part of the owner-authoritative state every joiner
+	// receives on connect.
+	[Sync] public TrackSelection SelectedTrack { get; set; } = TrackSelection.Rom;
 	[Sync] public bool CountdownActive { get; set; }
 	[Sync] public float CountdownTimeLeft { get; set; }
 
@@ -48,6 +63,25 @@ public sealed class LobbyManager : Component
 			TrackSelection.Akropolis => AkropolisScene,
 			_ => RomScene
 		};
+	}
+
+	/// <summary>
+	/// URL for a track preview, derived from the strongly-typed Texture property
+	/// the inspector wires up. Using <see cref="Resource.ResourcePath"/> instead
+	/// of a hand-written literal keeps the path in lockstep with what the asset
+	/// pipeline actually bundled, and the Texture reference itself is what
+	/// forces the PNG to be included in the package shipped to joining clients.
+	/// </summary>
+	public string GetTrackImagePath( TrackSelection track )
+	{
+		var tex = track switch
+		{
+			TrackSelection.Rom => RomTrackImage,
+			TrackSelection.Aegypten => AegyptenTrackImage,
+			TrackSelection.Akropolis => AkropolisTrackImage,
+			_ => null
+		};
+		return tex?.ResourcePath ?? "";
 	}
 
 	public void CycleTrack()

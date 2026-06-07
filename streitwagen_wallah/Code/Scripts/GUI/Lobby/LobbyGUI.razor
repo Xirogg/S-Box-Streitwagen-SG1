@@ -277,13 +277,12 @@
 		.ToString( "0" );
 	string ReadyClass => LocalIsReady ? "is-ready" : "";
 
-	string TrackImagePath => CurrentTrack switch
-	{
-		TrackSelection.Rom => "/ui/tracks/track_rom.png",
-		TrackSelection.Aegypten => "/ui/tracks/track_aegypten.png",
-		TrackSelection.Akropolis => "/ui/tracks/track_akropolis.png",
-		_ => ""
-	};
+	// Routed through LobbyManager so the path comes from the strongly-typed
+	// Texture properties the asset pipeline can see — that's what guarantees the
+	// PNGs are bundled into the package joining clients download. The previous
+	// hardcoded "/ui/tracks/..." strings were invisible to the reference scanner,
+	// so the files weren't shipped and only the editor host saw the previews.
+	string TrackImagePath => LobbyManager.Instance?.GetTrackImagePath( CurrentTrack ) ?? "";
 
 	string TrackDisplayName => CurrentTrack switch
 	{

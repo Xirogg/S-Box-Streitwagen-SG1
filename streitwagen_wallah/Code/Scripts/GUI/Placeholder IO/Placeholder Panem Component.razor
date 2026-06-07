@@ -10,9 +10,9 @@
 	@if ( !IsProxy )
 	{
 		<div class="lap">Lap @LapText</div>
-		<div class="hpbar">
+		<div class="hpbar" style="background-image: url(@HpOutlinePath);">
 			<div class="hp-fill-clip" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;">
-				<div class="hp-fill"></div>
+				<div class="hp-fill" style="background-image: url(@HpFillPath);"></div>
 			</div>
 		</div>
 		<div class="position" style="color: @PositionColor;">@PositionText</div>
@@ -70,7 +70,9 @@
 	.hpbar {
 		width: 500px;
 		height: 80px;
-		background-image: url( "/ui/ingame gui/hp bar/hp outline.png" );
+		/* background-image lives inline on the element so it can come from a
+		   strongly-typed Texture property the asset pipeline can see. See the
+		   HpOutlineTexture field below for the why. */
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
 		position: relative;
@@ -94,7 +96,7 @@
 		left: 0;
 		width: 460px;
 		height: 100%;
-		background-image: url( "/ui/ingame gui/hp bar/hp green.png" );
+		/* background-image set inline from HpFillTexture.ResourcePath; see code block. */
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
 	}
@@ -180,6 +182,21 @@
 
 @code
 {
+	// HP-bar artwork. Held as strongly-typed Texture properties (not as hardcoded
+	// "/ui/ingame gui/hp bar/..." URL strings in the stylesheet) so the s&box
+	// asset-pipeline reference scanner can see them and actually bundle the PNGs
+	// into the package joining clients download. A dynamic string built at
+	// runtime is invisible to that scanner — the editor host had the files on
+	// local disk and looked fine, but joiners would have ended up with blank
+	// rectangles the same way the lobby track previews did. Assign these in the
+	// inspector on the HUD prefab to the same PNGs the URL literals used to
+	// point at (Assets/UI/InGame GUI/HP Bar/HP Outline.png and HP Green.png).
+	[Property] public Texture HpOutlineTexture { get; set; }
+	[Property] public Texture HpFillTexture { get; set; }
+
+	string HpOutlinePath => HpOutlineTexture?.ResourcePath ?? "";
+	string HpFillPath => HpFillTexture?.ResourcePath ?? "";
+
 	PlayerLapTracker Lap => Components.Get<PlayerLapTracker>( FindMode.EverythingInSelfAndAncestors );
 	PlayerDamageSystem Damage => Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndAncestors );
 
