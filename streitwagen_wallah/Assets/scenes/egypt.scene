@@ -4578,9 +4578,8 @@
           "Force2d": false,
           "MaxRepeatTime": 1,
           "MinRepeatTime": 1,
-          "Occlusion": false,
+          "OcclusionEnabled": false,
           "OcclusionOverride": false,
-          "OcclusionRadius": 32,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -4589,9 +4588,9 @@
           "OnComponentUpdate": null,
           "Pitch": 1,
           "PlayOnStart": true,
-          "ReflectionOverride": false,
-          "Reflections": false,
           "Repeat": false,
+          "ReverbEnabled": false,
+          "ReverbOverride": false,
           "Scale": "50000,50000,500000",
           "SoundEvent": "music/bgm/provisional bgm.sound",
           "SoundOverride": false,
@@ -4636,35 +4635,6 @@
             },
             "Property": "Scale",
             "Value": "50.6662521,50,50"
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
-            },
-            "Property": "ItemPool",
-            "Value": {
-              "Dio": {
-                "_type": "gameobject",
-                "prefab": "prefabs/god prefabs/dionysos/dionysosscriptprefab.prefab"
-              }
-            }
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
-            },
-            "Property": "MaxRespawnSeconds",
-            "Value": 5
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
-            },
-            "Property": "MinRespawnSeconds",
-            "Value": 1
           }
         ],
         "MovedObjects": []
@@ -4673,7 +4643,7 @@
         "eea33dba-6300-4d41-b7a3-f10869e90daa": "ddfd0a2b-690a-44e8-bb38-d23894c6813e",
         "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "42850fb4-c081-426a-8298-26065d678cee",
         "71306516-0416-4962-ad57-604bccf93274": "9d6c6c38-ef4f-49b5-9cbb-2f79972442da",
-        "143114ab-4f92-4888-96ae-a120972ec204": "57d53e98-01ea-4f47-8fb9-08392bbfe0fe"
+        "4f216932-6c15-4bb9-be91-e9b0e607cdb5": "f15f863f-65b1-4e56-a599-f69518cc9290"
       }
     },
     {
@@ -4754,6 +4724,11 @@
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
+        }
+      },
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "3cbf77a2-9e45-4eb3-9fb3-b88c7f85b5b5"
         }
       }
     }

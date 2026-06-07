@@ -570,6 +570,7 @@
         "b858d9fc-548b-4c1f-a0e6-7a12790181dc": "f3dec720-4224-42e0-b1d4-1555f81478b6",
         "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d": "18cdeaa1-f78f-400c-bfe7-8d94bce25b74",
         "fb553f81-4cf5-448d-94a4-fc8d56156c50": "8f4876f8-91f2-4ce2-9e63-2cd60d4e8c49",
+        "daed10fc-d232-4c3d-ab75-aad226fc0bf9": "e21900a7-93ab-4399-8d7b-c91a14febf50",
         "bb976fac-dd01-419b-a740-5aad185db865": "75ffe73b-6bc1-4d1a-819b-d001a69e7eb2",
         "c164725e-dd0b-4bfa-a633-031473eaa4a8": "be5f356c-fd9f-452d-b0e2-d92e7c996f6b",
         "78f5213e-caf2-4763-8bb4-cbeb74b9d9a6": "88a64cea-5947-4e09-8736-60de970f55ad",
@@ -592,8 +593,7 @@
         "ef6aa77a-f5f4-4704-9d7f-48739d9320d5": "87b100bb-a041-46fb-9869-f9f470f1c523",
         "ec96744d-03fa-4ba3-8aa8-9a6477159167": "a63a3064-aa07-4de0-bea6-39dba66f2566",
         "226876a7-be32-4f0c-9233-b3c549a6816c": "f3af1eeb-1a0f-41bd-b4d9-75aad597415d",
-        "975490d9-4229-428a-98fc-d64a4b021542": "260aab2d-1497-4aad-a321-126ae93824e4",
-        "9aaf4c7e-6b78-4798-985f-11fb38c53b83": "57cad9c2-1962-4b70-b9c3-4ac3f9eb86a4"
+        "975490d9-4229-428a-98fc-d64a4b021542": "260aab2d-1497-4aad-a321-126ae93824e4"
       }
     }
   ],
@@ -617,14 +617,14 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.Clutter.ClutterGridSystem": {
-        "Storage": {
-          "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
-        }
-      },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
+        }
+      },
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
         }
       }
     }
