@@ -4635,6 +4635,14 @@
             },
             "Property": "Scale",
             "Value": "50.6662521,50,50"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "ItemPool",
+            "Value": {}
           }
         ],
         "MovedObjects": []
@@ -4643,7 +4651,7 @@
         "eea33dba-6300-4d41-b7a3-f10869e90daa": "ddfd0a2b-690a-44e8-bb38-d23894c6813e",
         "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "42850fb4-c081-426a-8298-26065d678cee",
         "71306516-0416-4962-ad57-604bccf93274": "9d6c6c38-ef4f-49b5-9cbb-2f79972442da",
-        "143114ab-4f92-4888-96ae-a120972ec204": "dc492dc0-0142-4570-aba5-4f00656397c8"
+        "143114ab-4f92-4888-96ae-a120972ec204": "be87b16f-d775-40da-8d6b-c7ae6beebe23"
       }
     },
     {

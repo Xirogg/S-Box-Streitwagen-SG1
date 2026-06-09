@@ -1173,7 +1173,376 @@
             "__version": 2,
             "__Prefab": "prefabs/chariot.prefab",
             "__PrefabInstancePatch": {
-              "AddedObjects": [],
+              "AddedObjects": [
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "ee16247a-b636-4660-9ff3-8d6287f27942"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "7c889543-4648-4d03-8984-c6bf0792e9ca"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "4e4a611c-f7df-43ec-85b6-c9ae75e4d53d"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.ModelCollider",
+                    "__guid": "ee16247a-b636-4660-9ff3-8d6287f27942",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "ColliderFlags": 0,
+                    "Elasticity": null,
+                    "Friction": null,
+                    "IsTrigger": false,
+                    "Model": "models/chariot/vmdl/chariot_body.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OnObjectTriggerEnter": null,
+                    "OnObjectTriggerExit": null,
+                    "OnTriggerEnter": null,
+                    "OnTriggerExit": null,
+                    "RollingResistance": null,
+                    "Static": false,
+                    "Surface": null,
+                    "SurfaceVelocity": "0,0,0"
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "ef973808-3c5d-4183-81bd-4ce8719a4ad1"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "7c889543-4648-4d03-8984-c6bf0792e9ca"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "ee16247a-b636-4660-9ff3-8d6287f27942"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.Rigidbody",
+                    "__guid": "ef973808-3c5d-4183-81bd-4ce8719a4ad1",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "AngularDamping": 0,
+                    "EnableImpactDamage": true,
+                    "EnhancedCcd": false,
+                    "Gravity": true,
+                    "GravityScale": 1,
+                    "ImpactDamage": 0,
+                    "LinearDamping": 0,
+                    "Locking": {
+                      "X": false,
+                      "Y": false,
+                      "Z": false,
+                      "Pitch": false,
+                      "Yaw": false,
+                      "Roll": false
+                    },
+                    "MassCenterOverride": "0,0,0",
+                    "MassOverride": 0,
+                    "MinImpactDamageSpeed": 500,
+                    "MotionEnabled": true,
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OverrideMassCenter": false,
+                    "RigidbodyFlags": 0,
+                    "SleepThreshold": 2,
+                    "StartAsleep": false
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "64e3f9f4-a10b-4c89-96af-3e48905e2eb6"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "ff120b27-da99-4bbd-a4f3-99bba339c7aa"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "6a8bdd62-b24b-4ce2-b460-4444e3c529f1"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.ModelCollider",
+                    "__guid": "64e3f9f4-a10b-4c89-96af-3e48905e2eb6",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "ColliderFlags": 0,
+                    "Elasticity": null,
+                    "Friction": null,
+                    "IsTrigger": false,
+                    "Model": "models/chariot/vmdl/chariot_deichsel.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OnObjectTriggerEnter": null,
+                    "OnObjectTriggerExit": null,
+                    "OnTriggerEnter": null,
+                    "OnTriggerExit": null,
+                    "RollingResistance": null,
+                    "Static": false,
+                    "Surface": null,
+                    "SurfaceVelocity": "0,0,0"
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "9e0e11fb-963d-40cd-a71f-ccd6063cbecb"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "ff120b27-da99-4bbd-a4f3-99bba339c7aa"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "64e3f9f4-a10b-4c89-96af-3e48905e2eb6"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.Rigidbody",
+                    "__guid": "9e0e11fb-963d-40cd-a71f-ccd6063cbecb",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "AngularDamping": 0,
+                    "EnableImpactDamage": true,
+                    "EnhancedCcd": false,
+                    "Gravity": true,
+                    "GravityScale": 1,
+                    "ImpactDamage": 0,
+                    "LinearDamping": 0,
+                    "Locking": {
+                      "X": false,
+                      "Y": false,
+                      "Z": false,
+                      "Pitch": false,
+                      "Yaw": false,
+                      "Roll": false
+                    },
+                    "MassCenterOverride": "0,0,0",
+                    "MassOverride": 0,
+                    "MinImpactDamageSpeed": 500,
+                    "MotionEnabled": true,
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OverrideMassCenter": false,
+                    "RigidbodyFlags": 0,
+                    "SleepThreshold": 2,
+                    "StartAsleep": false
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "21b73d02-8316-4b61-980a-284936a83abf"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "5b56ff6a-dc6a-4271-8b39-6d2eec4c3206"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "8e436953-8e6d-40d9-b8ed-b28cd355dae3"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.ModelCollider",
+                    "__guid": "21b73d02-8316-4b61-980a-284936a83abf",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "ColliderFlags": 0,
+                    "Elasticity": null,
+                    "Friction": null,
+                    "IsTrigger": false,
+                    "Model": "models/chariot/vmdl/chariot_wheel_l.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OnObjectTriggerEnter": null,
+                    "OnObjectTriggerExit": null,
+                    "OnTriggerEnter": null,
+                    "OnTriggerExit": null,
+                    "RollingResistance": null,
+                    "Static": false,
+                    "Surface": null,
+                    "SurfaceVelocity": "0,0,0"
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "e67b3838-1cba-4c61-96b8-621b112c7080"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "5b56ff6a-dc6a-4271-8b39-6d2eec4c3206"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "21b73d02-8316-4b61-980a-284936a83abf"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.Rigidbody",
+                    "__guid": "e67b3838-1cba-4c61-96b8-621b112c7080",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "AngularDamping": 0,
+                    "EnableImpactDamage": true,
+                    "EnhancedCcd": false,
+                    "Gravity": true,
+                    "GravityScale": 1,
+                    "ImpactDamage": 0,
+                    "LinearDamping": 0,
+                    "Locking": {
+                      "X": false,
+                      "Y": false,
+                      "Z": false,
+                      "Pitch": false,
+                      "Yaw": false,
+                      "Roll": false
+                    },
+                    "MassCenterOverride": "0,0,0",
+                    "MassOverride": 0,
+                    "MinImpactDamageSpeed": 500,
+                    "MotionEnabled": true,
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OverrideMassCenter": false,
+                    "RigidbodyFlags": 0,
+                    "SleepThreshold": 2,
+                    "StartAsleep": false
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "9aafb925-4979-4158-ae8f-83ec3c572dd8"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "b7d18007-ebae-475d-81da-fcec7a592ee3"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "73ef8824-cc09-4fcf-9f6c-be120d333909"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.ModelCollider",
+                    "__guid": "9aafb925-4979-4158-ae8f-83ec3c572dd8",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "ColliderFlags": 0,
+                    "Elasticity": null,
+                    "Friction": null,
+                    "IsTrigger": false,
+                    "Model": "models/chariot/vmdl/chariot_wheel_r.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OnObjectTriggerEnter": null,
+                    "OnObjectTriggerExit": null,
+                    "OnTriggerEnter": null,
+                    "OnTriggerExit": null,
+                    "RollingResistance": null,
+                    "Static": false,
+                    "Surface": null,
+                    "SurfaceVelocity": "0,0,0"
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "cce2addb-0cb6-42f8-9a7d-40c59e60286c"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "b7d18007-ebae-475d-81da-fcec7a592ee3"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "9aafb925-4979-4158-ae8f-83ec3c572dd8"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.Rigidbody",
+                    "__guid": "cce2addb-0cb6-42f8-9a7d-40c59e60286c",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "AngularDamping": 0,
+                    "EnableImpactDamage": true,
+                    "EnhancedCcd": false,
+                    "Gravity": true,
+                    "GravityScale": 1,
+                    "ImpactDamage": 0,
+                    "LinearDamping": 0,
+                    "Locking": {
+                      "X": false,
+                      "Y": false,
+                      "Z": false,
+                      "Pitch": false,
+                      "Yaw": false,
+                      "Roll": false
+                    },
+                    "MassCenterOverride": "0,0,0",
+                    "MassOverride": 0,
+                    "MinImpactDamageSpeed": 500,
+                    "MotionEnabled": true,
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OverrideMassCenter": false,
+                    "RigidbodyFlags": 0,
+                    "SleepThreshold": 2,
+                    "StartAsleep": false
+                  }
+                }
+              ],
               "RemovedObjects": [
                 {
                   "Id": {
@@ -1337,7 +1706,100 @@
             "__version": 2,
             "__Prefab": "prefabs/chohonk.prefab",
             "__PrefabInstancePatch": {
-              "AddedObjects": [],
+              "AddedObjects": [
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "0aa35ea1-588c-4a0f-b875-1f91a2ef353d"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "071b2024-4399-4eb9-a137-6857ad464188"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "b2a9f265-3d99-43ae-84ee-75a1ed50226a"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.ModelCollider",
+                    "__guid": "0aa35ea1-588c-4a0f-b875-1f91a2ef353d",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "ColliderFlags": 0,
+                    "Elasticity": null,
+                    "Friction": null,
+                    "IsTrigger": false,
+                    "Model": "models/a_chohonk_rigged.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OnObjectTriggerEnter": null,
+                    "OnObjectTriggerExit": null,
+                    "OnTriggerEnter": null,
+                    "OnTriggerExit": null,
+                    "RollingResistance": null,
+                    "Static": false,
+                    "Surface": null,
+                    "SurfaceVelocity": "0,0,0"
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "4fa77ed6-dcd5-411d-8ef3-40d9f0bd73e2"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "071b2024-4399-4eb9-a137-6857ad464188"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "0aa35ea1-588c-4a0f-b875-1f91a2ef353d"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.Rigidbody",
+                    "__guid": "4fa77ed6-dcd5-411d-8ef3-40d9f0bd73e2",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "AngularDamping": 0,
+                    "EnableImpactDamage": true,
+                    "EnhancedCcd": false,
+                    "Gravity": true,
+                    "GravityScale": 1,
+                    "ImpactDamage": 0,
+                    "LinearDamping": 0,
+                    "Locking": {
+                      "X": false,
+                      "Y": false,
+                      "Z": false,
+                      "Pitch": false,
+                      "Yaw": false,
+                      "Roll": false
+                    },
+                    "MassCenterOverride": "0,0,0",
+                    "MassOverride": 0,
+                    "MinImpactDamageSpeed": 500,
+                    "MotionEnabled": true,
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OverrideMassCenter": false,
+                    "RigidbodyFlags": 0,
+                    "SleepThreshold": 2,
+                    "StartAsleep": false
+                  }
+                }
+              ],
               "RemovedObjects": [
                 {
                   "Id": {
