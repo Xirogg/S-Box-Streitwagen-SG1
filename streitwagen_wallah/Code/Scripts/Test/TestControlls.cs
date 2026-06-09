@@ -15,63 +15,55 @@ public sealed class TestControlls : Component
 	[Property, Group( "Steering" )] public float SharpSteerMultiplier { get; set; } = 1.4f;
 	[Property, Group( "Steering" )] public float SteerReleaseDamping { get; set; } = 12f;
 
+	/// <summary>
+	/// Multiplies <see cref="SteerTorque"/> at very low forward speed (e.g. climbing
+	/// a steep hill) and tapers back to 1.0 by the time the player reaches
+	/// <see cref="SteerBoostFullSpeed"/>. Compensates for the friction that the
+	/// pitch/roll-locked box collider drags along the slope when it rests on
+	/// one edge — without this, turning while crawling uphill feels dead.
+	///
+	/// Keep this modest (≈1.5). Higher values combined with the very low yaw
+	/// inertia at standstill make the horse spin out in place when the player
+	/// just taps a direction without moving.
+	/// </summary>
+	[Property, Group( "Steering" )] public float LowSpeedSteerBoost { get; set; } = 1.5f;
+	[Property, Group( "Steering" )] public float SteerBoostFullSpeed { get; set; } = 400f;
+
 	private const float SteerInputDeadzone = 0.01f;
 
-	[Property, Group( "Ram Lurch" )] public float LurchSpeed { get; set; } = 700f;
-	[Property, Group( "Ram Lurch" )] public float LurchDuration { get; set; } = 0.25f;
-	[Property, Group( "Ram Lurch" ), Range( 0f, 2f )] public float ChariotLurchScale { get; set; } = 1f;
-	[Property, Group( "Ram Lurch" )] public float LurchYawImpulse { get; set; } = 0f;
-	[Property, Group( "Ram Lurch" )] public float LurchForwardBoost { get; set; } = 0f;
+	[Property, Group( "Ram Lurch" )] public float LurchImpulse { get; set; } = 800f;
+	//[Property, Group( "Ram Lurch" )]
+	public float LurchForwardOffset { get; set; } = 60f;
+
+	/// <summary>
+	/// How far below the horse to probe for ground when redirecting the pull
+	/// force along the slope. If the raycast misses (the horse is genuinely
+	/// airborne), pull falls back to plain horizontal.
+	/// </summary>
+	[Property, Group( "Terrain" )] public float GroundProbeDistance { get; set; } = 60f;
+
+	/// <summary>
+	/// Downward force (scaled by mass) applied while the body is in the small
+	/// gap above the terrain. Keeps the box collider in contact when going
+	/// over slope edges so friction-based steering keeps working. Set to 0
+	/// to disable. Don't set this very high — it will fight legitimate jumps
+	/// over bumps.
+	/// </summary>
+	[Property, Group( "Terrain" )] public float GroundStickStrength { get; set; } = 600f;
+
+	/// <summary>
+	/// Vertical gap (in cm) above the ground in which the stick force applies.
+	/// Inside this gap → pull down. Outside → assume genuinely airborne.
+	/// </summary>
+	[Property, Group( "Terrain" )] public float GroundStickGap { get; set; } = 30f;
 
 	[Property, Group( "GameObjects" )] public Rigidbody Rigidbody { get; set; }
-	[Property, Group( "GameObjects" )] public Rigidbody ChariotRigidbody { get; set; }
 
 	[Sync] private Vector2 moveInput { get; set; }
 
 	[Sync, Property, Group( "Identity" )] public Guid PlayerId { get; set; }
 
-	// --- Drunk Drive Timer ---------------------------------------------------------
-	//
-	// Single source of truth for drunk-driving state. The timer is owner-authoritative
-	// and synced to all peers, so anyone (VFX, UI) can read IsDrunk without going
-	// through this script directly.
-	//
-	// AddDrunkTime is [Rpc.Owner] so any peer (e.g. the Dionysos caster) can stack
-	// drunk time onto a remote player — the call routes to that player's owning peer,
-	// which mutates the synced state.
-
-	/// <summary>Seconds of drunk-driving left. Ticks down on the owning peer.</summary>
-	[Sync] public float DrunkDriveTimer { get; private set; }
-
-	/// <summary>True while <see cref="DrunkDriveTimer"/> &gt; 0.</summary>
 	[Sync] public bool IsDrunk { get; private set; }
-
-	private bool _lastObservedDrunk;
-
-	/// <summary>
-	/// Stack drunk time onto this player. Routed to the owning peer so the timer
-	/// ticks authoritatively and stacking from multiple casters Just Works.
-	/// </summary>
-	[Rpc.Owner]
-	public void AddDrunkTime( float seconds )
-	{
-		if ( seconds <= 0f ) return;
-		DrunkDriveTimer += seconds;
-		if ( !IsDrunk ) IsDrunk = true;
-	}
-
-	private void TickDrunkTimer()
-	{
-		if ( DrunkDriveTimer <= 0f )
-		{
-			if ( IsDrunk ) IsDrunk = false;
-			return;
-		}
-
-		DrunkDriveTimer = MathF.Max( 0f, DrunkDriveTimer - Time.Delta );
-		if ( DrunkDriveTimer <= 0f )
-			IsDrunk = false;
-	}
 
 	/// <summary>
 	/// True solange der Spieler Left/Right UND zusätzlich RamLeft/RamRight (Q/E) drückt.
@@ -95,15 +87,15 @@ public sealed class TestControlls : Component
 
 	public event Action<bool> OnDrunkChanged;
 
-	private float _lurchUntil = -999f;
-	private Vector3 _lurchDir;
-
-	private bool LurchActive => Time.Now < _lurchUntil;
+	public void SetDrunk( bool on )
+	{
+		if ( IsDrunk == on ) return;
+		IsDrunk = on;
+		OnDrunkChanged?.Invoke( on );
+	}
 
 	protected override void OnStart()
 	{
-		_lastObservedDrunk = IsDrunk;
-
 		if ( IsProxy ) return;
 
 		if ( PlayerId == Guid.Empty )
@@ -112,15 +104,6 @@ public sealed class TestControlls : Component
 
 	protected override void OnUpdate()
 	{
-		// Drunk transition observer runs on all peers so the visual filter hooked to
-		// OnDrunkChanged fires for proxies too.
-		bool drunkNow = IsDrunk;
-		if ( drunkNow != _lastObservedDrunk )
-		{
-			_lastObservedDrunk = drunkNow;
-			OnDrunkChanged?.Invoke( drunkNow );
-		}
-
 		if ( IsProxy ) return;
 
 		if ( RaceManager.Instance?.StartCountdownTimeLeft > 0f )
@@ -137,12 +120,11 @@ public sealed class TestControlls : Component
 	{
 		if ( IsProxy ) return;
 
-		TickDrunkTimer();
 
 		ApplyHorseLateralGrip();
 		ApplyLocomotion( moveInput.x );
 		ApplySteering( moveInput.y );
-		MaintainLurch();
+		StickToGround();
 	}
 
 	private void ApplyInputs()
@@ -201,77 +183,101 @@ public sealed class TestControlls : Component
 		float dir = leftPressed ? 1f : -1f;
 		if ( IsDrunk ) dir = -dir;
 
-		// Q (dir=+1) swings left, E (dir=-1) swings right. Locked to the horses' right
-		// vector so both bodies use one shared sideways direction.
-		Vector3 swing = -WorldRotation.Right * dir;
-		swing.z = 0f;
-		if ( swing.LengthSquared < 0.0001f ) return;
-		swing = swing.Normal;
-
-		// Open a short window. MaintainLurch keeps re-injecting the swing velocity every
-		// fixed tick and ApplyHorseLateralGrip backs off while the window is open, so the
-		// horses can't bleed off the swing faster than the chariot. End result: both bodies
-		// translate in lockstep regardless of mass, grip, or joint reaction.
-		_lurchDir = swing;
-		_lurchUntil = Time.Now + LurchDuration;
-
-		Vector3 forwardBoost = WorldRotation.Forward * LurchForwardBoost;
-		ForceSetLateralVelocity( Rigidbody, swing, LurchSpeed, forwardBoost );
-		if ( ChariotRigidbody is not null )
-			ForceSetLateralVelocity( ChariotRigidbody, swing, LurchSpeed * ChariotLurchScale, forwardBoost );
-
-		if ( LurchYawImpulse != 0f )
-		{
-			Vector3 yawKick = Vector3.Up * (LurchYawImpulse * dir);
-			Rigidbody.AngularVelocity += yawKick;
-			if ( ChariotRigidbody is not null )
-				ChariotRigidbody.AngularVelocity += yawKick;
-		}
-	}
-
-	private void MaintainLurch()
-	{
-		if ( !LurchActive ) return;
-		if ( Rigidbody is null ) return;
-
-		// Keep both bodies pinned to the target lateral speed for the whole window so
-		// nothing (grip, joint, drift impulse) can pull them out of sync mid-swing.
-		ForceSetLateralVelocity( Rigidbody, _lurchDir, LurchSpeed, Vector3.Zero );
-		if ( ChariotRigidbody is not null )
-			ForceSetLateralVelocity( ChariotRigidbody, _lurchDir, LurchSpeed * ChariotLurchScale, Vector3.Zero );
-	}
-
-	private static void ForceSetLateralVelocity( Rigidbody body, Vector3 swingDir, float swingSpeed, Vector3 extra )
-	{
-		// Replace the component of velocity along swingDir with exactly swingSpeed, keep
-		// the rest (forward, vertical) untouched.
-		Vector3 vel = body.Velocity;
-		float currentAlong = Vector3.Dot( vel, swingDir );
-		vel += swingDir * (swingSpeed - currentAlong);
-		body.Velocity = vel + extra;
+		Vector3 right = WorldRotation.Right;
+		Vector3 impulse = -right * dir * LurchImpulse * Rigidbody.Mass;
+		Vector3 frontWorld = WorldPosition + WorldRotation.Forward * LurchForwardOffset;
+		Rigidbody.ApplyImpulseAt( frontWorld, impulse );
 	}
 
 	private void ApplyLocomotion( float acceleration )
 	{
 		if ( acceleration == 0f ) return;
 
-		Vector3 forward = WorldRotation.Forward;
-		float forwardSpeed = Vector3.Dot( Rigidbody.Velocity, forward );
-		float planarSpeed = Rigidbody.Velocity.WithZ( 0f ).Length;
+		// Start from the body's facing direction in the horizontal plane.
+		Vector3 forward = WorldRotation.Forward.WithZ( 0f );
+		if ( forward.LengthSquared < 0.0001f ) return;
+		forward = forward.Normal;
+
+		// Redirect the pull force along the slope surface beneath the horse.
+		// Reason: with pitch/roll locked, the box collider stays level and
+		// rams into slope edges with a horizontal force. The contact normal
+		// then bounces the body upward and the player goes briefly airborne,
+		// losing steering until they land. Projecting forward onto the local
+		// ground plane sends the force *along* the slope instead of into it,
+		// so the body climbs smoothly without launching.
+		Vector3 normal = ProbeGroundNormal();
+		Vector3 surfaceForward = forward - normal * Vector3.Dot( forward, normal );
+		if ( surfaceForward.LengthSquared < 0.0001f ) surfaceForward = forward;
+		else surfaceForward = surfaceForward.Normal;
+
+		// MaxVerticalSpeed gates are measured against horizontal motion in the
+		// player's facing direction — same as before, but using the horizontal
+		// (not surface-projected) forward so the cap stays consistent across
+		// flat and sloped ground.
+		Vector3 planarVel = Rigidbody.Velocity.WithZ( 0f );
+		float forwardSpeed = Vector3.Dot( planarVel, forward );
+		float planarSpeed = planarVel.Length;
 
 		if ( acceleration > 0 && planarSpeed >= MaxVerticalSpeed && forwardSpeed > 0 ) return;
 		if ( acceleration < 0 && forwardSpeed <= -MaxVerticalSpeed ) return;
 
 		float mass = Rigidbody.Mass;
-		Rigidbody.ApplyForce( forward * PullForce * acceleration * mass );
+		Rigidbody.ApplyForce( surfaceForward * PullForce * acceleration * mass );
+	}
+
+	/// <summary>
+	/// Casts a ray straight down from the body to find the ground normal.
+	/// Used to align the pull force with the slope. Returns world up when no
+	/// ground is found within <see cref="GroundProbeDistance"/> (treats the
+	/// body as airborne and lets the regular horizontal pull apply).
+	/// </summary>
+	private Vector3 ProbeGroundNormal()
+	{
+		Vector3 from = WorldPosition;
+		Vector3 to = from + Vector3.Down * GroundProbeDistance;
+		var tr = Scene.Trace
+			.Ray( from, to )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.Run();
+		return tr.Hit ? tr.Normal : Vector3.Up;
+	}
+
+	/// <summary>
+	/// Applies a small downward force when the horse is in the gap just above
+	/// the terrain. Prevents the brief "launch" off a slope edge that strips
+	/// friction and kills steering. Disabled at <see cref="GroundStickStrength"/>
+	/// = 0 so the player can still jump over genuine bumps.
+	/// </summary>
+	private void StickToGround()
+	{
+		if ( GroundStickStrength <= 0f ) return;
+
+		Vector3 from = WorldPosition;
+		Vector3 to = from + Vector3.Down * GroundProbeDistance;
+		var tr = Scene.Trace
+			.Ray( from, to )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.Run();
+
+		if ( !tr.Hit ) return;
+		if ( tr.Distance > GroundStickGap ) return; // genuinely airborne — let gravity handle it
+		if ( Rigidbody.Velocity.z <= 0f ) return;    // already falling, no need to pull harder
+
+		Rigidbody.ApplyForce( Vector3.Down * GroundStickStrength * Rigidbody.Mass );
 	}
 
 	private void ApplyHorseLateralGrip()
 	{
 		if ( LateralGrip <= 0f ) return;
-		if ( LurchActive ) return;
 
-		Vector3 right = WorldRotation.Right;
+		// Project Right onto the horizontal plane. On a slope the body's local
+		// Right is tilted, so dotting velocity against it picks up part of the
+		// vertical (gravity) component and the velocity subtraction cancels
+		// gravity — which made the horse appear to float on inclines.
+		Vector3 right = WorldRotation.Right.WithZ( 0f );
+		if ( right.LengthSquared < 0.0001f ) return;
+		right = right.Normal;
+
 		float lateral = Vector3.Dot( Rigidbody.Velocity, right );
 		float kill = 1f - MathF.Exp( -LateralGrip * Time.Delta );
 		Rigidbody.Velocity -= right * (lateral * kill);
@@ -279,21 +285,38 @@ public sealed class TestControlls : Component
 
 	private void ApplySteering( float torqueInput )
 	{
+		// Steer around the body's own Up axis. With pitch/roll locked on the
+		// rigidbody this is identical to world Up, but the projection keeps the
+		// code correct if those locks are ever removed.
+		Vector3 yawAxis = WorldRotation.Up;
+		float yawRate = Vector3.Dot( Rigidbody.AngularVelocity, yawAxis );
+
 		if ( MathF.Abs( torqueInput ) < SteerInputDeadzone )
 		{
 			if ( SteerReleaseDamping > 0f )
 			{
-				Vector3 av = Rigidbody.AngularVelocity;
 				float kill = 1f - MathF.Exp( -SteerReleaseDamping * Time.Delta );
-				av.z -= av.z * kill;
-				Rigidbody.AngularVelocity = av;
+				Rigidbody.AngularVelocity -= yawAxis * (yawRate * kill);
 			}
 			return;
 		}
 
-		if ( MathF.Abs( Rigidbody.AngularVelocity.z ) >= MaxAngularSpeed ) return;
+		// Counter-steer fix: previously this returned whenever |yawRate| hit the
+		// cap, which blocked every torque — including the one that would slow
+		// or reverse the current spin. Only block torque that would push the
+		// spin further past the cap in the same direction it's already going.
+		bool pushingSameWay = MathF.Sign( yawRate ) == MathF.Sign( torqueInput );
+		if ( pushingSameWay && MathF.Abs( yawRate ) >= MaxAngularSpeed ) return;
+
+		// Boost steering torque at low forward speed. Climbing a hill, the
+		// box collider rests on its downhill edge and yaw torque gets eaten
+		// by friction against the slope. Without this scaling, the player
+		// can get "stranded" mid-turn on an incline.
+		float planarSpeed = Rigidbody.Velocity.WithZ( 0f ).Length;
+		float speedFactor = MathX.Clamp( planarSpeed / MathF.Max( SteerBoostFullSpeed, 1f ), 0f, 1f );
+		float boost = MathX.Lerp( LowSpeedSteerBoost, 1f, speedFactor );
 
 		float mass = Rigidbody.Mass;
-		Rigidbody.ApplyTorque( Vector3.Up * SteerTorque * torqueInput * mass );
+		Rigidbody.ApplyTorque( yawAxis * SteerTorque * torqueInput * mass * boost );
 	}
 }

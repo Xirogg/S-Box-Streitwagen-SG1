@@ -13,6 +13,12 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 	[Property, Group( "Joint" )] public Rigidbody HorsePairRb { get; set; }
 	[Property, Group( "Joint" )] public GameObject HitchPoint { get; set; }
 	[Property, Group( "Joint" )] public float YawLimit { get; set; } = 170f;
+	/// <summary>
+	/// How far the chariot is allowed to pitch/roll relative to the horse, in degrees.
+	/// Used as the BallJoint's SwingLimit so the chariot can rock over bumps
+	/// without dragging the horse's box collider off the ground through the hitch.
+	/// </summary>
+	[Property, Group( "Joint" )] public float PitchLimit { get; set; } = 45f;
 
 	[Property, Group( "Movement" )] public float MaxSpeed { get; set; } = 2500f;
 
@@ -110,16 +116,25 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 		_jointPivot = new GameObject( true, "ChariotJointPivot" );
 		_jointPivot.SetParent( GameObject );
 		_jointPivot.WorldPosition = pivotPos;
-		_jointPivot.WorldRotation = WorldRotation; // Hinge-Achse = lokales Z = Welt-Up bei Identity
+		_jointPivot.WorldRotation = WorldRotation; // Hinge-Achse = lokales Z = Welt-Up bei pitch/roll-gelockten Bodies
 
+		// HingeJoint ist hier tatsächlich der passende Joint: er erlaubt eine
+		// freie Rotation um die Hinge-Achse (lokales Z = Welt-Up bei pitch/
+		// roll-gelockten Bodies, also reines Yaw zwischen Pferd und Wagen)
+		// und koppelt alles andere. Genau das, was eine echte Deichsel-
+		// Verbindung macht.
+		//
+		// Wichtig: der BallJoint, den ich vorher probiert hatte, war keine
+		// Verbesserung. Ohne Limits hatte er gar keine Yaw-Kopplung zwischen
+		// Pferd und Wagen — das Pferd drehte sich frei am Hitch-Punkt und der
+		// Wagen folgte kaum. Mit SwingLimit begrenzte er versehentlich die
+		// Yaw-Differenz auf ±SwingLimit (PhysX BallJoint: lokale X = Twist;
+		// alles andere = Swing). Beides hat das Spielgefühl kaputt gemacht.
 		_joint = _jointPivot.Components.Create<HingeJoint>();
 		_joint.Body = horseRb.GameObject;
 		_joint.MinAngle = -YawLimit;
 		_joint.MaxAngle = YawLimit;
 		_joint.EnableCollision = true;
-
-		//Log.Info( $"[ChariotPhysics] Joint erstellt — YawLimit=±{YawLimit}" );
-		//Log.Info( $"[ChariotPhysics] HorsePos={horseRb.WorldPosition} | ChariotPos={WorldPosition} | PivotWorld={_jointPivot.WorldPosition} | HitchPointSet={HitchPoint is not null}" );
 	}
 
 	protected override void OnFixedUpdate()
@@ -160,15 +175,25 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 		float speed = Body.Velocity.Length;
 		if ( speed < DriftMinSpeed ) return;
 
-		float yawRate = MathX.Clamp( HorsePairRb.AngularVelocity.z, -DriftMaxYawRate, DriftMaxYawRate );
+		// Yaw rate is rotation around the horse's body Up — not world Z — so it
+		// stays correct on inclines instead of bleeding into roll/pitch.
+		Vector3 horseUp = HorsePairRb.WorldRotation.Up;
+		float yawRate = MathX.Clamp( Vector3.Dot( HorsePairRb.AngularVelocity, horseUp ), -DriftMaxYawRate, DriftMaxYawRate );
 		if ( MathF.Abs( yawRate ) < 0.05f ) return;
 
 		float speedFactor = MathX.Clamp( (speed - DriftMinSpeed) / MathF.Max( DriftFullSpeed - DriftMinSpeed, 1f ), 0f, 1f );
 
 		// Push the rear sideways opposite to the turn direction → back end kicks out.
-		Vector3 right = WorldRotation.Right;
+		// Right + rear offset projected to horizontal so the drift kick stays
+		// in the ground plane and doesn't lift the chariot on slopes.
+		Vector3 right = WorldRotation.Right.WithZ( 0f );
+		Vector3 forwardFlat = WorldRotation.Forward.WithZ( 0f );
+		if ( right.LengthSquared < 0.0001f || forwardFlat.LengthSquared < 0.0001f ) return;
+		right = right.Normal;
+		forwardFlat = forwardFlat.Normal;
+
 		Vector3 force = right * (-yawRate * DriftForce * speedFactor);
-		Vector3 rearWorld = WorldPosition - WorldRotation.Forward * DriftRearOffset;
+		Vector3 rearWorld = WorldPosition - forwardFlat * DriftRearOffset;
 
 		Body.ApplyForceAt( rearWorld, force );
 	}
@@ -177,11 +202,12 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 	{
 		if ( ChariotAngularDamping <= 0f ) return;
 
-		// Light damping only on the chariot's yaw axis — keeps it from spinning out forever
-		// without snapping it back behind the horses (that's what makes it feel "loose").
-		Vector3 av = Body.AngularVelocity;
+		// Damp only the yaw component around the chariot's local Up. Using world
+		// Z would damp the wrong axis when the chariot is pitched on a hill.
+		Vector3 yawAxis = WorldRotation.Up;
+		float yawRate = Vector3.Dot( Body.AngularVelocity, yawAxis );
 		float keep = MathF.Exp( -ChariotAngularDamping * Time.Delta );
-		Body.AngularVelocity = new Vector3( av.x, av.y, av.z * keep );
+		Body.AngularVelocity -= yawAxis * (yawRate * (1f - keep));
 	}
 
 	private void ClampMaxSpeed()
@@ -189,17 +215,31 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 		float cap = EffectiveMaxSpeed;
 		if ( cap <= 0f ) return;
 
+		// Clamp only the horizontal speed. The old version scaled the whole
+		// 3D velocity, which capped gravity-induced falling speed too and
+		// kept the chariot hanging in the air on downhill sections.
 		Vector3 vel = Body.Velocity;
-		float speed = vel.Length;
-		if ( speed > cap )
-			Body.Velocity = vel * (cap / speed);
+		Vector3 planar = vel.WithZ( 0f );
+		float planarSpeed = planar.Length;
+		if ( planarSpeed > cap )
+		{
+			planar *= cap / planarSpeed;
+			Body.Velocity = new Vector3( planar.x, planar.y, vel.z );
+		}
 	}
 
 	private void ApplyLateralGrip()
 	{
 		if ( LateralGrip <= 0f ) return;
 
-		Vector3 right = WorldRotation.Right;
+		// Horizontal right only — see TestControlls.ApplyHorseLateralGrip for
+		// the long explanation. Same bug, same fix: a tilted Right axis on
+		// slopes makes the grip subtract from the falling velocity and the
+		// chariot stops obeying gravity.
+		Vector3 right = WorldRotation.Right.WithZ( 0f );
+		if ( right.LengthSquared < 0.0001f ) return;
+		right = right.Normal;
+
 		float lateralAmount = Vector3.Dot( Body.Velocity, right );
 		float killFactor = 1f - MathF.Exp( -LateralGrip * Time.Delta );
 		Body.Velocity -= right * (lateralAmount * killFactor);

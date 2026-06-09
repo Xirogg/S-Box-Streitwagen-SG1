@@ -1,0 +1,21 @@
+{
+  "Maps": {
+    "$blob": "32470f7f-1ee0-4c76-88f9-deddcf06adee"
+  },
+  "Resolution": 512,
+  "TerrainSize": 19968,
+  "TerrainHeight": 10000,
+  "Materials": [
+    "materials/forest_ground_needles.tmat",
+    "scenes/terrain/road.tmat"
+  ],
+  "MaterialSettings": {
+    "HeightBlendEnabled": true,
+    "HeightBlendSharpness": 0.87
+  },
+  "ResourceVersion": 3,
+  "__references": [
+    "duccsoft.forest_needles_tmat#60685"
+  ],
+  "__version": 3
+}

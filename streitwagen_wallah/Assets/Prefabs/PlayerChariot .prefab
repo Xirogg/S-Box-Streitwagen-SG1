@@ -95,19 +95,13 @@
             "__enabled": true,
             "Flags": 0,
             "BrakeForce": 5,
-            "ChariotLurchScale": 1,
-            "ChariotRigidbody": {
-              "_type": "component",
-              "component_id": "4932540a-ba13-4f07-bd43-b3da02c0d833",
-              "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
-              "component_type": "Rigidbody"
-            },
-            "LateralGrip": 6,
-            "LurchDuration": 0.25,
-            "LurchForwardBoost": 0,
-            "LurchSpeed": 600,
-            "LurchYawImpulse": 0,
-            "MaxAngularSpeed": 150,
+            "GroundProbeDistance": 60,
+            "GroundStickGap": 30,
+            "GroundStickStrength": 300,
+            "LateralGrip": 5,
+            "LowSpeedSteerBoost": 3,
+            "LurchImpulse": 800,
+            "MaxAngularSpeed": 15000,
             "MaxVerticalSpeed": 1000,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -124,8 +118,9 @@
               "component_type": "Rigidbody"
             },
             "SharpSteerMultiplier": 1.5,
+            "SteerBoostFullSpeed": 400,
             "SteerReleaseDamping": 15,
-            "SteerTorque": 1000
+            "SteerTorque": 5500
           },
           {
             "__type": "Sandbox.ModelRenderer",
@@ -175,7 +170,7 @@
             "OnTriggerEnter": null,
             "OnTriggerExit": null,
             "RollingResistance": null,
-            "Scale": "50,50,50",
+            "Scale": "150,50,50",
             "Static": false,
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
@@ -196,9 +191,9 @@
               "X": false,
               "Y": false,
               "Z": false,
-              "Pitch": true,
+              "Pitch": false,
               "Yaw": false,
-              "Roll": true
+              "Roll": false
             },
             "MassCenterOverride": "0,0,0",
             "MassOverride": 110,
@@ -214,20 +209,6 @@
             "RigidbodyFlags": 0,
             "SleepThreshold": 2,
             "StartAsleep": false
-          },
-          {
-            "__type": "Sandbox.HorseVisuals",
-            "__guid": "c4ece374-a00e-4391-8f19-3b9df2206096",
-            "__enabled": false,
-            "Flags": 0,
-            "LeftHorse": null,
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "RightHorse": null
           }
         ],
         "Children": [
@@ -440,7 +421,7 @@
             "__guid": "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2",
             "__enabled": true,
             "Flags": 0,
-            "ChariotAngularDamping": 1.8,
+            "ChariotAngularDamping": 0.15,
             "CurrentSpeed": 0,
             "DebugLog": false,
             "DriftAngle": 0,
@@ -475,6 +456,7 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
+            "PitchLimit": 45,
             "YawLimit": 35
           },
           {
@@ -525,7 +507,7 @@
             "OnTriggerEnter": null,
             "OnTriggerExit": null,
             "RollingResistance": null,
-            "Scale": "67.5398102,84.5215759,18.2672749",
+            "Scale": "35,84.5215759,18.2672749",
             "Static": false,
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
@@ -573,7 +555,7 @@
             "DamageMultiplier": 1,
             "DebugLog": true,
             "HitCooldown": 0.5,
-            "MaxHP": 1500,
+            "MaxHP": 100,
             "MinSpeedMultiplier": 0.6,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -1222,7 +1204,7 @@
           },
           {
             "__type": "Sandbox.PlayerItemTracker",
-            "__guid": "9aaf4c7e-6b78-4798-985f-11fb38c53b83",
+            "__guid": "daed10fc-d232-4c3d-ab75-aad226fc0bf9",
             "__enabled": true,
             "Flags": 0,
             "DebugLog": true,
@@ -1268,8 +1250,8 @@
             "__enabled": true,
             "Flags": 0,
             "Attack": {
-              "BaseValue": 100,
-              "Value": 100
+              "BaseValue": 30,
+              "Value": 30
             },
             "Chariot": {
               "_type": "component",
@@ -1279,8 +1261,8 @@
             },
             "DebugLog": false,
             "Defense": {
-              "BaseValue": 300,
-              "Value": 300
+              "BaseValue": 100,
+              "Value": 100
             },
             "MaxSpeedPercent": {
               "BaseValue": 100,

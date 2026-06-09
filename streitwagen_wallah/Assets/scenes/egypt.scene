@@ -85,7 +85,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "SpawnPoints",
-          "Position": "0,0,0",
+          "Position": "0,-5025.80615,308.223267",
           "Rotation": "0,0,0,1",
           "Scale": "1,1,1",
           "Tags": "",
@@ -120,7 +120,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "-131.122681,-3116.10059,-1750.55664",
+              "Position": "176.182739,-2286.55029,-1750.55652",
               "Rotation": "0,0,-0.707106769,0.707106769",
               "Scale": "1,1,1",
               "Tags": "",
@@ -138,7 +138,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "-516.545532,-3126.53223,-1758.12585",
+              "Position": "263.425903,-2688.00146,-1758.12573",
               "Rotation": "0,-0,-0.707106769,0.707106769",
               "Scale": "1,1,1",
               "Tags": "",
@@ -156,7 +156,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "-728.576782,-3126.53223,-1758.12585",
+              "Position": "106.986206,-2021.28027,-1758.12573",
               "Rotation": "0,-0,-0.707106769,0.707106769",
               "Scale": "1,1,1",
               "Tags": "",
@@ -195,7 +195,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "CHECKPOINTS",
-          "Position": "0,0,0",
+          "Position": "0,0,809.344421",
           "Rotation": "0,0,0,1",
           "Scale": "1,1,1",
           "Tags": "",
@@ -221,7 +221,7 @@
                       "IdValue": "4c2d86e6-74a1-4d3d-84a3-e76240adabbf"
                     },
                     "Property": "Position",
-                    "Value": "-609.454773,-2913.7041,-941.862122"
+                    "Value": "-127.532562,-3842.47559,-941.862122"
                   },
                   {
                     "Target": {
@@ -312,7 +312,7 @@
                       "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
                     },
                     "Property": "Position",
-                    "Value": "-5639.87012,-12453.2246,-941.862122"
+                    "Value": "-6055.36914,-11834.4531,-941.862061"
                   },
                   {
                     "Target": {
@@ -361,7 +361,7 @@
                       "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
                     },
                     "Property": "Position",
-                    "Value": "2715.35059,-9719.69922,-941.862"
+                    "Value": "2637.56226,-8896.64648,-1257.34668"
                   },
                   {
                     "Target": {
@@ -426,7 +426,7 @@
                       "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
                     },
                     "Property": "Position",
-                    "Value": "5285.25195,-2612.38965,-941.862122"
+                    "Value": "4389.09814,-4437.17773,-1157.21191"
                   },
                   {
                     "Target": {
@@ -434,7 +434,7 @@
                       "IdValue": "b451cbb4-02d3-4d5c-9996-5e3fb7653220"
                     },
                     "Property": "Rotation",
-                    "Value": "0,0,0.707106769,0.707106769"
+                    "Value": "0,0,0.481317639,0.876546264"
                   },
                   {
                     "Target": {
@@ -460,10 +460,10 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Pyramid3",
-          "Position": "2915.39697,-6022.63379,-427.407166",
+          "Position": "2388.22827,-6231.50342,-91.3875732",
           "Rotation": "0,0,0.087155737,0.99619472",
-          "Scale": "60,60,5",
-          "Tags": "wall",
+          "Scale": "30,30,2.5",
+          "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
           "NetworkFlags": 0,
@@ -1315,10 +1315,10 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Pyramid2",
-          "Position": "-4550.80713,-9280.55078,-545.71228",
+          "Position": "-4956.60791,-8701.00586,-181.662354",
           "Rotation": "0,0,0.300705791,0.953716934",
-          "Scale": "50,50,4",
-          "Tags": "wall",
+          "Scale": "20,20,1.60000002",
+          "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
           "NetworkFlags": 0,
@@ -2170,10 +2170,10 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Pyramid1",
-          "Position": "4340.53076,-15620.0918,-566.862671",
+          "Position": "2396.09741,-13709.834,227.980408",
           "Rotation": "0,0,0,1",
           "Scale": "100,100,7",
-          "Tags": "wall",
+          "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
           "NetworkFlags": 0,
@@ -3025,7 +3025,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Floor",
-          "Position": "-525.533142,-10687.0117,-966.862122",
+          "Position": "-525.533142,-10687.0117,-1030.1228",
           "Rotation": "0,0,0,1",
           "Scale": "600,600,5.00000143",
           "Tags": "ground",
@@ -3906,7 +3906,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder",
-              "Position": "-514.690552,-22.5759563,23.7701111",
+              "Position": "-497.605072,-21.4093761,1084.66919",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -3943,32 +3943,6 @@
                   },
                   "RenderType": "On",
                   "Tint": "132.23,59.5035,0,1"
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "3fca87f5-6e1a-4433-8640-ea2a6b5d5e70",
-                  "__enabled": true,
-                  "Flags": 0,
-                  "Center": "0,0,0",
-                  "ColliderFlags": 0,
-                  "Elasticity": null,
-                  "Friction": null,
-                  "IsTrigger": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnObjectTriggerEnter": null,
-                  "OnObjectTriggerExit": null,
-                  "OnTriggerEnter": null,
-                  "OnTriggerExit": null,
-                  "RollingResistance": null,
-                  "Scale": "50,50,250",
-                  "Static": false,
-                  "Surface": null,
-                  "SurfaceVelocity": "0,0,0"
                 }
               ],
               "Children": []
@@ -3978,7 +3952,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (6)",
-              "Position": "-462.111908,-28.9019814,23.7701111",
+              "Position": "-448.604095,-26.0096188,1084.66919",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4015,32 +3989,6 @@
                   },
                   "RenderType": "On",
                   "Tint": "132.23,59.5035,0,1"
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "40dd6dd8-fef2-409e-90c7-5a1d464984c0",
-                  "__enabled": true,
-                  "Flags": 0,
-                  "Center": "0,0,0",
-                  "ColliderFlags": 0,
-                  "Elasticity": null,
-                  "Friction": null,
-                  "IsTrigger": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnObjectTriggerEnter": null,
-                  "OnObjectTriggerExit": null,
-                  "OnTriggerEnter": null,
-                  "OnTriggerExit": null,
-                  "RollingResistance": null,
-                  "Scale": "50,50,250",
-                  "Static": false,
-                  "Surface": null,
-                  "SurfaceVelocity": "0,0,0"
                 }
               ],
               "Children": []
@@ -4050,7 +3998,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (3)",
-              "Position": "-371.397919,-66.5148468,23.768568",
+              "Position": "-395.773285,-61.3223114,771.425171",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4087,32 +4035,6 @@
                   },
                   "RenderType": "On",
                   "Tint": "132.23,59.5035,0,1"
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "fc589c21-84aa-4d0c-9d1d-e514463f750d",
-                  "__enabled": true,
-                  "Flags": 0,
-                  "Center": "0,0,0",
-                  "ColliderFlags": 0,
-                  "Elasticity": null,
-                  "Friction": null,
-                  "IsTrigger": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnObjectTriggerEnter": null,
-                  "OnObjectTriggerExit": null,
-                  "OnTriggerEnter": null,
-                  "OnTriggerExit": null,
-                  "RollingResistance": null,
-                  "Scale": "50,50,250",
-                  "Static": false,
-                  "Surface": null,
-                  "SurfaceVelocity": "0,0,0"
                 }
               ],
               "Children": []
@@ -4122,7 +4044,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (7)",
-              "Position": "-385.078094,-58.5462723,23.7681332",
+              "Position": "-405.384857,-55.6065483,603.11676",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4159,32 +4081,6 @@
                   },
                   "RenderType": "On",
                   "Tint": "132.23,59.5035,0,1"
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "4e3f8214-106c-490f-a0a6-8fdf20cd5462",
-                  "__enabled": true,
-                  "Flags": 0,
-                  "Center": "0,0,0",
-                  "ColliderFlags": 0,
-                  "Elasticity": null,
-                  "Friction": null,
-                  "IsTrigger": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnObjectTriggerEnter": null,
-                  "OnObjectTriggerExit": null,
-                  "OnTriggerEnter": null,
-                  "OnTriggerExit": null,
-                  "RollingResistance": null,
-                  "Scale": "50,50,250",
-                  "Static": false,
-                  "Surface": null,
-                  "SurfaceVelocity": "0,0,0"
                 }
               ],
               "Children": []
@@ -4194,7 +4090,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (4)",
-              "Position": "232.742188,-38.2653046,23.7671833",
+              "Position": "228.511566,-33.4451637,481.343292",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4231,32 +4127,6 @@
                   },
                   "RenderType": "On",
                   "Tint": "132.23,59.5035,0,1"
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "0071841f-922d-4a64-945d-528a88a21b09",
-                  "__enabled": true,
-                  "Flags": 0,
-                  "Center": "0,0,0",
-                  "ColliderFlags": 0,
-                  "Elasticity": null,
-                  "Friction": null,
-                  "IsTrigger": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnObjectTriggerEnter": null,
-                  "OnObjectTriggerExit": null,
-                  "OnTriggerEnter": null,
-                  "OnTriggerExit": null,
-                  "RollingResistance": null,
-                  "Scale": "50,50,250",
-                  "Static": false,
-                  "Surface": null,
-                  "SurfaceVelocity": "0,0,0"
                 }
               ],
               "Children": []
@@ -4266,7 +4136,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (8)",
-              "Position": "225.099045,-46.7123184,23.7671795",
+              "Position": "225.099045,-39.3142052,509.576569",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4303,32 +4173,6 @@
                   },
                   "RenderType": "On",
                   "Tint": "132.23,59.5035,0,1"
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "3dadb143-f975-4755-a4d4-a98b36f40b21",
-                  "__enabled": true,
-                  "Flags": 0,
-                  "Center": "0,0,0",
-                  "ColliderFlags": 0,
-                  "Elasticity": null,
-                  "Friction": null,
-                  "IsTrigger": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnObjectTriggerEnter": null,
-                  "OnObjectTriggerExit": null,
-                  "OnTriggerEnter": null,
-                  "OnTriggerExit": null,
-                  "RollingResistance": null,
-                  "Scale": "50,50,250",
-                  "Static": false,
-                  "Surface": null,
-                  "SurfaceVelocity": "0,0,0"
                 }
               ],
               "Children": []
@@ -4338,7 +4182,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (5)",
-              "Position": "418.262756,5.91476154,23.7647781",
+              "Position": "326.295776,-5.88389683,474.052551",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4375,32 +4219,6 @@
                   },
                   "RenderType": "On",
                   "Tint": "132.23,59.5035,0,1"
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "48c999ee-8fa5-4031-98ce-aa34921d9745",
-                  "__enabled": true,
-                  "Flags": 0,
-                  "Center": "0,0,0",
-                  "ColliderFlags": 0,
-                  "Elasticity": null,
-                  "Friction": null,
-                  "IsTrigger": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnObjectTriggerEnter": null,
-                  "OnObjectTriggerExit": null,
-                  "OnTriggerEnter": null,
-                  "OnTriggerExit": null,
-                  "RollingResistance": null,
-                  "Scale": "50,50,250",
-                  "Static": false,
-                  "Surface": null,
-                  "SurfaceVelocity": "0,0,0"
                 }
               ],
               "Children": []
@@ -4410,7 +4228,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (9)",
-              "Position": "428.976532,15.0403299,23.7650719",
+              "Position": "362.718384,-0.0756966025,405.158905",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4447,32 +4265,6 @@
                   },
                   "RenderType": "On",
                   "Tint": "132.23,59.5035,0,1"
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "302ceac1-c3aa-4df4-8cf4-91e467b9b4da",
-                  "__enabled": true,
-                  "Flags": 0,
-                  "Center": "0,0,0",
-                  "ColliderFlags": 0,
-                  "Elasticity": null,
-                  "Friction": null,
-                  "IsTrigger": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnObjectTriggerEnter": null,
-                  "OnObjectTriggerExit": null,
-                  "OnTriggerEnter": null,
-                  "OnTriggerExit": null,
-                  "RollingResistance": null,
-                  "Scale": "50,50,250",
-                  "Static": false,
-                  "Surface": null,
-                  "SurfaceVelocity": "0,0,0"
                 }
               ],
               "Children": []
@@ -4482,7 +4274,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (1)",
-              "Position": "-39.0747032,8.88805962,24.6793995",
+              "Position": "-17.1102333,-9.02058411,413.702179",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4519,32 +4311,6 @@
                   },
                   "RenderType": "On",
                   "Tint": "132.23,59.5035,0,1"
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "541a3e43-360e-4dac-b2a7-df7c1dfe9d69",
-                  "__enabled": true,
-                  "Flags": 0,
-                  "Center": "0,0,0",
-                  "ColliderFlags": 0,
-                  "Elasticity": null,
-                  "Friction": null,
-                  "IsTrigger": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnObjectTriggerEnter": null,
-                  "OnObjectTriggerExit": null,
-                  "OnTriggerEnter": null,
-                  "OnTriggerExit": null,
-                  "RollingResistance": null,
-                  "Scale": "50,50,250",
-                  "Static": false,
-                  "Surface": null,
-                  "SurfaceVelocity": "0,0,0"
                 }
               ],
               "Children": []
@@ -4554,7 +4320,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "obelisk_placeholder (2)",
-              "Position": "34.1595116,8.88805962,24.6793995",
+              "Position": "42.7834091,-7.70690489,436.133026",
               "Rotation": "0,0,0,1",
               "Scale": "0.221507147,0.0223757476,5.09359455",
               "Tags": "",
@@ -4591,32 +4357,6 @@
                   },
                   "RenderType": "On",
                   "Tint": "132.23,59.5035,0,1"
-                },
-                {
-                  "__type": "Sandbox.BoxCollider",
-                  "__guid": "4ef2f2b0-b39c-4898-9a1d-52ab81fc7687",
-                  "__enabled": true,
-                  "Flags": 0,
-                  "Center": "0,0,0",
-                  "ColliderFlags": 0,
-                  "Elasticity": null,
-                  "Friction": null,
-                  "IsTrigger": false,
-                  "OnComponentDestroy": null,
-                  "OnComponentDisabled": null,
-                  "OnComponentEnabled": null,
-                  "OnComponentFixedUpdate": null,
-                  "OnComponentStart": null,
-                  "OnComponentUpdate": null,
-                  "OnObjectTriggerEnter": null,
-                  "OnObjectTriggerExit": null,
-                  "OnTriggerEnter": null,
-                  "OnTriggerExit": null,
-                  "RollingResistance": null,
-                  "Scale": "50,50,250",
-                  "Static": false,
-                  "Surface": null,
-                  "SurfaceVelocity": "0,0,0"
                 }
               ],
               "Children": []
@@ -4838,9 +4578,8 @@
           "Force2d": false,
           "MaxRepeatTime": 1,
           "MinRepeatTime": 1,
-          "Occlusion": false,
+          "OcclusionEnabled": false,
           "OcclusionOverride": false,
-          "OcclusionRadius": 32,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -4849,9 +4588,9 @@
           "OnComponentUpdate": null,
           "Pitch": 1,
           "PlayOnStart": true,
-          "ReflectionOverride": false,
-          "Reflections": false,
           "Repeat": false,
+          "ReverbEnabled": false,
+          "ReverbOverride": false,
           "Scale": "50000,50000,500000",
           "SoundEvent": "music/bgm/provisional bgm.sound",
           "SoundOverride": false,
@@ -4866,7 +4605,7 @@
       "Children": []
     },
     {
-      "__guid": "9e119026-95f6-45ef-b7db-4155b565b8f0",
+      "__guid": "ddfd0a2b-690a-44e8-bb38-d23894c6813e",
       "__version": 2,
       "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
       "__PrefabInstancePatch": {
@@ -4879,400 +4618,87 @@
               "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
             },
             "Property": "Position",
-            "Value": "274.740356,5565.021,25"
-          }
-        ],
-        "MovedObjects": []
-      },
-      "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "9e119026-95f6-45ef-b7db-4155b565b8f0",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "f5ff9f0f-b8df-4162-a726-d1194d798419",
-        "71306516-0416-4962-ad57-604bccf93274": "59748fbb-95ed-414f-a42f-7675a3d28dbc",
-        "143114ab-4f92-4888-96ae-a120972ec204": "9697c9a8-607a-4345-aec5-f15d4ba2a62f"
-      }
-    },
-    {
-      "__guid": "773ba044-5028-4594-abf4-dfe7b0523a0e",
-      "__version": 2,
-      "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
-      "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
-        "PropertyOverrides": [
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Name",
-            "Value": "itemprefab (9)"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Position",
-            "Value": "4170.89258,8086.05225,25.6220703"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Rotation",
-            "Value": "0,0,0.608761489,0.793353438"
-          }
-        ],
-        "MovedObjects": []
-      },
-      "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "773ba044-5028-4594-abf4-dfe7b0523a0e",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "1d62f852-2dc6-4dd4-910a-dd62b0a4271b",
-        "71306516-0416-4962-ad57-604bccf93274": "b8677cbc-8888-4f5d-8b92-e21e4169a9d9",
-        "143114ab-4f92-4888-96ae-a120972ec204": "94fcdd03-fd3d-48cf-974a-294ab8559132"
-      }
-    },
-    {
-      "__guid": "4804fa75-5ca3-44f3-857a-46f599e1f2c1",
-      "__version": 2,
-      "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
-      "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
-        "PropertyOverrides": [
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Name",
-            "Value": "itemprefab (8)"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Position",
-            "Value": "4294.96094,8501.31543,25.6220703"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Rotation",
-            "Value": "0,0,0.608761489,0.793353438"
-          }
-        ],
-        "MovedObjects": []
-      },
-      "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "4804fa75-5ca3-44f3-857a-46f599e1f2c1",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "70aa170d-e6a0-4de1-b4f2-b4e3df0093cc",
-        "71306516-0416-4962-ad57-604bccf93274": "35d24f1f-3f04-4969-aea5-295e94010911",
-        "143114ab-4f92-4888-96ae-a120972ec204": "13a0a371-269a-4e92-b19e-b407391c360a"
-      }
-    },
-    {
-      "__guid": "efdbeef0-39b5-4d04-bf4c-52c868e7bd80",
-      "__version": 2,
-      "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
-      "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
-        "PropertyOverrides": [
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Name",
-            "Value": "itemprefab (1)"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Position",
-            "Value": "-158.483765,5577.38379,25"
+            "Value": "1165.59802,5271.72266,25"
           },
           {
             "Target": {
               "Type": "Component",
-              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+              "IdValue": "71306516-0416-4962-ad57-604bccf93274"
             },
-            "Property": "ItemPool",
-            "Value": {
-              "Dionysos": {
-                "_type": "gameobject",
-                "prefab": "prefabs/god prefabs/dionysos/dionysosscriptprefab.prefab"
-              }
-            }
+            "Property": "Center",
+            "Value": "-0.333126068,0,0"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "71306516-0416-4962-ad57-604bccf93274"
+            },
+            "Property": "Scale",
+            "Value": "50.6662521,50,50"
           }
         ],
         "MovedObjects": []
       },
       "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "efdbeef0-39b5-4d04-bf4c-52c868e7bd80",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "42e76df3-6252-4f2f-b265-0eb61ddba2d3",
-        "71306516-0416-4962-ad57-604bccf93274": "ce2168a7-caaa-4943-9a3b-6d1a59639940",
-        "143114ab-4f92-4888-96ae-a120972ec204": "76d661e1-00d0-477e-a27a-1fd13ee64db7"
+        "eea33dba-6300-4d41-b7a3-f10869e90daa": "ddfd0a2b-690a-44e8-bb38-d23894c6813e",
+        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "42850fb4-c081-426a-8298-26065d678cee",
+        "71306516-0416-4962-ad57-604bccf93274": "9d6c6c38-ef4f-49b5-9cbb-2f79972442da",
+        "4f216932-6c15-4bb9-be91-e9b0e607cdb5": "f15f863f-65b1-4e56-a599-f69518cc9290"
       }
     },
     {
-      "__guid": "9768e07c-60e5-49ff-86b0-9a1af2d5f408",
+      "__guid": "55f7ddf2-8fd1-4b0f-8745-50a9453d5fe0",
       "__version": 2,
-      "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
-      "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
-        "PropertyOverrides": [
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Name",
-            "Value": "itemprefab (3)"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Position",
-            "Value": "-3666.94482,5281.04346,24.9999943"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Rotation",
-            "Value": "0,0,-0.382683456,0.923879564"
-          }
-        ],
-        "MovedObjects": []
-      },
-      "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "9768e07c-60e5-49ff-86b0-9a1af2d5f408",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "0230b6ed-7482-4000-b793-9f545a02c06c",
-        "71306516-0416-4962-ad57-604bccf93274": "23e476c4-8f75-4009-a6b3-e91327e52269",
-        "143114ab-4f92-4888-96ae-a120972ec204": "bea19326-facc-4e95-b365-d9b05c16ba69"
-      }
-    },
-    {
-      "__guid": "4687053e-9ea5-4ad0-adcf-9da1b044f019",
-      "__version": 2,
-      "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
-      "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
-        "PropertyOverrides": [
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Name",
-            "Value": "itemprefab (2)"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Position",
-            "Value": "-3964.53882,5596.12109,24.9999943"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Rotation",
-            "Value": "0,0,-0.382683456,0.923879564"
-          }
-        ],
-        "MovedObjects": []
-      },
-      "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "4687053e-9ea5-4ad0-adcf-9da1b044f019",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "feca9344-7426-4dc7-bfdd-f48c39323a5c",
-        "71306516-0416-4962-ad57-604bccf93274": "105beeda-a19a-44b8-ab45-d97575044b30",
-        "143114ab-4f92-4888-96ae-a120972ec204": "45405e01-9157-41f9-8c54-110160fedbfd"
-      }
-    },
-    {
-      "__guid": "00da757c-bf83-428a-8ddc-e4e5380f6155",
-      "__version": 2,
-      "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
-      "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
-        "PropertyOverrides": [
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Name",
-            "Value": "itemprefab (5)"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Position",
-            "Value": "-7599.81348,-857.892578,26.2663631"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Rotation",
-            "Value": "0,0,0.130525962,0.991444886"
-          }
-        ],
-        "MovedObjects": []
-      },
-      "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "00da757c-bf83-428a-8ddc-e4e5380f6155",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "ab69193a-4de6-4f8a-b996-791794991de6",
-        "71306516-0416-4962-ad57-604bccf93274": "bcc0b9cc-87e0-4401-8a94-e0723e62492f",
-        "143114ab-4f92-4888-96ae-a120972ec204": "2c388d8b-66ea-42f7-ad80-f42566fe1a08"
-      }
-    },
-    {
-      "__guid": "5ba4e712-a11c-45ab-aff2-d15512764ff1",
-      "__version": 2,
-      "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
-      "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
-        "PropertyOverrides": [
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Name",
-            "Value": "itemprefab (7)"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Position",
-            "Value": "-1544.70886,-4017.00586,26.9003925"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Rotation",
-            "Value": "0,0,-0.130526111,0.991445005"
-          }
-        ],
-        "MovedObjects": []
-      },
-      "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "5ba4e712-a11c-45ab-aff2-d15512764ff1",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "930d618c-aa83-4e4e-8d27-be080f029efe",
-        "71306516-0416-4962-ad57-604bccf93274": "5655ef69-a5de-4b99-ac89-ebf7fc47d7e1",
-        "143114ab-4f92-4888-96ae-a120972ec204": "989b0cbf-329c-4725-99a8-04b11a95481c"
-      }
-    },
-    {
-      "__guid": "80c56f37-7a6b-4dc6-9b3a-c034e85d7286",
-      "__version": 2,
-      "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
-      "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
-        "PropertyOverrides": [
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Name",
-            "Value": "itemprefab (6)"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Position",
-            "Value": "-1129.44604,-4141.07422,26.9003925"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Rotation",
-            "Value": "0,0,-0.130526111,0.991445005"
-          }
-        ],
-        "MovedObjects": []
-      },
-      "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "80c56f37-7a6b-4dc6-9b3a-c034e85d7286",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "864daded-84e8-4cb0-ba8a-6b2d87202bca",
-        "71306516-0416-4962-ad57-604bccf93274": "7ded9850-338e-4aed-9ad0-7a31fd1ca92f",
-        "143114ab-4f92-4888-96ae-a120972ec204": "204b7146-2e6b-44d4-8d4d-81f52270a57b"
-      }
-    },
-    {
-      "__guid": "5cf49859-8335-4ec8-a71b-c0b669cfed5c",
-      "__version": 2,
-      "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
-      "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
-        "PropertyOverrides": [
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Name",
-            "Value": "itemprefab (4)"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Position",
-            "Value": "-8021.47559,-958.077637,26.2663631"
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-            },
-            "Property": "Rotation",
-            "Value": "0,0,0.130525962,0.991444886"
-          }
-        ],
-        "MovedObjects": []
-      },
-      "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "5cf49859-8335-4ec8-a71b-c0b669cfed5c",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "5452a1dd-8dc5-4b1b-be0a-77e6995e7468",
-        "71306516-0416-4962-ad57-604bccf93274": "75e2a3a1-f289-4b7d-93a4-217d2c0a6559",
-        "143114ab-4f92-4888-96ae-a120972ec204": "237df994-69cb-442e-8864-c4f43e884776"
-      }
+      "Flags": 0,
+      "Name": "Terrain (1)",
+      "Position": "-10093.8867,-8158.0293,-462.009949",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.Terrain",
+          "__guid": "8904a8b5-ab37-423b-ae9b-12437466bb5e",
+          "__enabled": true,
+          "Flags": 0,
+          "__version": 1,
+          "ClipMapLodExtentTexels": 256,
+          "ClipMapLodLevels": 6,
+          "ColliderFlags": 0,
+          "Elasticity": null,
+          "EnableCollision": true,
+          "Friction": null,
+          "IsTrigger": false,
+          "MaterialOverride": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RenderType": "Off",
+          "RollingResistance": null,
+          "Static": true,
+          "Storage": "scenes/terrain/desert2.terrain",
+          "SubdivisionFactor": 1,
+          "SubdivisionLodCount": 3,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0",
+          "TerrainHeight": 10000,
+          "TerrainSize": 19968
+        }
+      ],
+      "Children": []
     }
   ],
   "SceneProperties": {

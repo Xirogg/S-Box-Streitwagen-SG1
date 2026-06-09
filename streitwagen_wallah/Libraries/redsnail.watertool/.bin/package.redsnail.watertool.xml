@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>package.redsnail.watertool</name>
+    </assembly>
+    <members>
+        <member name="T:RedSnail.WaterTool.BoatController">
+            <summary>
+            Minimal demo boat controller.
+            </summary>
+        </member>
+        <member name="T:RedSnail.WaterTool.MoveModeSwimFixed">
+            <summary>
+            The character is swimming
+            </summary>
+        </member>
+        <member name="P:RedSnail.WaterTool.MoveModeSwimFixed.WaterLevel">
+            <summary>
+            We will update this based on how much you're in a "water" tagged trigger.
+            </summary>
+        </member>
+        <member name="T:RedSnail.WaterTool.HullWaterExclusionVolume">
+            <summary>
+            Excludes the water surface inside a mesh hull rather than an approximated box volume.
+            Place on the same GameObject as the ModelRenderer. The physics collision mesh is extracted
+            once and uploaded to the GPU as a triangle list; only the WorldToLocal matrix is updated
+            each frame as the object moves or rotates.
+            </summary>
+        </member>
+        <member name="P:RedSnail.WaterTool.HullWaterExclusionVolume.LocalTriangles">
+            <summary>Triangle vertices in model LOCAL space, flat (v0,v1,v2, v0,v1,v2 …).</summary>
+        </member>
+        <member name="P:RedSnail.WaterTool.HullWaterExclusionVolume.LocalAABB">
+            <summary>AABB of all local triangles, used for early GPU rejection.</summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:RedSnail.WaterTool.HullWaterExclusionVolume.GetWorldToLocalRows(Vector4@,Vector4@,Vector4@,Vector4@)" -->
+        <member name="T:RedSnail.WaterTool.WaterBody">
+            <summary>
+            Defines a discrete body of water that participates in a renderer-driven water system.
+            Provides volume bounds, a physics hull for buoyancy/swimming, and renderer inclusion in one component.
+            Requires a WaterQuadRenderer present in the scene to produce a visible water surface.
+            </summary>
+        </member>
+        <member name="T:RedSnail.WaterTool.WaterExclusionVolume">
+            <summary>
+            Suppresses water surface rendering inside a volume. Has no effect on the physical water hull
+            so buoyancy and swimming still work within the excluded area.
+            Intended for enclosed spaces that sit in water, such as the interior of a boat or submarine.
+            </summary>
+        </member>
+    </members>
+</doc>
