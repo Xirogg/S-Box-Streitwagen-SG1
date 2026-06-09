@@ -170,7 +170,7 @@
             "OnTriggerEnter": null,
             "OnTriggerExit": null,
             "RollingResistance": null,
-            "Scale": "50,50,50",
+            "Scale": "150,50,50",
             "Static": false,
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
@@ -191,9 +191,9 @@
               "X": false,
               "Y": false,
               "Z": false,
-              "Pitch": true,
+              "Pitch": false,
               "Yaw": false,
-              "Roll": true
+              "Roll": false
             },
             "MassCenterOverride": "0,0,0",
             "MassOverride": 110,
@@ -209,20 +209,6 @@
             "RigidbodyFlags": 0,
             "SleepThreshold": 2,
             "StartAsleep": false
-          },
-          {
-            "__type": "Sandbox.HorseVisuals",
-            "__guid": "c4ece374-a00e-4391-8f19-3b9df2206096",
-            "__enabled": false,
-            "Flags": 0,
-            "LeftHorse": null,
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "RightHorse": null
           }
         ],
         "Children": [
@@ -521,7 +507,7 @@
             "OnTriggerEnter": null,
             "OnTriggerExit": null,
             "RollingResistance": null,
-            "Scale": "67.5398102,84.5215759,18.2672749",
+            "Scale": "35,84.5215759,18.2672749",
             "Static": false,
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
