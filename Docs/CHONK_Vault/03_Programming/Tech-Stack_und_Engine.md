@@ -1,6 +1,10 @@
 ---
 titel: Tech-Stack & Engine (s&box)
-tags: [programming, engine, sbox, tech]
+tags:
+  - programming
+  - engine
+  - sbox
+  - tech
 status: reviewed
 quelle: Tech Bible (Lange, 2026); Facepunch Studios (o. J.); TAD (Felsing, 2026)
 aktualisiert: 2026-05-30

@@ -1,65 +1,65 @@
 {
   "collapse-filter": true,
   "search": "",
-  "showTags": true,
+  "showTags": false,
   "showAttachments": false,
   "hideUnresolved": false,
-  "showOrphans": true,
-  "collapse-color-groups": false,
+  "showOrphans": false,
+  "collapse-color-groups": true,
   "colorGroups": [
     {
-      "query": "path:01_Producing",
+      "query": "path:01_Producing  ",
       "color": {
         "a": 1,
-        "rgb": 5814783
+        "rgb": 16749824
       }
     },
     {
-      "query": "path:02_GameDesign",
+      "query": "path:02_GameDesign  ",
       "color": {
         "a": 1,
-        "rgb": 7053314
+        "rgb": 14499904
       }
     },
     {
-      "query": "path:03_Programming",
+      "query": "path:04_Art_TechArt  ",
       "color": {
         "a": 1,
-        "rgb": 14245634
+        "rgb": 11403519
       }
     },
     {
-      "query": "path:04_Art_TechArt",
+      "query": "path:03_Programming  ",
       "color": {
         "a": 1,
-        "rgb": 14721304
+        "rgb": 1531420
       }
     },
     {
-      "query": "path:05_Marktforschung",
+      "query": "path:06_Meetings  ",
       "color": {
         "a": 1,
-        "rgb": 5006766
+        "rgb": 16766090
       }
     },
     {
-      "query": "path:06_Meetings",
+      "query": "path:00_Start  ",
       "color": {
         "a": 1,
-        "rgb": 9737364
+        "rgb": 16514821
       }
     }
   ],
   "collapse-display": true,
   "showArrow": false,
   "textFadeMultiplier": 0,
-  "nodeSizeMultiplier": 1,
-  "lineSizeMultiplier": 1,
-  "collapse-forces": true,
-  "centerStrength": 0.518713248970312,
-  "repelStrength": 10,
+  "nodeSizeMultiplier": 3.13697916666667,
+  "lineSizeMultiplier": 0.1,
+  "collapse-forces": false,
+  "centerStrength": 0.5,
+  "repelStrength": 11.0416666666667,
   "linkStrength": 1,
-  "linkDistance": 250,
-  "scale": 0.8082618656980524,
-  "close": true
+  "linkDistance": 326,
+  "scale": 0.5087618855792495,
+  "close": false
 }

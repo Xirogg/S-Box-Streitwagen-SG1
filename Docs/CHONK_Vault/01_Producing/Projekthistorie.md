@@ -27,7 +27,7 @@ Chronologie der wichtigsten Entscheidungen (aus den Meeting-Protokollen, [[06_Me
 
 - **Meeting 07 (16.05.):** Erstes Meeting nach Stage Gate 1. Stage-Gate-Feedback besprochen ([[01_Producing/Stage-Gate-Feedback]]). **Engine-Pivot s&box → Unity** diskutiert (vertagt). **Themen-Pivot** weg von Antike diskutiert → **verworfen, Antike bleibt**. Neue Zusammenarbeit (Git-Branching, Codecks, Weekly Sync).
 - **Meeting 08 (18.05.):** **Engine-Entscheidung: s&box.** 3D-Skin-to-Mesh-Bodygrouping in s&box machbar (aufwändig).
-- **Meeting 09 (20.05.):** Prof-Feedback ([[01_Producing/Stage-Gate-Feedback]]); Pipelines definiert; neue **Feature-Reihenfolge: Stats & Player-Prefab zuerst** ([[03_Programming/Systemarchitektur]]). *(Meeting 10 ist eine inhaltsgleiche Dublette von Meeting 09.)*
+- **Meeting 09 (20.05.):** Prof-Feedback ([[01_Producing/Stage-Gate-Feedback]]); Pipelines definiert; neue **Feature-Reihenfolge: Stats & Player-Prefab zuerst** ([[03_Programming/Systemarchitektur]]). 
 - **Meeting 11 (28.05.):** Currency-Manager, Combat-Bonus, Kopfgeld, Konto-Persistenz implementiert; **Obsidian** als Producing-Aufgabe gesetzt.
 - **Meeting 12 (30.05.):** Item-System (Mario-Kart-artig) + UI in Arbeit; Robustheit/Attack als „max. tankbare Hits" ausgearbeitet; Chariot-Model & Rigs; Playtesting-Session geplant.
 

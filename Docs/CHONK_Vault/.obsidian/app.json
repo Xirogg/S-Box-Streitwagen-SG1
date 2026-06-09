@@ -10,5 +10,6 @@
   "tabSize": 2,
   "attachmentFolderPath": "_Assets",
   "newFileLocation": "current",
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "promptDelete": false
 }

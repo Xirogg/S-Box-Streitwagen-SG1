@@ -3,7 +3,7 @@ titel: Asset-Pipeline & Workflows
 tags: [art, techart, pipeline, workflow]
 status: reviewed
 quelle: Tech Bible (Lange, 2026); TAD (Felsing, 2026)
-aktualisiert: 2026-05-30
+aktualisiert: 2026-06-09
 ---
 
 # Asset-Pipeline & Workflows
@@ -41,6 +41,18 @@ Grober Ablauf: grobes Asset erstellen → in Engine importieren & testen → vol
 
 > [!note] Prototyp-Protokoll Nr. 7 — Modulares Mesh-Swap-System
 > Beim Test des Chimären-Mesh-Swaps verarbeitete **Unity** das System sofort korrekt (~10 Min), während **s&box** fehlerbehaftet und zeitintensiv war (~90 Min, ungelöst: Animation nicht auf Swap-Meshes übertragen). Das stärkt die laufende Reevaluation zugunsten Unity (TAD, Felsing, 2026). → Engine-Frage: [[03_Programming/Tech-Stack_und_Engine]]
+
+## 3D-Asset-Fortschritt (Stand 09.06.2026)
+
+| Asset                 | Modelliert | UV                | Rigged/Skinned | Implementierbar      |
+| --------------------- | ---------- | ----------------- | -------------- | -------------------- |
+| Pferd                 | ✅          | ✅                 | ✅ (M14)        | **✅ ja**             |
+| Streitwagen (Chariot) | ✅          | ✅ (M13)           | —              | 🔄 (Texturen fehlen) |
+| Palme                 | ✅(M14)     | ~ (nicht perfekt) | —              | ✅                    |
+| Zypresse              | ✅(M14)     | ~                 | —              | ✅                    |
+| Kaktus                | ✅(M13)     | —                 | —              | ✅                    |
+
+→ Map-Platzierung & Level-Design-Koordination: [[02_GameDesign/Level-Design]]
 
 ## Verknüpft
 - Polygon-Budgets & Texturen → [[04_Art_TechArt/Performance-Ziele]]
