@@ -163,7 +163,8 @@ public sealed class DionysosPower : GodPower
 			if ( casterId != Guid.Empty && controls.PlayerId == casterId ) continue;
 
 			// Routes to the player's owning peer; stacks with any timer already running.
-			controls.AddDrunkTime( DrunkDuration );
+			//controls.AddDrunkTime( DrunkDuration );
+			
 			hits++;
 		}
 
