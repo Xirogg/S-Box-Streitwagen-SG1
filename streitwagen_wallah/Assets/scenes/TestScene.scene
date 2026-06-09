@@ -496,8 +496,85 @@
       "__version": 2,
       "__Prefab": "prefabs/playerchariot .prefab",
       "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
+        "AddedObjects": [
+          {
+            "Id": {
+              "Type": "Component",
+              "IdValue": "c4ece374-a00e-4391-8f19-3b9df2206096"
+            },
+            "Parent": {
+              "Type": "GameObject",
+              "IdValue": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
+            },
+            "PreviousElement": {
+              "Type": "Component",
+              "IdValue": "337056b5-7f39-4500-aad7-05f14b5297c5"
+            },
+            "ContainerProperty": "Components",
+            "IsContainerArray": true,
+            "Data": {
+              "__type": "Sandbox.HorseVisuals",
+              "__guid": "c4ece374-a00e-4391-8f19-3b9df2206096",
+              "__enabled": false,
+              "Flags": 0,
+              "LeftHorse": null,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RightHorse": null
+            }
+          },
+          {
+            "Id": {
+              "Type": "Component",
+              "IdValue": "9aaf4c7e-6b78-4798-985f-11fb38c53b83"
+            },
+            "Parent": {
+              "Type": "GameObject",
+              "IdValue": "fb553f81-4cf5-448d-94a4-fc8d56156c50"
+            },
+            "PreviousElement": {
+              "Type": "Component",
+              "IdValue": "bb976fac-dd01-419b-a740-5aad185db865"
+            },
+            "ContainerProperty": "Components",
+            "IsContainerArray": true,
+            "Data": {
+              "__type": "Sandbox.PlayerItemTracker",
+              "__guid": "9aaf4c7e-6b78-4798-985f-11fb38c53b83",
+              "__enabled": true,
+              "Flags": 0,
+              "DebugLog": true,
+              "ItemHost": {
+                "_type": "gameobject",
+                "go": "fb553f81-4cf5-448d-94a4-fc8d56156c50"
+              },
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PlayerRoot": {
+                "_type": "gameobject",
+                "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
+              },
+              "UltimateModifierAction": "Run",
+              "UseAction": "UseItem"
+            }
+          }
+        ],
+        "RemovedObjects": [
+          {
+            "Id": {
+              "Type": "Component",
+              "IdValue": "daed10fc-d232-4c3d-ab75-aad226fc0bf9"
+            }
+          }
+        ],
         "PropertyOverrides": [
           {
             "Target": {
@@ -518,6 +595,133 @@
           {
             "Target": {
               "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "GroundProbeDistance",
+            "Value": 60
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "GroundStickGap",
+            "Value": 30
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "GroundStickStrength",
+            "Value": 600
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "LateralGrip",
+            "Value": 6
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "LowSpeedSteerBoost",
+            "Value": 1.5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "LurchImpulse",
+            "Value": 800
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "MaxAngularSpeed",
+            "Value": 150
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "SteerBoostFullSpeed",
+            "Value": 400
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
+            },
+            "Property": "SteerTorque",
+            "Value": 1000
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "3a0e8757-7e88-4834-806e-ed4339c20999"
+            },
+            "Property": "Scale",
+            "Value": "50,50,50"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "337056b5-7f39-4500-aad7-05f14b5297c5"
+            },
+            "Property": "Locking",
+            "Value": {
+              "X": false,
+              "Y": false,
+              "Z": false,
+              "Pitch": true,
+              "Yaw": false,
+              "Roll": true
+            }
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2"
+            },
+            "Property": "ChariotAngularDamping",
+            "Value": 1.8
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2"
+            },
+            "Property": "PitchLimit",
+            "Value": 45
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "c3c6cc48-1331-42f8-b015-cc11ef08978f"
+            },
+            "Property": "Scale",
+            "Value": "67.5398102,84.5215759,18.2672749"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "f16cf299-abcb-4ecb-983e-e19dc7a1abe2"
+            },
+            "Property": "MaxHP",
+            "Value": 1500
+          },
+          {
+            "Target": {
+              "Type": "Component",
               "IdValue": "b858d9fc-548b-4c1f-a0e6-7a12790181dc"
             },
             "Property": "__enabled",
@@ -530,6 +734,28 @@
             },
             "Property": "__enabled",
             "Value": false
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "975490d9-4229-428a-98fc-d64a4b021542"
+            },
+            "Property": "Attack",
+            "Value": {
+              "BaseValue": 100,
+              "Value": 100
+            }
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "975490d9-4229-428a-98fc-d64a4b021542"
+            },
+            "Property": "Defense",
+            "Value": {
+              "BaseValue": 300,
+              "Value": 300
+            }
           }
         ],
         "MovedObjects": []
@@ -542,7 +768,6 @@
         "b1f1c2d9-b15f-43b6-a04a-35d27c22d864": "4a62faa2-f2b1-4479-916a-0acfe8101012",
         "3a0e8757-7e88-4834-806e-ed4339c20999": "00a4e9b6-6efd-4a1d-96b2-d5a060b5d0e5",
         "337056b5-7f39-4500-aad7-05f14b5297c5": "e2378a1d-04db-4208-a8b8-00553e10a2c7",
-        "c4ece374-a00e-4391-8f19-3b9df2206096": "7d1c9db8-0c81-4ec8-b8fe-f49aa6b957cb",
         "33653c32-9668-4711-b5b4-f9b30742d3ad": "c7d1aee3-1a9f-4a1d-bfd3-56e3c1375c36",
         "a8f75ed4-fdd5-45a8-861c-005290d03085": "a9e168f0-47f1-451e-8b54-a49fe3e594e5",
         "d50386bd-6a46-49fa-935f-8aab6d289617": "f986b38b-4376-478f-a888-55593d19a4cb",
@@ -570,7 +795,7 @@
         "b858d9fc-548b-4c1f-a0e6-7a12790181dc": "f3dec720-4224-42e0-b1d4-1555f81478b6",
         "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d": "18cdeaa1-f78f-400c-bfe7-8d94bce25b74",
         "fb553f81-4cf5-448d-94a4-fc8d56156c50": "8f4876f8-91f2-4ce2-9e63-2cd60d4e8c49",
-        "daed10fc-d232-4c3d-ab75-aad226fc0bf9": "e21900a7-93ab-4399-8d7b-c91a14febf50",
+        "9aaf4c7e-6b78-4798-985f-11fb38c53b83": "4167f99d-2983-4d8e-b628-378c14991565",
         "bb976fac-dd01-419b-a740-5aad185db865": "75ffe73b-6bc1-4d1a-819b-d001a69e7eb2",
         "c164725e-dd0b-4bfa-a633-031473eaa4a8": "be5f356c-fd9f-452d-b0e2-d92e7c996f6b",
         "78f5213e-caf2-4763-8bb4-cbeb74b9d9a6": "88a64cea-5947-4e09-8736-60de970f55ad",
@@ -593,7 +818,8 @@
         "ef6aa77a-f5f4-4704-9d7f-48739d9320d5": "87b100bb-a041-46fb-9869-f9f470f1c523",
         "ec96744d-03fa-4ba3-8aa8-9a6477159167": "a63a3064-aa07-4de0-bea6-39dba66f2566",
         "226876a7-be32-4f0c-9233-b3c549a6816c": "f3af1eeb-1a0f-41bd-b4d9-75aad597415d",
-        "975490d9-4229-428a-98fc-d64a4b021542": "260aab2d-1497-4aad-a321-126ae93824e4"
+        "975490d9-4229-428a-98fc-d64a4b021542": "260aab2d-1497-4aad-a321-126ae93824e4",
+        "c4ece374-a00e-4391-8f19-3b9df2206096": "681dcaab-224b-4cc1-ac58-7df9fe867e4f"
       }
     }
   ],
@@ -617,14 +843,14 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
+        }
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       }
     }
