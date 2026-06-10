@@ -86,8 +86,8 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 
 	void Component.ICollisionListener.OnCollisionStart( Collision other )
 	{
-		
-		TryRam( other );
+		return; 
+		//TryRam( other );
 	}
 
 	void Component.ICollisionListener.OnCollisionUpdate( Collision other ) { }
