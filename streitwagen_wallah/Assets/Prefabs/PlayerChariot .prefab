@@ -1174,56 +1174,7 @@
             "__Prefab": "prefabs/chariot.prefab",
             "__PrefabInstancePatch": {
               "AddedObjects": [],
-              "RemovedObjects": [
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "55088f81-534d-423d-b511-76fc79d3cb5f"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "02361277-f9a9-4bc0-9dff-93d1d9b76fe7"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "9e95c440-6c11-4901-aa35-c8d0e9651ab0"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "af832282-5f25-4838-8b0c-f210c2af196d"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "b6205b4b-81a1-4e00-a97e-472690d82903"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "421664b4-c350-4f17-86f9-588db59b3846"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "e06f6bc2-19dd-4bf3-9562-1ceb3605c701"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "830d9003-73f5-4034-816f-58ebf7bf46f7"
-                  }
-                }
-              ],
+              "RemovedObjects": [],
               "PropertyOverrides": [
                 {
                   "Target": {
@@ -1267,14 +1218,6 @@
                 },
                 {
                   "Target": {
-                    "Type": "Component",
-                    "IdValue": "6a8bdd62-b24b-4ce2-b460-4444e3c529f1"
-                  },
-                  "Property": "Tint",
-                  "Value": "0.16744,0.11487,0.0623,1"
-                },
-                {
-                  "Target": {
                     "Type": "GameObject",
                     "IdValue": "5b56ff6a-dc6a-4271-8b39-6d2eec4c3206"
                   },
@@ -1283,27 +1226,11 @@
                 },
                 {
                   "Target": {
-                    "Type": "Component",
-                    "IdValue": "8e436953-8e6d-40d9-b8ed-b28cd355dae3"
-                  },
-                  "Property": "Tint",
-                  "Value": "0.4549,0.27059,0.17255,1"
-                },
-                {
-                  "Target": {
                     "Type": "GameObject",
                     "IdValue": "b7d18007-ebae-475d-81da-fcec7a592ee3"
                   },
                   "Property": "Position",
                   "Value": "4.76837215E-07,0,2.07451558"
-                },
-                {
-                  "Target": {
-                    "Type": "Component",
-                    "IdValue": "73ef8824-cc09-4fcf-9f6c-be120d333909"
-                  },
-                  "Property": "Tint",
-                  "Value": "0.4549,0.27059,0.17255,1"
                 }
               ],
               "MovedObjects": []
@@ -1313,23 +1240,15 @@
               "7c889543-4648-4d03-8984-c6bf0792e9ca": "ffcfc75b-23ee-4250-acd5-ff3e339693c5",
               "4b8ab1cd-7e7a-4de3-b94c-b2b327fe3ddc": "e73ddbf4-d166-41eb-b696-9b940fb5cc59",
               "4e4a611c-f7df-43ec-85b6-c9ae75e4d53d": "71a22cb7-405c-4621-86b4-2e4a52deef28",
-              "55088f81-534d-423d-b511-76fc79d3cb5f": "c097991f-4745-479a-9e5a-73e1997c03d3",
-              "02361277-f9a9-4bc0-9dff-93d1d9b76fe7": "b5551160-4eab-467a-b5a9-40f0a164d0c6",
               "ff120b27-da99-4bbd-a4f3-99bba339c7aa": "07b9fd86-a249-4965-8e9f-8cde60a7d547",
               "a631ba61-dcc2-4594-8669-09e49964235e": "a9ef9809-931b-4b8c-ac23-14c62d85f66a",
               "6a8bdd62-b24b-4ce2-b460-4444e3c529f1": "5e8e20f4-e282-4b3e-a5c0-54f38a091610",
-              "9e95c440-6c11-4901-aa35-c8d0e9651ab0": "7e43346e-9b83-4686-b261-d14b87890149",
-              "af832282-5f25-4838-8b0c-f210c2af196d": "fd37d0cc-8db8-4f28-a6c8-4287e57ba1bd",
               "5b56ff6a-dc6a-4271-8b39-6d2eec4c3206": "38874d9e-e0af-4504-a662-36e26c24e882",
               "efba3372-8f16-459e-a165-2f52c04e409e": "0066102c-9d19-4f64-bcf6-e6eaa8e5c04f",
               "8e436953-8e6d-40d9-b8ed-b28cd355dae3": "58a8faec-5ac3-49c6-8fbc-16ab328d1dd2",
-              "b6205b4b-81a1-4e00-a97e-472690d82903": "fe5bf655-5e82-4ec8-ae73-dbd9e4a846dc",
-              "421664b4-c350-4f17-86f9-588db59b3846": "92c7e3e8-3cec-46a3-bdbc-4e869caa825c",
               "b7d18007-ebae-475d-81da-fcec7a592ee3": "f7b8c586-a6cb-4513-ac41-a1770ce3cd14",
               "dfa3b73d-7de7-4f82-8f88-c7590ba03fb1": "0a68773d-6b9e-4d3d-bcf0-eaf29a74e790",
-              "73ef8824-cc09-4fcf-9f6c-be120d333909": "a69db168-6162-4af5-8497-deb4f66bca90",
-              "e06f6bc2-19dd-4bf3-9562-1ceb3605c701": "84ab670a-0b9c-41d7-a072-758d79d58c18",
-              "830d9003-73f5-4034-816f-58ebf7bf46f7": "00af8cda-f5af-4159-83dd-e4571dbd7bbe"
+              "73ef8824-cc09-4fcf-9f6c-be120d333909": "a69db168-6162-4af5-8497-deb4f66bca90"
             }
           },
           {
