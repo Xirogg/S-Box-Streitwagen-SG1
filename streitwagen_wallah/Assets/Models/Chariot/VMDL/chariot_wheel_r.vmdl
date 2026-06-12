@@ -18,21 +18,6 @@
 				]
 			},
 			{
-				_class = "PhysicsShapeList"
-				children = 
-				[
-					{
-						_class = "PhysicsHullFromRender"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						faceMergeAngle = 20.0
-						maxHullVertices = 32
-						hull_mode = "HullPerElement"
-					},
-				]
-			},
-			{
 				_class = "RenderMeshList"
 				children = 
 				[

@@ -70,6 +70,7 @@
           "__guid": "6c23fcdf-cdb2-49ae-9f74-1fa109b17f26",
           "__enabled": true,
           "Flags": 0,
+          "Contribution": "Diffuse, Specular, Transmissive",
           "FogMode": "Enabled",
           "FogStrength": 1,
           "LightColor": "0.91373,0.98039,1,1",
@@ -500,36 +501,6 @@
           {
             "Id": {
               "Type": "Component",
-              "IdValue": "c4ece374-a00e-4391-8f19-3b9df2206096"
-            },
-            "Parent": {
-              "Type": "GameObject",
-              "IdValue": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
-            },
-            "PreviousElement": {
-              "Type": "Component",
-              "IdValue": "337056b5-7f39-4500-aad7-05f14b5297c5"
-            },
-            "ContainerProperty": "Components",
-            "IsContainerArray": true,
-            "Data": {
-              "__type": "Sandbox.HorseVisuals",
-              "__guid": "c4ece374-a00e-4391-8f19-3b9df2206096",
-              "__enabled": false,
-              "Flags": 0,
-              "LeftHorse": null,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "RightHorse": null
-            }
-          },
-          {
-            "Id": {
-              "Type": "Component",
               "IdValue": "9aaf4c7e-6b78-4798-985f-11fb38c53b83"
             },
             "Parent": {
@@ -567,14 +538,7 @@
             }
           }
         ],
-        "RemovedObjects": [
-          {
-            "Id": {
-              "Type": "Component",
-              "IdValue": "daed10fc-d232-4c3d-ab75-aad226fc0bf9"
-            }
-          }
-        ],
+        "RemovedObjects": [],
         "PropertyOverrides": [
           {
             "Target": {
@@ -597,48 +561,8 @@
               "Type": "Component",
               "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
             },
-            "Property": "GroundProbeDistance",
-            "Value": 60
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
-            },
-            "Property": "GroundStickGap",
-            "Value": 30
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
-            },
-            "Property": "GroundStickStrength",
-            "Value": 600
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
-            },
             "Property": "LateralGrip",
             "Value": 6
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
-            },
-            "Property": "LowSpeedSteerBoost",
-            "Value": 1.5
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
-            },
-            "Property": "LurchImpulse",
-            "Value": 800
           },
           {
             "Target": {
@@ -653,39 +577,8 @@
               "Type": "Component",
               "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
             },
-            "Property": "SteerBoostFullSpeed",
-            "Value": 400
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "096c12ae-7441-4cb5-acb0-3ed9385f7bc4"
-            },
             "Property": "SteerTorque",
             "Value": 1000
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "3a0e8757-7e88-4834-806e-ed4339c20999"
-            },
-            "Property": "Scale",
-            "Value": "50,50,50"
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "337056b5-7f39-4500-aad7-05f14b5297c5"
-            },
-            "Property": "Locking",
-            "Value": {
-              "X": false,
-              "Y": false,
-              "Z": false,
-              "Pitch": true,
-              "Yaw": false,
-              "Roll": true
-            }
           },
           {
             "Target": {
@@ -694,22 +587,6 @@
             },
             "Property": "ChariotAngularDamping",
             "Value": 1.8
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2"
-            },
-            "Property": "PitchLimit",
-            "Value": 45
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "c3c6cc48-1331-42f8-b015-cc11ef08978f"
-            },
-            "Property": "Scale",
-            "Value": "67.5398102,84.5215759,18.2672749"
           },
           {
             "Target": {
@@ -734,28 +611,6 @@
             },
             "Property": "__enabled",
             "Value": false
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "975490d9-4229-428a-98fc-d64a4b021542"
-            },
-            "Property": "Attack",
-            "Value": {
-              "BaseValue": 100,
-              "Value": 100
-            }
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "975490d9-4229-428a-98fc-d64a4b021542"
-            },
-            "Property": "Defense",
-            "Value": {
-              "BaseValue": 300,
-              "Value": 300
-            }
           }
         ],
         "MovedObjects": []
@@ -795,31 +650,42 @@
         "b858d9fc-548b-4c1f-a0e6-7a12790181dc": "f3dec720-4224-42e0-b1d4-1555f81478b6",
         "bfb7a98b-a90f-4f37-9a40-ceeb9618ef0d": "18cdeaa1-f78f-400c-bfe7-8d94bce25b74",
         "fb553f81-4cf5-448d-94a4-fc8d56156c50": "8f4876f8-91f2-4ce2-9e63-2cd60d4e8c49",
-        "9aaf4c7e-6b78-4798-985f-11fb38c53b83": "4167f99d-2983-4d8e-b628-378c14991565",
+        "71a22cb7-405c-4621-86b4-2e4a52deef28": "2cba9770-667c-4504-b171-506b968c0d28",
         "bb976fac-dd01-419b-a740-5aad185db865": "75ffe73b-6bc1-4d1a-819b-d001a69e7eb2",
         "c164725e-dd0b-4bfa-a633-031473eaa4a8": "be5f356c-fd9f-452d-b0e2-d92e7c996f6b",
         "78f5213e-caf2-4763-8bb4-cbeb74b9d9a6": "88a64cea-5947-4e09-8736-60de970f55ad",
-        "2cb28573-770e-4ea5-a66f-21ad37355b9f": "1e04513e-5015-4aa3-beb5-d51ceddb0068",
-        "caa3e8a6-568b-42af-b829-d5dbfe6dfd8c": "8c1daa02-a959-4e5d-84d2-b760bac3b17d",
-        "a627759c-c7c3-42ef-86d7-cc7021b3708c": "ca3a7773-ccb1-43e9-8fd1-5bbc9799f8ed",
-        "e3666051-b5e7-4e08-b634-00cc12179d09": "2d47db93-5d18-4466-bbdb-b899baec6391",
-        "a87dd6d3-e03d-44f3-86c6-dc8becffda73": "1beebe91-4a14-4671-a4c1-6a2358e61093",
-        "6478875a-a16f-410e-9b58-ad03b5014a92": "ab9e6ab4-8d11-4080-a66b-f4f7a1863e27",
-        "94842905-bee4-427a-a878-a60e184b543b": "0448cbfb-14f6-4c6a-a046-7cd9a98560d3",
-        "1e737cc5-9e18-481b-ba1a-bc3f43eb7cba": "29fcf813-282c-4bd5-8743-2dbb2a860d88",
-        "e38ccb9b-053f-483d-b7ce-05b3bc9faf44": "e8e7d505-43b5-4660-b418-9cad9de6e611",
+        "e73ddbf4-d166-41eb-b696-9b940fb5cc59": "cadeec84-1632-44ea-b06a-c603cc4a73af",
+        "d6011bcc-da1d-491f-89f8-bbdf218a72c3": "abde73f8-099b-4ea7-b60a-ff43133f1c2b",
+        "7cb33090-7e04-408e-a6d0-f29488e51fd0": "e9d295b1-9b77-47ce-88c3-2b93a8fb0dc1",
+        "4cf8c5f5-293e-4874-9a4f-fb5b29b4bdf8": "8c006cbf-87db-4f54-b0db-76b750dbcd7e",
+        "5b2b6492-1814-434b-91f1-40ccbb2f8735": "5921f825-d6a9-49a8-9744-3d35c84c34d7",
+        "a09a1e46-ab22-4bfc-9f48-ba56647c642c": "2855456b-c017-4943-9d76-44c86292841d",
+        "03af2d01-be8e-4944-b8e7-448d8a9819ec": "09a90a91-83b9-46eb-a64c-971773ed7825",
+        "f950ce9c-afed-4a5e-af01-686dfcfd38fb": "9d4e9e6c-77c9-4dc8-a339-a35a47eb6b06",
+        "9f48f98a-fe88-4844-8251-0f176f15e0c1": "41e203b1-2ec6-4fb4-8049-34cb97205372",
         "2b683798-6567-4157-b15e-2e954095c9b7": "cabb24bc-c2c2-4ebb-92c9-99cc827d98aa",
         "84922da1-0e3d-4f85-aae4-b3908f7720a5": "d2f4c858-07bd-4b39-8852-5ff358c23c36",
-        "32430311-2815-4871-920b-771e9f83b35f": "f8a74efb-ffd5-47bc-a6e2-b5571acde46e",
-        "40ff8f73-cf75-4d4e-93bb-931c8495c3c7": "8fc15214-d6f5-4fd1-aadf-b13fd8917624",
-        "989c582f-e8f5-42dd-826f-da25f6cdf04c": "6084fcf8-c353-4221-8891-d8d7b391cee3",
-        "f0f4af8e-ccf7-4a14-a33e-6721003ec268": "c6857b7d-564b-4eda-a0c4-29ee6f7f6c2e",
-        "161965bd-da75-443f-9d68-9f740c72843f": "724160b9-15bf-45a8-b252-835b0ec34372",
-        "ef6aa77a-f5f4-4704-9d7f-48739d9320d5": "87b100bb-a041-46fb-9869-f9f470f1c523",
-        "ec96744d-03fa-4ba3-8aa8-9a6477159167": "a63a3064-aa07-4de0-bea6-39dba66f2566",
-        "226876a7-be32-4f0c-9233-b3c549a6816c": "f3af1eeb-1a0f-41bd-b4d9-75aad597415d",
-        "975490d9-4229-428a-98fc-d64a4b021542": "260aab2d-1497-4aad-a321-126ae93824e4",
-        "c4ece374-a00e-4391-8f19-3b9df2206096": "681dcaab-224b-4cc1-ac58-7df9fe867e4f"
+        "8b0dd4e1-e8b9-46cc-ab16-dfdeea99f6e3": "ab859b7a-d7f9-4bc4-ac98-9c9ab96f33be",
+        "f92c8ce8-13b1-469d-ab7a-12ca286e7beb": "9a6896cc-6e32-47f7-83b6-dfb2ec0d6410",
+        "f7b8c586-a6cb-4513-ac41-a1770ce3cd14": "607916c7-5f63-4e32-b2d9-916a172c8903",
+        "38874d9e-e0af-4504-a662-36e26c24e882": "8576fb02-1c42-4745-9956-01d3d2b20245",
+        "07b9fd86-a249-4965-8e9f-8cde60a7d547": "1cac1bf4-f682-4a67-8447-e673249948be",
+        "ffcfc75b-23ee-4250-acd5-ff3e339693c5": "420b3e69-4e6e-4bad-82c1-076b5dccf4d5",
+        "1df71879-9aa2-4678-8ae2-ed40539e2654": "36646fa5-32c3-4d8b-8c2d-ea5e2862008a",
+        "ef20ada2-33b7-4062-a329-a02e4706a3b5": "81877e88-2c03-451b-a657-ea50fd4a1067",
+        "fbab9d21-9ae1-4e3c-b8d7-ccfa671b8d1a": "ddaebf0f-037b-418f-a216-b65f3b8b3205",
+        "c4ece374-a00e-4391-8f19-3b9df2206096": "681dcaab-224b-4cc1-ac58-7df9fe867e4f",
+        "a9ef9809-931b-4b8c-ac23-14c62d85f66a": "6529dde8-9bcb-4d8e-927b-940f0b97c84a",
+        "5e8e20f4-e282-4b3e-a5c0-54f38a091610": "d75c6b1d-4494-4cc0-9a90-75a548fc8bb5",
+        "0066102c-9d19-4f64-bcf6-e6eaa8e5c04f": "bd931394-6751-4331-b02b-ed0febc200b5",
+        "58a8faec-5ac3-49c6-8fbc-16ab328d1dd2": "f57f4ad2-7559-4669-96e4-d3188fb9a123",
+        "0a68773d-6b9e-4d3d-bcf0-eaf29a74e790": "e6fb2a6c-4bf2-4c40-ad39-87d2f97455d6",
+        "a69db168-6162-4af5-8497-deb4f66bca90": "d4a89c38-b6a9-489c-a9ab-71a3614282dc",
+        "8ac6c98c-55cd-40e0-8630-45c43c4238b5": "d4ee8b1c-a849-45b8-8bf3-734ee7cb765a",
+        "e9cd2983-d25f-4e88-986f-d64a633a2428": "f0300c0d-5ebf-440e-b923-d82664ae72fc",
+        "399b9da8-f5ab-4e93-9782-27bac13cc0af": "a3331370-6373-4508-b381-8cf9586dd7c7",
+        "90dfe17f-5d8b-410d-b53e-c8a9d208dc19": "ddcb3a81-0f86-4eda-9ed5-a58577f73027",
+        "e8bba6de-59c8-4d06-9cd7-6a8545bad0b5": "b4ad564e-8390-47a5-989e-8146bbb927ea"
       }
     }
   ],
