@@ -1,0 +1,391 @@
+@using System
+@using System.Collections.Generic
+@using System.Linq
+@using Sandbox
+@using Sandbox.UI
+@inherits PanelComponent
+@namespace Sandbox
+
+@*
+	In-Game Debug-/Playtesting-Menü. Liegt auf dem PlayerChariot-Prefab und
+	rendert nur für den lokalen Besitzer (IsProxy-Guard). Jeder Spieler
+	verändert ausschließlich die Stats seines EIGENEN Streitwagens, weil die
+	Werte direkt auf den lokalen (Owner-)Komponenten gesetzt werden und die
+	Physik ohnehin nur vom Owner simuliert wird.
+
+	Steuerung:
+	  "Debugging"        -> Menü auf/zu
+	  "DebugCyclePreset" -> nächstes Preset (wrap-around)
+*@
+
+@if ( !IsProxy && IsOpen )
+{
+	<root>
+		<div class="panel">
+			<div class="header">
+				<div class="title">DEBUG · PLAYTESTING</div>
+				<div class="subtitle">Eigener Streitwagen — Balancing</div>
+			</div>
+
+			<div class="presets">
+				@for ( int i = 0; i < TotalCount; i++ )
+				{
+					int idx = i;
+					<div class="preset @(idx == CurrentIndex ? "active" : "")" onclick=@(() => SelectIndex( idx ))>
+						<div class="preset-name">@PresetName( idx )</div>
+						@if ( idx == CurrentIndex )
+						{
+							<div class="preset-badge">AKTIV</div>
+						}
+					</div>
+				}
+			</div>
+
+			<div class="values">
+				<div class="values-title">Angewendete Werte</div>
+				@if ( ActiveOverrides.Count == 0 )
+				{
+					<div class="value-row"><div class="v-label">Originalwerte (unverändert)</div></div>
+				}
+				else
+				{
+					@foreach ( var kv in ActiveOverrides )
+					{
+						<div class="value-row">
+							<div class="v-label">@kv.Item1</div>
+							<div class="v-value">@kv.Item2</div>
+						</div>
+					}
+				}
+			</div>
+
+			<div class="footer">
+				<div class="hint"><span class="key">@CycleKeyHint</span> Nächstes Preset</div>
+				<div class="hint"><span class="key">@ToggleKeyHint</span> Schließen</div>
+			</div>
+		</div>
+	</root>
+}
+
+@code
+{
+	/// <summary>Input-Action zum Öffnen/Schließen des Menüs.</summary>
+	[Property, Group( "Input" )] public string ToggleAction { get; set; } = "Debugging";
+
+	/// <summary>Input-Action zum Durchschalten der Presets.</summary>
+	[Property, Group( "Input" )] public string CycleAction { get; set; } = "DebugCyclePreset";
+
+	/// <summary>
+	/// Deine Balancing-Presets. Lege beliebig viele an und setze pro Preset
+	/// nur die Stats, die verändert werden sollen (alles andere bleibt leer
+	/// = Original). Editierbar im Inspector oder hier per Default vordefiniert.
+	/// </summary>
+	[Property] public List<DebugStatPreset> Presets { get; set; }
+
+	private TestControlls _controls;
+	private ChariotPhysics _chariot;
+	private DebugStatPreset _baseline;
+
+	private bool IsOpen { get; set; }
+
+	// 0 = Original/Baseline, 1..N = Presets[index-1]
+	private int CurrentIndex { get; set; }
+
+	private int TotalCount => 1 + (Presets?.Count ?? 0);
+
+	private string ToggleKeyHint => KeyHint( ToggleAction );
+	private string CycleKeyHint => KeyHint( CycleAction );
+
+	protected override void OnStart()
+	{
+		if ( IsProxy ) return;
+
+		ResolveComponents();
+
+		// Original-Werte sichern, damit zwischen den Presets sauber
+		// zurückgesetzt werden kann.
+		_baseline = DebugStatPreset.Capture( "Original", _controls, _chariot );
+
+		if ( Presets is null || Presets.Count == 0 )
+			Presets = BuildDefaultPresets();
+	}
+
+	private void ResolveComponents()
+	{
+		var root = GameObject.Root;
+		_controls = root.Components.Get<TestControlls>( FindMode.EverythingInSelfAndDescendants );
+		_chariot = root.Components.Get<ChariotPhysics>( FindMode.EverythingInSelfAndDescendants );
+	}
+
+	protected override void OnUpdate()
+	{
+		if ( IsProxy ) return;
+
+		if ( !string.IsNullOrEmpty( ToggleAction ) && Input.Pressed( ToggleAction ) )
+		{
+			IsOpen = !IsOpen;
+			if ( IsOpen ) ApplyCurrent(); // beim Öffnen aktuelle Auswahl sicherstellen
+		}
+
+		if ( IsOpen && !string.IsNullOrEmpty( CycleAction ) && Input.Pressed( CycleAction ) )
+		{
+			CurrentIndex = (CurrentIndex + 1) % TotalCount;
+			ApplyCurrent();
+		}
+	}
+
+	private void SelectIndex( int index )
+	{
+		if ( index < 0 || index >= TotalCount ) return;
+		CurrentIndex = index;
+		ApplyCurrent();
+	}
+
+	/// <summary>
+	/// Setzt erst alles auf die Original-Werte zurück und legt dann (falls
+	/// nicht Index 0) die Overrides des gewählten Presets darüber. Dadurch
+	/// "kleben" Werte eines vorherigen Presets nie am nächsten fest.
+	/// </summary>
+	private void ApplyCurrent()
+	{
+		if ( _controls is null && _chariot is null )
+			ResolveComponents();
+
+		_baseline?.ApplyTo( _controls, _chariot );
+
+		if ( CurrentIndex > 0 && Presets is not null && CurrentIndex - 1 < Presets.Count )
+			Presets[CurrentIndex - 1].ApplyTo( _controls, _chariot );
+	}
+
+	private string PresetName( int index )
+	{
+		if ( index == 0 ) return "Original";
+		var p = Presets?[index - 1];
+		return string.IsNullOrWhiteSpace( p?.Name ) ? $"Preset {index}" : p.Name;
+	}
+
+	// Liste (Label, Wert) der Stats, die das aktuell gewählte Preset setzt.
+	private List<(string, string)> ActiveOverrides
+	{
+		get
+		{
+			var list = new List<(string, string)>();
+			if ( CurrentIndex == 0 ) return list;
+
+			var p = Presets?[CurrentIndex - 1];
+			if ( p is null ) return list;
+
+			void Add( string label, float? v )
+			{
+				if ( v.HasValue ) list.Add( (label, v.Value.ToString( "0.##" )) );
+			}
+
+			Add( "PullForce", p.PullForce );
+			Add( "BrakeForce", p.BrakeForce );
+			Add( "SteerTorque", p.SteerTorque );
+			Add( "MaxAngularSpeed", p.MaxAngularSpeed );
+			Add( "LateralGrip", p.LateralGrip );
+			Add( "MaxSpeed (Wagen)", p.MaxSpeed );
+			Add( "DriftForce", p.DriftForce );
+			Add( "ChariotAngularDamping", p.ChariotAngularDamping );
+			Add( "ChariotLateralGrip", p.ChariotLateralGrip );
+			Add( "Gewicht (Wagen)", p.ChariotMass );
+			return list;
+		}
+	}
+
+	private string KeyHint( string action )
+	{
+		if ( string.IsNullOrEmpty( action ) ) return "?";
+		var glyph = Input.GetButtonOrigin( action );
+		return string.IsNullOrEmpty( glyph ) ? action : glyph.ToUpper();
+	}
+
+	/// <summary>
+	/// Beispiel-Presets, damit das Menü sofort funktioniert. Nach Belieben
+	/// im Inspector ergänzen/überschreiben. Nur gesetzte Felder werden
+	/// verändert — alle anderen bleiben auf deinen Original-Werten.
+	/// </summary>
+	private List<DebugStatPreset> BuildDefaultPresets()
+	{
+		return new List<DebugStatPreset>
+		{
+			new DebugStatPreset
+			{
+				Name = "Schnell & wendig",
+				PullForce = 8000f,
+				SteerTorque = 7000f,
+				MaxSpeed = 3200f,
+				ChariotMass = 40f,
+			},
+			new DebugStatPreset
+			{
+				Name = "Schwer & träge",
+				PullForce = 3500f,
+				SteerTorque = 4000f,
+				MaxSpeed = 1800f,
+				ChariotMass = 90f,
+			},
+			new DebugStatPreset
+			{
+				Name = "Drift-Test",
+				DriftForce = 9000f,
+				ChariotAngularDamping = 0.05f,
+				ChariotLateralGrip = 0f,
+				LateralGrip = 2f,
+			},
+		};
+	}
+
+	protected override int BuildHash()
+	{
+		var hash = new HashCode();
+		hash.Add( IsProxy );
+		hash.Add( IsOpen );
+		hash.Add( CurrentIndex );
+		hash.Add( TotalCount );
+		return hash.ToHashCode();
+	}
+}
+
+<style>
+	root {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		font-family: Arial;
+	}
+
+	.panel {
+		position: absolute;
+		top: 80px;
+		left: 60px;
+		width: 520px;
+		flex-direction: column;
+		background-color: rgba(12, 16, 32, 0.92);
+		border: 3px solid rgba(120, 170, 255, 0.5);
+		border-radius: 18px;
+		padding: 28px;
+		gap: 22px;
+		pointer-events: auto;
+		box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.6);
+	}
+
+	.header {
+		flex-direction: column;
+		gap: 4px;
+		border-bottom: 2px solid rgba(120, 170, 255, 0.25);
+		padding-bottom: 16px;
+	}
+
+	.title {
+		font-size: 40px;
+		font-weight: bold;
+		color: rgba(150, 200, 255, 1);
+		letter-spacing: 2px;
+	}
+
+	.subtitle {
+		font-size: 24px;
+		color: rgba(255, 255, 255, 0.5);
+	}
+
+	.presets {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.preset {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		padding: 16px 22px;
+		background-color: rgba(255, 255, 255, 0.05);
+		border: 2px solid rgba(255, 255, 255, 0.08);
+		border-radius: 12px;
+		cursor: pointer;
+		transition: all 0.12s ease;
+	}
+
+	.preset:hover {
+		background-color: rgba(255, 255, 255, 0.12);
+	}
+
+	.preset.active {
+		background-color: rgba(60, 110, 220, 0.45);
+		border-color: rgba(120, 180, 255, 0.9);
+	}
+
+	.preset-name {
+		font-size: 30px;
+		color: white;
+	}
+
+	.preset-badge {
+		font-size: 20px;
+		font-weight: bold;
+		color: rgba(150, 220, 150, 1);
+		letter-spacing: 1px;
+	}
+
+	.values {
+		flex-direction: column;
+		gap: 8px;
+		background-color: rgba(0, 0, 0, 0.3);
+		border-radius: 12px;
+		padding: 18px 22px;
+	}
+
+	.values-title {
+		font-size: 22px;
+		color: rgba(255, 220, 120, 0.9);
+		margin-bottom: 6px;
+		letter-spacing: 1px;
+	}
+
+	.value-row {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.v-label {
+		font-size: 24px;
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	.v-value {
+		font-size: 24px;
+		font-weight: bold;
+		color: rgba(150, 255, 180, 1);
+	}
+
+	.footer {
+		flex-direction: row;
+		gap: 28px;
+		border-top: 2px solid rgba(120, 170, 255, 0.25);
+		padding-top: 16px;
+	}
+
+	.hint {
+		flex-direction: row;
+		align-items: center;
+		gap: 10px;
+		font-size: 22px;
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	.key {
+		font-weight: bold;
+		color: white;
+		background-color: rgba(255, 255, 255, 0.12);
+		border: 2px solid rgba(255, 255, 255, 0.25);
+		border-radius: 6px;
+		padding: 2px 12px;
+		min-width: 40px;
+		text-align: center;
+	}
+</style>

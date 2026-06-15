@@ -110,7 +110,7 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "PlayerId": "00000000-0000-0000-0000-000000000000",
-            "PullForce": 5500,
+            "PullForce": 4000,
             "Rigidbody": {
               "_type": "component",
               "component_id": "337056b5-7f39-4500-aad7-05f14b5297c5",
@@ -894,8 +894,8 @@
               "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
               "component_type": "Rigidbody"
             },
-            "LateralGrip": 0,
-            "MaxSpeed": 2500,
+            "LateralGrip": 0.90909094,
+            "MaxSpeed": 2000,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -935,7 +935,7 @@
           {
             "__type": "Sandbox.BoxCollider",
             "__guid": "c3c6cc48-1331-42f8-b015-cc11ef08978f",
-            "__enabled": true,
+            "__enabled": false,
             "Flags": 0,
             "Center": "8.76990509,-13.3621788,22",
             "ColliderFlags": 0,
@@ -1056,6 +1056,21 @@
             "OnComponentUpdate": null
           },
           {
+            "__type": "Sandbox.DebugPlaytestPanel",
+            "__guid": "b9d2f1a4-3c7e-4f0a-9e21-7d6c8a1b4e55",
+            "__enabled": true,
+            "Flags": 0,
+            "CycleAction": "DebugCyclePreset",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Presets": [],
+            "ToggleAction": "Debugging"
+          },
+          {
             "__type": "PlayerCollisions",
             "__guid": "04b3de93-2d79-4e77-861d-90846bc9b7b5",
             "__enabled": true,
@@ -1079,6 +1094,33 @@
             "OnComponentUpdate": null,
             "SharpSteerMultiplier": 1.8,
             "VerticalLift": 0.35
+          },
+          {
+            "__type": "Sandbox.CapsuleCollider",
+            "__guid": "8ab636a9-c7b5-45e0-ad6a-b30f9dadb049",
+            "__enabled": true,
+            "Flags": 0,
+            "ColliderFlags": 0,
+            "Elasticity": null,
+            "End": "0,0,55",
+            "Friction": null,
+            "IsTrigger": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnObjectTriggerEnter": null,
+            "OnObjectTriggerExit": null,
+            "OnTriggerEnter": null,
+            "OnTriggerExit": null,
+            "Radius": 25,
+            "RollingResistance": null,
+            "Start": "0,0,35",
+            "Static": false,
+            "Surface": null,
+            "SurfaceVelocity": "0,0,0"
           }
         ],
         "Children": [
@@ -1256,100 +1298,7 @@
             "__version": 2,
             "__Prefab": "prefabs/chohonk.prefab",
             "__PrefabInstancePatch": {
-              "AddedObjects": [
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "399b9da8-f5ab-4e93-9782-27bac13cc0af"
-                  },
-                  "Parent": {
-                    "Type": "GameObject",
-                    "IdValue": "071b2024-4399-4eb9-a137-6857ad464188"
-                  },
-                  "PreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "b2a9f265-3d99-43ae-84ee-75a1ed50226a"
-                  },
-                  "ContainerProperty": "Components",
-                  "IsContainerArray": true,
-                  "Data": {
-                    "__type": "Sandbox.ModelCollider",
-                    "__guid": "399b9da8-f5ab-4e93-9782-27bac13cc0af",
-                    "__enabled": true,
-                    "Flags": 0,
-                    "ColliderFlags": 0,
-                    "Elasticity": null,
-                    "Friction": null,
-                    "IsTrigger": false,
-                    "Model": "models/a_chohonk_rigged.vmdl",
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "OnObjectTriggerEnter": null,
-                    "OnObjectTriggerExit": null,
-                    "OnTriggerEnter": null,
-                    "OnTriggerExit": null,
-                    "RollingResistance": null,
-                    "Static": false,
-                    "Surface": null,
-                    "SurfaceVelocity": "0,0,0"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "90dfe17f-5d8b-410d-b53e-c8a9d208dc19"
-                  },
-                  "Parent": {
-                    "Type": "GameObject",
-                    "IdValue": "071b2024-4399-4eb9-a137-6857ad464188"
-                  },
-                  "PreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "399b9da8-f5ab-4e93-9782-27bac13cc0af"
-                  },
-                  "ContainerProperty": "Components",
-                  "IsContainerArray": true,
-                  "Data": {
-                    "__type": "Sandbox.Rigidbody",
-                    "__guid": "90dfe17f-5d8b-410d-b53e-c8a9d208dc19",
-                    "__enabled": true,
-                    "Flags": 0,
-                    "AngularDamping": 0,
-                    "EnableImpactDamage": true,
-                    "EnhancedCcd": false,
-                    "Gravity": true,
-                    "GravityScale": 1,
-                    "ImpactDamage": 0,
-                    "LinearDamping": 0,
-                    "Locking": {
-                      "X": false,
-                      "Y": false,
-                      "Z": false,
-                      "Pitch": false,
-                      "Yaw": false,
-                      "Roll": false
-                    },
-                    "MassCenterOverride": "0,0,0",
-                    "MassOverride": 0,
-                    "MinImpactDamageSpeed": 500,
-                    "MotionEnabled": true,
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "OverrideMassCenter": false,
-                    "RigidbodyFlags": 0,
-                    "SleepThreshold": 2,
-                    "StartAsleep": false
-                  }
-                }
-              ],
+              "AddedObjects": [],
               "RemovedObjects": [
                 {
                   "Id": {
@@ -1387,7 +1336,7 @@
                     "IdValue": "071b2024-4399-4eb9-a137-6857ad464188"
                   },
                   "Property": "Position",
-                  "Value": "0,0,29.887516"
+                  "Value": "0,0,19.3231621"
                 }
               ],
               "MovedObjects": []
