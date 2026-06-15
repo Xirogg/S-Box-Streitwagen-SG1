@@ -57,6 +57,19 @@ public sealed class TestControlls : Component
 	/// </summary>
 	[Property, Group( "Terrain" )] public float GroundStickGap { get; set; } = 30f;
 
+	/// <summary>
+	/// How much of the slope-tangent component of gravity is cancelled while
+	/// the horse is on the ground. 0 = vanilla physics (cart slides toward the
+	/// fall line of every hill), 1 = full cancellation (the slope no longer
+	/// pulls the cart sideways at all, so steering input is the only thing
+	/// that decides which way the cart goes — exactly the "elevation doesn't
+	/// affect steering" feeling the player asked for).
+	///
+	/// Only the *tangent* part of gravity is cancelled; the normal part still
+	/// presses the cart into the ground so contact and friction stay normal.
+	/// </summary>
+	[Property, Group( "Terrain" ), Range( 0f, 1f )] public float SlopeGripStrength { get; set; } = 1f;
+
 	[Property, Group( "GameObjects" )] public Rigidbody Rigidbody { get; set; }
 
 	[Sync] private Vector2 moveInput { get; set; }
@@ -121,6 +134,7 @@ public sealed class TestControlls : Component
 		if ( IsProxy ) return;
 
 
+		CancelSlopeGravity();
 		ApplyHorseLateralGrip();
 		ApplyLocomotion( moveInput.x );
 		ApplySteering( moveInput.y );
@@ -240,6 +254,43 @@ public sealed class TestControlls : Component
 			.IgnoreGameObjectHierarchy( GameObject.Root )
 			.Run();
 		return tr.Hit ? tr.Normal : Vector3.Up;
+	}
+
+	/// <summary>
+	/// Cancels the component of gravity that runs along the slope surface, so
+	/// the horse doesn't naturally slide downhill while the player is trying
+	/// to steer across or up a hill. Without this, the slope acts as a
+	/// constant sideways force fighting steering input — which is the "I
+	/// can't steer left because the hill wants me to go right" feeling.
+	///
+	/// Only fires when grounded (raycast hit). Airborne → gravity normal,
+	/// so jumps and ramps still behave correctly.
+	/// </summary>
+	private void CancelSlopeGravity()
+	{
+		if ( SlopeGripStrength <= 0f ) return;
+
+		Vector3 from = WorldPosition;
+		Vector3 to = from + Vector3.Down * GroundProbeDistance;
+		var tr = Scene.Trace
+			.Ray( from, to )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.Run();
+
+		if ( !tr.Hit ) return;
+
+		// Gravity vector (acceleration units) from the physics world — works
+		// even if the project changes scene gravity later.
+		Vector3 gravity = Scene.PhysicsWorld.Gravity;
+		Vector3 normal = tr.Normal;
+
+		// Split gravity into normal + tangent components, keep only the tangent.
+		// That's the part that pulls the cart along the slope surface.
+		Vector3 gravityTangent = gravity - normal * Vector3.Dot( gravity, normal );
+
+		// Apply opposing force. ApplyForce takes Newtons, so multiply by mass
+		// to translate from acceleration units back to force.
+		Rigidbody.ApplyForce( -gravityTangent * Rigidbody.Mass * SlopeGripStrength );
 	}
 
 	/// <summary>

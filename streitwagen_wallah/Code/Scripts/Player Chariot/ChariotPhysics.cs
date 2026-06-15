@@ -49,6 +49,16 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 
 	[Property, Group( "Stability" ), Range( 0f, 30f )] public float LateralGrip { get; set; } = 0f;
 
+	/// <summary>
+	/// Cancels the part of gravity that runs along the slope surface beneath
+	/// the chariot. Matches the same property on the horse — without it, even
+	/// if the horse holds its position on a hill, the chariot's own mass still
+	/// slides downhill and yanks the horse via the hitch joint. 1 = full
+	/// cancellation (slope no longer pulls the chariot sideways), 0 = vanilla.
+	/// </summary>
+	[Property, Group( "Stability" ), Range( 0f, 1f )] public float SlopeGripStrength { get; set; } = 1f;
+	[Property, Group( "Stability" )] public float GroundProbeDistance { get; set; } = 60f;
+
 	[Property, Group( "Drift" )] public float DriftForce { get; set; } = 24000f;
 	[Property, Group( "Drift" )] public float DriftRearOffset { get; set; } = 100f;
 	[Property, Group( "Drift" )] public float DriftMinSpeed { get; set; } = 15f;
@@ -151,6 +161,7 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 		UpdateTelemetry();
 		DustActive = Body.Velocity.Length > 400f;
 
+		CancelSlopeGravity();
 		ApplyDriftImpulse();
 		ApplyLateralGrip();
 		DampenYaw();
@@ -226,6 +237,32 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 			planar *= cap / planarSpeed;
 			Body.Velocity = new Vector3( planar.x, planar.y, vel.z );
 		}
+	}
+
+	/// <summary>
+	/// Cancels gravity's tangent component along the slope under the chariot.
+	/// Same trick as <c>TestControlls.CancelSlopeGravity</c>: keep the cart from
+	/// sliding sideways on hills so steering input is the only thing that
+	/// decides where it goes.
+	/// </summary>
+	private void CancelSlopeGravity()
+	{
+		if ( SlopeGripStrength <= 0f ) return;
+
+		Vector3 from = WorldPosition;
+		Vector3 to = from + Vector3.Down * GroundProbeDistance;
+		var tr = Scene.Trace
+			.Ray( from, to )
+			.IgnoreGameObjectHierarchy( GameObject.Root )
+			.Run();
+
+		if ( !tr.Hit ) return;
+
+		Vector3 gravity = Scene.PhysicsWorld.Gravity;
+		Vector3 normal = tr.Normal;
+		Vector3 gravityTangent = gravity - normal * Vector3.Dot( gravity, normal );
+
+		Body.ApplyForce( -gravityTangent * Body.Mass * SlopeGripStrength );
 	}
 
 	private void ApplyLateralGrip()

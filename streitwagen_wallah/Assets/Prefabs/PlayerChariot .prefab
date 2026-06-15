@@ -118,6 +118,7 @@
               "component_type": "Rigidbody"
             },
             "SharpSteerMultiplier": 1.5,
+            "SlopeGripStrength": 0,
             "SteerBoostFullSpeed": 400,
             "SteerReleaseDamping": 15,
             "SteerTorque": 5500
@@ -209,20 +210,6 @@
             "RigidbodyFlags": 0,
             "SleepThreshold": 2,
             "StartAsleep": false
-          },
-          {
-            "__type": "Sandbox.HorseVisuals",
-            "__guid": "c4ece374-a00e-4391-8f19-3b9df2206096",
-            "__enabled": false,
-            "Flags": 0,
-            "LeftHorse": null,
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "RightHorse": null
           }
         ],
         "Children": [
@@ -887,6 +874,7 @@
               "go": "41912fdd-101d-44e5-8b06-eeb4d6a24b1f",
               "component_type": "ParticleSphereEmitter"
             },
+            "GroundProbeDistance": 60,
             "HitchPoint": null,
             "HorsePairRb": {
               "_type": "component",
@@ -903,6 +891,7 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "PitchLimit": 45,
+            "SlopeGripStrength": 1,
             "YawLimit": 35
           },
           {
