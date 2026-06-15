@@ -935,7 +935,7 @@
           {
             "__type": "Sandbox.BoxCollider",
             "__guid": "c3c6cc48-1331-42f8-b015-cc11ef08978f",
-            "__enabled": false,
+            "__enabled": true,
             "Flags": 0,
             "Center": "8.76990509,-13.3621788,22",
             "ColliderFlags": 0,
@@ -1098,7 +1098,7 @@
           {
             "__type": "Sandbox.CapsuleCollider",
             "__guid": "8ab636a9-c7b5-45e0-ad6a-b30f9dadb049",
-            "__enabled": true,
+            "__enabled": false,
             "Flags": 0,
             "ColliderFlags": 0,
             "Elasticity": null,
