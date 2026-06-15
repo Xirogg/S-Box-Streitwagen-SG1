@@ -1056,7 +1056,21 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
-            "Presets": [],
+            "Presets": [
+              {
+                "Name": "Test",
+                "PullForce": 5500,
+                "BrakeForce": null,
+                "SteerTorque": 5500,
+                "MaxAngularSpeed": null,
+                "LateralGrip": null,
+                "MaxSpeed": 2500,
+                "DriftForce": null,
+                "ChariotAngularDamping": null,
+                "ChariotLateralGrip": null,
+                "ChariotMass": null
+              }
+            ],
             "ToggleAction": "Debugging"
           },
           {
