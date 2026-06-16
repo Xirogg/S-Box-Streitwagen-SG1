@@ -55,14 +55,17 @@
               "__enabled": true,
               "Flags": 0,
               "AegyptenScene": "scenes/egypt.scene",
+              "AegyptenTrackImage": "ui/tracks/track_aegypten.vtex",
               "AkropolisScene": "scenes/greece.scene",
+              "AkropolisTrackImage": "ui/tracks/track_akropolis.vtex",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "RomScene": "scenes/rome(notdone).scene"
+              "RomScene": "scenes/rome(notdone).scene",
+              "RomTrackImage": "ui/tracks/track_rom.vtex"
             }
           ],
           "Children": []
@@ -225,17 +228,14 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
       },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "18866f58-cd95-4895-ab8f-3c899755af2d"
-        }
-      },
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
         }
       }
     }
