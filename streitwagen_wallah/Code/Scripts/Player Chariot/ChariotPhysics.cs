@@ -3,22 +3,38 @@ using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// Passiver Streitwagen-Körper. Wird vom HorsePair via HingeJoint (Yaw) gezogen.
-/// Der Joint sitzt auf einem auto-erzeugten Pivot-Child, dessen Position automatisch
-/// aus der relativen Lage von Pferd und Wagen im Prefab berechnet wird —
-/// dadurch können sich die beiden Bodies nicht ineinanderziehen.
+/// Passiver Streitwagen-Körper. Wird vom HorsePair via BallJoint (Deichsel/Hitch) gezogen.
+/// Der Joint sitzt auf einem auto-erzeugten Pivot-Child am HitchPoint und wirkt wie ein
+/// echtes Deichsel-Gelenk: Yaw (Lenken) und Pitch (Höhenunterschied über Hügel) sind frei
+/// innerhalb von Limits, Roll ist gesperrt. Dadurch können Pferd und Wagen auf Steigungen
+/// unterschiedlich hoch stehen, ohne dass sich die beiden Bodies ineinanderziehen.
 /// </summary>
 public sealed class ChariotPhysics : Component, Component.ICollisionListener, ISpeedModifiable
 {
 	[Property, Group( "Joint" )] public Rigidbody HorsePairRb { get; set; }
 	[Property, Group( "Joint" )] public GameObject HitchPoint { get; set; }
+	/// <summary>
+	/// How far the chariot may yaw (steer) relative to the horse, in degrees. Within this
+	/// the chariot swings freely behind the horse and hard-stops at the limit — same
+	/// character as the old HingeJoint. Note: the ball hitch uses a single swing cone, so
+	/// the effective limit is max(YawLimit, PitchLimit). Keeping them close avoids surprises.
+	/// </summary>
 	[Property, Group( "Joint" )] public float YawLimit { get; set; } = 170f;
 	/// <summary>
-	/// How far the chariot is allowed to pitch/roll relative to the horse, in degrees.
-	/// Used as the BallJoint's SwingLimit so the chariot can rock over bumps
-	/// without dragging the horse's box collider off the ground through the hitch.
+	/// How far the chariot may pitch (nose up/down) relative to the horse, in degrees. This
+	/// is what lets the horse and chariot ride at different heights over a hill: on a climb
+	/// the cart's rear stays on the lower ground and the body tilts nose-up at the hitch
+	/// instead of being dragged to the horse's height. Bigger = more vertical articulation;
+	/// too big lets the cart fold under the horse on steep terrain. Shares the swing cone
+	/// with <see cref="YawLimit"/> (the larger of the two wins).
 	/// </summary>
 	[Property, Group( "Joint" )] public float PitchLimit { get; set; } = 45f;
+	/// <summary>
+	/// How far the chariot may roll (twist along the draw-pole) relative to the horse, in
+	/// degrees. Kept near-zero so the cart can't barrel-roll sideways relative to the horse;
+	/// a couple of degrees of give avoids a perfectly rigid twist constraint fighting the solver.
+	/// </summary>
+	[Property, Group( "Joint" )] public float RollLimit { get; set; } = 2f;
 
 	[Property, Group( "Movement" )] public float MaxSpeed { get; set; } = 2500f;
 
@@ -76,7 +92,7 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 
 	[Sync] private bool DustActive { get; set; }
 
-	private HingeJoint _joint;
+	private BallJoint _joint;
 	private GameObject _jointPivot;
 	private float _debugTimer;
 
@@ -126,25 +142,62 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 		_jointPivot = new GameObject( true, "ChariotJointPivot" );
 		_jointPivot.SetParent( GameObject );
 		_jointPivot.WorldPosition = pivotPos;
-		_jointPivot.WorldRotation = WorldRotation; // Hinge-Achse = lokales Z = Welt-Up bei pitch/roll-gelockten Bodies
 
-		// HingeJoint ist hier tatsächlich der passende Joint: er erlaubt eine
-		// freie Rotation um die Hinge-Achse (lokales Z = Welt-Up bei pitch/
-		// roll-gelockten Bodies, also reines Yaw zwischen Pferd und Wagen)
-		// und koppelt alles andere. Genau das, was eine echte Deichsel-
-		// Verbindung macht.
+		// Achsen-Konvention (im Playtest empirisch bestätigt): Die TWIST-Achse des BallJoints
+		// ist die lokale X-Achse des Hosts (= dessen Forward) — NICHT lokales Z wie beim Hinge.
+		// Twist soll = Roll *entlang der Deichsel* sein (übers TwistLimit gesperrt), der Swing-
+		// Kegel = Pitch+Yaw (frei). Also muss lokales X entlang der Deichsel zeigen — und die
+		// Wagen-Rotation tut das bereits, deshalb übernehmen wir sie direkt.
+		// (Die vorige Version drehte X auf Up → Twist war Yaw und der Swing-Kegel enthielt Roll,
+		//  also kippte der Wagen seitlich weg und trudelte. Genau das war im Test zu sehen.)
+		_jointPivot.WorldRotation = WorldRotation;
+
+		// Ein BallJoint ist genau das, was ein echtes Deichsel-Gelenk ist: die Deichsel
+		// darf links/rechts schwingen (Yaw → Lenken) und hoch/runter (Pitch → Pferd und
+		// Wagen auf unterschiedlicher Höhe über Hügeln), aber nicht um ihre eigene Achse
+		// drehen (Roll). Der alte HingeJoint ließ nur Yaw zu und koppelte damit die Höhe
+		// des Wagens starr an die des Pferdes — auf flachem Boden ok, an Steigungen falsch.
 		//
-		// Wichtig: der BallJoint, den ich vorher probiert hatte, war keine
-		// Verbesserung. Ohne Limits hatte er gar keine Yaw-Kopplung zwischen
-		// Pferd und Wagen — das Pferd drehte sich frei am Hitch-Punkt und der
-		// Wagen folgte kaum. Mit SwingLimit begrenzte er versehentlich die
-		// Yaw-Differenz auf ±SwingLimit (PhysX BallJoint: lokale X = Twist;
-		// alles andere = Swing). Beides hat das Spielgefühl kaputt gemacht.
-		_joint = _jointPivot.Components.Create<HingeJoint>();
+		// Wichtig fürs Spielgefühl: innerhalb des Swing-Kegels ist der Yaw frei und schlägt
+		// erst am Limit hart an — genau wie der alte Hinge innerhalb seiner MinAngle/MaxAngle.
+		// Wir verändern das Lenken also kaum, sondern fügen nur die Pitch-Freiheit hinzu.
+		// (Der frühere BallJoint-Versuch fühlte sich nur deshalb schlecht an, weil er gar
+		// keine Begrenzung hatte und dadurch ein völlig freies Drehgelenk war.)
+		_joint = _jointPivot.Components.Create<BallJoint>();
 		_joint.Body = horseRb.GameObject;
-		_joint.MinAngle = -YawLimit;
-		_joint.MaxAngle = YawLimit;
+
+		// Swing ist EIN Kegel um die Twist-Achse — Pitch und Yaw teilen ihn sich (die
+		// Engine begrenzt Swing intern über einen einzelnen Winkel). Wir setzen den Kegel
+		// auf das Maximum der beiden gewünschten Limits, damit weder Lenken (Yaw) noch
+		// Höhenartikulation (Pitch) enger eingeschränkt wird als beabsichtigt.
+		float swingCone = MathF.Max( YawLimit, PitchLimit );
+		_joint.SwingLimitEnabled = true;
+		_joint.SwingLimit = new Vector2( swingCone, swingCone );
+
+		// Twist = Roll entlang der Deichsel. Nahe Null halten, damit der Wagen sich nicht
+		// gegenüber dem Pferd seitlich überschlagen kann.
+		_joint.TwistLimitEnabled = true;
+		_joint.TwistLimit = new Vector2( -RollLimit, RollLimit );
+
 		_joint.EnableCollision = true;
+
+		// WICHTIG: Die Rotations-Locks des Rigidbodies (Pitch/Yaw/Roll) wirken um die WELT-
+		// Achsen, nicht um die lokalen Achsen des Wagens. Der alte Wagen sperrte Welt-Pitch
+		// UND Welt-Roll → dadurch blieb er in JEDER Blickrichtung waagerecht. Löst man aber
+		// nur EINE davon (für die Höhenartikulation), hängt es von der Fahrtrichtung ab, ob
+		// "seitlich kippen" auf die noch gesperrte oder die freie Welt-Achse fällt — der
+		// Wagen klappt dann je nach Richtung um. (Das war der zweite Bug im Playtest.)
+		//
+		// Lösung: ALLE Rotations-Locks lösen und die erlaubte Orientierung allein vom BallJoint
+		// bestimmen lassen. Dessen Twist/Swing sind im Joint-Frame definiert, das mit dem Wagen
+		// mitdreht — also blickrichtungs-unabhängig korrekt. Twist hält den Roll bei ~0, Swing
+		// erlaubt Pitch (Gelände) + Yaw (Lenken). Translation bleibt frei (der Joint pinnt sie
+		// am Hitch).
+		var locking = Body.Locking;
+		locking.Pitch = false;
+		locking.Yaw = false;
+		locking.Roll = false;
+		Body.Locking = locking;
 	}
 
 	protected override void OnFixedUpdate()

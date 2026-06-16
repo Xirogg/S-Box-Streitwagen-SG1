@@ -891,6 +891,7 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "PitchLimit": 45,
+            "RollLimit": 2,
             "SlopeGripStrength": 1,
             "YawLimit": 35
           },
