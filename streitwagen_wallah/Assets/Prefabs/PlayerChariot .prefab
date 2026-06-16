@@ -1069,6 +1069,32 @@
                 "ChariotAngularDamping": null,
                 "ChariotLateralGrip": null,
                 "ChariotMass": null
+              },
+              {
+                "Name": "Steer Test",
+                "PullForce": null,
+                "BrakeForce": null,
+                "SteerTorque": 12525252,
+                "MaxAngularSpeed": null,
+                "LateralGrip": null,
+                "MaxSpeed": null,
+                "DriftForce": null,
+                "ChariotAngularDamping": null,
+                "ChariotLateralGrip": null,
+                "ChariotMass": null
+              },
+              {
+                "Name": "5P",
+                "PullForce": 6500,
+                "BrakeForce": null,
+                "SteerTorque": null,
+                "MaxAngularSpeed": 250,
+                "LateralGrip": 9,
+                "MaxSpeed": null,
+                "DriftForce": null,
+                "ChariotAngularDamping": 3,
+                "ChariotLateralGrip": null,
+                "ChariotMass": null
               }
             ],
             "ToggleAction": "Debugging"

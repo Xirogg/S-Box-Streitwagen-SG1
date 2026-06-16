@@ -683,7 +683,7 @@
         "8ac6c98c-55cd-40e0-8630-45c43c4238b5": "d4ee8b1c-a849-45b8-8bf3-734ee7cb765a",
         "e9cd2983-d25f-4e88-986f-d64a633a2428": "f0300c0d-5ebf-440e-b923-d82664ae72fc",
         "e8bba6de-59c8-4d06-9cd7-6a8545bad0b5": "b4ad564e-8390-47a5-989e-8146bbb927ea",
-        "b9d2f1a4-3c7e-4f0a-9e21-7d6c8a1b4e55": "eb9e7f86-d21c-4ca9-a9ac-87a3128e80a4",
+        "b9d2f1a4-3c7e-4f0a-9e21-7d6c8a1b4e55": "7291265e-2916-45f8-abb8-a989333eee79",
         "8ab636a9-c7b5-45e0-ad6a-b30f9dadb049": "b787af5e-a37c-480a-b7e9-d775f459ccab"
       }
     }
@@ -708,14 +708,14 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "038c87d9-ce87-489a-8841-d1c6998b9d71"
+        }
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       }
     }
