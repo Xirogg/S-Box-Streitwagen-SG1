@@ -3161,6 +3161,98 @@
       "Children": []
     },
     {
+      "__guid": "f112091c-8b99-43e0-b803-1db3a4b47069",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "m_cactus_normal (8)",
+      "Position": "-2738.89258,3010.11621,712.515808",
+      "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
+      "Scale": "4.81177378,4.81176662,5.63175201",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "3757c7c4-9e14-4988-bc73-d23a96944a0a",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": "materials/t_waves.vmat",
+          "Materials": null,
+          "Model": "models/m_cactus_normal.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.18534,0.49767,0.07176,1"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "00b1b58e-7587-4a0d-8c43-fc7b374b8ff5",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "m_cactus_normal (9)",
+      "Position": "-2368.98999,2888.38086,683.453247",
+      "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
+      "Scale": "8.88865852,8.88865185,9.70863819",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "e46f930d-1708-4666-afe3-66c83f7e3c60",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": "materials/t_waves.vmat",
+          "Materials": null,
+          "Model": "models/m_cactus_normal.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.18534,0.49767,0.07176,1"
+        }
+      ],
+      "Children": []
+    },
+    {
       "__guid": "f8b5eda0-8100-4fa8-93a1-cf93861bf847",
       "__version": 2,
       "Flags": 0,
@@ -3299,6 +3391,52 @@
       "Children": []
     },
     {
+      "__guid": "63c89e74-353e-4ad9-9b53-28c5b83bcb24",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "m_cactus_normal (7)",
+      "Position": "-2637.38379,3177.33496,675.637573",
+      "Rotation": "0.0722256452,0.00527919363,0.781314433,0.619922221",
+      "Scale": "6.22532511,6.22531748,8.77599716",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "02925ba5-da7e-4a13-8145-0a18c55820e7",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": "materials/t_waves.vmat",
+          "Materials": null,
+          "Model": "models/m_cactus_normal.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.4906,0.7907,0.22802,1"
+        }
+      ],
+      "Children": []
+    },
+    {
       "__guid": "76c83506-50c8-4e55-88a9-f5e88afbfc6b",
       "__version": 2,
       "Flags": 0,
@@ -3340,6 +3478,98 @@
           },
           "RenderType": "On",
           "Tint": "0.4906,0.7907,0.22802,1"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "f32d36bb-9a08-4b5d-91ca-096af22e203d",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "m_cactus_normal (10)",
+      "Position": "7944.63623,5373.06006,645.481201",
+      "Rotation": "-0.00541429967,0.0527141988,0.501756728,0.863384128",
+      "Scale": "11.2859116,11.2859039,14.321804",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "bec1bb20-325f-4b37-8212-2d338a65a527",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": "materials/t_waves.vmat",
+          "Materials": null,
+          "Model": "models/m_cactus_normal.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.4906,0.7907,0.22802,1"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "7a9a0701-5e74-4c50-8a92-1ce0033fe4b9",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "m_cactus_normal (11)",
+      "Position": "7840.62939,5617.54395,639.128357",
+      "Rotation": "-0.0434472822,0.0303386636,-0.325877517,0.943925738",
+      "Scale": "5.98661804,5.98661041,9.02251244",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "2a61bec2-62b3-4a1f-bdd5-a4fc8f0eb7da",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": "materials/t_waves.vmat",
+          "Materials": null,
+          "Model": "models/m_cactus_normal.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "0.32213,0.59535,0.08307,1"
         }
       ],
       "Children": []
@@ -3435,6 +3665,810 @@
         }
       ],
       "Children": []
+    },
+    {
+      "__guid": "f209807b-1e45-4373-92be-f7f28fb72814",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-1020.29059,7926.10547,681.797974"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "-0.000990875065,0.00610622764,0.160179138,0.987068534"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "4951f899-0c76-4a14-b2f2-9d9d737d28fe"
+            },
+            "Property": "Tint",
+            "Value": "0.28837,0.09523,0.03085,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "27e8bbdf-9657-4ff5-a380-0b96f7557a19"
+            },
+            "Property": "Tint",
+            "Value": "0.28837,0.09523,0.03085,1"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "f209807b-1e45-4373-92be-f7f28fb72814",
+        "5437affe-54f6-455d-a664-28f024924ad9": "4637f6b1-9234-4861-a945-2191471391e0",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "c725cf59-6470-4656-ae2e-6732188e80ff",
+        "31edecd3-62db-4714-9392-7da340f92969": "354dcf4b-dbe6-4441-8afb-1d328a2ea3b7",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "ce0be1ef-b353-4b7b-9df6-83e6cbbda689",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "dea1bc9e-6ae5-46ca-90aa-a0c2d0ddbca2",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "02549f1e-1f43-404c-95ae-ea37993fc373",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "1774a7d4-f8c3-41da-89c8-126ed7dda687",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "5e151a31-20ba-43e0-a319-82122c76ebd6",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "e0058e78-3da8-4df2-96d9-86534ee4e432",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "106b92d6-6ba9-4473-8db8-24893c54acb3"
+      }
+    },
+    {
+      "__guid": "51b8096a-215a-4e31-9f4f-d4ed7d56f73f",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (2)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-1696.89722,7900.61279,790.151978"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "-0.0116585959,0.0718436986,0.159757361,0.984469473"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "51b8096a-215a-4e31-9f4f-d4ed7d56f73f",
+        "5437affe-54f6-455d-a664-28f024924ad9": "5508fd37-b494-43d5-9dab-e2b7220f254d",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "4c1015f5-bf5f-4231-bb85-1164bbe3ca06",
+        "31edecd3-62db-4714-9392-7da340f92969": "cc3c68d9-52f9-4086-89aa-673dd0a66902",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "e1ce1859-e476-4069-97ed-34ca72f3ffe9",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "2aa1fbe2-0e8d-49c4-ba7a-de02fc9f1688",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "0dde1c0d-9a1f-427b-b024-51ce1a321277",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "88562789-2fc0-4dc4-af56-122f91862b0b",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "1996be65-4d4e-4527-9f3c-805b900cd89f",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "fca27036-8e85-47d4-85a0-fcb74f9110a9",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "4d2950d8-9df9-4786-88f7-222e35ebc653"
+      }
+    },
+    {
+      "__guid": "a250a96d-bb59-4009-b6e9-d8325c4947f6",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (3)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-1329.672,8212.00293,673.305847"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "-0.0116585959,0.0718436986,0.159757361,0.984469473"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Scale",
+            "Value": "0.743380547,0.743380547,0.743380547"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b0b2b50e-0e45-4965-b683-dbb747d68757"
+            },
+            "Property": "Tint",
+            "Value": "0.20389,0.45116,0.02728,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "31edecd3-62db-4714-9392-7da340f92969"
+            },
+            "Property": "Tint",
+            "Value": "0.20389,0.45116,0.02728,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "4951f899-0c76-4a14-b2f2-9d9d737d28fe"
+            },
+            "Property": "Tint",
+            "Value": "0.19535,0.06928,0.02726,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "27e8bbdf-9657-4ff5-a380-0b96f7557a19"
+            },
+            "Property": "Tint",
+            "Value": "0.19535,0.06928,0.02726,1"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "a250a96d-bb59-4009-b6e9-d8325c4947f6",
+        "5437affe-54f6-455d-a664-28f024924ad9": "b97e50a0-0ebc-469e-bfb9-bd39f38dcefb",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "bf4a2fad-f1ff-4eb6-9209-b1aafb0e1e1b",
+        "31edecd3-62db-4714-9392-7da340f92969": "c46e7729-0737-440e-a2bc-ad58734c21d4",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "d8281f3b-7fe7-45b4-8cf5-e7a1885f9cc9",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "cd72f230-2c49-4669-ac9a-bcde43f46d99",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "394924a6-c379-49dd-af5a-39b0688da995",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "7a55ce7b-9122-44aa-94d0-9cb024804e8a",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "b67615e3-3de2-40d6-95ac-6862a1e088f4",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "8660a1dd-85d9-4fd2-98ce-b2dc2fde8f9a",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "dba514dc-0192-4333-960a-b858134ba920"
+      }
+    },
+    {
+      "__guid": "9ee5a08e-53d7-4ede-8ba1-277d089b7544",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (1)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-813.414795,8130.47656,681.398621"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "0,0,0,0.99999994"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Scale",
+            "Value": "0.851208866,0.851208866,1.09273386"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b0b2b50e-0e45-4965-b683-dbb747d68757"
+            },
+            "Property": "Tint",
+            "Value": "0.46489,0.66047,0.07373,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "31edecd3-62db-4714-9392-7da340f92969"
+            },
+            "Property": "Tint",
+            "Value": "0.46489,0.66047,0.07373,1"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "9ee5a08e-53d7-4ede-8ba1-277d089b7544",
+        "5437affe-54f6-455d-a664-28f024924ad9": "6c161ffd-6d28-40d8-8548-905722d1731d",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "dc8ea7e5-63e4-401d-bc7a-d5045c6cb279",
+        "31edecd3-62db-4714-9392-7da340f92969": "5efac5d2-1479-4038-8dd3-2ded871aba09",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "d40a58f8-4763-474f-b033-fe016d7a9b8e",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "d947223e-fdcb-4c2c-a92d-6d63917e7c8a",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "b706e313-4ee0-4c76-a70c-8bef029cad11",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "07bc5a56-4e97-4564-a41c-aa81653f67d6",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "f0ec4819-6096-4a9c-847c-08356a2a38c1",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "ae19eded-471d-4b48-b266-227bde7911ee",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "12385814-e7c5-45b6-a297-26c6f41e7203"
+      }
+    },
+    {
+      "__guid": "b5694788-aa6f-4c89-a310-06df5e2e61f6",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (7)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-1039.55066,-3178.76416,910.057434"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "0.0493986942,0.0142751578,0.159658566,0.985832155"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Scale",
+            "Value": "1.36553288,1.36553288,1.36553288"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "4951f899-0c76-4a14-b2f2-9d9d737d28fe"
+            },
+            "Property": "Tint",
+            "Value": "0.28837,0.09523,0.03085,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "27e8bbdf-9657-4ff5-a380-0b96f7557a19"
+            },
+            "Property": "Tint",
+            "Value": "0.28837,0.09523,0.03085,1"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "b5694788-aa6f-4c89-a310-06df5e2e61f6",
+        "5437affe-54f6-455d-a664-28f024924ad9": "b05bd65e-68d1-43ff-8fcd-33e0f48270a3",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "71702b9f-8336-4735-83ae-5857394c78e5",
+        "31edecd3-62db-4714-9392-7da340f92969": "24522ab3-3e17-4790-b04d-0eb708fe4eab",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "b13a52b7-0784-4c1c-bb25-1c08cb5ea4c8",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "1d48feb6-e769-4a41-ab5b-ef4d62181cc9",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "2a0c194f-204e-444c-8c7e-718ed01ecf86",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "c6b2ada8-4050-400a-920b-c76ad1b5469b",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "3bf5f5b5-e187-4e0b-8a7d-d51fea5fa0c1",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "b64dce0d-bb1a-4aeb-9b9b-41fe2c282582",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "453fe58e-4632-4825-8108-1b2eedc557d3"
+      }
+    },
+    {
+      "__guid": "ac5be185-e19f-442c-847b-263f4b19c41e",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (6)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-2460.64307,-3251.00024,675.783569"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "-0.0075089559,0.0462724492,0.160006106,0.986002326"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "ac5be185-e19f-442c-847b-263f4b19c41e",
+        "5437affe-54f6-455d-a664-28f024924ad9": "9e43d900-b032-4a8b-a7cd-1dead2434da3",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "8055c0d2-dbcf-412a-be47-957832bf274c",
+        "31edecd3-62db-4714-9392-7da340f92969": "e300e50b-08fa-414a-b42a-7e9af08c1ab3",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "c99f30dc-7217-428b-9ec0-22f891403f94",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "42f47841-f74c-49a5-9f1c-9e3851fa1c63",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "dafe68f3-3a15-439f-8718-719ea2b38875",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "377667f0-b6ef-47b7-80ca-97a63096a843",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "3b521350-9216-4d83-80b1-065fd4585eb8",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "682dbd65-c55b-42a4-827d-9e45989af42a",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "afb2b8f3-af19-4561-8631-ea9bc2b2acb3"
+      }
+    },
+    {
+      "__guid": "9378960b-07c2-4ebf-be77-8dfa6020f4d0",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (5)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-1526.0437,-2410.67163,831.546875"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "-0.0116585959,0.0718436986,0.159757361,0.984469473"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Scale",
+            "Value": "0.743380547,0.743380547,0.743380547"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b0b2b50e-0e45-4965-b683-dbb747d68757"
+            },
+            "Property": "Tint",
+            "Value": "0.20389,0.45116,0.02728,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "31edecd3-62db-4714-9392-7da340f92969"
+            },
+            "Property": "Tint",
+            "Value": "0.20389,0.45116,0.02728,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "4951f899-0c76-4a14-b2f2-9d9d737d28fe"
+            },
+            "Property": "Tint",
+            "Value": "0.19535,0.06928,0.02726,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "27e8bbdf-9657-4ff5-a380-0b96f7557a19"
+            },
+            "Property": "Tint",
+            "Value": "0.19535,0.06928,0.02726,1"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "9378960b-07c2-4ebf-be77-8dfa6020f4d0",
+        "5437affe-54f6-455d-a664-28f024924ad9": "e7c4d897-d2c9-44f8-89de-545c7c64583d",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "fbf8ca99-a571-4eb7-8c0f-f8ac14e84602",
+        "31edecd3-62db-4714-9392-7da340f92969": "be52b89e-a54c-4d40-a48b-dc24f2dcccdf",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "f8174511-d488-4e16-a5b7-ffa8ed1232b8",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "928259b9-96bd-440a-94c2-d3c0fd26e15d",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "48b89698-d00c-4503-8047-14d16986293a",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "ed9bba0d-e877-46ce-badd-2d59125ca4dd",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "d9d4b22e-d579-4cd0-bb87-d6c6c0a6bb46",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "b7812960-cde3-454a-aa74-96aeca2f8f2c",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "c1782d71-b5d3-4aec-9927-d1772a553e0b"
+      }
+    },
+    {
+      "__guid": "9104cde6-22b1-4cc5-8939-f88101c0008f",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (4)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-812.664429,-2766.30371,681.398621"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Scale",
+            "Value": "0.851208866,0.851208866,1.09273386"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b0b2b50e-0e45-4965-b683-dbb747d68757"
+            },
+            "Property": "Tint",
+            "Value": "0.46489,0.66047,0.07373,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "31edecd3-62db-4714-9392-7da340f92969"
+            },
+            "Property": "Tint",
+            "Value": "0.46489,0.66047,0.07373,1"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "9104cde6-22b1-4cc5-8939-f88101c0008f",
+        "5437affe-54f6-455d-a664-28f024924ad9": "b787b1bf-66c7-4b39-af5b-0837cec4b0b1",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "b84c7490-292d-45bf-82af-54075fe0df85",
+        "31edecd3-62db-4714-9392-7da340f92969": "69f38ae8-26a3-41fd-a92d-c6b78cc1d8c5",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "b5a3e443-3882-4487-8e52-9047caab0a7c",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "35783cd7-075e-4b8b-9ac0-1cefae3def81",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "75dd54cd-599a-4619-8d05-09680f80ea22",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "2950f220-c9da-42cb-9613-131e898fd222",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "ad282102-4288-49c1-bd56-4283ca00ca1e",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "8b3f00cd-02b5-4401-9d25-c5e3c63a8526",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "e48c90dc-21e8-40a1-864f-649c8f495b38"
+      }
+    },
+    {
+      "__guid": "208fae7b-d482-43bf-af72-056192681cdb",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (8)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-4862.35352,6946.47021,682.330261"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "0.00197556615,0.0140999258,-0.138740227,0.990226388"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Scale",
+            "Value": "0.663172126,0.663172126,0.663172126"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "208fae7b-d482-43bf-af72-056192681cdb",
+        "5437affe-54f6-455d-a664-28f024924ad9": "01db5c5c-f236-4c02-be8d-31f228bca800",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "778c6c19-1ef1-47e4-86b0-c999113b8e0e",
+        "31edecd3-62db-4714-9392-7da340f92969": "8ff64f2b-5527-4b51-a172-14e4c6f23825",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "6e7ae145-8b17-4ef8-bab7-37a6c8c8f5f7",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "8c8d1d38-3a51-43b3-af6f-74db4319585e",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "fb9c0799-09cb-4915-88ba-a495af58e581",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "bccd376e-fc90-493d-a6b8-69bcecd3bb3b",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "2c3f5343-203a-4855-8003-1dc9ed917b68",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "4378d004-ba92-4d81-8719-15919e6ff0e9",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "1c205c83-7a82-40a7-9d00-3fdb785d92aa"
+      }
+    },
+    {
+      "__guid": "362ec544-136c-4cd0-bd1a-7dc6311106d6",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (9)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-5290.71924,6888.78125,754.377808"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "-0.00185022876,0.18874231,0.00962626282,0.981977701"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b0b2b50e-0e45-4965-b683-dbb747d68757"
+            },
+            "Property": "Tint",
+            "Value": "0.40783,0.84651,0.09449,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "31edecd3-62db-4714-9392-7da340f92969"
+            },
+            "Property": "Tint",
+            "Value": "0.40783,0.84651,0.09449,1"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "362ec544-136c-4cd0-bd1a-7dc6311106d6",
+        "5437affe-54f6-455d-a664-28f024924ad9": "c82877ce-4d37-4422-a36d-93d3ee1e8fb5",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "d71a01df-b844-4c7b-8da2-c5e5590b27bb",
+        "31edecd3-62db-4714-9392-7da340f92969": "497b5b96-a341-499a-9078-c41ef870ca9a",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "a396e6bc-af61-4095-badf-1356a24706d2",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "65e81c3f-8914-41d0-8802-7d6d7cadbccd",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "ac70fef3-19be-4b53-8517-b59435dda1b7",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "dfb9fab7-222a-4f82-96a1-b321b899ff4a",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "77ef9ef2-1371-40c5-9b79-2d9688053387",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "c4255ee4-6316-40f2-8434-f535f92f0175",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "88355183-5e57-446a-aa6c-85c07b41a9ee"
+      }
+    },
+    {
+      "__guid": "f0c0aa7c-882f-48b4-9f04-c27cae658f5a",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (10)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-4923.07422,7272.37598,688.343628"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "-0.000977160409,0.0312998891,0.0311889034,0.999022901"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "4951f899-0c76-4a14-b2f2-9d9d737d28fe"
+            },
+            "Property": "Tint",
+            "Value": "0.20465,0.11199,0.03617,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "27e8bbdf-9657-4ff5-a380-0b96f7557a19"
+            },
+            "Property": "Tint",
+            "Value": "0.20465,0.11199,0.03617,1"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "f0c0aa7c-882f-48b4-9f04-c27cae658f5a",
+        "5437affe-54f6-455d-a664-28f024924ad9": "900dd97c-5e66-48fe-b96b-2a852406fea7",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "1f43d277-e081-44d2-bbb3-d558ba583bf3",
+        "31edecd3-62db-4714-9392-7da340f92969": "a76337a1-195a-47c9-b37b-a37d88949902",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "587235fd-1d89-40c7-b948-2dddc52a6d72",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "75f02a9a-6c4e-462e-85d3-543c4ad42542",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "64863cfe-c2ee-4302-b40e-5d41c02e2b16",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "16ab035f-59a8-40b3-8352-a811734d6c3c",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "5904690b-a928-4cc7-b699-7dc423be7f11",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "622d7a6f-b889-43df-b132-f86854764ca7",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "0ebe8017-2aaf-4a04-a524-253eca8d99c1"
+      }
+    },
+    {
+      "__guid": "5844aaea-e2b7-4992-a702-911f0a4276fa",
+      "__version": 2,
+      "__Prefab": "prefabs/palm.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Name",
+            "Value": "palm (11)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Position",
+            "Value": "-4575.84863,7107.46777,681.38739"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Rotation",
+            "Value": "0.00138327479,0.00137889385,-0.707107663,0.707103133"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+            },
+            "Property": "Scale",
+            "Value": "1.2395612,1.2395612,1.2395612"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "b0b2b50e-0e45-4965-b683-dbb747d68757"
+            },
+            "Property": "Tint",
+            "Value": "0.51276,0.78605,0.07312,1"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "31edecd3-62db-4714-9392-7da340f92969"
+            },
+            "Property": "Tint",
+            "Value": "0.51276,0.78605,0.07312,1"
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "0ad766fc-a410-4258-859b-1ff654def393": "5844aaea-e2b7-4992-a702-911f0a4276fa",
+        "5437affe-54f6-455d-a664-28f024924ad9": "ee767f63-adea-4040-9062-5ad5638d3478",
+        "b0b2b50e-0e45-4965-b683-dbb747d68757": "56d35eff-80a7-4c55-bd5c-83bda02255db",
+        "31edecd3-62db-4714-9392-7da340f92969": "24dd66a5-b5bd-4b22-9f25-27a89239f524",
+        "997deb42-7dc7-4cbf-91a8-3f2f4ba9c9f2": "da8c54c5-ef5a-4b56-b8c3-28a72c71073d",
+        "e0abd04a-6536-4e40-bcdc-31ebafc5ab13": "d7593407-157e-4803-b62a-07870b225c56",
+        "f170ce98-5766-4a3a-9052-b5efb6d858a3": "4ec68933-4c52-4491-9261-7ae64027f8ef",
+        "4951f899-0c76-4a14-b2f2-9d9d737d28fe": "8959c574-e033-4f5a-988a-ec50bdde60c5",
+        "27e8bbdf-9657-4ff5-a380-0b96f7557a19": "80f8110d-095c-4a97-9d5c-5be45ff770ad",
+        "c31e37bf-fb73-4965-bb83-77f85360f861": "60e855c9-731b-4bd5-9dbb-635f49f5ef66",
+        "872c7a22-c7f7-4499-beca-df8d02a80284": "f16c617e-f0ab-482a-a634-0db1a94a4a92"
+      }
     }
   ],
   "SceneProperties": {
