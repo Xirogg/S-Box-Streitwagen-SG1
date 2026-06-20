@@ -1470,7 +1470,12 @@
             "ShakeFrequency": 300,
             "ShakeIntensity": 1,
             "ShakeMaxSpeed": 1500,
-            "SpeedLines": null,
+            "SpeedLines": {
+              "_type": "component",
+              "component_id": "097373de-e858-4061-ad56-c561dfbfbba4",
+              "go": "54d6bc96-950e-4e53-b002-41bdda314d77",
+              "component_type": "BlitOverlay"
+            },
             "TargetGO": {
               "_type": "gameobject",
               "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2"
@@ -1504,6 +1509,22 @@
             "Viewport": "0,0,1,1",
             "ZFar": 31798,
             "ZNear": 1
+          },
+          {
+            "__type": "Sandbox.BlitOverlay",
+            "__guid": "097373de-e858-4061-ad56-c561dfbfbba4",
+            "__enabled": true,
+            "Flags": 0,
+            "Blend": 0.1,
+            "BlendMode": "Normal",
+            "Material": "materials/speedlines.vmat",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Order": 0
           }
         ],
         "Children": []

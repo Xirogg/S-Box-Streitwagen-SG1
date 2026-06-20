@@ -38,7 +38,7 @@ public sealed class TestCamera : Component
 	// Hard cap on look-ahead distance so the camera doesn't aim off-screen at very high speeds.
 	private const float LookAheadMax = 300f;
 
-	[Property] public ParticleEmitter SpeedLines { get; set; }
+	[Property] public BlitOverlay SpeedLines { get; set; }
 
 	private Vector3 _posVelocity;
 	private Rigidbody _targetRb;
@@ -193,7 +193,7 @@ public sealed class TestCamera : Component
 		}
 
 		if ( SpeedLines is not null )
-			SpeedLines.Enabled = planarSpeed > 800f;
+			SpeedLines.Enabled = planarSpeed > 1000f;
 
 		UpdateFOV( planarSpeed );
 		ApplyRacerShake( planarSpeed );

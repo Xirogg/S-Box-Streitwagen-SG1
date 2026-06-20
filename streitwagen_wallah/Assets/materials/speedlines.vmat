@@ -1,0 +1,22 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "vfx/shader/speedlines_universal.shader"
+
+	//---- Rendering ----
+	F_DO_NOT_CAST_SHADOWS 1
+
+	//---- Speedlines ----
+	g_flCount "31.621"
+	g_flDensity "1.000"
+	g_flFalloff "1.000"
+	g_flIntensity "2.858"
+	g_flMotion "3.000"
+	g_flStrength "0.544"
+	g_vTint "[0.870588 0.870588 0.870588 0.349020]"
+
+	//---- Speedlines Reach ----
+	g_flReachFast "0.000"
+	g_flReachSlow "0.000"
+}
