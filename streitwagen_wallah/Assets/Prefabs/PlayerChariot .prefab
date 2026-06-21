@@ -425,7 +425,7 @@
                     "__guid": "f950ce9c-afed-4a5e-af01-686dfcfd38fb",
                     "__enabled": true,
                     "Flags": 0,
-                    "AnimationGraph": null,
+                    "AnimationGraph": "animgraphs/m_cherd.vanmgrph",
                     "BodyGroups": 18446744073709551615,
                     "BoneMergeTarget": null,
                     "CreateAttachments": false,
@@ -559,26 +559,7 @@
                   }
                 }
               ],
-              "RemovedObjects": [
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "a8353d0b-3b8f-4263-b1b3-e37d721c6ef3"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "2b62da1d-202c-48fa-8c78-ce0adde7b0b5"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "ac8f0e57-165b-4083-9860-f1aa1a70dd61"
-                  }
-                }
-              ],
+              "RemovedObjects": [],
               "PropertyOverrides": [
                 {
                   "Target": {
@@ -586,7 +567,7 @@
                     "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
                   },
                   "Property": "Position",
-                  "Value": "-2.18444824,36.8434029,6.67572021E-05"
+                  "Value": "-2.18444824,36.8434029,-26.945879"
                 },
                 {
                   "Target": {
@@ -605,14 +586,31 @@
                   "Value": "0.08372,0.08372,0.08372,1"
                 }
               ],
-              "MovedObjects": []
+              "MovedObjects": [
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  },
+                  "NewParent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "NewContainerProperty": "Components",
+                  "IsNewContainerArray": true,
+                  "NewPreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "a09a1e46-ab22-4bfc-9f48-ba56647c642c"
+                  }
+                }
+              ]
             },
             "__PrefabIdToInstanceId": {
               "6a3134c2-22a3-4c85-a222-a58993bd6f8d": "fbab9d21-9ae1-4e3c-b8d7-ccfa671b8d1a",
               "dbf3f04c-40c5-4d53-8223-072162c80929": "9f48f98a-fe88-4844-8251-0f176f15e0c1",
-              "a8353d0b-3b8f-4263-b1b3-e37d721c6ef3": "192411c0-866f-43d8-8e51-305366c815b7",
-              "2b62da1d-202c-48fa-8c78-ce0adde7b0b5": "4e241e30-59f1-43ab-9268-a1922c7137b0",
-              "ac8f0e57-165b-4083-9860-f1aa1a70dd61": "642347f1-c030-471f-bfde-b9c90a2bef43"
+              "90337549-471e-4551-af7e-547d2694ff2f": "21283d16-60c0-4e81-b986-601e756b7d7b",
+              "a923a3bb-2f46-4491-b70a-dda97de5970a": "a8d224cc-6cb2-4098-b315-7a69af51e907",
+              "5e08b23a-98b2-4b0d-b033-2a4919e3d079": "138ca2a6-7167-47da-a82d-b7a3092bd917"
             }
           },
           {
@@ -641,7 +639,7 @@
                     "__guid": "4cf8c5f5-293e-4874-9a4f-fb5b29b4bdf8",
                     "__enabled": true,
                     "Flags": 0,
-                    "AnimationGraph": null,
+                    "AnimationGraph": "animgraphs/m_cherd.vanmgrph",
                     "BodyGroups": 18446744073709551615,
                     "BoneMergeTarget": null,
                     "CreateAttachments": false,
@@ -775,26 +773,7 @@
                   }
                 }
               ],
-              "RemovedObjects": [
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "a8353d0b-3b8f-4263-b1b3-e37d721c6ef3"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "2b62da1d-202c-48fa-8c78-ce0adde7b0b5"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "ac8f0e57-165b-4083-9860-f1aa1a70dd61"
-                  }
-                }
-              ],
+              "RemovedObjects": [],
               "PropertyOverrides": [
                 {
                   "Target": {
@@ -802,7 +781,7 @@
                     "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
                   },
                   "Property": "Position",
-                  "Value": "3.7953186,-62.9152565,6.7949295E-05"
+                  "Value": "3.7953186,-62.9152565,-26.9458771"
                 },
                 {
                   "Target": {
@@ -821,14 +800,31 @@
                   "Value": "0.85116,0.85116,0.85116,1"
                 }
               ],
-              "MovedObjects": []
+              "MovedObjects": [
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  },
+                  "NewParent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "NewContainerProperty": "Components",
+                  "IsNewContainerArray": true,
+                  "NewPreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "d6011bcc-da1d-491f-89f8-bbdf218a72c3"
+                  }
+                }
+              ]
             },
             "__PrefabIdToInstanceId": {
               "6a3134c2-22a3-4c85-a222-a58993bd6f8d": "ef20ada2-33b7-4062-a329-a02e4706a3b5",
               "dbf3f04c-40c5-4d53-8223-072162c80929": "5b2b6492-1814-434b-91f1-40ccbb2f8735",
-              "a8353d0b-3b8f-4263-b1b3-e37d721c6ef3": "f57c26a0-dbe4-4a72-9012-dc43a6e3f4f5",
-              "2b62da1d-202c-48fa-8c78-ce0adde7b0b5": "f5d1129c-2015-4ebf-9fc0-f37ffd258cb9",
-              "ac8f0e57-165b-4083-9860-f1aa1a70dd61": "477746fe-56b3-4d36-9e47-bb89c7c75e90"
+              "90337549-471e-4551-af7e-547d2694ff2f": "b44137af-0c7c-4032-9e70-1d3a6df2e916",
+              "a923a3bb-2f46-4491-b70a-dda97de5970a": "e84136f5-2132-4a80-af22-8aea456670ca",
+              "5e08b23a-98b2-4b0d-b033-2a4919e3d079": "563c62d2-d481-4b37-82d1-ba7ff419494c"
             }
           }
         ]

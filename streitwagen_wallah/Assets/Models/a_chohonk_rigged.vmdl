@@ -42,6 +42,22 @@
 					},
 				]
 			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsHullFromRender"
+						disabled = true
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						faceMergeAngle = 20.0
+						maxHullVertices = 32
+						hull_mode = "SingleHull"
+					},
+				]
+			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
