@@ -20,6 +20,8 @@
         "__guid": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf",
         "__enabled": true,
         "Flags": 0,
+        "DebugAutoPlay": true,
+        "DebugInterval": 5,
         "DebugLog": false,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,

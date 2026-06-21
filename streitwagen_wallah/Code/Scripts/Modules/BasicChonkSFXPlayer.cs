@@ -69,6 +69,16 @@ public sealed class ItemSoundPlayer : Component
 	[Property, Group( "Debug" )]
 	public bool DebugLog { get; set; } = false;
 
+	/// <summary>DEBUG: when on, auto-plays a random sound every <see cref="DebugInterval"/> seconds. Turn off for normal play.</summary>
+	[Property, Group( "Debug" )]
+	public bool DebugAutoPlay { get; set; } = false;
+
+	/// <summary>DEBUG: seconds between auto-plays while <see cref="DebugAutoPlay"/> is on.</summary>
+	[Property, Group( "Debug" ), Range( 0.1f, 30f )]
+	public float DebugInterval { get; set; } = 5f;
+
+	private float debugTimer;
+
 	protected override void OnStart()
 	{
 		if ( !SoundOrigin.IsValid() )
@@ -98,6 +108,20 @@ public sealed class ItemSoundPlayer : Component
 			Tracker.OnItemGranted -= HandleItemGranted;
 			Tracker.OnItemUsed -= HandleItemUsed;
 		}
+	}
+
+	protected override void OnUpdate()
+	{
+		if ( !DebugAutoPlay ) return;
+		// Only the owner drives the timer, mirroring the real pickup/use path so a
+		// live session doesn't get one broadcast per client every tick.
+		if ( Network.IsProxy ) return;
+
+		debugTimer += Time.Delta;
+		if ( debugTimer < DebugInterval ) return;
+
+		debugTimer = 0f;
+		Trigger();
 	}
 
 	private void HandleItemGranted( string key, GodPower power ) => Trigger();

@@ -121,7 +121,7 @@
             "SlopeGripStrength": 0,
             "SteerBoostFullSpeed": 400,
             "SteerReleaseDamping": 15,
-            "SteerTorque": 5500
+            "SteerTorque": 200000
           },
           {
             "__type": "Sandbox.ModelRenderer",
@@ -432,7 +432,7 @@
                     "CreateBoneObjects": false,
                     "LodOverride": null,
                     "MaterialGroup": null,
-                    "MaterialOverride": "materials/t_waves.vmat",
+                    "MaterialOverride": null,
                     "Materials": null,
                     "Model": "models/a_cherd_rigged.vmdl",
                     "Morphs": {},
@@ -462,7 +462,7 @@
                       "Looping": true,
                       "Blending": false
                     },
-                    "Tint": "0.08372,0.08372,0.08372,1",
+                    "Tint": "0.85116,0.85116,0.85116,1",
                     "UseAnimGraph": true
                   }
                 },
@@ -602,7 +602,7 @@
                     "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
                   },
                   "Property": "Tint",
-                  "Value": "0.08372,0.08372,0.08372,1"
+                  "Value": "0.85116,0.85116,0.85116,1"
                 }
               ],
               "MovedObjects": []
@@ -648,7 +648,7 @@
                     "CreateBoneObjects": false,
                     "LodOverride": null,
                     "MaterialGroup": null,
-                    "MaterialOverride": "materials/t_waves.vmat",
+                    "MaterialOverride": null,
                     "Materials": null,
                     "Model": "models/a_cherd_rigged.vmdl",
                     "Morphs": {},
@@ -1059,7 +1059,7 @@
             "OnComponentUpdate": null,
             "Presets": [
               {
-                "Name": "Test",
+                "Name": "Playtesting 1",
                 "PullForce": 5500,
                 "BrakeForce": null,
                 "SteerTorque": 5500,
@@ -1072,7 +1072,7 @@
                 "ChariotMass": null
               },
               {
-                "Name": "Steer Test",
+                "Name": "Playtesting Fast",
                 "PullForce": null,
                 "BrakeForce": null,
                 "SteerTorque": 12525252,
@@ -1085,7 +1085,7 @@
                 "ChariotMass": null
               },
               {
-                "Name": "5P",
+                "Name": "Playtesting Slow",
                 "PullForce": 6500,
                 "BrakeForce": null,
                 "SteerTorque": null,
@@ -1282,27 +1282,11 @@
                 },
                 {
                   "Target": {
-                    "Type": "Component",
-                    "IdValue": "4e4a611c-f7df-43ec-85b6-c9ae75e4d53d"
-                  },
-                  "Property": "MaterialOverride",
-                  "Value": "materials/t_waves.vmat"
-                },
-                {
-                  "Target": {
                     "Type": "GameObject",
                     "IdValue": "ff120b27-da99-4bbd-a4f3-99bba339c7aa"
                   },
                   "Property": "Position",
                   "Value": "4.76837215E-07,0,2.07451558"
-                },
-                {
-                  "Target": {
-                    "Type": "Component",
-                    "IdValue": "6a8bdd62-b24b-4ce2-b460-4444e3c529f1"
-                  },
-                  "Property": "MaterialOverride",
-                  "Value": "materials/t_waves.vmat"
                 },
                 {
                   "Target": {
@@ -1314,27 +1298,11 @@
                 },
                 {
                   "Target": {
-                    "Type": "Component",
-                    "IdValue": "8e436953-8e6d-40d9-b8ed-b28cd355dae3"
-                  },
-                  "Property": "MaterialOverride",
-                  "Value": "materials/t_waves.vmat"
-                },
-                {
-                  "Target": {
                     "Type": "GameObject",
                     "IdValue": "b7d18007-ebae-475d-81da-fcec7a592ee3"
                   },
                   "Property": "Position",
                   "Value": "4.76837215E-07,0,2.07451558"
-                },
-                {
-                  "Target": {
-                    "Type": "Component",
-                    "IdValue": "73ef8824-cc09-4fcf-9f6c-be120d333909"
-                  },
-                  "Property": "MaterialOverride",
-                  "Value": "materials/t_waves.vmat"
                 }
               ],
               "MovedObjects": []
@@ -1360,7 +1328,59 @@
             "__version": 2,
             "__Prefab": "prefabs/chohonk.prefab",
             "__PrefabInstancePatch": {
-              "AddedObjects": [],
+              "AddedObjects": [
+                {
+                  "Id": {
+                    "Type": "GameObject",
+                    "IdValue": "acce6cc2-3b4d-4189-b9cd-c62940fe772b"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "5f6e4508-41be-4c96-8d7a-a6deed0a846a"
+                  },
+                  "PreviousElement": {
+                    "Type": "GameObject",
+                    "IdValue": "071b2024-4399-4eb9-a137-6857ad464188"
+                  },
+                  "ContainerProperty": "Children",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__guid": "acce6cc2-3b4d-4189-b9cd-c62940fe772b",
+                    "__version": 2,
+                    "__Prefab": "prefabs/sfx/basicchonksfxsystem.prefab",
+                    "__PrefabInstancePatch": {
+                      "AddedObjects": [],
+                      "RemovedObjects": [],
+                      "PropertyOverrides": [
+                        {
+                          "Target": {
+                            "Type": "GameObject",
+                            "IdValue": "05cb9d6f-d863-4a00-8709-ddbc13c6ff62"
+                          },
+                          "Property": "Position",
+                          "Value": "368.288971,8.17071533,13.4727297"
+                        },
+                        {
+                          "Target": {
+                            "Type": "Component",
+                            "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
+                          },
+                          "Property": "SoundOrigin",
+                          "Value": {
+                            "_type": "gameobject",
+                            "go": "f92c8ce8-13b1-469d-ab7a-12ca286e7beb"
+                          }
+                        }
+                      ],
+                      "MovedObjects": []
+                    },
+                    "__PrefabIdToInstanceId": {
+                      "05cb9d6f-d863-4a00-8709-ddbc13c6ff62": "acce6cc2-3b4d-4189-b9cd-c62940fe772b",
+                      "6288ef7d-eeed-4806-8307-1c7e4c5dedcf": "83a47904-1871-4c64-abdc-654f3ae96b0a"
+                    }
+                  }
+                }
+              ],
               "RemovedObjects": [
                 {
                   "Id": {
@@ -1399,14 +1419,6 @@
                   },
                   "Property": "Position",
                   "Value": "0,0,19.3231621"
-                },
-                {
-                  "Target": {
-                    "Type": "Component",
-                    "IdValue": "b2a9f265-3d99-43ae-84ee-75a1ed50226a"
-                  },
-                  "Property": "MaterialOverride",
-                  "Value": "materials/t_waves.vmat"
                 }
               ],
               "MovedObjects": []
@@ -1458,7 +1470,7 @@
             "MaxFOV": 100,
             "NodLerpSpeed": 1,
             "NodMax": 1,
-            "Offset": "-400,0,100",
+            "Offset": "-400,0,200",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
