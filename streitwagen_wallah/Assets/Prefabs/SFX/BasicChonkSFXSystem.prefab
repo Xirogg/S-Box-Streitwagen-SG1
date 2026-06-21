@@ -1,0 +1,79 @@
+{
+  "RootObject": {
+    "__guid": "05cb9d6f-d863-4a00-8709-ddbc13c6ff62",
+    "__version": 2,
+    "Flags": 0,
+    "Name": "basicchonksfxsystem",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkFlags": 0,
+    "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
+    "OwnerTransfer": 1,
+    "Components": [
+      {
+        "__type": "Sandbox.ItemSoundPlayer",
+        "__guid": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf",
+        "__enabled": true,
+        "Flags": 0,
+        "DebugLog": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "PitchMax": 1.1,
+        "PitchMin": 0.9,
+        "PlayForEveryone": true,
+        "SoundOrigin": null,
+        "Sounds": [
+          "music/sfx/chonk sounds/chonk (1).sound",
+          "music/sfx/chonk sounds/chonk (2).sound",
+          "music/sfx/chonk sounds/chonk (3).sound",
+          "music/sfx/chonk sounds/chonk (4).sound",
+          "music/sfx/chonk sounds/chonk (5).sound",
+          "music/sfx/chonk sounds/chonk (6).sound",
+          "music/sfx/chonk sounds/chonk (7).sound",
+          "music/sfx/chonk sounds/chonk (8).sound",
+          "music/sfx/chonk sounds/chonk (9).sound"
+        ],
+        "Tracker": null,
+        "Volume": 1
+      }
+    ],
+    "Children": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": false,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
+      }
+    },
+    "__variables": []
+  },
+  "ResourceVersion": 2,
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "__references": [],
+  "__version": 2
+}
