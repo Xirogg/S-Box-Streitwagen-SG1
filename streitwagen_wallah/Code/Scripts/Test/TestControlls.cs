@@ -72,6 +72,31 @@ public sealed class TestControlls : Component
 
 	[Property, Group( "GameObjects" )] public Rigidbody Rigidbody { get; set; }
 
+	private Rigidbody _chariotBody;
+
+	/// <summary>
+	/// The chariot body this horse pair pulls. Found by matching the ChariotPhysics whose
+	/// HorsePairRb is this horse, then cached. Needed because the hitch is now an articulated
+	/// BallJoint (not a rigid HingeJoint), so the lurch has to push the cart itself — shoving
+	/// only the horse no longer drags the cart sideways with it.
+	/// </summary>
+	private Rigidbody ChariotBody
+	{
+		get
+		{
+			if ( _chariotBody.IsValid() ) return _chariotBody;
+			foreach ( var cp in Scene.GetAllComponents<ChariotPhysics>() )
+			{
+				if ( cp.HorsePairRb == Rigidbody )
+				{
+					_chariotBody = cp.Body;
+					break;
+				}
+			}
+			return _chariotBody;
+		}
+	}
+
 	[Sync] private Vector2 moveInput { get; set; }
 
 	[Sync, Property, Group( "Identity" )] public Guid PlayerId { get; set; }
@@ -197,10 +222,20 @@ public sealed class TestControlls : Component
 		float dir = leftPressed ? 1f : -1f;
 		if ( IsDrunk ) dir = -dir;
 
-		Vector3 right = WorldRotation.Right;
-		Vector3 impulse = -right * dir * LurchImpulse * Rigidbody.Mass;
+		Vector3 lurchDir = -WorldRotation.Right * dir;
+
+		// Horse: shove its front sideways (translates + yaws it into the dodge).
 		Vector3 frontWorld = WorldPosition + WorldRotation.Forward * LurchForwardOffset;
-		Rigidbody.ApplyImpulseAt( frontWorld, impulse );
+		Rigidbody.ApplyImpulseAt( frontWorld, lurchDir * LurchImpulse * Rigidbody.Mass );
+
+		// Chariot: with the articulated ball-joint hitch the cart is no longer rigidly
+		// bolted to the horse, so the shove above doesn't drag it sideways on its own.
+		// Give the cart the SAME sideways delta-v (impulse = mass × LurchImpulse) at its
+		// centre of mass, so horse and cart dodge together — no need to crank LurchImpulse
+		// high enough to launch the horses.
+		var chariot = ChariotBody;
+		if ( chariot.IsValid() )
+			chariot.ApplyImpulse( lurchDir * LurchImpulse * chariot.Mass );
 	}
 
 	private void ApplyLocomotion( float acceleration )
