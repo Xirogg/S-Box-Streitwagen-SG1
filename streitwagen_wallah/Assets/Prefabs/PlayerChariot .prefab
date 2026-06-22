@@ -153,9 +153,9 @@
           {
             "__type": "Sandbox.BoxCollider",
             "__guid": "3a0e8757-7e88-4834-806e-ed4339c20999",
-            "__enabled": true,
+            "__enabled": false,
             "Flags": 0,
-            "Center": "0,0,0",
+            "Center": "0,0,25",
             "ColliderFlags": 0,
             "Elasticity": null,
             "Friction": null,
@@ -469,7 +469,7 @@
                 {
                   "Id": {
                     "Type": "Component",
-                    "IdValue": "03af2d01-be8e-4944-b8e7-448d8a9819ec"
+                    "IdValue": "09375d4c-820a-45e8-a45e-7e1d646536a7"
                   },
                   "Parent": {
                     "Type": "GameObject",
@@ -482,49 +482,8 @@
                   "ContainerProperty": "Components",
                   "IsContainerArray": true,
                   "Data": {
-                    "__type": "Sandbox.ModelCollider",
-                    "__guid": "03af2d01-be8e-4944-b8e7-448d8a9819ec",
-                    "__enabled": false,
-                    "Flags": 0,
-                    "ColliderFlags": 0,
-                    "Elasticity": null,
-                    "Friction": null,
-                    "IsTrigger": false,
-                    "Model": "models/a_cherd_rigged.vmdl",
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "OnObjectTriggerEnter": null,
-                    "OnObjectTriggerExit": null,
-                    "OnTriggerEnter": null,
-                    "OnTriggerExit": null,
-                    "RollingResistance": null,
-                    "Static": false,
-                    "Surface": null,
-                    "SurfaceVelocity": "0,0,0"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "a09a1e46-ab22-4bfc-9f48-ba56647c642c"
-                  },
-                  "Parent": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "PreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "03af2d01-be8e-4944-b8e7-448d8a9819ec"
-                  },
-                  "ContainerProperty": "Components",
-                  "IsContainerArray": true,
-                  "Data": {
                     "__type": "Sandbox.Rigidbody",
-                    "__guid": "a09a1e46-ab22-4bfc-9f48-ba56647c642c",
+                    "__guid": "09375d4c-820a-45e8-a45e-7e1d646536a7",
                     "__enabled": false,
                     "Flags": 0,
                     "AngularDamping": 0,
@@ -685,7 +644,7 @@
                 {
                   "Id": {
                     "Type": "Component",
-                    "IdValue": "7cb33090-7e04-408e-a6d0-f29488e51fd0"
+                    "IdValue": "bec9ed52-2c66-41f5-8731-a6673cc48fe0"
                   },
                   "Parent": {
                     "Type": "GameObject",
@@ -698,49 +657,8 @@
                   "ContainerProperty": "Components",
                   "IsContainerArray": true,
                   "Data": {
-                    "__type": "Sandbox.ModelCollider",
-                    "__guid": "7cb33090-7e04-408e-a6d0-f29488e51fd0",
-                    "__enabled": false,
-                    "Flags": 0,
-                    "ColliderFlags": 0,
-                    "Elasticity": null,
-                    "Friction": null,
-                    "IsTrigger": false,
-                    "Model": "models/a_cherd_rigged.vmdl",
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "OnObjectTriggerEnter": null,
-                    "OnObjectTriggerExit": null,
-                    "OnTriggerEnter": null,
-                    "OnTriggerExit": null,
-                    "RollingResistance": null,
-                    "Static": false,
-                    "Surface": null,
-                    "SurfaceVelocity": "0,0,0"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "d6011bcc-da1d-491f-89f8-bbdf218a72c3"
-                  },
-                  "Parent": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "PreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "7cb33090-7e04-408e-a6d0-f29488e51fd0"
-                  },
-                  "ContainerProperty": "Components",
-                  "IsContainerArray": true,
-                  "Data": {
                     "__type": "Sandbox.Rigidbody",
-                    "__guid": "d6011bcc-da1d-491f-89f8-bbdf218a72c3",
+                    "__guid": "bec9ed52-2c66-41f5-8731-a6673cc48fe0",
                     "__enabled": false,
                     "Flags": 0,
                     "AngularDamping": 0,
