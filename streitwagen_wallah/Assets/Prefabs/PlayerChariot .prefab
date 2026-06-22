@@ -516,6 +516,45 @@
                     "SleepThreshold": 2,
                     "StartAsleep": false
                   }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "7f000741-382a-4174-8cfa-9777bdd0be66"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "09375d4c-820a-45e8-a45e-7e1d646536a7"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "HorseTilt",
+                    "__guid": "7f000741-382a-4174-8cfa-9777bdd0be66",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "DriveBody": {
+                      "_type": "component",
+                      "component_id": "337056b5-7f39-4500-aad7-05f14b5297c5",
+                      "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
+                      "component_type": "Rigidbody"
+                    },
+                    "FullLeanSpeed": 400,
+                    "InvertLean": false,
+                    "LeanResponse": 8,
+                    "LeanStrength": 0.35,
+                    "MaxLeanAngle": 18,
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null
+                  }
                 }
               ],
               "RemovedObjects": [
@@ -690,6 +729,45 @@
                     "RigidbodyFlags": 0,
                     "SleepThreshold": 2,
                     "StartAsleep": false
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "1e75a28b-bbac-4a92-8f16-210648c0ef36"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "bec9ed52-2c66-41f5-8731-a6673cc48fe0"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "HorseTilt",
+                    "__guid": "1e75a28b-bbac-4a92-8f16-210648c0ef36",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "DriveBody": {
+                      "_type": "component",
+                      "component_id": "337056b5-7f39-4500-aad7-05f14b5297c5",
+                      "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
+                      "component_type": "Rigidbody"
+                    },
+                    "FullLeanSpeed": 400,
+                    "InvertLean": false,
+                    "LeanResponse": 8,
+                    "LeanStrength": 0.35,
+                    "MaxLeanAngle": 18,
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null
                   }
                 }
               ],
