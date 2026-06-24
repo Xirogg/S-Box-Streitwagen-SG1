@@ -122,14 +122,44 @@ public sealed class ChariotPhysics : Component, Component.ICollisionListener, IS
 	void Component.ICollisionListener.OnCollisionStart( Collision other )
 	{
 		if (IsProxy) return;
-		if ( _ownerCollisions is null && HorsePairRb is not null )
-			_ownerCollisions = HorsePairRb.Components.Get<PlayerCollisions>();
-		_ownerCollisions?.HandleChariotCollision( other );
+		// PlayerCollisions is the ram "brain". It lives on the Wagen (this same object) —
+		// NOT on the horse body — so resolve it from the player root instead of from
+		// HorsePairRb, which used to host it. Looking it up on HorsePairRb silently
+		// returned null and killed all chariot-side ramming.
+		_ownerCollisions ??= GameObject.Root?.Components.Get<PlayerCollisions>( FindMode.EverythingInSelfAndDescendants );
+		_ownerCollisions?.HandleRamCollision( other );
 		ImpactStarted?.Invoke( other );
 	}
 
 	void Component.ICollisionListener.OnCollisionUpdate( Collision other ) { }
 	void Component.ICollisionListener.OnCollisionStop( CollisionStop other ) { }
+
+	/// <summary>
+	/// Applies a ram knockback to THIS player's own bodies. Marked [Rpc.Owner] so it
+	/// always runs on the machine that owns — and therefore simulates — these
+	/// rigidbodies. Networked rigidbodies are only simulated by their owner, so an
+	/// ApplyImpulse done on a proxy (the victim as seen on the attacker's client) is
+	/// thrown away on the next snapshot. That's exactly why ramming a real player felt
+	/// static while the un-networked test-scene chariot flew. The attacker computes the
+	/// impulses (it has the contact + closing speed) and calls this; the owner does the
+	/// actual push. For the loose scene prefab the owner is the local host, so it still
+	/// applies locally — no regression there.
+	/// </summary>
+	[Rpc.Owner]
+	public void ApplyRamKnockback( Vector3 horseImpulse, Vector3 horseAngular, Vector3 chariotImpulse, Vector3 chariotAngular )
+	{
+		if ( HorsePairRb.IsValid() )
+		{
+			HorsePairRb.ApplyImpulse( horseImpulse );
+			HorsePairRb.AngularVelocity += horseAngular;
+		}
+
+		if ( Body.IsValid() )
+		{
+			Body.ApplyImpulse( chariotImpulse );
+			Body.AngularVelocity += chariotAngular;
+		}
+	}
 
 	public void SetupJoint( Rigidbody horseRb )
 	{

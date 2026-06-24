@@ -2,7 +2,7 @@ using Sandbox;
 using LapSystem;
 using System;
 
-public sealed class TestControlls : Component
+public sealed class TestControlls : Component, Component.ICollisionListener
 {
 	[Property, Group( "Speed" )] public float PullForce { get; set; } = 5f;
 	[Property, Group( "Speed" )] public float BrakeForce { get; set; } = 5f;
@@ -73,6 +73,7 @@ public sealed class TestControlls : Component
 	[Property, Group( "GameObjects" )] public Rigidbody Rigidbody { get; set; }
 
 	private Rigidbody _chariotBody;
+	private PlayerCollisions _ramHandler;
 
 	/// <summary>
 	/// The chariot body this horse pair pulls. Found by matching the ChariotPhysics whose
@@ -165,6 +166,25 @@ public sealed class TestControlls : Component
 		ApplySteering( moveInput.y );
 		StickToGround();
 	}
+
+	// --- Ram forwarding ---------------------------------------------------------
+
+	/// <summary>
+	/// The horse pair's ram boxes are the only enabled colliders on this body (the
+	/// Antrieb's own box is disabled), so horse contacts surface here. Forward them to
+	/// the player's PlayerCollisions "brain" — mirroring how ChariotPhysics forwards the
+	/// Wagen's contacts — so driving the horses into someone rams them too. Self-hits
+	/// and ground are filtered out inside PlayerCollisions.
+	/// </summary>
+	void Component.ICollisionListener.OnCollisionStart( Collision other )
+	{
+		if ( IsProxy ) return;
+		_ramHandler ??= GameObject.Root?.Components.Get<PlayerCollisions>( FindMode.EverythingInSelfAndDescendants );
+		_ramHandler?.HandleRamCollision( other );
+	}
+
+	void Component.ICollisionListener.OnCollisionUpdate( Collision other ) { }
+	void Component.ICollisionListener.OnCollisionStop( CollisionStop other ) { }
 
 	private void ApplyInputs()
 	{

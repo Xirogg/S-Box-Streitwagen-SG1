@@ -555,6 +555,47 @@
                     "OnComponentStart": null,
                     "OnComponentUpdate": null
                   }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "4ef56b82-f7bb-48ef-a708-8f091f2a6a3a"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "7f000741-382a-4174-8cfa-9777bdd0be66"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.ModelCollider",
+                    "__guid": "4ef56b82-f7bb-48ef-a708-8f091f2a6a3a",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "ColliderFlags": 0,
+                    "Elasticity": null,
+                    "Friction": null,
+                    "IsTrigger": false,
+                    "Model": "models/a_cherd_rigged.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OnObjectTriggerEnter": null,
+                    "OnObjectTriggerExit": null,
+                    "OnTriggerEnter": null,
+                    "OnTriggerExit": null,
+                    "RollingResistance": null,
+                    "Static": false,
+                    "Surface": null,
+                    "SurfaceVelocity": "0,0,0"
+                  }
                 }
               ],
               "RemovedObjects": [
@@ -768,6 +809,47 @@
                     "OnComponentFixedUpdate": null,
                     "OnComponentStart": null,
                     "OnComponentUpdate": null
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "67f02a79-2f26-4c53-89b2-77e8f85d0837"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "1e75a28b-bbac-4a92-8f16-210648c0ef36"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.ModelCollider",
+                    "__guid": "67f02a79-2f26-4c53-89b2-77e8f85d0837",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "ColliderFlags": 0,
+                    "Elasticity": null,
+                    "Friction": null,
+                    "IsTrigger": false,
+                    "Model": "models/a_cherd_rigged.vmdl",
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OnObjectTriggerEnter": null,
+                    "OnObjectTriggerExit": null,
+                    "OnTriggerEnter": null,
+                    "OnTriggerExit": null,
+                    "RollingResistance": null,
+                    "Static": false,
+                    "Surface": null,
+                    "SurfaceVelocity": "0,0,0"
                   }
                 }
               ],
@@ -1102,15 +1184,15 @@
             "__enabled": true,
             "Flags": 0,
             "AngularImpulseFactor": 0.0008,
-            "BaseImpulse": 7500,
+            "BaseImpulse": 2500,
             "ChariotExtraSpin": 1.6,
             "ChariotImpulseRatio": 1.1,
             "CollisionDebrisPrefab": null,
             "Cooldown": 0.2,
             "DebugLog": true,
-            "ImpulsePerClosingSpeed": 9000,
+            "ImpulsePerClosingSpeed": 2500,
             "LateralBias": 0.55,
-            "MaxImpulse": 150000,
+            "MaxImpulse": 20000,
             "MinClosingSpeed": 0.8,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
