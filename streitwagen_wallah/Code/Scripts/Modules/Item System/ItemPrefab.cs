@@ -57,6 +57,14 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 	[Property, Group( "Debug" )]
 	public bool DebugLog { get; set; } = true;
 
+	/// <summary>
+	/// DEBUG: when on, driving into this box plays the player's pickup sound and the
+	/// box despawns/respawns as usual, but NO item is granted — so the player can
+	/// keep hitting boxes to audition pickup sounds. Turn off for real gameplay.
+	/// </summary>
+	[Property, Group( "Debug" )]
+	public bool SoundDebugMode { get; set; } = false;
+
 	/// <summary>True = pickupable and visible. Host-authoritative, replicated.</summary>
 	[Sync] public bool Available { get; set; } = true;
 
@@ -94,6 +102,24 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 		if ( tracker is null )
 		{
 			if ( DebugLog ) Log.Info( $"[ItemPrefab] {other.GameObject?.Name} has no '{WagenTag}'-tagged ancestor or no PlayerItemTracker — ignoring." );
+			return;
+		}
+
+		if ( SoundDebugMode )
+		{
+			// Sound test: play the pickup sound on this player and despawn the box,
+			// but DON'T grant an item — so the player can keep collecting boxes.
+			var sfx = FindSoundPlayer( tracker );
+			if ( sfx is not null )
+				sfx.PlayPickupSoundDebugRpc();
+			else if ( DebugLog )
+				Log.Warning( "[ItemPrefab] SoundDebugMode is on but no ItemSoundPlayer was found on the player." );
+
+			if ( DebugLog )
+				Log.Info( "[ItemPrefab] SoundDebugMode: played pickup sound, no item granted, hiding box." );
+
+			Available = false;
+			Invoke( Random.Shared.Float( MinRespawnSeconds, MaxRespawnSeconds ), RespawnItem );
 			return;
 		}
 
@@ -166,5 +192,17 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 			node = node.Parent;
 		}
 		return null;
+	}
+
+	/// <summary>
+	/// From the player's tracker, climb to the player root and find its
+	/// ItemSoundPlayer anywhere in the tree (it lives on a sibling branch).
+	/// </summary>
+	private ItemSoundPlayer FindSoundPlayer( PlayerItemTracker tracker )
+	{
+		var root = tracker.GameObject;
+		while ( root.Parent.IsValid() )
+			root = root.Parent;
+		return root.Components.Get<ItemSoundPlayer>( FindMode.EverythingInSelfAndDescendants );
 	}
 }

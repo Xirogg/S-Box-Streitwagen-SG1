@@ -2,7 +2,7 @@ using Sandbox;
 using LapSystem;
 using System;
 
-public sealed class TestControlls : Component
+public sealed class TestControlls : Component, Component.ICollisionListener
 {
 	[Property, Group( "Speed" )] public float PullForce { get; set; } = 5f;
 	[Property, Group( "Speed" )] public float BrakeForce { get; set; } = 5f;
@@ -71,6 +71,32 @@ public sealed class TestControlls : Component
 	[Property, Group( "Terrain" ), Range( 0f, 1f )] public float SlopeGripStrength { get; set; } = 1f;
 
 	[Property, Group( "GameObjects" )] public Rigidbody Rigidbody { get; set; }
+
+	private Rigidbody _chariotBody;
+	private PlayerCollisions _ramHandler;
+
+	/// <summary>
+	/// The chariot body this horse pair pulls. Found by matching the ChariotPhysics whose
+	/// HorsePairRb is this horse, then cached. Needed because the hitch is now an articulated
+	/// BallJoint (not a rigid HingeJoint), so the lurch has to push the cart itself — shoving
+	/// only the horse no longer drags the cart sideways with it.
+	/// </summary>
+	private Rigidbody ChariotBody
+	{
+		get
+		{
+			if ( _chariotBody.IsValid() ) return _chariotBody;
+			foreach ( var cp in Scene.GetAllComponents<ChariotPhysics>() )
+			{
+				if ( cp.HorsePairRb == Rigidbody )
+				{
+					_chariotBody = cp.Body;
+					break;
+				}
+			}
+			return _chariotBody;
+		}
+	}
 
 	[Sync] private Vector2 moveInput { get; set; }
 
@@ -141,6 +167,25 @@ public sealed class TestControlls : Component
 		StickToGround();
 	}
 
+	// --- Ram forwarding ---------------------------------------------------------
+
+	/// <summary>
+	/// The horse pair's ram boxes are the only enabled colliders on this body (the
+	/// Antrieb's own box is disabled), so horse contacts surface here. Forward them to
+	/// the player's PlayerCollisions "brain" — mirroring how ChariotPhysics forwards the
+	/// Wagen's contacts — so driving the horses into someone rams them too. Self-hits
+	/// and ground are filtered out inside PlayerCollisions.
+	/// </summary>
+	void Component.ICollisionListener.OnCollisionStart( Collision other )
+	{
+		if ( IsProxy ) return;
+		_ramHandler ??= GameObject.Root?.Components.Get<PlayerCollisions>( FindMode.EverythingInSelfAndDescendants );
+		_ramHandler?.HandleRamCollision( other );
+	}
+
+	void Component.ICollisionListener.OnCollisionUpdate( Collision other ) { }
+	void Component.ICollisionListener.OnCollisionStop( CollisionStop other ) { }
+
 	private void ApplyInputs()
 	{
 		float verticalStrength = 0f;
@@ -197,10 +242,20 @@ public sealed class TestControlls : Component
 		float dir = leftPressed ? 1f : -1f;
 		if ( IsDrunk ) dir = -dir;
 
-		Vector3 right = WorldRotation.Right;
-		Vector3 impulse = -right * dir * LurchImpulse * Rigidbody.Mass;
+		Vector3 lurchDir = -WorldRotation.Right * dir;
+
+		// Horse: shove its front sideways (translates + yaws it into the dodge).
 		Vector3 frontWorld = WorldPosition + WorldRotation.Forward * LurchForwardOffset;
-		Rigidbody.ApplyImpulseAt( frontWorld, impulse );
+		Rigidbody.ApplyImpulseAt( frontWorld, lurchDir * LurchImpulse * Rigidbody.Mass );
+
+		// Chariot: with the articulated ball-joint hitch the cart is no longer rigidly
+		// bolted to the horse, so the shove above doesn't drag it sideways on its own.
+		// Give the cart the SAME sideways delta-v (impulse = mass × LurchImpulse) at its
+		// centre of mass, so horse and cart dodge together — no need to crank LurchImpulse
+		// high enough to launch the horses.
+		var chariot = ChariotBody;
+		if ( chariot.IsValid() )
+			chariot.ApplyImpulse( lurchDir * LurchImpulse * chariot.Mass );
 	}
 
 	private void ApplyLocomotion( float acceleration )
