@@ -56,6 +56,13 @@ public sealed class PlayerItemTracker : Component
 	/// <summary>Empty = no item held. UI reads this; replicated owner → others.</summary>
 	[Sync] public string HeldItemKey { get; set; } = "";
 
+	/// <summary>
+	/// True while a pickup's sound sequence is playing but the item hasn't been granted
+	/// yet. [Sync] so the host's ItemPrefab sees it too and won't let a SECOND box start
+	/// granting during the jingle. Owner-written.
+	/// </summary>
+	[Sync] public bool PickupPending { get; set; }
+
 	// Owner-side runtime — the cloned instance only exists on the owning client.
 	private GameObject heldInstance;
 	private GodPower heldPower;
@@ -76,6 +83,12 @@ public sealed class PlayerItemTracker : Component
 	/// so the box rejects a new pickup until the previous use fully cleans up.
 	/// </summary>
 	public bool HasItem => !string.IsNullOrEmpty( HeldItemKey );
+
+	/// <summary>
+	/// True if the slot is occupied OR a pickup jingle is mid-flight. The item box
+	/// checks this so a power can't be granted twice while the sounds are still playing.
+	/// </summary>
+	public bool IsBusy => HasItem || PickupPending;
 
 	public GodPower HeldPower => heldPower;
 
@@ -117,22 +130,78 @@ public sealed class PlayerItemTracker : Component
 	}
 
 	/// <summary>
-	/// Called by the host's ItemPrefab on pickup. Runs on the OWNING client so the
-	/// owner-authoritative HeldItemKey write is legal. The prefab is cloned owner-
-	/// locally; other clients don't have an instance, only the synced HeldItemKey.
+	/// Pickup entry point used by the item box. Runs on the OWNING client. Plays the
+	/// ItemSoundPlayer's two-clip jingle (Sound 1 → Sound 2) FIRST and only grants the
+	/// item once the second clip finishes — so the sounds delay the pickup. Falls back
+	/// to an instant grant if there's no ItemSoundPlayer on the player.
+	/// </summary>
+	[Rpc.Owner]
+	public void BeginPickupSequenceRpc( string key, GameObject prefab )
+	{
+		if ( !CanGrant( key, prefab ) ) return;
+
+		var sfx = FindSoundPlayer();
+		if ( sfx is null )
+		{
+			if ( DebugLog ) Log.Info( "[PlayerItemTracker] No ItemSoundPlayer found — granting instantly (no pickup jingle)." );
+			DoGrant( key, prefab );
+			return;
+		}
+
+		// Mark busy so a second box hit during the jingle can't also grant. [Sync] so
+		// the host's ItemPrefab sees it. Cleared inside DoGrant when the sequence ends.
+		PickupPending = true;
+		if ( DebugLog ) Log.Info( $"[PlayerItemTracker] Pickup '{key}' — playing sound sequence, granting after it finishes." );
+
+		sfx.PlayPickupSequence( () => DoGrant( key, prefab ) );
+	}
+
+	/// <summary>
+	/// Instant grant with NO pickup sounds. Used by Laverna's item-steal transfer,
+	/// which hands an already-owned power to another player and shouldn't replay the
+	/// pickup jingle. Runs on the OWNING client.
 	/// </summary>
 	[Rpc.Owner]
 	public void GrantItemRpc( string key, GameObject prefab )
 	{
-		if ( string.IsNullOrEmpty( key ) ) return;
+		if ( !CanGrant( key, prefab ) ) return;
+		DoGrant( key, prefab );
+	}
+
+	/// <summary>Shared pre-grant validation for both the pickup and transfer paths.</summary>
+	private bool CanGrant( string key, GameObject prefab )
+	{
+		if ( string.IsNullOrEmpty( key ) ) return false;
 		if ( !prefab.IsValid() )
 		{
-			if ( DebugLog ) Log.Warning( $"[PlayerItemTracker] GrantItemRpc('{key}') with invalid prefab — ignoring." );
+			if ( DebugLog ) Log.Warning( $"[PlayerItemTracker] Grant('{key}') with invalid prefab — ignoring." );
+			return false;
+		}
+		if ( IsBusy || heldInstance.IsValid() )
+		{
+			if ( DebugLog ) Log.Warning( $"[PlayerItemTracker] Grant('{key}') while busy (held='{HeldItemKey}', pending={PickupPending}) — ignoring." );
+			return false;
+		}
+		return true;
+	}
+
+	/// <summary>
+	/// Does the actual grant: clones the power owner-locally, wires its Owner, and
+	/// publishes HeldItemKey. Always clears <see cref="PickupPending"/> so the slot
+	/// can't get stuck busy. Re-checks validity because it may run after a sound delay.
+	/// </summary>
+	private void DoGrant( string key, GameObject prefab )
+	{
+		PickupPending = false;
+
+		if ( !prefab.IsValid() )
+		{
+			if ( DebugLog ) Log.Warning( $"[PlayerItemTracker] DoGrant('{key}') — prefab went invalid during the pickup delay." );
 			return;
 		}
 		if ( HasItem || heldInstance.IsValid() )
 		{
-			if ( DebugLog ) Log.Warning( $"[PlayerItemTracker] GrantItemRpc('{key}') while already holding '{HeldItemKey}' — ignoring." );
+			if ( DebugLog ) Log.Warning( $"[PlayerItemTracker] DoGrant('{key}') — already holding '{HeldItemKey}' after the delay, dropping." );
 			return;
 		}
 
@@ -285,5 +354,15 @@ public sealed class PlayerItemTracker : Component
 		while ( node.IsValid() && node.Parent.IsValid() )
 			node = node.Parent;
 		return node;
+	}
+
+	/// <summary>
+	/// Find the player's ItemSoundPlayer. It can live on a sibling branch, so we climb
+	/// to the player root and search the whole subtree.
+	/// </summary>
+	private ItemSoundPlayer FindSoundPlayer()
+	{
+		var root = FindRoot( GameObject );
+		return root.Components.Get<ItemSoundPlayer>( FindMode.EverythingInSelfAndDescendants );
 	}
 }

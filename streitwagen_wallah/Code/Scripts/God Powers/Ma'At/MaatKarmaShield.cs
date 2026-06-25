@@ -22,6 +22,7 @@ public sealed class MaatKarmaShield : Component, Component.ICollisionListener
 	{
 		IsActive = true;
 		_expiresAt = Time.Now + duration;
+		PlayShieldSound(); // Sound A — shield raised (proximity)
 	}
 
 	/// <summary>True und konsumiert den Schild, wenn aktiv. Sonst false.</summary>
@@ -29,8 +30,20 @@ public sealed class MaatKarmaShield : Component, Component.ICollisionListener
 	{
 		if ( !IsActive ) return false;
 		IsActive = false;
+		PlayShieldSound(); // Sound A — shield destroyed/reflected (proximity)
 		OnConsumed?.Invoke();
 		return true;
+	}
+
+	/// <summary>
+	/// Route Ma'at's normal sound through the player's persistent SFX module. The shield
+	/// itself isn't erased like the GodPower clone, so it can safely own this call.
+	/// </summary>
+	private void PlayShieldSound()
+	{
+		var root = GameObject?.Root;
+		var sfx = root?.Components.Get<GodPowersNormalSfxmodule>( FindMode.EverythingInSelfAndDescendants );
+		sfx?.PlayMaatShield();
 	}
 
 	protected override void OnUpdate()

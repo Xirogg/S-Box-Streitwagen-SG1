@@ -81,6 +81,10 @@ public sealed class LavernaPower : GodPower
 		string stolenKey = victim.HeldItemKey;
 		ResolveNotifier()?.Show( $"Meiner {stolenKey}" );
 
+		// Sound A → Sound B, heard only by the caster and the victim ("used one").
+		var victimRoot = victim.PlayerRoot.IsValid() ? victim.PlayerRoot : victim.GameObject?.Root;
+		ResolveNormalSfx()?.PlayLavernaSteal( victimRoot );
+
 		if ( DebugLog )
 			Log.Info( $"[LavernaPower] Stealing '{stolenKey}' from {victim.GameObject?.Name} in {TransferDelay}s." );
 
@@ -126,6 +130,8 @@ public sealed class LavernaPower : GodPower
 		}
 
 		ResolveNotifier()?.Show( "Heute gestohlen morgen in Polen" );
+		// Sound A + voice, worldwide.
+		GodPowersUltimateSfxmodule.Instance?.PlayLavernaUltimate();
 
 		var ownerDamage = Owner.Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndDescendants );
 		if ( ownerDamage is null )

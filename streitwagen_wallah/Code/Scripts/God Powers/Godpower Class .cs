@@ -158,4 +158,17 @@ public abstract class GodPower : Component
 		if ( n is null ) n = Owner.Components.Create<GodPowerNotifier>();
 		return n;
 	}
+
+	// ---------- SFX ----------
+
+	/// <summary>
+	/// Find the casting player's <see cref="GodPowersNormalSfxmodule"/> (one lives on
+	/// each player prefab). Powers route their NORMAL sounds through it so the audio
+	/// outlives this short-lived clone. Returns null if Owner isn't assigned yet.
+	/// </summary>
+	protected GodPowersNormalSfxmodule ResolveNormalSfx()
+	{
+		if ( !Owner.IsValid() ) return null;
+		return Owner.Components.Get<GodPowersNormalSfxmodule>( FindMode.EverythingInSelfAndDescendants );
+	}
 }

@@ -143,6 +143,9 @@ public sealed class LightningPower : GodPower
 	{
 		fuseLit = true;
 		ResolveNotifier()?.ShowTimed( "Charging", FuseTime );
+		// Charge jingle (Sound A → Sound B loop), proximity on the user. Lives on the
+		// persistent player module so it keeps playing after this clone is destroyed.
+		ResolveNormalSfx()?.StartTaranisCharge();
 		// Detonation will use the LIVE position of the Wagen, not a snapshot — the
 		// chariot keeps moving during the fuse, the bomb travels with it.
 		Invoke( FuseTime, Detonate );
@@ -156,6 +159,8 @@ public sealed class LightningPower : GodPower
 
 		LastLightningOrigin = origin;
 		ResolveNotifier()?.Show( "Juunge was ein Feuerball" );
+		// Fully charged → Sound C (stops the charge loop), proximity on the user.
+		ResolveNormalSfx()?.TaranisCharged();
 
 		int hitCount = 0;
 		float radiusSq = BombRadius * BombRadius;
@@ -187,6 +192,8 @@ public sealed class LightningPower : GodPower
 		ultimateActive = true;
 		boosted.Clear();
 		ResolveNotifier()?.ShowTimed( "Boden Charged", UltimateDuration );
+		// Sound A + voice, worldwide.
+		GodPowersUltimateSfxmodule.Instance?.PlayTaranisUltimate();
 
 		// Caster immunity: stash and zero their incoming-damage multiplier.
 		casterDamage = Owner.IsValid()

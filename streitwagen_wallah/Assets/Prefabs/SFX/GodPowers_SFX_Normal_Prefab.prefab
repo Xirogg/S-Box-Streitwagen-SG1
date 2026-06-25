@@ -1,0 +1,73 @@
+{
+  "RootObject": {
+    "__guid": "d1f1d544-7f25-40e1-8691-e21eff66eabf",
+    "__version": 2,
+    "Flags": 0,
+    "Name": "godpowers_sfx_normal_prefab",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkFlags": 0,
+    "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
+    "OwnerTransfer": 1,
+    "Components": [
+      {
+        "__type": "Sandbox.GodPowersNormalSfxmodule",
+        "__guid": "7723c9a6-3e3f-4c5c-b09c-fa461354db99",
+        "__enabled": true,
+        "Flags": 0,
+        "DebugLog": false,
+        "DionysosGrapeSoundA": "music/sfx/god powers/dionysos/dio_sfx_normal_canonshot.sound",
+        "DionysosGrapeSoundB": "music/sfx/god powers/dionysos/dio_sfx_normal_gun.sound",
+        "LavernaStealSoundA": "music/sfx/god powers/laverna/laverna_sfx_normal_laugh.sound",
+        "LavernaStealSoundB": "music/sfx/god powers/laverna/laverna_sfx_normal_slashes.sound",
+        "MaatShieldSound": "music/sfx/god powers/maat/maat_sfx_shield.sound",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "SoundOrigin": null,
+        "TaranisChargedSound": "music/sfx/god powers/taranis/taranis_sfx_ult_lightning.sound",
+        "TaranisChargeSound": "music/sfx/god powers/taranis/taranis_sfx_normal.sound",
+        "TaranisLoopRepeats": 2,
+        "TaranisLoopSound": "music/sfx/god powers/taranis/taranis_sfx_ult_beep.sound",
+        "Volume": 1
+      }
+    ],
+    "Children": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": false,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
+      }
+    },
+    "__variables": []
+  },
+  "ResourceVersion": 2,
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "__references": [],
+  "__version": 2
+}

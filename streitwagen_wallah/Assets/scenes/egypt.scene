@@ -77,6 +77,30 @@
           "OnComponentStart": null,
           "OnComponentUpdate": null,
           "UpdateInterval": 0.2
+        },
+        {
+          "__type": "Sandbox.GodPowersNormalSfxmodule",
+          "__guid": "0a364b2a-babd-4031-929a-b70ad1eb408b",
+          "__enabled": true,
+          "Flags": 0,
+          "DebugLog": false,
+          "DionysosGrapeSoundA": null,
+          "DionysosGrapeSoundB": null,
+          "LavernaStealSoundA": null,
+          "LavernaStealSoundB": null,
+          "MaatShieldSound": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "SoundOrigin": null,
+          "TaranisChargedSound": null,
+          "TaranisChargeSound": null,
+          "TaranisLoopRepeats": 2,
+          "TaranisLoopSound": null,
+          "Volume": 1
         }
       ],
       "Children": [
@@ -4508,7 +4532,7 @@
       "Children": []
     },
     {
-      "__guid": "ddfd0a2b-690a-44e8-bb38-d23894c6813e",
+      "__guid": "c6d8b942-f26f-4037-818e-945c261d4d75",
       "__version": 2,
       "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
       "__PrefabInstancePatch": {
@@ -4520,41 +4544,33 @@
               "Type": "GameObject",
               "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
             },
+            "Property": "Name",
+            "Value": "itemprefab (1)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
+            },
             "Property": "Position",
-            "Value": "1165.59802,5271.72266,25"
+            "Value": "-90.1086731,3852.57129,332.192627"
           },
           {
             "Target": {
-              "Type": "Component",
-              "IdValue": "71306516-0416-4962-ad57-604bccf93274"
+              "Type": "GameObject",
+              "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
             },
-            "Property": "Center",
-            "Value": "-0.333126068,0,0"
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "71306516-0416-4962-ad57-604bccf93274"
-            },
-            "Property": "Scale",
-            "Value": "50.6662521,50,50"
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
-            },
-            "Property": "ItemPool",
-            "Value": {}
+            "Property": "Rotation",
+            "Value": "-0.0228838772,0.0913012922,0.242041335,0.96568954"
           }
         ],
         "MovedObjects": []
       },
       "__PrefabIdToInstanceId": {
-        "eea33dba-6300-4d41-b7a3-f10869e90daa": "ddfd0a2b-690a-44e8-bb38-d23894c6813e",
-        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "42850fb4-c081-426a-8298-26065d678cee",
-        "71306516-0416-4962-ad57-604bccf93274": "9d6c6c38-ef4f-49b5-9cbb-2f79972442da",
-        "143114ab-4f92-4888-96ae-a120972ec204": "be87b16f-d775-40da-8d6b-c7ae6beebe23"
+        "eea33dba-6300-4d41-b7a3-f10869e90daa": "c6d8b942-f26f-4037-818e-945c261d4d75",
+        "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "6808ee4b-cc96-46e5-b594-79bc75cbadef",
+        "71306516-0416-4962-ad57-604bccf93274": "271b608a-40cf-48f1-8b5a-7aefcccfb99d",
+        "143114ab-4f92-4888-96ae-a120972ec204": "4a098530-1eb1-4a12-8c0b-e8dfb632ef35"
       }
     }
   ],

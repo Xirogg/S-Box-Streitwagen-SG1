@@ -72,6 +72,8 @@ public sealed class MaatPower : GodPower
 		buffed.Clear();
 		debuffed.Clear();
 		ResolveNotifier()?.ShowTimed( "Kaaarma", EffectDuration );
+		// Sound A + voice, worldwide.
+		GodPowersUltimateSfxmodule.Instance?.PlayMaatUltimate();
 
 		var players = new List<GameObject>( Scene.FindAllWithTag( PlayerTag ) );
 		if ( players.Count == 0 ) return;

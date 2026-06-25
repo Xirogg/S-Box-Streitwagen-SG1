@@ -1553,6 +1553,30 @@
                             "Type": "Component",
                             "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
                           },
+                          "Property": "MaxClipSeconds",
+                          "Value": 8
+                        },
+                        {
+                          "Target": {
+                            "Type": "Component",
+                            "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
+                          },
+                          "Property": "PickupSound1",
+                          "Value": "music/sfx/items/itemsfx part1.sound"
+                        },
+                        {
+                          "Target": {
+                            "Type": "Component",
+                            "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
+                          },
+                          "Property": "PickupSound2",
+                          "Value": "music/sfx/items/itemsfx part2.sound"
+                        },
+                        {
+                          "Target": {
+                            "Type": "Component",
+                            "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
+                          },
                           "Property": "SoundOrigin",
                           "Value": {
                             "_type": "gameobject",
@@ -1631,6 +1655,49 @@
               "b2a9f265-3d99-43ae-84ee-75a1ed50226a": "e9cd2983-d25f-4e88-986f-d64a633a2428",
               "052f52c6-9c90-49e3-9e21-88c24a5c42a2": "63f35ffd-26fc-4177-a7b6-e5063b7faab0",
               "a352bffa-4ade-4abe-b406-005b8a43cef7": "6c8b3083-8038-4a26-8227-104add2f6b4a"
+            }
+          },
+          {
+            "__guid": "8b7d46d8-1564-4094-a93c-38e6733f1165",
+            "__version": 2,
+            "__Prefab": "prefabs/sfx/godpowers_sfx_normal_prefab.prefab",
+            "__PrefabInstancePatch": {
+              "AddedObjects": [],
+              "RemovedObjects": [],
+              "PropertyOverrides": [
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "d1f1d544-7f25-40e1-8691-e21eff66eabf"
+                  },
+                  "Property": "Position",
+                  "Value": "295.409424,0.777980566,21.9358997"
+                },
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "d1f1d544-7f25-40e1-8691-e21eff66eabf"
+                  },
+                  "Property": "Scale",
+                  "Value": "0.800000012,0.800000012,0.800000012"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "7723c9a6-3e3f-4c5c-b09c-fa461354db99"
+                  },
+                  "Property": "SoundOrigin",
+                  "Value": {
+                    "_type": "gameobject",
+                    "go": "f92c8ce8-13b1-469d-ab7a-12ca286e7beb"
+                  }
+                }
+              ],
+              "MovedObjects": []
+            },
+            "__PrefabIdToInstanceId": {
+              "d1f1d544-7f25-40e1-8691-e21eff66eabf": "8b7d46d8-1564-4094-a93c-38e6733f1165",
+              "7723c9a6-3e3f-4c5c-b09c-fa461354db99": "15caf88a-045b-4dbf-9b60-b0d3a89148c1"
             }
           }
         ]

@@ -124,10 +124,11 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 		}
 
 		// Mario-Kart rule: if the player already holds something (or is still
-		// lingering on a previous use), the box stays for the next player.
-		if ( tracker.HasItem )
+		// lingering on a previous use, or is mid-pickup-jingle), the box stays for the
+		// next player.
+		if ( tracker.IsBusy )
 		{
-			if ( DebugLog ) Log.Info( "[ItemPrefab] Player already holds an item, leaving box for next player." );
+			if ( DebugLog ) Log.Info( "[ItemPrefab] Player already holds (or is picking up) an item, leaving box for next player." );
 			return;
 		}
 
@@ -145,9 +146,11 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 			return;
 		}
 
-		tracker.GrantItemRpc( key, prefab );
+		// Plays the pickup jingle (Sound 1 → Sound 2) on the player and grants the item
+		// only after the second clip finishes — so the sound delays the grant.
+		tracker.BeginPickupSequenceRpc( key, prefab );
 
-		if ( DebugLog ) Log.Info( $"[ItemPrefab] Granted '{key}' to {other.GameObject?.Name}, hiding box." );
+		if ( DebugLog ) Log.Info( $"[ItemPrefab] Pickup '{key}' by {other.GameObject?.Name} — sound sequence started, hiding box." );
 
 		Available = false;
 		float wait = Random.Shared.Float( MinRespawnSeconds, MaxRespawnSeconds );

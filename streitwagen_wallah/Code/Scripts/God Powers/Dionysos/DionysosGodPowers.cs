@@ -83,6 +83,8 @@ public sealed class DionysosPower : GodPower
 	{
 		//Log.Info( "Dionyoss ist dabei meine Freunde" );
 		ResolveNotifier()?.Show( "Pew Pew" );
+		// Random grape clip (A or B), proximity on the user.
+		ResolveNormalSfx()?.PlayDionysosGrapes();
 
 		if ( !GrapeProjectilePrefab.IsValid() )
 		{
@@ -143,6 +145,8 @@ public sealed class DionysosPower : GodPower
 	protected override void OnActivateUltimate()
 	{
 		ResolveNotifier()?.ShowTimed( "Jääägermeister", DrunkDuration );
+		// Sound A + voice, worldwide.
+		GodPowersUltimateSfxmodule.Instance?.PlayDionysosUltimate();
 
 		Guid casterId = Guid.Empty;
 		if ( Owner.IsValid() )
