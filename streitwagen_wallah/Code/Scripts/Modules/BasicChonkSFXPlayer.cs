@@ -1,39 +1,27 @@
 using Sandbox;
 using System;
-using System.Collections.Generic;
 
 namespace Sandbox;
 
 /// <summary>
-/// Randomized sound feedback for item pickups and god-power use.
+/// Plays the item-PICKUP jingle: a fixed two-clip sequence (Sound 1 → Sound 2) that
+/// gates the actual item grant — the player only receives the item once Sound 2 ends.
 ///
-/// Drop this component on the player prefab (or a child of it). On start it walks
-/// up to the player root, finds the <see cref="PlayerItemTracker"/> anywhere in
-/// that tree, and subscribes to its <c>OnItemGranted</c> (pickup) and
-/// <c>OnItemUsed</c> (god power used) events. Both share the same <see cref="Sounds"/>
-/// pool: each time one fires it picks a random <see cref="SoundEvent"/> and plays
-/// it at the player's position with a slightly randomized pitch and a CONSTANT volume.
+/// Drop this on the player prefab (or a child). PlayerItemTracker finds it on pickup
+/// and calls <see cref="PlayPickupSequence"/> directly; this component no longer
+/// subscribes to any tracker events.
+///
+/// The old random "chonk" pool that used to fire on pickup AND on god-power use has
+/// been removed: pickup is this dedicated sequence, and god-power pickup/use sounds now
+/// come from the GodPowers SFX modules (GodPowersNormalSfxmodule / …UltimateSfxmodule).
 ///
 /// Multiplayer:
-///   - PlayerItemTracker's pickup/use events only fire on the OWNING client, so
-///     only the owner reacts here — there is no double-trigger across clients.
-///   - With <see cref="PlayForEveryone"/> on (default), the owner broadcasts the
-///     chosen sound index + pitch over an RPC so every client plays the *same*
-///     file at the *same* pitch, positioned at the player. Distance attenuation
-///     on the SoundEvent keeps far-away events quiet.
-///   - In the editor / single-player (no active network session) it just plays
-///     locally, so it always works while testing.
+///   - Only the OWNING client runs the sequence timer; each clip is broadcast so every
+///     client hears the same file at the same pitch, positioned at the player.
+///   - In the editor / single-player (no active session) it just plays locally.
 /// </summary>
 public sealed class ItemSoundPlayer : Component
 {
-	/// <summary>
-	/// Random pool for the GOD-POWER-USE sound (OnItemUsed). One is chosen at random
-	/// each time a power fires. Pickup no longer uses this pool — it plays the fixed
-	/// two-clip <see cref="PickupSound1"/> → <see cref="PickupSound2"/> sequence below.
-	/// </summary>
-	[Property, Group( "Sounds" )]
-	public List<SoundEvent> Sounds { get; set; } = new();
-
 	/// <summary>
 	/// First clip of the pickup jingle. Played the instant the player drives into an
 	/// item box. Drag a .sound asset here in the editor. Leave empty to skip straight
@@ -80,7 +68,7 @@ public sealed class ItemSoundPlayer : Component
 	public bool Spatial { get; set; } = true;
 
 	/// <summary>
-	/// True (default): broadcast so every player hears the sound at this player's
+	/// True (default): broadcast so every player hears the jingle at this player's
 	/// position. False: only the local owner hears it.
 	/// </summary>
 	[Property, Group( "Multiplayer" )]
@@ -93,17 +81,10 @@ public sealed class ItemSoundPlayer : Component
 	[Property, Group( "Multiplayer" )]
 	public GameObject SoundOrigin { get; set; }
 
-	/// <summary>
-	/// Optional explicit tracker. Leave null to auto-find the player's
-	/// PlayerItemTracker on start.
-	/// </summary>
-	[Property, Group( "Wiring" )]
-	public PlayerItemTracker Tracker { get; set; }
-
 	[Property, Group( "Debug" )]
 	public bool DebugLog { get; set; } = false;
 
-	/// <summary>DEBUG: when on, auto-plays a random sound every <see cref="DebugInterval"/> seconds. Turn off for normal play.</summary>
+	/// <summary>DEBUG: when on, auto-plays the pickup jingle every <see cref="DebugInterval"/> seconds (no item granted). Turn off for normal play.</summary>
 	[Property, Group( "Debug" )]
 	public bool DebugAutoPlay { get; set; } = false;
 
@@ -117,42 +98,12 @@ public sealed class ItemSoundPlayer : Component
 	{
 		if ( !SoundOrigin.IsValid() )
 			SoundOrigin = GameObject;
-
-		if ( !Tracker.IsValid() )
-			Tracker = FindTracker();
-
-		if ( !Tracker.IsValid() )
-		{
-			Log.Warning( $"[ItemSoundPlayer] No PlayerItemTracker found from '{GameObject.Name}'. " +
-				"Drag the 'Powers' node into the Tracker field on this component. No pickup/use sounds will play." );
-			return;
-		}
-
-		// NOTE: we deliberately do NOT subscribe to OnItemGranted anymore. Pickup audio
-		// is now a gated two-clip SEQUENCE that runs BEFORE the grant — the tracker calls
-		// PlayPickupSequence() directly and grants only when it completes. OnItemGranted
-		// fires AFTER the grant, which would be too late to delay it. We still react to
-		// OnItemUsed for the god-power-use sound.
-		Tracker.OnItemUsed += HandleItemUsed;
-
-		// Unconditional so you can confirm the link at a glance. Mute later via the
-		// component if it gets noisy.
-		Log.Info( $"[ItemSoundPlayer] Linked to PlayerItemTracker on '{Tracker.GameObject?.Name}'. Pickup/use sounds active." );
-	}
-
-	protected override void OnDestroy()
-	{
-		// Always unsubscribe — the tracker outlives a disabled/destroyed sound player.
-		if ( Tracker.IsValid() )
-		{
-			Tracker.OnItemUsed -= HandleItemUsed;
-		}
 	}
 
 	protected override void OnUpdate()
 	{
-		// Only the owner drives timing, mirroring the real pickup/use path so a live
-		// session doesn't get one broadcast per client every tick.
+		// Only the owner drives timing, so a live session doesn't get one broadcast
+		// per client every tick.
 		if ( Network.IsProxy ) return;
 
 		// Advance the gated pickup sequence (plays clip 2 after clip 1, grants after clip 2).
@@ -164,16 +115,14 @@ public sealed class ItemSoundPlayer : Component
 		if ( debugTimer < DebugInterval ) return;
 
 		debugTimer = 0f;
-		// Audition the real pickup jingle (clip 1 → clip 2) with NO item granted.
+		// Audition the pickup jingle (clip 1 → clip 2) with NO item granted.
 		PlayPickupSequence( null );
 	}
 
-	private void HandleItemUsed( string key, GodPower power ) => Trigger();
-
 	/// <summary>
 	/// DEBUG hook for ItemPrefab's sound-test mode. The host's ItemPrefab calls this
-	/// as an [Rpc.Owner] so it runs on the OWNING client, which then plays and
-	/// broadcasts a random sound exactly like a real pickup — but no item is granted.
+	/// as an [Rpc.Owner] so it runs on the OWNING client, which plays the pickup jingle
+	/// without granting an item.
 	/// </summary>
 	[Rpc.Owner]
 	public void PlayPickupSoundDebugRpc()
@@ -280,8 +229,8 @@ public sealed class ItemSoundPlayer : Component
 
 		var origin = SoundOrigin.IsValid() ? SoundOrigin : GameObject;
 		var handle = Spatial
-			? Sound.Play( ev, origin.Transform.Position ) // 3D at the player
-			: Sound.Play( ev );                           // 2D, full volume everywhere
+			? Sound.Play( ev, origin.WorldPosition ) // 3D at the player
+			: Sound.Play( ev );                       // 2D, full volume everywhere
 		if ( handle is null )
 		{
 			Log.Warning( $"[ItemSoundPlayer] Pickup clip {which}: Sound.Play returned null for '{ev.ResourcePath}'." );
@@ -301,106 +250,5 @@ public sealed class ItemSoundPlayer : Component
 		if ( DebugLog )
 			Log.Info( $"[ItemSoundPlayer] Pickup clip {which} '{ev.ResourcePath}' spatial={Spatial} vol={Volume} pitch={pitch:0.00}." );
 		return handle;
-	}
-
-	/// <summary>
-	/// Pick a random sound + pitch and play it. Runs on the owning client only
-	/// (the tracker's events never fire on proxies), so the random choice is made
-	/// once and then shared with everyone else.
-	/// </summary>
-	private void Trigger()
-	{
-		// NOTE: deliberately NO "if (!Active) return;" here. Sound.Play is a static
-		// engine call, so the sound should fire even when this component / its node
-		// is toggled inactive — e.g. ItemPrefab's SoundDebugMode invokes us directly
-		// over RPC, and the debug player doesn't receive an item. The sound never
-		// depended on the item grant; it only depended on Trigger() being allowed to run.
-		if ( Sounds is null || Sounds.Count == 0 )
-		{
-			Log.Warning( "[ItemSoundPlayer] Sounds list is empty — add .sound assets to the Sounds array." );
-			return;
-		}
-
-		int index = Random.Shared.Next( 0, Sounds.Count );
-		float pitch = Random.Shared.Float( PitchMin, PitchMax );
-
-		// Broadcast in a live session so all clients hear the same sound; play
-		// locally otherwise so it still works in the editor / single-player.
-		bool broadcast = PlayForEveryone && Networking.IsActive;
-		if ( DebugLog )
-			Log.Info( $"[ItemSoundPlayer] Trigger -> index {index}, pitch {pitch:0.00}, broadcast={broadcast}." );
-
-		if ( broadcast )
-			PlaySoundRpc( index, pitch );
-		else
-			PlaySoundLocal( index, pitch );
-	}
-
-	/// <summary>Broadcasts the chosen sound to every client so all players hear it.</summary>
-	[Rpc.Broadcast]
-	private void PlaySoundRpc( int index, float pitch )
-	{
-		PlaySoundLocal( index, pitch );
-	}
-
-	private void PlaySoundLocal( int index, float pitch )
-	{
-		if ( Sounds is null || index < 0 || index >= Sounds.Count )
-		{
-			Log.Warning( $"[ItemSoundPlayer] Can't play — index {index} out of range (count={Sounds?.Count ?? 0})." );
-			return;
-		}
-
-		var ev = Sounds[index];
-		if ( ev is null )
-		{
-			Log.Warning( $"[ItemSoundPlayer] Sounds[{index}] is EMPTY — assign a .sound asset to every slot in the array." );
-			return;
-		}
-
-		var origin = SoundOrigin.IsValid() ? SoundOrigin : GameObject;
-		var handle = Spatial
-			? Sound.Play( ev, origin.Transform.Position ) // 3D at the player
-			: Sound.Play( ev );                           // 2D, full volume everywhere
-		if ( handle is null )
-		{
-			Log.Warning( $"[ItemSoundPlayer] Sound.Play returned null for '{ev.ResourcePath}' — check the SoundEvent asset." );
-			return;
-		}
-
-		handle.Volume = Volume; // constant volume
-		handle.Pitch = pitch;   // randomized per play
-
-		// Attach a 3D sound to the chariot so it TRAVELS WITH it. Sound.Play( ev,
-		// position ) pins the sound to a fixed world point (the spot where the box
-		// was hit), so without this it would linger at the spawn/box position while
-		// the chariot drives away. 2D sounds aren't spatialized, so they skip this.
-		if ( Spatial && origin.IsValid() )
-		{
-			handle.Parent = origin;
-			handle.FollowParent = true;
-		}
-
-		Log.Info( $"[ItemSoundPlayer] Playing '{ev.ResourcePath}' spatial={Spatial} follow={Spatial && origin.IsValid()} vol={Volume} pitch={pitch:0.00}." );
-	}
-
-	/// <summary>
-	/// Find the player's PlayerItemTracker. It can live on a SIBLING branch (e.g.
-	/// the "Powers" node), not just above us, so a plain parent-walk isn't enough.
-	/// We climb to the player root and then search the ENTIRE player subtree.
-	/// </summary>
-	private PlayerItemTracker FindTracker()
-	{
-		// Cheap case first: tracker on us or an ancestor.
-		var t = Components.Get<PlayerItemTracker>( FindMode.EverythingInSelfAndAncestors );
-		if ( t.IsValid() ) return t;
-
-		// General case: go to the player root, then search the whole tree downward
-		// (this reaches sibling branches like Powers/PlayerItemTracker).
-		var root = GameObject;
-		while ( root.Parent.IsValid() )
-			root = root.Parent;
-
-		return root.Components.Get<PlayerItemTracker>( FindMode.EverythingInSelfAndDescendants );
 	}
 }
