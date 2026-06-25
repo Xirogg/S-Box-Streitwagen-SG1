@@ -7,7 +7,7 @@
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
-    "Tags": "player",
+    "Tags": "player,wagen",
     "Enabled": true,
     "NetworkMode": 1,
     "NetworkFlags": 0,
@@ -1440,6 +1440,30 @@
                         },
                         {
                           "Target": {
+                            "Type": "GameObject",
+                            "IdValue": "05cb9d6f-d863-4a00-8709-ddbc13c6ff62"
+                          },
+                          "Property": "NetworkMode",
+                          "Value": 1
+                        },
+                        {
+                          "Target": {
+                            "Type": "Component",
+                            "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
+                          },
+                          "Property": "DebugAutoPlay",
+                          "Value": false
+                        },
+                        {
+                          "Target": {
+                            "Type": "Component",
+                            "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
+                          },
+                          "Property": "DebugLog",
+                          "Value": true
+                        },
+                        {
+                          "Target": {
                             "Type": "Component",
                             "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
                           },
@@ -1447,6 +1471,19 @@
                           "Value": {
                             "_type": "gameobject",
                             "go": "f92c8ce8-13b1-469d-ab7a-12ca286e7beb"
+                          }
+                        },
+                        {
+                          "Target": {
+                            "Type": "Component",
+                            "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
+                          },
+                          "Property": "Tracker",
+                          "Value": {
+                            "_type": "component",
+                            "component_id": "5317c621-a5e5-4620-9003-50fbcc8c1852",
+                            "go": "fb553f81-4cf5-448d-94a4-fc8d56156c50",
+                            "component_type": "PlayerItemTracker"
                           }
                         }
                       ],
@@ -1548,7 +1585,7 @@
             "MaxFOV": 100,
             "NodLerpSpeed": 1,
             "NodMax": 1,
-            "Offset": "-400,0,200",
+            "Offset": "-800,0,350",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -1608,45 +1645,12 @@
         "Scale": "1,1,1",
         "Tags": "",
         "Enabled": true,
-        "NetworkMode": 2,
+        "NetworkMode": 1,
         "NetworkFlags": 0,
         "NetworkOrphaned": 0,
         "NetworkTransmit": true,
         "OwnerTransfer": 1,
         "Components": [
-          {
-            "__type": "DionysosPower",
-            "__guid": "e8bba6de-59c8-4d06-9cd7-6a8545bad0b5",
-            "__enabled": true,
-            "Flags": 0,
-            "DisplayName": "Power",
-            "DrunkDuration": 8,
-            "GrapeCount": 5,
-            "GrapeProjectilePrefab": {
-              "_type": "gameobject",
-              "prefab": "prefabs/god prefabs/dionysos/traubenbulletprefab .prefab"
-            },
-            "HorseReference": {
-              "_type": "gameobject",
-              "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
-            },
-            "Icon": null,
-            "LingerAfterNormal": 0,
-            "LingerAfterUltimate": 0,
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "PlayerTag": "player",
-            "ProjectileSpeed": 1500,
-            "SpawnForwardOffset": 50,
-            "SpawnHeightOffset": 30,
-            "SpreadAngleDegrees": 45,
-            "UltimateDisplayName": "Ultimate",
-            "UltimateIcon": null
-          },
           {
             "__type": "PowerManager",
             "__guid": "bb976fac-dd01-419b-a740-5aad185db865",
@@ -1662,6 +1666,29 @@
               "_type": "gameobject",
               "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
             }
+          },
+          {
+            "__type": "Sandbox.PlayerItemTracker",
+            "__guid": "5317c621-a5e5-4620-9003-50fbcc8c1852",
+            "__enabled": true,
+            "Flags": 0,
+            "DebugLog": true,
+            "ItemHost": {
+              "_type": "gameobject",
+              "go": "fb553f81-4cf5-448d-94a4-fc8d56156c50"
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "PlayerRoot": {
+              "_type": "gameobject",
+              "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
+            },
+            "UltimateModifierAction": "Run",
+            "UseAction": "UseItem"
           }
         ],
         "Children": []

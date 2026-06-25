@@ -114,24 +114,24 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 		FindOtherPlayerBodies( collision, out ChariotPhysics otherChariot, out Rigidbody otherHorseRb, out Rigidbody otherChariotRb );
 		if ( otherChariot is null || otherHorseRb is null || otherHorseRb == Body ) return;
 
-		// Push-Richtung aus der Kontakt-Normale. Die Normale zeigt vom anderen Body
-		// auf uns zu, also wollen wir das umgekehrte für die Schubrichtung.
-		Vector3 contactNormal = collision.Contact.Normal;
-		Vector3 pushDirRaw = -contactNormal;
-		pushDirRaw.z = 0f; // Z-up: nur horizontalen Anteil weiterverwenden
+		// Push direction: shove the victim away from US, horizontally. Derived from the two
+		// bodies' positions instead of collision.Contact.Normal — across the network the
+		// contact normal can flip or jitter (the victim is a proxy and the contact is
+		// regenerated locally), which made hits fire in random directions and feel "weird".
+		// Body-to-body is stable.
+		Vector3 pushDirRaw = (otherHorseRb.WorldPosition - Body.WorldPosition).WithZ( 0f );
+		if ( pushDirRaw.LengthSquared < 0.0001f )
+			pushDirRaw = (-collision.Contact.Normal).WithZ( 0f ); // stacked centres → fall back to the contact normal
 		if ( pushDirRaw.LengthSquared < 0.0001f ) return;
 		Vector3 pushDir = pushDirRaw.Normal;
 
-		Vector3 myVelFlat = Body.Velocity; myVelFlat.z = 0f;
-		Vector3 otherVelFlat = otherHorseRb.Velocity; otherVelFlat.z = 0f;
-
-		float myImpact = Vector3.Dot( myVelFlat, pushDir );
-		float otherImpact = Vector3.Dot( otherVelFlat, pushDir );
-		float closingSpeed = myImpact - otherImpact;
-
-		// Nur der Angreifer schubst — die Gegenseite sieht negative closingSpeed.
-		if ( closingSpeed < MinClosingSpeed ) return;
-		if ( myImpact < 0.05f ) return;
+		// Closing speed from OUR OWN velocity toward them — deterministic. The old code
+		// subtracted the victim's velocity, but for a networked victim that's a proxy value
+		// that's frequently stale or zero, so the closing speed jittered and the hit randomly
+		// failed the gate below (the "non-existent impact"). We own our body, so this can't
+		// desync; in a head-on each chariot fires with its own approach speed, so both launch.
+		float approach = Vector3.Dot( Body.Velocity.WithZ( 0f ), pushDir );
+		if ( approach < MinClosingSpeed ) return;
 
 		Vector3 finalDir = BuildFinalDirection( pushDir );
 
@@ -143,7 +143,7 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 
 		float weightMult = AttackerStats is not null ? AttackerStats.WeightMultiplier : 1f;
 
-		float magnitude = (BaseImpulse + ImpulsePerClosingSpeed * closingSpeed) * sharpMult * weightMult;
+		float magnitude = (BaseImpulse + ImpulsePerClosingSpeed * approach) * sharpMult * weightMult;
 		magnitude = MathF.Min( magnitude, MaxImpulse );
 
 		float sideSign = ComputeSideSign( pushDir );
@@ -179,7 +179,7 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 
 		if ( DebugLog )
 		{
-			Log.Info( $"[PlayerCollisions {GameObject.Name}] closing={closingSpeed:F2} | sharp={(sharpMult > 1f)} | " +
+			Log.Info( $"[PlayerCollisions {GameObject.Name}] approach={approach:F1} | sharp={(sharpMult > 1f)} | " +
 				$"weightMult={weightMult:F2} | " +
 				$"impulse={magnitude:F0} (Pferde) + {magnitude * ChariotImpulseRatio:F0} (Wagen) | " +
 				$"dir={finalDir} | sideSign={sideSign}" );

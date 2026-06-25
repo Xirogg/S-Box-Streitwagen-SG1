@@ -46,6 +46,15 @@ public sealed class ItemSoundPlayer : Component
 	public float PitchMax { get; set; } = 1.1f;
 
 	/// <summary>
+	/// True (default): play positioned at the player (3D — attenuates with distance).
+	/// False: play as a 2D sound at full volume regardless of listener position.
+	/// Flip this to False if 3D playback seems silent — it isolates listener/distance
+	/// problems from "the clip isn't wired up" problems.
+	/// </summary>
+	[Property, Group( "Playback" )]
+	public bool Spatial { get; set; } = true;
+
+	/// <summary>
 	/// True (default): broadcast so every player hears the sound at this player's
 	/// position. False: only the local owner hears it.
 	/// </summary>
@@ -89,15 +98,17 @@ public sealed class ItemSoundPlayer : Component
 
 		if ( !Tracker.IsValid() )
 		{
-			Log.Warning( "[ItemSoundPlayer] No PlayerItemTracker found on the player — no pickup/use sounds will play. Assign one in the inspector." );
+			Log.Warning( $"[ItemSoundPlayer] No PlayerItemTracker found from '{GameObject.Name}'. " +
+				"Drag the 'Powers' node into the Tracker field on this component. No pickup/use sounds will play." );
 			return;
 		}
 
 		Tracker.OnItemGranted += HandleItemGranted;
 		Tracker.OnItemUsed += HandleItemUsed;
 
-		if ( DebugLog )
-			Log.Info( $"[ItemSoundPlayer] Subscribed to tracker on '{Tracker.GameObject?.Name}'." );
+		// Unconditional so you can confirm the link at a glance. Mute later via the
+		// component if it gets noisy.
+		Log.Info( $"[ItemSoundPlayer] Linked to PlayerItemTracker on '{Tracker.GameObject?.Name}'. Pickup/use sounds active." );
 	}
 
 	protected override void OnDestroy()
@@ -128,18 +139,32 @@ public sealed class ItemSoundPlayer : Component
 	private void HandleItemUsed( string key, GodPower power ) => Trigger();
 
 	/// <summary>
+	/// DEBUG hook for ItemPrefab's sound-test mode. The host's ItemPrefab calls this
+	/// as an [Rpc.Owner] so it runs on the OWNING client, which then plays and
+	/// broadcasts a random sound exactly like a real pickup — but no item is granted.
+	/// </summary>
+	[Rpc.Owner]
+	public void PlayPickupSoundDebugRpc()
+	{
+		Log.Info( "[ItemSoundPlayer] PlayPickupSoundDebugRpc received — triggering sound." );
+		Trigger();
+	}
+
+	/// <summary>
 	/// Pick a random sound + pitch and play it. Runs on the owning client only
 	/// (the tracker's events never fire on proxies), so the random choice is made
 	/// once and then shared with everyone else.
 	/// </summary>
 	private void Trigger()
 	{
-		if ( !Active ) return;
-
+		// NOTE: deliberately NO "if (!Active) return;" here. Sound.Play is a static
+		// engine call, so the sound should fire even when this component / its node
+		// is toggled inactive — e.g. ItemPrefab's SoundDebugMode invokes us directly
+		// over RPC, and the debug player doesn't receive an item. The sound never
+		// depended on the item grant; it only depended on Trigger() being allowed to run.
 		if ( Sounds is null || Sounds.Count == 0 )
 		{
-			if ( DebugLog )
-				Log.Info( "[ItemSoundPlayer] Sounds list is empty — nothing to play." );
+			Log.Warning( "[ItemSoundPlayer] Sounds list is empty — add .sound assets to the Sounds array." );
 			return;
 		}
 
@@ -148,7 +173,11 @@ public sealed class ItemSoundPlayer : Component
 
 		// Broadcast in a live session so all clients hear the same sound; play
 		// locally otherwise so it still works in the editor / single-player.
-		if ( PlayForEveryone && Networking.IsActive )
+		bool broadcast = PlayForEveryone && Networking.IsActive;
+		if ( DebugLog )
+			Log.Info( $"[ItemSoundPlayer] Trigger -> index {index}, pitch {pitch:0.00}, broadcast={broadcast}." );
+
+		if ( broadcast )
 			PlaySoundRpc( index, pitch );
 		else
 			PlaySoundLocal( index, pitch );
@@ -164,30 +193,61 @@ public sealed class ItemSoundPlayer : Component
 	private void PlaySoundLocal( int index, float pitch )
 	{
 		if ( Sounds is null || index < 0 || index >= Sounds.Count )
+		{
+			Log.Warning( $"[ItemSoundPlayer] Can't play — index {index} out of range (count={Sounds?.Count ?? 0})." );
 			return;
+		}
 
 		var ev = Sounds[index];
 		if ( ev is null )
+		{
+			Log.Warning( $"[ItemSoundPlayer] Sounds[{index}] is EMPTY — assign a .sound asset to every slot in the array." );
 			return;
+		}
 
 		var origin = SoundOrigin.IsValid() ? SoundOrigin : GameObject;
-		var handle = Sound.Play( ev, origin.Transform.Position );
+		var handle = Spatial
+			? Sound.Play( ev, origin.Transform.Position ) // 3D at the player
+			: Sound.Play( ev );                           // 2D, full volume everywhere
 		if ( handle is null )
+		{
+			Log.Warning( $"[ItemSoundPlayer] Sound.Play returned null for '{ev.ResourcePath}' — check the SoundEvent asset." );
 			return;
+		}
 
 		handle.Volume = Volume; // constant volume
 		handle.Pitch = pitch;   // randomized per play
 
-		if ( DebugLog )
-			Log.Info( $"[ItemSoundPlayer] Playing sound #{index} '{ev.ResourcePath}' pitch={pitch:0.00}." );
+		// Attach a 3D sound to the chariot so it TRAVELS WITH it. Sound.Play( ev,
+		// position ) pins the sound to a fixed world point (the spot where the box
+		// was hit), so without this it would linger at the spawn/box position while
+		// the chariot drives away. 2D sounds aren't spatialized, so they skip this.
+		if ( Spatial && origin.IsValid() )
+		{
+			handle.Parent = origin;
+			handle.FollowParent = true;
+		}
+
+		Log.Info( $"[ItemSoundPlayer] Playing '{ev.ResourcePath}' spatial={Spatial} follow={Spatial && origin.IsValid()} vol={Volume} pitch={pitch:0.00}." );
 	}
 
-	/// <summary>Walk up to the player root, then search the whole tree for the tracker.</summary>
+	/// <summary>
+	/// Find the player's PlayerItemTracker. It can live on a SIBLING branch (e.g.
+	/// the "Powers" node), not just above us, so a plain parent-walk isn't enough.
+	/// We climb to the player root and then search the ENTIRE player subtree.
+	/// </summary>
 	private PlayerItemTracker FindTracker()
 	{
+		// Cheap case first: tracker on us or an ancestor.
+		var t = Components.Get<PlayerItemTracker>( FindMode.EverythingInSelfAndAncestors );
+		if ( t.IsValid() ) return t;
+
+		// General case: go to the player root, then search the whole tree downward
+		// (this reaches sibling branches like Powers/PlayerItemTracker).
 		var root = GameObject;
 		while ( root.Parent.IsValid() )
 			root = root.Parent;
+
 		return root.Components.Get<PlayerItemTracker>( FindMode.EverythingInSelfAndDescendants );
 	}
 }
