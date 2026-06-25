@@ -619,10 +619,26 @@
                 {
                   "Target": {
                     "Type": "Component",
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  },
+                  "Property": "Tint",
+                  "Value": "0.85116,0.85116,0.85116,1"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
                     "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
                   },
                   "Property": "Tint",
                   "Value": "0.85116,0.85116,0.85116,1"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "90337549-471e-4551-af7e-547d2694ff2f"
+                  },
+                  "Property": "__enabled",
+                  "Value": false
                 }
               ],
               "MovedObjects": [
@@ -637,9 +653,38 @@
                   },
                   "NewContainerProperty": "Components",
                   "IsNewContainerArray": true,
+                  "NewPreviousElement": null
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
+                  },
+                  "NewParent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "NewContainerProperty": "Components",
+                  "IsNewContainerArray": true,
                   "NewPreviousElement": {
                     "Type": "Component",
-                    "IdValue": "a09a1e46-ab22-4bfc-9f48-ba56647c642c"
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "a923a3bb-2f46-4491-b70a-dda97de5970a"
+                  },
+                  "NewParent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "NewContainerProperty": "Components",
+                  "IsNewContainerArray": true,
+                  "NewPreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "4ef56b82-f7bb-48ef-a708-8f091f2a6a3a"
                   }
                 }
               ]
@@ -872,10 +917,26 @@
                 {
                   "Target": {
                     "Type": "Component",
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  },
+                  "Property": "Tint",
+                  "Value": "0.85116,0.85116,0.85116,1"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
                     "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
                   },
                   "Property": "Tint",
                   "Value": "0.85116,0.85116,0.85116,1"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "90337549-471e-4551-af7e-547d2694ff2f"
+                  },
+                  "Property": "__enabled",
+                  "Value": false
                 }
               ],
               "MovedObjects": [
@@ -890,9 +951,38 @@
                   },
                   "NewContainerProperty": "Components",
                   "IsNewContainerArray": true,
+                  "NewPreviousElement": null
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
+                  },
+                  "NewParent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "NewContainerProperty": "Components",
+                  "IsNewContainerArray": true,
                   "NewPreviousElement": {
                     "Type": "Component",
-                    "IdValue": "d6011bcc-da1d-491f-89f8-bbdf218a72c3"
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "a923a3bb-2f46-4491-b70a-dda97de5970a"
+                  },
+                  "NewParent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "NewContainerProperty": "Components",
+                  "IsNewContainerArray": true,
+                  "NewPreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "67f02a79-2f26-4c53-89b2-77e8f85d0837"
                   }
                 }
               ]
