@@ -4419,9 +4419,9 @@
                 "Maxs": "512,512,512"
               },
               "Contrast": 2,
-              "DistanceTexture": "scenes/egypt_scene_data/ddgi/indirect light volume_distance_9e57b95c-fdd1-43c5-ae87-c7aa3b043c34.vtex",
+              "DistanceTexture": null,
               "InsideGeometry": "Relocate",
-              "IrradianceTexture": "scenes/egypt_scene_data/ddgi/indirect light volume_irradiance_9e57b95c-fdd1-43c5-ae87-c7aa3b043c34.vtex",
+              "IrradianceTexture": null,
               "NormalBias": 44.101124,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -4430,7 +4430,7 @@
               "OnComponentStart": null,
               "OnComponentUpdate": null,
               "ProbeDensity": 8,
-              "RelocationTexture": "scenes/egypt_scene_data/ddgi/indirect light volume_relocation_9e57b95c-fdd1-43c5-ae87-c7aa3b043c34.vtex",
+              "RelocationTexture": null,
               "RenderExcludeTags": ""
             }
           ],
@@ -4479,7 +4479,7 @@
             }
           ],
           "Force2d": false,
-          "MaxRepeatTime": 1,
+          "MaxRepeatTime": 1.2525253E+10,
           "MinRepeatTime": 1,
           "OcclusionEnabled": false,
           "OcclusionOverride": false,
@@ -4491,16 +4491,16 @@
           "OnComponentUpdate": null,
           "Pitch": 1,
           "PlayOnStart": true,
-          "Repeat": false,
+          "Repeat": true,
           "ReverbEnabled": false,
           "ReverbOverride": false,
           "Scale": "50000,50000,500000",
-          "SoundEvent": "music/bgm/provisional bgm.sound",
+          "SoundEvent": "music/bgm/scene_bgm/egypt_bgm.sound",
           "SoundOverride": false,
           "StopOnNew": false,
           "TargetMixer": {
-            "Name": "unknown",
-            "Id": "00000000-0000-0000-0000-000000000000"
+            "Name": "music",
+            "Id": "b5c7ed68-ac2c-48a3-8161-1aed0d01232b"
           },
           "Volume": 1
         }
@@ -4578,6 +4578,11 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "8c9b4253-88aa-410e-a2a1-40f81eedc43b"
+        }
+      },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []

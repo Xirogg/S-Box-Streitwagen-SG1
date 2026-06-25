@@ -1232,6 +1232,7 @@
               "__guid": "6c23fcdf-cdb2-49ae-9f74-1fa109b17f26",
               "__enabled": true,
               "Flags": 0,
+              "Contribution": "Diffuse, Specular, Transmissive",
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.8,0.58419,0.58419,1",
@@ -1289,7 +1290,8 @@
               "OnComponentStart": null,
               "OnComponentUpdate": null,
               "ProbeDensity": 5,
-              "RelocationTexture": null
+              "RelocationTexture": null,
+              "RenderExcludeTags": ""
             }
           ],
           "Children": []
@@ -1339,9 +1341,8 @@
           "Force2d": false,
           "MaxRepeatTime": 1,
           "MinRepeatTime": 1,
-          "Occlusion": false,
+          "OcclusionEnabled": false,
           "OcclusionOverride": false,
-          "OcclusionRadius": 32,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -1350,16 +1351,16 @@
           "OnComponentUpdate": null,
           "Pitch": 1,
           "PlayOnStart": true,
-          "ReflectionOverride": false,
-          "Reflections": false,
           "Repeat": false,
+          "ReverbEnabled": false,
+          "ReverbOverride": false,
           "Scale": "50000,50000,500000",
-          "SoundEvent": "music/bgm/provisional bgm.sound",
+          "SoundEvent": "music/bgm/scene_bgm/rome_bgm.sound",
           "SoundOverride": false,
           "StopOnNew": false,
           "TargetMixer": {
-            "Name": "unknown",
-            "Id": "00000000-0000-0000-0000-000000000000"
+            "Name": "game",
+            "Id": "22a5cbcb-c91b-4aca-b03b-9dfb20adee80"
           },
           "Volume": 1
         }
@@ -1387,14 +1388,14 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "6c9569fc-ca64-40bb-af19-c464fbf0dc0a"
+        }
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       }
     }

@@ -4913,6 +4913,7 @@
               "__guid": "d3659344-a90d-48fa-927a-095f70fe041f",
               "__enabled": true,
               "Flags": 0,
+              "Contribution": "Diffuse, Specular, Transmissive",
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.99039,1,0.71163,1",
@@ -4976,11 +4977,10 @@
             }
           ],
           "Force2d": false,
-          "MaxRepeatTime": 1,
+          "MaxRepeatTime": 125252530,
           "MinRepeatTime": 1,
-          "Occlusion": false,
+          "OcclusionEnabled": false,
           "OcclusionOverride": false,
-          "OcclusionRadius": 32,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -4989,16 +4989,16 @@
           "OnComponentUpdate": null,
           "Pitch": 1,
           "PlayOnStart": true,
-          "ReflectionOverride": false,
-          "Reflections": false,
-          "Repeat": false,
+          "Repeat": true,
+          "ReverbEnabled": false,
+          "ReverbOverride": false,
           "Scale": "50000,50000,500000",
-          "SoundEvent": "music/bgm/provisional bgm.sound",
+          "SoundEvent": "music/bgm/scene_bgm/bgm_greece.sound",
           "SoundOverride": false,
           "StopOnNew": false,
           "TargetMixer": {
-            "Name": "unknown",
-            "Id": "00000000-0000-0000-0000-000000000000"
+            "Name": "music",
+            "Id": "b5c7ed68-ac2c-48a3-8161-1aed0d01232b"
           },
           "Volume": 1
         }
@@ -5026,14 +5026,14 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.SelectionSetsSystem": {
-        "Data": {
-          "SelectionSets": []
-        }
-      },
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
           "$blob": "5af075bd-4187-4b63-acf2-e2a57dc482fe"
+        }
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
         }
       }
     }
