@@ -1,0 +1,72 @@
+{
+  "RootObject": {
+    "__guid": "01f952bf-ed24-43a2-a460-77ec29ba08b5",
+    "__version": 2,
+    "Flags": 0,
+    "Name": "chariot_wagon_sfx_prefab",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkFlags": 0,
+    "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
+    "OwnerTransfer": 1,
+    "Components": [
+      {
+        "__type": "Sandbox.ChariotWagonSfxmodule",
+        "__guid": "19c8c817-c90b-4d95-99c5-c6c53b9c05e8",
+        "__enabled": true,
+        "Flags": 0,
+        "AirtimeSound": "music/sfx/playerchariot/chariot/chariot_sfx_airtime.sound",
+        "Body": null,
+        "DebugLog": false,
+        "DropWindow": 0.5,
+        "GroundProbeDistance": 60,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "PlayForEveryone": true,
+        "SoundOrigin": null,
+        "SpeedDropThreshold": 1500,
+        "StopCooldown": 1,
+        "SuddenStopSound": "music/sfx/playerchariot/chariot/chariot_sfx_airtime.sound",
+        "Volume": 1
+      }
+    ],
+    "Children": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": false,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
+      }
+    },
+    "__variables": []
+  },
+  "ResourceVersion": 2,
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "__references": [],
+  "__version": 2
+}

@@ -994,6 +994,73 @@
               "a923a3bb-2f46-4491-b70a-dda97de5970a": "e84136f5-2132-4a80-af22-8aea456670ca",
               "5e08b23a-98b2-4b0d-b033-2a4919e3d079": "563c62d2-d481-4b37-82d1-ba7ff419494c"
             }
+          },
+          {
+            "__guid": "d757d47d-f756-4253-ba56-c198b1e73961",
+            "__version": 2,
+            "Flags": 0,
+            "Name": "SFX",
+            "Position": "0,0,0",
+            "Rotation": "0,0,0,1",
+            "Scale": "1,1,1",
+            "Tags": "",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkFlags": 0,
+            "NetworkOrphaned": 0,
+            "NetworkTransmit": true,
+            "OwnerTransfer": 1,
+            "Components": [],
+            "Children": [
+              {
+                "__guid": "87875af4-55a4-4af2-be84-0548d6bbc816",
+                "__version": 2,
+                "__Prefab": "prefabs/sfx/playerchariot/chariot_horse-sfx_prefab.prefab",
+                "__PrefabInstancePatch": {
+                  "AddedObjects": [],
+                  "RemovedObjects": [],
+                  "PropertyOverrides": [
+                    {
+                      "Target": {
+                        "Type": "GameObject",
+                        "IdValue": "5ae571ec-0471-4f56-8c78-36107261797b"
+                      },
+                      "Property": "Scale",
+                      "Value": "2.5,2.5,2.5"
+                    },
+                    {
+                      "Target": {
+                        "Type": "Component",
+                        "IdValue": "0c3a5297-16a5-426e-b425-6c002b68b787"
+                      },
+                      "Property": "HorseBody",
+                      "Value": {
+                        "_type": "component",
+                        "component_id": "337056b5-7f39-4500-aad7-05f14b5297c5",
+                        "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
+                        "component_type": "Rigidbody"
+                      }
+                    },
+                    {
+                      "Target": {
+                        "Type": "Component",
+                        "IdValue": "0c3a5297-16a5-426e-b425-6c002b68b787"
+                      },
+                      "Property": "SoundOrigin",
+                      "Value": {
+                        "_type": "gameobject",
+                        "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27"
+                      }
+                    }
+                  ],
+                  "MovedObjects": []
+                },
+                "__PrefabIdToInstanceId": {
+                  "5ae571ec-0471-4f56-8c78-36107261797b": "87875af4-55a4-4af2-be84-0548d6bbc816",
+                  "0c3a5297-16a5-426e-b425-6c002b68b787": "d6d799a0-c1cf-4c76-b3d5-cf5d99dc7960"
+                }
+              }
+            ]
           }
         ]
       },
@@ -1583,6 +1650,70 @@
                       "6288ef7d-eeed-4806-8307-1c7e4c5dedcf": "83a47904-1871-4c64-abdc-654f3ae96b0a"
                     }
                   }
+                },
+                {
+                  "Id": {
+                    "Type": "GameObject",
+                    "IdValue": "ac428c17-4e2e-4293-a243-7c5e5097d6f1"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "5f6e4508-41be-4c96-8d7a-a6deed0a846a"
+                  },
+                  "PreviousElement": {
+                    "Type": "GameObject",
+                    "IdValue": "acce6cc2-3b4d-4189-b9cd-c62940fe772b"
+                  },
+                  "ContainerProperty": "Children",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__guid": "ac428c17-4e2e-4293-a243-7c5e5097d6f1",
+                    "__version": 2,
+                    "__Prefab": "prefabs/sfx/playerchariot/chariot_chohonk_sfx_prefab.prefab",
+                    "__PrefabInstancePatch": {
+                      "AddedObjects": [],
+                      "RemovedObjects": [],
+                      "PropertyOverrides": [
+                        {
+                          "Target": {
+                            "Type": "GameObject",
+                            "IdValue": "b7dd49de-d51b-4b0b-82f0-9d2dc0f1faf8"
+                          },
+                          "Property": "Position",
+                          "Value": "368.288971,8.17071533,13.4727297"
+                        },
+                        {
+                          "Target": {
+                            "Type": "Component",
+                            "IdValue": "492f72e0-2c29-4bc2-9ce0-5b5f7d9e6619"
+                          },
+                          "Property": "Damage",
+                          "Value": {
+                            "_type": "component",
+                            "component_id": "f16cf299-abcb-4ecb-983e-e19dc7a1abe2",
+                            "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
+                            "component_type": "PlayerDamageSystem"
+                          }
+                        },
+                        {
+                          "Target": {
+                            "Type": "Component",
+                            "IdValue": "492f72e0-2c29-4bc2-9ce0-5b5f7d9e6619"
+                          },
+                          "Property": "SoundOrigin",
+                          "Value": {
+                            "_type": "gameobject",
+                            "go": "f92c8ce8-13b1-469d-ab7a-12ca286e7beb"
+                          }
+                        }
+                      ],
+                      "MovedObjects": []
+                    },
+                    "__PrefabIdToInstanceId": {
+                      "b7dd49de-d51b-4b0b-82f0-9d2dc0f1faf8": "ac428c17-4e2e-4293-a243-7c5e5097d6f1",
+                      "492f72e0-2c29-4bc2-9ce0-5b5f7d9e6619": "e4d2e3e4-0eae-44df-8e09-8c5abd0d9c8c"
+                    }
+                  }
                 }
               ],
               "RemovedObjects": [
@@ -1678,6 +1809,81 @@
               "d1f1d544-7f25-40e1-8691-e21eff66eabf": "8b7d46d8-1564-4094-a93c-38e6733f1165",
               "7723c9a6-3e3f-4c5c-b09c-fa461354db99": "15caf88a-045b-4dbf-9b60-b0d3a89148c1"
             }
+          },
+          {
+            "__guid": "a89d35c2-a5aa-4482-bd17-4e7b16cd7423",
+            "__version": 2,
+            "Flags": 0,
+            "Name": "Wagon SFX",
+            "Position": "0,0,0",
+            "Rotation": "0,0,0,1",
+            "Scale": "1,1,1",
+            "Tags": "",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkFlags": 0,
+            "NetworkOrphaned": 0,
+            "NetworkTransmit": true,
+            "OwnerTransfer": 1,
+            "Components": [],
+            "Children": [
+              {
+                "__guid": "6cd9efdc-9b3b-4dfd-803e-f403a076ff9b",
+                "__version": 2,
+                "__Prefab": "prefabs/sfx/playerchariot/chariot_wagon_sfx_prefab.prefab",
+                "__PrefabInstancePatch": {
+                  "AddedObjects": [],
+                  "RemovedObjects": [],
+                  "PropertyOverrides": [
+                    {
+                      "Target": {
+                        "Type": "GameObject",
+                        "IdValue": "01f952bf-ed24-43a2-a460-77ec29ba08b5"
+                      },
+                      "Property": "Position",
+                      "Value": "295.409424,0.777980566,21.9358997"
+                    },
+                    {
+                      "Target": {
+                        "Type": "GameObject",
+                        "IdValue": "01f952bf-ed24-43a2-a460-77ec29ba08b5"
+                      },
+                      "Property": "Scale",
+                      "Value": "0.800000012,0.800000012,0.800000012"
+                    },
+                    {
+                      "Target": {
+                        "Type": "Component",
+                        "IdValue": "19c8c817-c90b-4d95-99c5-c6c53b9c05e8"
+                      },
+                      "Property": "Body",
+                      "Value": {
+                        "_type": "component",
+                        "component_id": "4932540a-ba13-4f07-bd43-b3da02c0d833",
+                        "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
+                        "component_type": "Rigidbody"
+                      }
+                    },
+                    {
+                      "Target": {
+                        "Type": "Component",
+                        "IdValue": "19c8c817-c90b-4d95-99c5-c6c53b9c05e8"
+                      },
+                      "Property": "SoundOrigin",
+                      "Value": {
+                        "_type": "gameobject",
+                        "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2"
+                      }
+                    }
+                  ],
+                  "MovedObjects": []
+                },
+                "__PrefabIdToInstanceId": {
+                  "01f952bf-ed24-43a2-a460-77ec29ba08b5": "6cd9efdc-9b3b-4dfd-803e-f403a076ff9b",
+                  "19c8c817-c90b-4d95-99c5-c6c53b9c05e8": "a6f9afa6-a7a6-45e7-b891-b0cd4a40ea80"
+                }
+              }
+            ]
           }
         ]
       },

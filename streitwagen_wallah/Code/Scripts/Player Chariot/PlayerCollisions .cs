@@ -65,6 +65,15 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 
 	private float _lastRamTime = -999f;
 	private PlayerStats _attackerStats;
+	private ChariotChonkSfxmodule _chonkSfx;
+
+	/// <summary>The player's chonk SFX module (plays the ram sound). Resolved lazily and cached.</summary>
+	private ChariotChonkSfxmodule ResolveChonkSfx()
+	{
+		if ( _chonkSfx.IsValid() ) return _chonkSfx;
+		_chonkSfx = GameObject.Root?.Components.Get<ChariotChonkSfxmodule>( FindMode.EverythingInSelfAndDescendants );
+		return _chonkSfx;
+	}
 
 	/// <summary>
 	/// PlayerStats sitting somewhere on this player's hierarchy. Resolved lazily on
@@ -168,6 +177,11 @@ public sealed class PlayerCollisions : Component, Component.ICollisionListener
 		otherChariot.ApplyRamKnockback( horseImpulse, horseAngular, chariotImpulse, chariotAngular );
 
 		_lastRamTime = Time.Now;
+
+		// Ram SFX — proximity on the attacker. Only the owning peer plays it (collisions
+		// can fire on several peers) so it isn't doubled.
+		if ( !IsProxy )
+			ResolveChonkSfx()?.PlayRam();
 
 		// Optional debris burst — only on a confirmed ram, and only if a prefab is
 		// actually assigned. (The field is left empty in the prefab, so the old

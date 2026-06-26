@@ -1,0 +1,73 @@
+{
+  "RootObject": {
+    "__guid": "5ae571ec-0471-4f56-8c78-36107261797b",
+    "__version": 2,
+    "Flags": 0,
+    "Name": "chariot_horse-sfx_prefab",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkFlags": 0,
+    "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
+    "OwnerTransfer": 1,
+    "Components": [
+      {
+        "__type": "Sandbox.ChariotHorseSfxmodule",
+        "__guid": "0c3a5297-16a5-426e-b425-6c002b68b787",
+        "__enabled": true,
+        "Flags": 0,
+        "DebugLog": false,
+        "HorseBody": null,
+        "IdleRandomSound": "music/sfx/playerchariot/horse/horse_sfx_race_neigh.sound",
+        "MaxInterval": 20,
+        "MinInterval": 10,
+        "MoveLoopSound": "music/sfx/playerchariot/horse/horse_sfx_race_gallop.sound",
+        "MoveSpeedThreshold": 125,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "PitchMax": 1.1,
+        "PitchMin": 0.9,
+        "PlayForEveryone": true,
+        "SoundOrigin": null,
+        "Volume": 1
+      }
+    ],
+    "Children": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": false,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
+      }
+    },
+    "__variables": []
+  },
+  "ResourceVersion": 2,
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "__references": [],
+  "__version": 2
+}
