@@ -4545,6 +4545,14 @@
                 },
                 "Property": "Position",
                 "Value": "-525.533142,-10687.0117,-966.862122"
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "13d5a8e5-3f3f-49aa-902e-1d1ecbbcf79b"
+                },
+                "Property": "MaatSoundB",
+                "Value": null
               }
             ],
             "MovedObjects": []
