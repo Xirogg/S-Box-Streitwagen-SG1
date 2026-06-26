@@ -4481,7 +4481,7 @@
         {
           "__type": "Sandbox.SoundBoxComponent",
           "__guid": "b8b13e40-ac5f-455a-acab-5dd578bd5ded",
-          "__enabled": true,
+          "__enabled": false,
           "Flags": 0,
           "Distance": 512,
           "DistanceAttenuation": false,
@@ -4529,7 +4529,32 @@
           "Volume": 1
         }
       ],
-      "Children": []
+      "Children": [
+        {
+          "__guid": "4ecc24c0-46d5-4cf9-9f3a-5e45a367cb0e",
+          "__version": 2,
+          "__Prefab": "prefabs/sfx/godpowers_sfx_ultimate_prefab.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "87eb9a22-0d13-49bc-bf98-e3a4a0f20ec1"
+                },
+                "Property": "Position",
+                "Value": "-525.533142,-10687.0117,-966.862122"
+              }
+            ],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "87eb9a22-0d13-49bc-bf98-e3a4a0f20ec1": "4ecc24c0-46d5-4cf9-9f3a-5e45a367cb0e",
+            "13d5a8e5-3f3f-49aa-902e-1d1ecbbcf79b": "cfb2909b-5bda-4a64-8cd9-379054f3639e"
+          }
+        }
+      ]
     },
     {
       "__guid": "c6d8b942-f26f-4037-818e-945c261d4d75",
@@ -4562,6 +4587,22 @@
             },
             "Property": "Rotation",
             "Value": "-0.0228838772,0.0913012922,0.242041335,0.96568954"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "MaxRespawnSeconds",
+            "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "MinRespawnSeconds",
+            "Value": 5
           }
         ],
         "MovedObjects": []

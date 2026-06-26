@@ -1553,14 +1553,6 @@
                             "Type": "Component",
                             "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
                           },
-                          "Property": "MaxClipSeconds",
-                          "Value": 8
-                        },
-                        {
-                          "Target": {
-                            "Type": "Component",
-                            "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
-                          },
                           "Property": "PickupSound1",
                           "Value": "music/sfx/items/itemsfx part1.sound"
                         },
@@ -1581,19 +1573,6 @@
                           "Value": {
                             "_type": "gameobject",
                             "go": "f92c8ce8-13b1-469d-ab7a-12ca286e7beb"
-                          }
-                        },
-                        {
-                          "Target": {
-                            "Type": "Component",
-                            "IdValue": "6288ef7d-eeed-4806-8307-1c7e4c5dedcf"
-                          },
-                          "Property": "Tracker",
-                          "Value": {
-                            "_type": "component",
-                            "component_id": "5317c621-a5e5-4620-9003-50fbcc8c1852",
-                            "go": "fb553f81-4cf5-448d-94a4-fc8d56156c50",
-                            "component_type": "PlayerItemTracker"
                           }
                         }
                       ],
@@ -1861,7 +1840,7 @@
               "_type": "gameobject",
               "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
             },
-            "UltimateModifierAction": "Run",
+            "UltimateModifierAction": "UseUlt",
             "UseAction": "UseItem"
           }
         ],

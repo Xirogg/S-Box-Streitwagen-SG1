@@ -1,0 +1,73 @@
+{
+  "RootObject": {
+    "__guid": "87eb9a22-0d13-49bc-bf98-e3a4a0f20ec1",
+    "__version": 2,
+    "Flags": 0,
+    "Name": "godpowers_sfx_ultimate_prefab",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkFlags": 0,
+    "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
+    "OwnerTransfer": 1,
+    "Components": [
+      {
+        "__type": "Sandbox.GodPowersUltimateSfxmodule",
+        "__guid": "13d5a8e5-3f3f-49aa-902e-1d1ecbbcf79b",
+        "__enabled": true,
+        "Flags": 0,
+        "DebugLog": false,
+        "DionysosSound": "music/sfx/god powers/dionysos/dio_sfx_ult_winebottle.sound",
+        "DionysosSoundB": "music/sfx/god powers/dionysos/dio_sfx_ult_pouringwine.sound",
+        "DionysosVoice": null,
+        "LavernaSound": "music/sfx/god powers/laverna/laverna_sfx_ult_thief.sound",
+        "LavernaVoice": null,
+        "MaatSound": "music/sfx/god powers/maat/maat_sfx_ult_sand.sound",
+        "MaatSoundB": "music/sfx/god powers/maat/maat_sfx_ult_mystery.sound",
+        "MaatVoice": null,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "TaranisSound": "music/sfx/god powers/taranis/taranis_sfx_ult_lightning.sound",
+        "TaranisVoice": "music/sfx/god powers/taranis/taranis_sfx_ult.sound",
+        "Volume": 1
+      }
+    ],
+    "Children": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": false,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
+      }
+    },
+    "__variables": []
+  },
+  "ResourceVersion": 2,
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "__references": [],
+  "__version": 2
+}
