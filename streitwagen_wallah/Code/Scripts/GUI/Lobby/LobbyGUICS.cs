@@ -74,14 +74,23 @@ public sealed class LobbyManager : Component
 	/// </summary>
 	public string GetTrackImagePath( TrackSelection track )
 	{
-		var tex = track switch
+		return GetTrackTexture( track )?.ResourcePath ?? "";
+	}
+
+	/// <summary>
+	/// Strecken-Vorschau als Texture-Objekt. Wird von der LobbyGUI direkt per
+	/// Style.SetBackgroundImage gesetzt (unabhängig vom ResourcePath, siehe
+	/// Kommentar in LobbyGUI.razor).
+	/// </summary>
+	public Texture GetTrackTexture( TrackSelection track )
+	{
+		return track switch
 		{
 			TrackSelection.Rom => RomTrackImage,
 			TrackSelection.Aegypten => AegyptenTrackImage,
 			TrackSelection.Akropolis => AkropolisTrackImage,
 			_ => null
 		};
-		return tex?.ResourcePath ?? "";
 	}
 
 	public void CycleTrack()
