@@ -1,0 +1,275 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using System;
+@using System.Linq;
+@using System.Collections.Generic;
+@inherits PanelComponent
+@namespace Sandbox
+
+@*
+	OPFERALTAR-SCREEN  (Streitwagen-Wallah)
+
+	Aufbau nach "Aufbau_Vorlage_Opferaltar.png":
+	  - Oben links: Zurück-Button (Button_AltarMenu + Label "Zurück")
+	  - 4 Altar-Säulen nebeneinander (AltarSäule_Aktiv / _Inaktiv), jede mit:
+	      * God-Power-Icon (z.B. Maat_Altar) mittig im Kreis
+	      * 1 Button darunter (Button_AltarMenu) mit dem Götternamen
+
+	KEIN eigener Hintergrund – nutzt den scrollenden Hintergrund vom GUI-Parent
+	(LobbyBackgroundGUI). root ist daher transparent.
+
+	ALLES über den Editor steuerbar: Säulen-/Button-Texturen als [Property],
+	die Götter als editierbare Liste (Name + Icon). Bilder werden – wie in der
+	LobbyGUI – per Code gesetzt (Style.SetBackgroundImage), damit "Image File"-
+	Zuweisungen ohne ResourcePath trotzdem funktionieren.
+
+	Auswahl (Aktiv/Inaktiv-Kerze) ist rein LOKAL (kein [Sync]); der Zurück-Button
+	ist vorerst nur ein Label/Platzhalter bis die Screen-Navigation steht.
+*@
+
+<root>
+	<div class="back-btn" onclick="@GoBack">
+		<div class="btn-label">Zurück</div>
+	</div>
+
+	<div class="altar-row">
+		@for ( int i = 0; i < PowerCount; i++ )
+		{
+			int idx = i;
+			var power = Powers[idx];
+			<div class="pillar-col">
+				<div class="pillar @( idx == SelectedIndex ? "active" : "" )">
+					<div class="pillar-icon"></div>
+				</div>
+				<div class="pillar-btn" onclick="@(() => Select( idx ))">
+					<div class="btn-label">@power.Name</div>
+				</div>
+			</div>
+		}
+	</div>
+</root>
+
+<style>
+	root {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		font-family: Arial;
+		color: rgba(74, 44, 12, 1);
+	}
+
+	/* ----------------------------- Zurück-Button ----------------------------- */
+	.back-btn {
+		position: absolute;
+		left: 40px;
+		top: 40px;
+		width: 320px;
+		height: 120px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: transform 0.1s ease;
+	}
+
+	.back-btn:hover {
+		transform: scale( 1.04 );
+		filter: brightness( 0.8 );
+	}
+
+	/* ----------------------------- Säulen-Reihe ----------------------------- */
+	.altar-row {
+		position: absolute;
+		left: 0;
+		top: 180px;
+		width: 100%;
+		flex-direction: row;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 48px;
+	}
+
+	.pillar-col {
+		flex-direction: column;
+		align-items: center;
+		gap: 20px;
+		width: 380px;
+	}
+
+	.pillar {
+		width: 380px;
+		height: 700px;
+		position: relative;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		transition: transform 0.12s ease;
+	}
+
+	.pillar.active {
+		transform: scale( 1.04 );
+	}
+
+	/* Voll-Overlay: das God-Power-Icon liegt auf der gleichen Leinwandgröße wie
+	   die Säule -> es landet automatisch mittig im Kreis. */
+	.pillar-icon {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		pointer-events: none;
+	}
+
+	.pillar-btn {
+		width: 250px;
+		height: 92px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: transform 0.1s ease;
+	}
+
+	.pillar-btn:hover {
+		transform: scale( 1.05 );
+		filter: brightness( 0.8 );
+	}
+
+	.btn-label {
+		font-size: 36px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+		text-align: center;
+	}
+</style>
+
+@code
+{
+	// ====================================================================
+	//  EDITOR-SLOTS — Texturen aus "Assets/UI/2D Lobby UI/Altar UI"
+	// ====================================================================
+
+	[Group( "Altar UI – Säulen" )]
+	[Property] public Texture PillarActive { get; set; }    // AltarSäule_Aktiv (Kerze brennt)
+	[Group( "Altar UI – Säulen" )]
+	[Property] public Texture PillarInactive { get; set; }  // AltarSäule_Inaktiv (Kerze aus)
+
+	[Group( "Altar UI – Buttons" )]
+	[Property] public Texture Button { get; set; }          // Button_AltarMenu (Zurück + pro Säule)
+
+	// Eine Säule pro Eintrag. Standard: die 4 Götter – im Inspector nur noch das
+	// jeweilige Icon (z.B. Maat_Altar) zuweisen, Namen anpassen oder umsortieren.
+	[Group( "Altar UI – Götter" )]
+	[Property] public List<AltarPower> Powers { get; set; } = new()
+	{
+		new AltarPower { Name = "Maat" },
+		new AltarPower { Name = "Dionysos" },
+		new AltarPower { Name = "Laverna" },
+		new AltarPower { Name = "Taranis" },
+	};
+
+	// ====================================================================
+	//  Lokaler UI-Zustand (kein [Sync] – Auswahl ist pro Client)
+	// ====================================================================
+
+	private int SelectedIndex { get; set; } = -1;   // -1 = keine Säule aktiv
+
+	int PowerCount => Powers?.Count ?? 0;
+
+	void Select( int index )
+	{
+		// Erneuter Klick auf die aktive Säule hebt die Auswahl wieder auf.
+		SelectedIndex = (SelectedIndex == index) ? -1 : index;
+	}
+
+	// Zurück zum Lobby-Screen (AltarGUI aus, LobbyGUI an). Zentral im LobbyManager.
+	void GoBack() => LobbyManager.Instance?.ShowLobby();
+
+	// ====================================================================
+	//  Texturen per Code setzen (wie LobbyGUI; funktioniert mit "Image File")
+	// ====================================================================
+
+	protected override void OnTreeBuilt() => ApplyTextures();
+
+	void ApplyTextures()
+	{
+		var root = Panel;
+		if ( root is null ) return;
+
+		SetBgAll( root, "back-btn", Button );
+		SetBgAll( root, "pillar-btn", Button );
+
+		// Säulen in DOM-Reihenfolge den Powers zuordnen (gleiche Reihenfolge wie
+		// die for-Schleife im Markup).
+		var cols = FindByClass( root, "pillar-col" ).ToList();
+		for ( int i = 0; i < cols.Count; i++ )
+		{
+			var pillar = FindByClass( cols[i], "pillar" ).FirstOrDefault();
+			var icon = FindByClass( cols[i], "pillar-icon" ).FirstOrDefault();
+
+			SetBg( pillar, i == SelectedIndex ? PillarActive : PillarInactive );
+			if ( i < PowerCount )
+				SetBg( icon, Powers[i].Icon );
+		}
+	}
+
+	static void SetBgAll( Panel root, string cls, Texture tex )
+	{
+		if ( tex is null ) return;
+		foreach ( var pnl in FindByClass( root, cls ) )
+			pnl.Style.SetBackgroundImage( tex );
+	}
+
+	static void SetBg( Panel pnl, Texture tex )
+	{
+		if ( pnl is null || tex is null ) return;
+		pnl.Style.SetBackgroundImage( tex );
+	}
+
+	// Alle Panels unter root (inkl. root) mit der CSS-Klasse cls.
+	static IEnumerable<Panel> FindByClass( Panel root, string cls )
+	{
+		if ( root is null ) yield break;
+		if ( root.HasClass( cls ) ) yield return root;
+		foreach ( var child in root.Children )
+			foreach ( var found in FindByClass( child, cls ) )
+				yield return found;
+	}
+
+	protected override void OnTreeFirstBuilt()
+	{
+		if ( PillarActive is null || !PillarActive.IsValid )
+			Log.Warning( "[AltarGUI] Textur fehlt/ungültig: PillarActive (AltarSäule_Aktiv)" );
+		if ( PillarInactive is null || !PillarInactive.IsValid )
+			Log.Warning( "[AltarGUI] Textur fehlt/ungültig: PillarInactive (AltarSäule_Inaktiv)" );
+		if ( Button is null || !Button.IsValid )
+			Log.Warning( "[AltarGUI] Textur fehlt/ungültig: Button (Button_AltarMenu)" );
+		for ( int i = 0; i < PowerCount; i++ )
+			if ( Powers[i].Icon is null || !Powers[i].Icon.IsValid )
+				Log.Warning( $"[AltarGUI] Icon fehlt/ungültig für Power '{Powers[i].Name}'" );
+	}
+
+	protected override void OnUpdate()
+	{
+		// Maus sichtbar halten, damit die Buttons anklickbar sind (dieser Screen
+		// läuft evtl. ohne aktiven LobbyGUIScreen, der das sonst setzt).
+		Mouse.Visibility = MouseVisibility.Visible;
+	}
+
+	protected override int BuildHash()
+	{
+		var hash = new HashCode();
+		hash.Add( SelectedIndex );
+		hash.Add( PowerCount );
+		if ( Powers != null )
+			foreach ( var p in Powers )
+				hash.Add( p?.Name );
+		return hash.ToHashCode();
+	}
+}

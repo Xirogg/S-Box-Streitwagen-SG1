@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
+using Sandbox.Scripts.GUI.Lobby;   // LobbyGUI-Component (Razor)
 
 public enum TrackSelection
 {
@@ -28,6 +29,13 @@ public sealed class LobbyManager : Component
 	[Property] public Texture RomTrackImage { get; set; }
 	[Property] public Texture AegyptenTrackImage { get; set; }
 	[Property] public Texture AkropolisTrackImage { get; set; }
+
+	// UI-Screens. Im Inspector die jeweilige Component reinziehen (LobbyGUI vom
+	// "-- GUI"-Node, AltarGUI vom "AltarGUIScreen"-Node). Es werden die
+	// COMPONENTS getoggelt (nicht die GameObjects), damit das ScreenPanel und der
+	// Hintergrund aktiv bleiben, auch wenn die LobbyGUI auf demselben Node liegt.
+	[Property, Group( "Screens" )] public LobbyGUI LobbyScreen { get; set; }
+	[Property, Group( "Screens" )] public AltarGUI AltarScreen { get; set; }
 
 	// Was un-synced; only RpcSetTrack pushed it, so a client joining after the
 	// host had already cycled the track would default to Rom forever. [Sync]
@@ -91,6 +99,32 @@ public sealed class LobbyManager : Component
 			TrackSelection.Akropolis => AkropolisTrackImage,
 			_ => null
 		};
+	}
+
+	/// <summary>
+	/// Wechselt vom Lobby- auf den Altar-Screen: LobbyGUI-Component aus,
+	/// AltarGUI-Component an. Rein lokale UI-Umschaltung (kein Networking).
+	/// </summary>
+	public void ShowAltar() => SwitchScreen( AltarScreen, LobbyScreen );
+
+	/// <summary>Zurück zum Lobby-Screen (Gegenstück zu <see cref="ShowAltar"/>).</summary>
+	public void ShowLobby() => SwitchScreen( LobbyScreen, AltarScreen );
+
+	// Aktiviert "show", deaktiviert "hide". Nur wenn BEIDE zugewiesen sind, sonst
+	// säße man nach dem Ausschalten auf einem leeren Screen fest.
+	private void SwitchScreen( PanelComponent show, PanelComponent hide )
+	{
+		Log.Info( $"[LobbyManager] SwitchScreen: show={(show is null ? "NULL" : show.GetType().Name)}, " +
+			$"hide={(hide is null ? "NULL" : hide.GetType().Name)}" );
+
+		if ( show is null || hide is null )
+		{
+			Log.Warning( "[LobbyManager] Screen-Wechsel: LobbyScreen/AltarScreen nicht (beide) im Inspector zugewiesen." );
+			return;
+		}
+
+		hide.Enabled = false;
+		show.Enabled = true;
 	}
 
 	public void CycleTrack()
