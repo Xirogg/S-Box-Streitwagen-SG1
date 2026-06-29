@@ -138,7 +138,12 @@
                 "go": "348ef706-68ae-4801-ae82-512e5f92e633",
                 "component_type": "AltarGUI"
               },
-              "LobbyScreen": null,
+              "LobbyScreen": {
+                "_type": "component",
+                "component_id": "245ceaa2-4039-4339-90b9-42a162e41565",
+                "go": "b4b148cc-5cd8-4d3b-8bf7-5a95ca423fa3",
+                "component_type": "LobbyGUI"
+              },
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -614,7 +619,6 @@
               "__enabled": true,
               "Flags": 0,
               "AbilityPanel": null,
-              "Background": null,
               "CharacterSlot": {
                 "$compiler": "texture",
                 "$source": "imagefile",

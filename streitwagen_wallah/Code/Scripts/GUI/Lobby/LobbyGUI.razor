@@ -96,6 +96,16 @@
 	}
 
 	<div class="currency">Publicity: @LocalCurrency</div>
+
+	<!-- ======================= TEST: Vollbild-Button -> Altar ======================= -->
+	<!-- Deckt den GANZEN Screen ab und fängt jeden Linksklick (onclick) ab. Wechselt
+	     über die bereits vorhandene Logik (LobbyManager.ShowAltar) auf den
+	     AltarGUIScreen: LobbyScreen-Component aus, AltarScreen-Component an.
+	     Nur zum Testen – liegt als letztes Kind ÜBER allem, blockiert daher die
+	     anderen Buttons (Strecke/Bereit/…), solange er aktiv ist. -->
+	<div class="test-fullscreen-btn" onclick="@TestSwitchToAltar">
+		<div class="test-hint">TEST: Klick = Altar</div>
+	</div>
 </root>
 
 <style>
@@ -358,6 +368,36 @@
 		border: 3px solid rgba(140, 90, 30, 0.7);
 		border-radius: 12px;
 	}
+
+	/* ----------------------------- TEST-Button ----------------------------- */
+	/* Vollbild-Klickfläche. Transparent, damit das Menü darunter sichtbar bleibt;
+	   fängt dank seiner Größe trotzdem jeden Klick ab. */
+	.test-fullscreen-btn {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+		align-items: flex-start;
+		justify-content: center;
+		/* WICHTIG: explizit Klicks annehmen. Eine komplett durchsichtige Fläche
+		   ohne Hintergrund wird in s&box nicht zuverlässig getroffen -> der Klick
+		   fällt durch. pointer-events:all + eine (fast) unsichtbare Hintergrund-
+		   farbe geben dem Panel eine echte Trefferfläche über den ganzen Screen. */
+		pointer-events: all;
+		background-color: rgba(255, 0, 0, 0.06);
+	}
+
+	.test-hint {
+		margin-top: 24px;
+		padding: 10px 28px;
+		font-size: 28px;
+		font-weight: bold;
+		color: white;
+		background-color: rgba(180, 40, 40, 0.85);
+		border-radius: 10px;
+	}
 </style>
 
 @code
@@ -527,6 +567,19 @@
 	}
 
 	void CycleTrack() => LocalPlayer?.RequestCycleTrack();
+
+	// TEST-Button: Ein Linksklick irgendwo auf dem Vollbild-Button wechselt auf den
+	// Altar-Screen. Nutzt die schon vorhandene, getestete Umschalt-Logik im
+	// LobbyManager (LobbyScreen-Component aus, AltarScreen-Component an).
+	void TestSwitchToAltar()
+	{
+		// Diagnose: zeigt im Console-Log, dass der Klick wirklich ankommt. Wenn diese
+		// Zeile beim Klicken NICHT erscheint, erreicht der Klick das Panel nicht
+		// (Pointer-Events/Überdeckung). Erscheint sie, aber kein Screenwechsel,
+		// liegt es an LobbyManager.Instance / den Screen-Zuweisungen.
+		Log.Info( $"[LobbyGUI] TEST-Button geklickt. LobbyManager.Instance = {(LobbyManager.Instance is null ? "NULL" : "OK")}" );
+		LobbyManager.Instance?.ShowAltar();
+	}
 
 	void QuitGame()
 	{
