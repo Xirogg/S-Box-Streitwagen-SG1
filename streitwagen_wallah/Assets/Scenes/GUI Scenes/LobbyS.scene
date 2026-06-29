@@ -1,0 +1,258 @@
+{
+  "__guid": "30fd7c85-6a7f-4fb7-9ddf-fe3b02a4ab19",
+  "GameObjects": [
+    {
+      "__guid": "5fd461aa-efee-456d-b782-be026e7825fd",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "-- LobbyManager",
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "LobbyManager",
+          "__guid": "c4c2ea76-26a8-4f5e-ab35-88fdff513481",
+          "__enabled": true,
+          "Flags": 0,
+          "AegyptenScene": null,
+          "AegyptenTrackImage": null,
+          "AkropolisScene": null,
+          "AkropolisTrackImage": null,
+          "AltarScreen": null,
+          "LobbyScreen": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RomScene": null,
+          "RomTrackImage": null
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "a7674517-673f-48b7-9388-201324743b91",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "-- GUI ",
+      "Position": "149.994965,149.994995,-212.124985",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "8f5a3c28-f2cd-4d5d-afb0-5b42e1178339",
+          "__enabled": true,
+          "Flags": 0,
+          "AutoScreenScale": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Opacity": 1,
+          "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
+          "TargetCamera": {
+            "_type": "component",
+            "component_id": "2b963320-5925-4324-83e4-e918e19d9fd5",
+            "go": "ab290cea-522e-4bef-954c-02837e317303",
+            "component_type": "CameraComponent"
+          },
+          "ZIndex": 100
+        },
+        {
+          "__type": "Sandbox.LobbyBackgroundGUI",
+          "__guid": "580fdbd6-4a23-456d-b321-9440fdeb3509",
+          "__enabled": true,
+          "Flags": 0,
+          "Background": {
+            "$compiler": "texture",
+            "$source": "imagefile",
+            "data": {
+              "FilePath": "ui/ingame gui/lobby/main_scroll_bg.jpg",
+              "MaxSize": 4096,
+              "ConvertHeightToNormals": false,
+              "NormalScale": 1,
+              "Rotate": 0,
+              "FlipVertical": false,
+              "FlipHorizontal": false,
+              "Cropping": {
+                "Left": 0,
+                "Top": 0,
+                "Right": 0,
+                "Bottom": 0
+              },
+              "Padding": {
+                "Left": 0,
+                "Top": 0,
+                "Right": 0,
+                "Bottom": 0
+              },
+              "InvertColor": false,
+              "Tint": "1,1,1,1",
+              "Blur": 0,
+              "Sharpen": 0,
+              "Brightness": 1,
+              "Contrast": 1,
+              "Saturation": 1,
+              "Hue": 0,
+              "Colorize": false,
+              "TargetColor": "1,1,1,1",
+              "CacheToDisk": true,
+              "FormatOverride": "RGBA8888"
+            },
+            "compiled": "textures/generated/imagefile/7f922a1ac3421526.vtex"
+          },
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "37a4afd2-75b0-4228-8a0c-2726cf9c4a2e",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "LobbyGUI ",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [],
+          "Children": []
+        },
+        {
+          "__guid": "f119074f-bd3a-472d-8dfb-31b02353cda7",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "AltarGUI ",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "__guid": "ab290cea-522e-4bef-954c-02837e317303",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "Camera",
+      "Position": "149.994965,149.994995,-212.124985",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "maincamera",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "2b963320-5925-4324-83e4-e918e19d9fd5",
+          "__enabled": true,
+          "Flags": 0,
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "EnablePostProcessing": true,
+          "FieldOfView": 60,
+          "FovAxis": "Horizontal",
+          "IsMainCamera": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "PostProcessAnchor": null,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "RenderTexture": null,
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        }
+      ],
+      "Children": []
+    }
+  ],
+  "SceneProperties": {
+    "NetworkInterpolation": true,
+    "TimeScale": 1,
+    "WantsSystemScene": true,
+    "Metadata": {},
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": false,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": "",
+      "DeferGeneration": false,
+      "CustomBounds": false
+    },
+    "GameObjectSystems": {
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "7c04bf4a-a43a-4a8a-b49f-a88f7e215023"
+        }
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
+      }
+    }
+  },
+  "ResourceVersion": 3,
+  "Title": null,
+  "Description": null,
+  "__references": [],
+  "__version": 3
+}

@@ -138,12 +138,7 @@
                 "go": "348ef706-68ae-4801-ae82-512e5f92e633",
                 "component_type": "AltarGUI"
               },
-              "LobbyScreen": {
-                "_type": "component",
-                "component_id": "a59aed3e-22d8-4fcd-8ad2-df70b4073614",
-                "go": "b4b148cc-5cd8-4d3b-8bf7-5a95ca423fa3",
-                "component_type": "LobbyGUI"
-              },
+              "LobbyScreen": null,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -615,47 +610,11 @@
           "Components": [
             {
               "__type": "Sandbox.Scripts.GUI.Lobby.LobbyGUI",
-              "__guid": "a59aed3e-22d8-4fcd-8ad2-df70b4073614",
+              "__guid": "245ceaa2-4039-4339-90b9-42a162e41565",
               "__enabled": true,
               "Flags": 0,
-              "AbilityPanel": {
-                "$compiler": "texture",
-                "$source": "imagefile",
-                "data": {
-                  "FilePath": "ui/2d lobby ui/main menu ui/ui_fähigkeit&waagen_mainmenu.png",
-                  "MaxSize": 4096,
-                  "ConvertHeightToNormals": false,
-                  "NormalScale": 1,
-                  "Rotate": 0,
-                  "FlipVertical": false,
-                  "FlipHorizontal": false,
-                  "Cropping": {
-                    "Left": 0,
-                    "Top": 0,
-                    "Right": 0,
-                    "Bottom": 0
-                  },
-                  "Padding": {
-                    "Left": 0,
-                    "Top": 0,
-                    "Right": 0,
-                    "Bottom": 0
-                  },
-                  "InvertColor": false,
-                  "Tint": "1,1,1,1",
-                  "Blur": 0,
-                  "Sharpen": 0,
-                  "Brightness": 1,
-                  "Contrast": 1,
-                  "Saturation": 1,
-                  "Hue": 0,
-                  "Colorize": false,
-                  "TargetColor": "1,1,1,1",
-                  "CacheToDisk": true,
-                  "FormatOverride": "RGBA8888"
-                },
-                "compiled": "textures/generated/imagefile/5e5e28a3102d07ee.vtex"
-              },
+              "AbilityPanel": null,
+              "Background": null,
               "CharacterSlot": {
                 "$compiler": "texture",
                 "$source": "imagefile",
@@ -1080,7 +1039,7 @@
                 },
                 "compiled": "textures/generated/imagefile/5aea8905c0a7bab4.vtex"
               },
-              "SlotCount": 6,
+              "SlotCount": 8,
               "Taranis": {
                 "$compiler": "texture",
                 "$source": "imagefile",
