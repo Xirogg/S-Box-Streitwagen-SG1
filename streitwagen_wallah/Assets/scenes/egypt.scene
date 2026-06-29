@@ -126,7 +126,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "155.105835,-3116.10449,-1750.55664",
+              "Position": "1592.02698,-1828.7085,-699.658203",
               "Rotation": "0,0,-0.707106769,0.707106769",
               "Scale": "1,1,1",
               "Tags": "",
@@ -144,7 +144,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "176.182739,-2286.55029,-1750.55652",
+              "Position": "1613.10388,-999.154297,-699.657959",
               "Rotation": "0,0,-0.707106769,0.707106769",
               "Scale": "1,1,1",
               "Tags": "",
@@ -162,7 +162,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "263.425903,-2688.00146,-1758.12573",
+              "Position": "1700.34705,-1400.60547,-707.227295",
               "Rotation": "0,-0,-0.707106769,0.707106769",
               "Scale": "1,1,1",
               "Tags": "",
@@ -180,7 +180,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "106.986206,-2021.28027,-1758.12573",
+              "Position": "1543.90735,-733.884277,-707.227295",
               "Rotation": "0,-0,-0.707106769,0.707106769",
               "Scale": "1,1,1",
               "Tags": "",
@@ -556,7 +556,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Track",
-          "Position": "-462.529724,-4047.99561,-980.862122",
+          "Position": "25445.5137,-4047.99561,-980.862122",
           "Rotation": "0,0,0,1",
           "Scale": "13.543581,134.07373,0.588975012",
           "Tags": "",
@@ -1384,7 +1384,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_obelisk",
-              "Position": "24.9721718,0,0",
+              "Position": "-164.983871,-429.376556,120.516861",
               "Rotation": "0,0,0,1",
               "Scale": "1,1,1",
               "Tags": "",
@@ -1587,7 +1587,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-270.099884,2619.43188,167.590424"
+                    "Value": "-1024.81372,269.419983,195.002975"
                   },
                   {
                     "Target": {
@@ -1596,6 +1596,14 @@
                     },
                     "Property": "Rotation",
                     "Value": "0.196392685,0.0813278183,-0.189143002,0.958666146"
+                  },
+                  {
+                    "Target": {
+                      "Type": "GameObject",
+                      "IdValue": "b6c3bd19-d7b9-4bc6-a822-cbabd5053ea1"
+                    },
+                    "Property": "Position",
+                    "Value": "99.380661,63.4680061,-74.2645111"
                   }
                 ],
                 "MovedObjects": []
@@ -1723,7 +1731,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-49.8035316,2829.26587,222.747162"
+                    "Value": "-880.828735,435.323242,129.91507"
                   },
                   {
                     "Target": {
@@ -1859,7 +1867,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-1707.49573,-401.946075,-63.328083"
+                    "Value": "-1627.20166,-416.6586,106.701118"
                   },
                   {
                     "Target": {
@@ -1867,7 +1875,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Rotation",
-                    "Value": "-0.0779788196,-0.369913697,-0.19096151,0.905879259"
+                    "Value": "-0.119426869,-0.56653446,-0.16817902,0.797804296"
                   }
                 ],
                 "MovedObjects": []
@@ -1995,7 +2003,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-1433.20996,-519.834106,-69.7011032"
+                    "Value": "-1421.88989,-485.338409,124.800522"
                   },
                   {
                     "Target": {
@@ -2004,6 +2012,14 @@
                     },
                     "Property": "Rotation",
                     "Value": "9.31322575E-10,-5.58793545E-09,-0.206269383,0.978495359"
+                  },
+                  {
+                    "Target": {
+                      "Type": "GameObject",
+                      "IdValue": "b6c3bd19-d7b9-4bc6-a822-cbabd5053ea1"
+                    },
+                    "Property": "Position",
+                    "Value": "-52.9480629,-8.12663841,-66.1436691"
                   }
                 ],
                 "MovedObjects": []
@@ -2038,7 +2054,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "20.1561432,281.730316,-0.984543443"
+                    "Value": "-125.681671,-289.445953,127.1987"
                   },
                   {
                     "Target": {
@@ -2046,7 +2062,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Rotation",
-                    "Value": "9.31322575E-10,-5.58793545E-09,-0.206269383,0.978495359"
+                    "Value": "-8.34110558E-12,-5.66500846E-09,-0.365697145,0.930733919"
                   }
                 ],
                 "MovedObjects": []
@@ -2174,7 +2190,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-28.7838573,-1534.12781,-74.5641556"
+                    "Value": "-53.3780212,-1153.14111,98.2690811"
                   },
                   {
                     "Target": {
@@ -2310,7 +2326,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-274.043518,-1352.63403,-76.2225113"
+                    "Value": "-210.923981,-1057.4519,52.786541"
                   },
                   {
                     "Target": {
@@ -2318,7 +2334,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Rotation",
-                    "Value": "0.00930590741,0.0621207952,-0.147857726,0.987012148"
+                    "Value": "0.0205225237,0.0593668409,-0.326073825,0.943255126"
                   }
                 ],
                 "MovedObjects": []
@@ -2446,7 +2462,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-1950.35876,2822.21118,114.283424"
+                    "Value": "-1003.9823,1395.98633,265.303741"
                   },
                   {
                     "Target": {
@@ -2455,6 +2471,14 @@
                     },
                     "Property": "Rotation",
                     "Value": "0.155901015,-1.86264515E-08,0,0.987772942"
+                  },
+                  {
+                    "Target": {
+                      "Type": "GameObject",
+                      "IdValue": "b6c3bd19-d7b9-4bc6-a822-cbabd5053ea1"
+                    },
+                    "Property": "Position",
+                    "Value": "134.190201,-85.7146988,52.1919212"
                   }
                 ],
                 "MovedObjects": []
@@ -2582,7 +2606,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-1675.92444,2722.34155,65.4927826"
+                    "Value": "-837.290527,1164.17151,208.196198"
                   },
                   {
                     "Target": {
@@ -2662,9 +2686,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Terrain (1)",
-          "Position": "-10619.4199,-18845.041,-1428.87207",
+          "Position": "19827.3496,-12812.1621,-1689.3335",
           "Rotation": "0,0,0,1",
-          "Scale": "1,1,1",
+          "Scale": "0.5,0.5,0.99999994",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -2716,9 +2740,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "m_pyramide_m",
-          "Position": "5209.13672,-14206.29,-414.866089",
-          "Rotation": "0,0,0.998129725,-0.0611311719",
-          "Scale": "0.699999988,0.699999988,0.449999958",
+          "Position": "1617.13916,-7347.10986,-317.498108",
+          "Rotation": "0,0,0.382683456,0.923879504",
+          "Scale": "0.170000002,0.170000002,0.119999997",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -2762,9 +2786,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "m_pyramide_m (1)",
-          "Position": "3134.19312,-6300.2085,-482.829071",
-          "Rotation": "0,0,0.99775821,-0.0669258684",
-          "Scale": "0.200000003,0.200000003,0.141550183",
+          "Position": "4386.04785,-5543.70654,-379.856934",
+          "Rotation": "-0,0,-0.999548078,-0.0300610512",
+          "Scale": "0.100000001,0.100000001,0.0700000003",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -2808,9 +2832,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "m_pyramide_m (2)",
-          "Position": "-5145.27246,-9223.95215,-414.868286",
-          "Rotation": "0,0,0.427534342,0.90399915",
-          "Scale": "0.330000013,0.330000013,0.251550227",
+          "Position": "-1702.67383,-7572.19141,-242.161621",
+          "Rotation": "0,0,0.258819044,0.965925813",
+          "Scale": "0.150000006,0.150000006,0.104514986",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -2888,7 +2912,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-4396.99707,456.594727,-948.462585"
+                    "Value": "-2325.41235,-2692.69995,-704.85968"
                   },
                   {
                     "Target": {
@@ -2896,7 +2920,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Rotation",
-                    "Value": "0.00138327479,0.00137889385,-0.707107663,0.707103133"
+                    "Value": "-0.0857814625,0.0885231346,-0.701546073,0.701882005"
                   },
                   {
                     "Target": {
@@ -2961,7 +2985,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-4744.22266,621.50293,-941.506348"
+                    "Value": "-1263.74414,-1719.77344,-744.60553"
                   },
                   {
                     "Target": {
@@ -2969,7 +2993,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Rotation",
-                    "Value": "-0.000977160409,0.0312998891,0.0311889034,0.999022901"
+                    "Value": "0.115528405,0.0347233713,0.0273261424,0.992320955"
                   },
                   {
                     "Target": {
@@ -3091,7 +3115,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-4683.50195,295.597168,-947.519714"
+                    "Value": "4292.6416,-516.577148,-911.663818"
                   },
                   {
                     "Target": {
@@ -3099,7 +3123,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Rotation",
-                    "Value": "0.00197556615,0.0140999258,-0.138740227,0.990226388"
+                    "Value": "0.109079666,-0.000990753062,-0.139451385,0.984202206"
                   },
                   {
                     "Target": {
@@ -3148,7 +3172,15 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-633.812683,-9417.17676,-948.451355"
+                    "Value": "1762.47095,-4544.06299,-855.821594"
+                  },
+                  {
+                    "Target": {
+                      "Type": "GameObject",
+                      "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+                    },
+                    "Property": "Rotation",
+                    "Value": "-0.216374412,0.0521466732,-0.228417099,0.947780788"
                   },
                   {
                     "Target": {
@@ -3213,7 +3245,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-1347.19189,-9061.54492,-798.303101"
+                    "Value": "1052.13623,-4226.896,-884.375732"
                   },
                   {
                     "Target": {
@@ -3302,7 +3334,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-2281.79126,-9901.87305,-954.066406"
+                    "Value": "103.114418,-4899.62012,-880.279663"
                   },
                   {
                     "Target": {
@@ -3351,7 +3383,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-860.698914,-9829.63672,-719.792542"
+                    "Value": "1530.61206,-5178.54443,-982.935913"
                   },
                   {
                     "Target": {
@@ -3424,7 +3456,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-634.563049,1479.60352,-948.451355"
+                    "Value": "761.05072,-1801.38916,-1003.47424"
                   },
                   {
                     "Target": {
@@ -3432,7 +3464,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Rotation",
-                    "Value": "0,0,0,0.99999994"
+                    "Value": "-0.169220239,-0.0328691229,0.100949682,0.979843557"
                   },
                   {
                     "Target": {
@@ -3497,7 +3529,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-1150.82019,1561.12988,-956.544128"
+                    "Value": "572.745972,-2018.29199,-784.748718"
                   },
                   {
                     "Target": {
@@ -3586,7 +3618,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-1518.04541,1249.73975,-839.697998"
+                    "Value": "242.134705,-1979.62695,-827.368347"
                   },
                   {
                     "Target": {
@@ -3594,7 +3626,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Rotation",
-                    "Value": "-0.0116585959,0.0718436986,0.159757361,0.984469473"
+                    "Value": "0.17077297,0.0444213375,-0.173018932,0.968982816"
                   }
                 ],
                 "MovedObjects": []
@@ -3627,7 +3659,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-841.438843,1275.23242,-948.052002"
+                    "Value": "760.614624,-2090.76758,-776.062866"
                   },
                   {
                     "Target": {
@@ -3635,7 +3667,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Rotation",
-                    "Value": "-0.000990875065,0.00610622764,0.160179138,0.987068534"
+                    "Value": "0.220069274,0.041820202,0.154744044,0.962223887"
                   },
                   {
                     "Target": {
@@ -3694,7 +3726,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal",
-              "Position": "-538.062988,-971.412109,-941.108704",
+              "Position": "1555.97632,-421.036133,-1083.00781",
               "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
               "Scale": "2.30999994,2.30999255,3.1299777",
               "Tags": "",
@@ -3740,7 +3772,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (4)",
-              "Position": "1842.08447,-3322.87524,-998.778442",
+              "Position": "2641.39868,-679.246582,-962.11322",
               "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
               "Scale": "4.81177378,4.81176662,5.63175201",
               "Tags": "",
@@ -3786,7 +3818,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (8)",
-              "Position": "-2560.04077,-3640.75684,-917.334167",
+              "Position": "-2560.04077,-3640.75684,-641.651428",
               "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
               "Scale": "4.81177378,4.81176662,5.63175201",
               "Tags": "",
@@ -3832,7 +3864,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (9)",
-              "Position": "-2190.13818,-3762.49219,-946.396729",
+              "Position": "-2190.13818,-3762.49219,-602.141968",
               "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
               "Scale": "8.88865852,8.88865185,9.70863819",
               "Tags": "",
@@ -3878,7 +3910,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (5)",
-              "Position": "2380.2876,-3483.93433,-983.090149",
+              "Position": "3645.4646,-4390.16504,-983.091797",
               "Rotation": "-0.00315738283,0.0528973714,0.538182616,0.841160715",
               "Scale": "4.81177378,4.81176662,5.63175201",
               "Tags": "",
@@ -3924,7 +3956,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (1)",
-              "Position": "-795.855286,-959.992188,-932.47229",
+              "Position": "1298.18408,-409.616211,-1104.31299",
               "Rotation": "0.0343750939,0.0403293371,0.970882773,0.233620763",
               "Scale": "5.11977386,5.11976624,6.54975128",
               "Tags": "",
@@ -3970,7 +4002,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (3)",
-              "Position": "1847.88684,-3351.88818,-976.760315",
+              "Position": "-379.02301,-5006.15381,-921.198181",
               "Rotation": "0.0306799412,0.0432069898,0.946463287,0.318432748",
               "Scale": "7.78592443,7.78591681,9.21590233",
               "Tags": "",
@@ -4016,7 +4048,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (7)",
-              "Position": "-2458.53198,-3473.53809,-954.212402",
+              "Position": "-2458.53198,-3473.53809,-605.136597",
               "Rotation": "0.0722256452,0.00527919363,0.781314433,0.619922221",
               "Scale": "6.22532511,6.22531748,8.77599716",
               "Tags": "",
@@ -4062,7 +4094,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (6)",
-              "Position": "2296.7981,-3030.86133,-1035.49707",
+              "Position": "4836.12256,-2984.24536,-1035.49707",
               "Rotation": "-0.00541429967,0.0527141988,0.501756728,0.863384128",
               "Scale": "10.2822819,10.2822742,14.4684849",
               "Tags": "",
@@ -4108,7 +4140,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (10)",
-              "Position": "8123.48779,-1277.81299,-984.368774",
+              "Position": "5971.67432,-2014.10498,-1042.29602",
               "Rotation": "-0.00541429967,0.0527141988,0.501756728,0.863384128",
               "Scale": "11.2859116,11.2859039,14.321804",
               "Tags": "",
@@ -4154,7 +4186,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (11)",
-              "Position": "8019.48096,-1033.3291,-990.721619",
+              "Position": "5867.66748,-1769.62109,-1015.90057",
               "Rotation": "-0.0434472822,0.0303386636,-0.325877517,0.943925738",
               "Scale": "5.98661804,5.98661041,9.02251244",
               "Tags": "",
@@ -4200,7 +4232,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (2)",
-              "Position": "-4537.28418,-2474.59961,-840.021667",
+              "Position": "1319.47852,-2964.94775,-772.363708",
               "Rotation": "0.0392478593,0.0356048793,0.992779791,0.107610583",
               "Scale": "3.7879343,3.78792667,5.21791124",
               "Tags": "",
@@ -4246,7 +4278,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_weird",
-              "Position": "-5366.14795,-3182.16553,-856.324646",
+              "Position": "-1538.49561,-2731.84351,-819.949341",
               "Rotation": "-0.00806060061,0.0286209565,-0.539726257,0.841315389",
               "Scale": "2.88031936,2.88031936,2.88031936",
               "Tags": "",
@@ -4296,7 +4328,7 @@
       "__version": 2,
       "Flags": 0,
       "Name": "-- LIGHTING ",
-      "Position": "525.533142,10687.0117,966.862122",
+      "Position": "525.533142,10687.0117,10249.0918",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -4621,6 +4653,217 @@
         "71306516-0416-4962-ad57-604bccf93274": "271b608a-40cf-48f1-8b5a-7aefcccfb99d",
         "143114ab-4f92-4888-96ae-a120972ec204": "4a098530-1eb1-4a12-8c0b-e8dfb632ef35"
       }
+    },
+    {
+      "__guid": "396a3dd9-4f45-49bd-a269-ad7ebb743eda",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "racetrack",
+      "Position": "8672.38477,-4540.53418,319.095276",
+      "Rotation": "0,0,0.258819044,0.965925813",
+      "Scale": "3,3,3",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "b6977be1-06f0-4706-936a-c5b60ddb935d",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": null,
+          "Model": "models/racetrack.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ec64efb9-441e-40d0-9709-a137e08bf451",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/racetrack.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "666443e3-a4a2-4c53-8937-f6b49fab0adf",
+          "__enabled": true,
+          "Flags": 0,
+          "ColliderFlags": 0,
+          "Elasticity": null,
+          "Friction": null,
+          "IsTrigger": false,
+          "Model": "models/racetrack.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RollingResistance": null,
+          "Static": false,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "e31a75f6-8bb0-4476-9e8c-a441695bdf03",
+          "__enabled": true,
+          "Flags": 0,
+          "AngularDamping": 0,
+          "EnableImpactDamage": true,
+          "EnhancedCcd": false,
+          "Gravity": true,
+          "GravityScale": 1,
+          "ImpactDamage": 0,
+          "LinearDamping": 0,
+          "Locking": {
+            "X": false,
+            "Y": false,
+            "Z": false,
+            "Pitch": false,
+            "Yaw": false,
+            "Roll": false
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MinImpactDamageSpeed": 500,
+          "MotionEnabled": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": 0,
+          "SleepThreshold": 2,
+          "StartAsleep": false
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "bf27eb81-feea-4453-8f7a-f40ed4a03db4",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "Terrain",
+      "Position": "-8628.56445,-6958.86816,518.791504",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.Terrain",
+          "__guid": "66391926-e9aa-44bb-b56f-62634261538e",
+          "__enabled": true,
+          "Flags": 0,
+          "__version": 1,
+          "ClipMapLodExtentTexels": 256,
+          "ClipMapLodLevels": 6,
+          "ColliderFlags": 0,
+          "Elasticity": null,
+          "EnableCollision": true,
+          "Friction": null,
+          "IsTrigger": false,
+          "MaterialOverride": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RenderType": "Off",
+          "RollingResistance": null,
+          "Static": true,
+          "Storage": {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "Maps": {
+                "$blob": "e5bb0f76-2a4e-4a40-bde2-d763161e88ac"
+              },
+              "Resolution": 512,
+              "TerrainSize": 20000,
+              "TerrainHeight": 10000,
+              "Materials": [
+                "materials/forest_ground_needles.tmat"
+              ],
+              "MaterialSettings": {
+                "HeightBlendEnabled": true,
+                "HeightBlendSharpness": 0.87,
+                "Sampler": {
+                  "Filter": "Anisotropic",
+                  "AddressModeU": "Wrap",
+                  "AddressModeV": "Wrap",
+                  "AddressModeW": "Wrap",
+                  "MipLodBias": 0,
+                  "MaxAnisotropy": 8,
+                  "BorderColor": "0,0,0,0"
+                }
+              },
+              "ResourceVersion": 3,
+              "__references": null
+            },
+            "compiled": null
+          },
+          "SubdivisionFactor": 1,
+          "SubdivisionLodCount": 3,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0",
+          "TerrainHeight": 10000,
+          "TerrainSize": 20000
+        }
+      ],
+      "Children": []
     }
   ],
   "SceneProperties": {
@@ -4643,14 +4886,14 @@
       "CustomBounds": false
     },
     "GameObjectSystems": {
-      "Sandbox.Clutter.ClutterGridSystem": {
-        "Storage": {
-          "$blob": "8c9b4253-88aa-410e-a2a1-40f81eedc43b"
-        }
-      },
       "Sandbox.SelectionSetsSystem": {
         "Data": {
           "SelectionSets": []
+        }
+      },
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "6b1c5804-91a1-46f3-b7d4-3eb635e1e28a"
         }
       }
     }
@@ -4658,6 +4901,8 @@
   "ResourceVersion": 3,
   "Title": null,
   "Description": null,
-  "__references": [],
+  "__references": [
+    "duccsoft.forest_needles_tmat#60685"
+  ],
   "__version": 3
 }
