@@ -32,14 +32,6 @@
 *@
 
 <root>
-	<div class="sky"></div>
-	<div class="scroll-bg-wrap">
-		<div class="scroll-bg-track">
-			<div class="scroll-bg-tile"></div>
-			<div class="scroll-bg-tile"></div>
-		</div>
-	</div>
-
 	<!-- ======================= LINKS: Menü + Titel ======================= -->
 	<div class="menu-col">
 		<div class="menu-btn" onclick="@CycleTrack">
@@ -115,58 +107,6 @@
 		height: 100%;
 		font-family: Arial;
 		color: rgba(58, 36, 16, 1);
-	}
-
-	/* Hintergrund (CSS-Verlauf als Fallback, optional eine Background-Textur darüber). */
-	.sky {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		pointer-events: none;
-		background-color: rgba(233, 186, 130, 1);
-		background-image: linear-gradient( to bottom, rgba(252, 226, 173, 1), rgba(221, 158, 102, 1) );
-	}
-
-	/* Endlos scrollender Hintergrund: zwei identische Kacheln nebeneinander in
-	   einer 200% breiten Spur; die Spur wandert per translateX von 0 auf -50%
-	   (= genau eine Kachelbreite) -> nahtlose Endlosschleife. Beide Kacheln
-	   bekommen die Background-Textur per Code (SetBackgroundImage). */
-	.scroll-bg-wrap {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		pointer-events: none;
-	}
-
-	.scroll-bg-track {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 200%;
-		height: 100%;
-		flex-direction: row;
-		animation: scroll-bg-x 40s linear infinite;
-	}
-
-	.scroll-bg-tile {
-		width: 50%;
-		height: 100%;
-		/* 100% 100% statt cover: s&box ignoriert "cover" auf prozentual
-		   bemessenen Elementen und zeigt die Textur in Originalgröße oben links.
-		   Jede Kachel ist exakt eine Bildschirmbreite -> füllt komplett. */
-		background-size: 100% 100%;
-		background-position: center;
-		background-repeat: no-repeat;
-	}
-
-	@@keyframes scroll-bg-x {
-		0% { transform: translateX( 0% ); }
-		100% { transform: translateX( -50% ); }
 	}
 
 	/* ----------------------------- Links: Menü ----------------------------- */
@@ -427,9 +367,6 @@
 	//  "Assets/UI/2D Lobby UI/Main Menu UI" hineinziehen.
 	// ====================================================================
 
-	[Group( "Lobby UI – Hintergrund" )]
-	[Property] public Texture Background { get; set; }            // scrollt endlos; z.B. main_scroll_bg.jpg (leer = Farbverlauf)
-
 	[Group( "Lobby UI – Rahmen" )]
 	[Property] public Texture Title { get; set; }                 // GameTitle_MainMenu (CHONK)
 	[Group( "Lobby UI – Rahmen" )]
@@ -518,7 +455,6 @@
 		var root = Panel;
 		if ( root is null ) return;
 
-		SetBgAll( root, "scroll-bg-tile", Background );
 		SetBgAll( root, "menu-btn", MenuButton );
 		SetBgAll( root, "title", Title );
 		SetBgAll( root, "ability-panel", AbilityPanel );
@@ -569,7 +505,7 @@
 	{
 		var all = new (string Name, Texture Tex)[]
 		{
-			(nameof( Background ), Background), (nameof( Title ), Title), (nameof( MapFrame ), MapFrame),
+			(nameof( Title ), Title), (nameof( MapFrame ), MapFrame),
 			(nameof( AbilityPanel ), AbilityPanel), (nameof( CharacterSlot ), CharacterSlot),
 			(nameof( MenuButton ), MenuButton), (nameof( ReadyButton ), ReadyButton), (nameof( NotReadyButton ), NotReadyButton),
 			(nameof( ReadyIcon ), ReadyIcon), (nameof( NotReadyIcon ), NotReadyIcon), (nameof( DisconnectedIcon ), DisconnectedIcon),
