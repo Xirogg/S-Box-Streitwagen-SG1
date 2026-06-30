@@ -31,9 +31,11 @@ public sealed class LobbyManager : Component
 	[Property] public Texture AkropolisTrackImage { get; set; }
 
 	// UI-Screens. Im Inspector die jeweilige Component reinziehen (LobbyGUI vom
-	// "-- GUI"-Node, AltarGUI vom "AltarGUIScreen"-Node). Es werden die
-	// COMPONENTS getoggelt (nicht die GameObjects), damit das ScreenPanel und der
-	// Hintergrund aktiv bleiben, auch wenn die LobbyGUI auf demselben Node liegt.
+	// "LobbyGUIScreen"-Node, AltarGUI vom "AltarGUIScreen"-Node). Beim Umschalten
+	// wird der GANZE Node (das GameObject) des einen an- und der des anderen
+	// ausgeschaltet — nicht nur die Script-Component. Das gemeinsame ScreenPanel
+	// und der scrollende Hintergrund liegen auf dem Eltern-Node "-- GUI" und
+	// bleiben dadurch immer aktiv.
 	[Property, Group( "Screens" )] public LobbyGUI LobbyScreen { get; set; }
 	[Property, Group( "Screens" )] public AltarGUI AltarScreen { get; set; }
 
@@ -102,15 +104,17 @@ public sealed class LobbyManager : Component
 	}
 
 	/// <summary>
-	/// Wechselt vom Lobby- auf den Altar-Screen: LobbyGUI-Component aus,
-	/// AltarGUI-Component an. Rein lokale UI-Umschaltung (kein Networking).
+	/// Wechselt vom Lobby- auf den Altar-Screen: LobbyGUIScreen-Node aus,
+	/// AltarGUIScreen-Node an. Rein lokale UI-Umschaltung (kein Networking).
 	/// </summary>
 	public void ShowAltar() => SwitchScreen( AltarScreen, LobbyScreen );
 
 	/// <summary>Zurück zum Lobby-Screen (Gegenstück zu <see cref="ShowAltar"/>).</summary>
 	public void ShowLobby() => SwitchScreen( LobbyScreen, AltarScreen );
 
-	// Aktiviert "show", deaktiviert "hide". Nur wenn BEIDE zugewiesen sind, sonst
+	// Schaltet den "show"-Node an und den "hide"-Node aus. Es wird das GameObject
+	// (der ganze Node) getoggelt, nicht die Component — dadurch geht der komplette
+	// Screen-Node mit allen Kindern an/aus. Nur wenn BEIDE zugewiesen sind, sonst
 	// säße man nach dem Ausschalten auf einem leeren Screen fest.
 	private void SwitchScreen( PanelComponent show, PanelComponent hide )
 	{
@@ -123,8 +127,8 @@ public sealed class LobbyManager : Component
 			return;
 		}
 
-		hide.Enabled = false;
-		show.Enabled = true;
+		hide.GameObject.Enabled = false;
+		show.GameObject.Enabled = true;
 	}
 
 	public void CycleTrack()

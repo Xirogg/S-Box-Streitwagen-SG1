@@ -47,6 +47,13 @@
 			</div>
 		}
 	</div>
+
+	<!-- ======================= TEST-Button -> Lobby ======================= -->
+	<!-- Klickfläche genau über dem "Zurück"-Button. Fängt dort per z-index den
+	     Linksklick ab und wechselt über die vorhandene Logik
+	     (LobbyManager.ShowLobby) zurück: AltarGUIScreen-Node aus,
+	     LobbyGUIScreen-Node an. Nur zum Testen. -->
+	<div class="test-btn" onclick="@TestSwitchToLobby"></div>
 </root>
 
 <style>
@@ -147,6 +154,23 @@
 		color: rgba(74, 44, 12, 1);
 		text-align: center;
 	}
+
+	/* ----------------------------- TEST-Button ----------------------------- */
+	/* Klickfläche genau über dem "Zurück"-Button (back-btn: left 40, top 40,
+	   320x120). z-index hält sie darüber; pointer-events + ein (fast unsichtbarer)
+	   Hintergrund sichern den Treffer (eine komplett durchsichtige Fläche wird in
+	   s&box sonst nicht zuverlässig getroffen). */
+	.test-btn {
+		position: absolute;
+		left: 40px;
+		top: 40px;
+		width: 320px;
+		height: 120px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(40, 90, 180, 0.06);
+	}
 </style>
 
 @code
@@ -190,6 +214,15 @@
 
 	// Zurück zum Lobby-Screen (AltarGUI aus, LobbyGUI an). Zentral im LobbyManager.
 	void GoBack() => LobbyManager.Instance?.ShowLobby();
+
+	// TEST-Button: Ein Linksklick irgendwo auf dem Vollbild-Button wechselt zurück
+	// auf den Lobby-Screen. Nutzt dieselbe Umschalt-Logik wie GoBack/der Test-Button
+	// in der LobbyGUI (AltarGUIScreen-Node aus, LobbyGUIScreen-Node an).
+	void TestSwitchToLobby()
+	{
+		Log.Info( $"[AltarGUI] TEST-Button geklickt. LobbyManager.Instance = {(LobbyManager.Instance is null ? "NULL" : "OK")}" );
+		LobbyManager.Instance?.ShowLobby();
+	}
 
 	// ====================================================================
 	//  Texturen per Code setzen (wie LobbyGUI; funktioniert mit "Image File")
