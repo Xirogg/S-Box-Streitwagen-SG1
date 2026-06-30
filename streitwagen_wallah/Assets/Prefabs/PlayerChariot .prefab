@@ -1340,7 +1340,10 @@
             "BaseImpulse": 2500,
             "ChariotExtraSpin": 1.6,
             "ChariotImpulseRatio": 1.1,
-            "CollisionDebrisPrefab": null,
+            "CollisionDebrisPrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/debris/chariotdebris.prefab"
+            },
             "Cooldown": 0.2,
             "DebugLog": true,
             "ImpulsePerClosingSpeed": 2500,

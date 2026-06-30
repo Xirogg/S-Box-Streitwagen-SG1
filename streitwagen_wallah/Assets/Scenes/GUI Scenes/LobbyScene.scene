@@ -1272,6 +1272,19 @@
             "Id": "b5c7ed68-ac2c-48a3-8161-1aed0d01232b"
           },
           "Volume": 1
+        },
+        {
+          "__type": "Sandbox.LobbyUISFX",
+          "__guid": "f858ce0d-d243-479e-8325-1c67115b90ea",
+          "__enabled": true,
+          "Flags": 0,
+          "ButtonSound": "music/sfx/lobby/lobby_sfx_buttonpressed.sound",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
         }
       ],
       "Children": []
