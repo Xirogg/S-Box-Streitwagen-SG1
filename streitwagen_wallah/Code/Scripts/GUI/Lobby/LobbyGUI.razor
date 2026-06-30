@@ -615,18 +615,25 @@
 
 	void ToggleReady()
 	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
 		var player = LocalPlayer;
 		if ( player is null ) return;
 		player.SetReady( !player.IsReady );
 	}
 
-	void CycleTrack() => LocalPlayer?.RequestCycleTrack();
+	void CycleTrack()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
+		LocalPlayer?.RequestCycleTrack();
+	}
 
 	// TEST-Button: Ein Linksklick irgendwo auf dem Vollbild-Button wechselt auf den
 	// Altar-Screen. Nutzt die schon vorhandene, getestete Umschalt-Logik im
 	// LobbyManager (LobbyScreen-Component aus, AltarScreen-Component an).
 	void TestSwitchToAltar()
 	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
+
 		// Diagnose: zeigt im Console-Log, dass der Klick wirklich ankommt. Wenn diese
 		// Zeile beim Klicken NICHT erscheint, erreicht der Klick das Panel nicht
 		// (Pointer-Events/Überdeckung). Erscheint sie, aber kein Screenwechsel,

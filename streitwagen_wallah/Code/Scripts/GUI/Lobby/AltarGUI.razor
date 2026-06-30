@@ -231,6 +231,7 @@
 	// in der LobbyGUI (AltarGUIScreen-Node aus, LobbyGUIScreen-Node an).
 	void TestSwitchToLobby()
 	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
 		Log.Info( $"[AltarGUI] TEST-Button geklickt. LobbyManager.Instance = {(LobbyManager.Instance is null ? "NULL" : "OK")}" );
 		LobbyManager.Instance?.ShowLobby();
 	}
