@@ -77,30 +77,6 @@
           "OnComponentStart": null,
           "OnComponentUpdate": null,
           "UpdateInterval": 0.2
-        },
-        {
-          "__type": "Sandbox.GodPowersNormalSfxmodule",
-          "__guid": "0a364b2a-babd-4031-929a-b70ad1eb408b",
-          "__enabled": true,
-          "Flags": 0,
-          "DebugLog": false,
-          "DionysosGrapeSoundA": null,
-          "DionysosGrapeSoundB": null,
-          "LavernaStealSoundA": null,
-          "LavernaStealSoundB": null,
-          "MaatShieldSound": null,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "SoundOrigin": null,
-          "TaranisChargedSound": null,
-          "TaranisChargeSound": null,
-          "TaranisLoopRepeats": 2,
-          "TaranisLoopSound": null,
-          "Volume": 1
         }
       ],
       "Children": [
