@@ -97,6 +97,19 @@
 
 	<div class="currency">Publicity: @LocalCurrency</div>
 
+	<!-- ======================= Strecken-Button (über "Strecke: XX") ======================= -->
+	<!-- Klickfläche genau über dem "Strecke: XX"-Menü-Button. Wechselt die Strecke
+	     über dieselbe Logik wie die "Change Track"-Hotkey (Tab):
+	     CycleTrack -> LocalPlayer.RequestCycleTrack. Liegt per z-index über dem
+	     Button und fängt dort den Linksklick ab. -->
+	<div class="track-btn" onclick="@CycleTrack"></div>
+
+	<!-- ======================= Bereit-Button (über der Ready-Bar) ======================= -->
+	<!-- Klickfläche genau über der Ready-Bar. Toggelt Bereit/Nicht-bereit über
+	     dieselbe Logik wie die "Ready"-Hotkey (ToggleReady -> SetReady( !IsReady )).
+	     Liegt per z-index über der Bar und fängt dort den Linksklick ab. -->
+	<div class="ready-btn" onclick="@ToggleReady"></div>
+
 	<!-- ======================= TEST-Button -> Altar ======================= -->
 	<!-- Klickfläche genau über dem "Charakter"-Menü-Button. Fängt dort per z-index
 	     den Linksklick ab und wechselt über die vorhandene Logik
@@ -114,6 +127,9 @@
 		height: 100%;
 		font-family: Arial;
 		color: rgba(58, 36, 16, 1);
+		/* Über dem LobbyBackgroundGUI (z-index 0), damit der scrollende Hintergrund
+		   dahinter sichtbar bleibt. */
+		z-index: 1;
 	}
 
 	/* ----------------------------- Links: Menü ----------------------------- */
@@ -382,6 +398,59 @@
 		cursor: pointer;
 		pointer-events: all;
 		background-color: rgba(255, 0, 0, 0.06);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln. Der Button ist ein (fast durchsichtiges) Overlay
+	   ÜBER dem echten "Charakter"-Button-Graphic – ein halbtransparentes Schwarz
+	   tönt den darunterliegenden Button, sodass er beim Hovern dunkler wirkt. */
+	.test-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+
+	/* ----------------------------- Strecken-Button ----------------------------- */
+	/* Klickfläche genau über dem "Strecke: XX"-Button (1. Button der menu-col:
+	   left 40, top 40, 380x120). Wechselt die Strecke wie die Tab-Hotkey. z-index
+	   hält sie über dem Button; pointer-events + ein (fast unsichtbarer)
+	   Hintergrund sichern den Treffer. */
+	.track-btn {
+		position: absolute;
+		left: 40px;
+		top: 40px;
+		width: 380px;
+		height: 120px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(0, 0, 0, 0.04);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln (halbtransparentes Schwarz über dem Strecke-Button). */
+	.track-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+
+	/* ----------------------------- Bereit-Button ----------------------------- */
+	/* Klickfläche genau über der Ready-Bar (left 540, top 50, 470x150). Toggelt
+	   Bereit/Nicht-bereit wie die Hotkey. z-index hält sie über der Bar;
+	   pointer-events + ein (fast unsichtbarer) Hintergrund sichern den Treffer. */
+	.ready-btn {
+		position: absolute;
+		left: 540px;
+		top: 50px;
+		width: 470px;
+		height: 150px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(0, 0, 0, 0.04);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln (halbtransparentes Schwarz über der Ready-Bar). */
+	.ready-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
 	}
 </style>
 

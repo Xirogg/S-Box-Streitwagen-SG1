@@ -65,6 +65,9 @@
 		height: 100%;
 		font-family: Arial;
 		color: rgba(74, 44, 12, 1);
+		/* Über dem LobbyBackgroundGUI (z-index 0), damit der scrollende Hintergrund
+		   dahinter sichtbar bleibt (sonst nur die graue Kamera-Clearfarbe). */
+		z-index: 1;
 	}
 
 	/* ----------------------------- Zurück-Button ----------------------------- */
@@ -170,6 +173,14 @@
 		cursor: pointer;
 		pointer-events: all;
 		background-color: rgba(40, 90, 180, 0.06);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln. Der Button ist ein (fast durchsichtiges) Overlay
+	   ÜBER dem echten "Zurück"-Button-Graphic – ein halbtransparentes Schwarz
+	   tönt den darunterliegenden Button, sodass er beim Hovern dunkler wirkt. */
+	.test-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
 	}
 </style>
 
