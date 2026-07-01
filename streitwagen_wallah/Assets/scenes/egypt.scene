@@ -556,7 +556,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Obelisk",
-          "Position": "121.934631,-5069.97852,-717.294922",
+          "Position": "4926.35498,1234.98145,3078.51733",
           "Rotation": "-0.0242213812,-0.00361521449,0.797348082,0.603022575",
           "Scale": "2.73941159,2.73941159,2.73941159",
           "Tags": "",
@@ -573,8 +573,8 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_obelisk",
-              "Position": "-164.983871,-429.376556,120.516861",
-              "Rotation": "0,0,0,1",
+              "Position": "-784.571289,-237.673538,-1157.9281",
+              "Rotation": "0.0273236334,0.0278910846,-0.7964499,0.603442788",
               "Scale": "1,1,1",
               "Tags": "",
               "Enabled": true,
@@ -826,7 +826,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-1024.81372,269.419983,195.002975"
+                    "Value": "-1718.10425,831.150024,-1105.8197"
                   },
                   {
                     "Target": {
@@ -1037,7 +1037,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-880.828735,435.323242,129.91507"
+                    "Value": "-1456.65906,1072.19202,-1151.02686"
                   },
                   {
                     "Target": {
@@ -1240,7 +1240,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-1627.20166,-416.6586,106.701118"
+                    "Value": "-2956.91602,-1047.22205,-1275.54272"
                   },
                   {
                     "Target": {
@@ -1248,7 +1248,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Rotation",
-                    "Value": "-0.119426869,-0.56653446,-0.16817902,0.797804296"
+                    "Value": "-0.0405784696,-0.363123357,-0.0880592167,0.926682591"
                   }
                 ],
                 "MovedObjects": [
@@ -1443,7 +1443,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-1421.88989,-485.338409,124.800522"
+                    "Value": "-2624.34668,-1145.56653,-1213.71472"
                   },
                   {
                     "Target": {
@@ -1451,7 +1451,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Rotation",
-                    "Value": "9.31322575E-10,-5.58793545E-09,-0.206269383,0.978495359"
+                    "Value": "-0.0209660307,-0.0994580984,-0.209762812,0.972454727"
                   },
                   {
                     "Target": {
@@ -1562,7 +1562,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-125.681671,-289.445953,127.1987"
+                    "Value": "-476.540222,80.1529617,-1117.12195"
                   },
                   {
                     "Target": {
@@ -1570,7 +1570,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Rotation",
-                    "Value": "-8.34110558E-12,-5.66500846E-09,-0.365697145,0.930733919"
+                    "Value": "0.166791588,0.074718602,-0.425313801,0.8864007"
                   }
                 ],
                 "MovedObjects": [
@@ -1765,7 +1765,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-53.3780212,-1153.14111,98.2690811"
+                    "Value": "480.487122,-2056.16064,-1234.19092"
                   },
                   {
                     "Target": {
@@ -1773,7 +1773,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Rotation",
-                    "Value": "-0.0178874861,-0.0569104217,-0.299313366,0.952288389"
+                    "Value": "-0.0220548436,-0.20154947,-0.292554259,0.934507132"
                   }
                 ],
                 "MovedObjects": [
@@ -1968,7 +1968,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-210.923981,-1057.4519,52.786541"
+                    "Value": "134.500381,-1812.7146,-1308.85107"
                   },
                   {
                     "Target": {
@@ -1976,7 +1976,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Rotation",
-                    "Value": "0.0205225237,0.0593668409,-0.326073825,0.943255126"
+                    "Value": "0.037292134,0.107394986,-0.322232842,0.939809442"
                   }
                 ],
                 "MovedObjects": [
@@ -2171,7 +2171,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-1018.42957,1544.22192,433.446198"
+                    "Value": "-6.06454372,2495.25293,-829.825806"
                   },
                   {
                     "Target": {
@@ -2179,7 +2179,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Rotation",
-                    "Value": "0.304682523,-1.84086808E-08,2.83995183E-09,0.952453971"
+                    "Value": "0.165510386,-0.156496659,0.0210018754,0.973485589"
                   },
                   {
                     "Target": {
@@ -2382,7 +2382,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Position",
-                    "Value": "-830.780518,1142.44946,207.658859"
+                    "Value": "-209.952927,2095.50562,-1039.66931"
                   },
                   {
                     "Target": {
@@ -2390,7 +2390,7 @@
                       "IdValue": "bebff798-4142-4315-94c3-edbb37d82a36"
                     },
                     "Property": "Rotation",
-                    "Value": "0.0773197562,-0.0464190952,-0.0108643416,0.995865941"
+                    "Value": "0.0789235905,0.21217297,-0.0215001404,0.973802567"
                   }
                 ],
                 "MovedObjects": [
@@ -2571,9 +2571,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "m_pyramide_m (2)",
-          "Position": "892.445129,-2809.35498,-242.161621",
+          "Position": "781.520935,-2984.0415,-242.161621",
           "Rotation": "0,0,0.258819044,0.965925813",
-          "Scale": "0.150000006,0.150000006,0.104514986",
+          "Scale": "0.349999994,0.349999994,0.300000012",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -2617,7 +2617,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Palm",
-          "Position": "-704.384888,-4036.13867,662.987854",
+          "Position": "5136.72168,429.810547,4257.19092",
           "Rotation": "0,0,0,1",
           "Scale": "1,1,1",
           "Tags": "",
@@ -2751,7 +2751,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-2325.41235,-2692.69995,-704.85968"
+                    "Value": "-3828.68408,-5159.5752,-4079.62891"
                   },
                   {
                     "Target": {
@@ -2949,7 +2949,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-1263.74414,-1719.77344,-744.60553"
+                    "Value": "3976.1377,1801.45117,-4304.44336"
                   },
                   {
                     "Target": {
@@ -2958,6 +2958,14 @@
                     },
                     "Property": "Rotation",
                     "Value": "0.115528405,0.0347233713,0.0273261424,0.992320955"
+                  },
+                  {
+                    "Target": {
+                      "Type": "GameObject",
+                      "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+                    },
+                    "Property": "Scale",
+                    "Value": "1.20000005,1.20000005,1.20000005"
                   },
                   {
                     "Target": {
@@ -3139,7 +3147,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "-5111.86768,237.908203,-875.472168"
+                    "Value": "-6046.44043,130.90332,-3330.79053"
                   },
                   {
                     "Target": {
@@ -3148,6 +3156,14 @@
                     },
                     "Property": "Rotation",
                     "Value": "-0.00185022876,0.18874231,0.00962626282,0.981977701"
+                  },
+                  {
+                    "Target": {
+                      "Type": "GameObject",
+                      "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+                    },
+                    "Property": "Scale",
+                    "Value": "1.20000005,1.20000005,1.20000005"
                   },
                   {
                     "Target": {
@@ -3329,7 +3345,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "4292.6416,-516.577148,-911.663818"
+                    "Value": "4485.87695,957.44043,-4289.75439"
                   },
                   {
                     "Target": {
@@ -3345,7 +3361,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Scale",
-                    "Value": "0.663172126,0.663172126,0.663172126"
+                    "Value": "1.20000005,1.20000005,1.20000005"
                   }
                 ],
                 "MovedObjects": [
@@ -3519,7 +3535,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "1762.47095,-4544.06299,-855.821594"
+                    "Value": "1823.46289,-5937.91943,-4186.85791"
                   },
                   {
                     "Target": {
@@ -3527,7 +3543,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Rotation",
-                    "Value": "-0.216374412,0.0521466732,-0.228417099,0.947780788"
+                    "Value": "-0.00432656799,0.00104271166,-0.234291613,0.972156227"
                   },
                   {
                     "Target": {
@@ -3535,7 +3551,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Scale",
-                    "Value": "0.851208866,0.851208866,1.09273386"
+                    "Value": "1.5,1.5,1.5"
                   },
                   {
                     "Target": {
@@ -3717,7 +3733,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "1052.13623,-4226.896,-884.375732"
+                    "Value": "3765.71582,-4553.30176,-3848.07983"
                   },
                   {
                     "Target": {
@@ -3733,7 +3749,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Scale",
-                    "Value": "0.743380547,0.743380547,0.743380547"
+                    "Value": "1.5,1.5,1.5"
                   },
                   {
                     "Target": {
@@ -3923,7 +3939,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "103.114418,-4899.62012,-880.279663"
+                    "Value": "-151.878906,-5470.69141,-4831.04785"
                   },
                   {
                     "Target": {
@@ -3932,6 +3948,14 @@
                     },
                     "Property": "Rotation",
                     "Value": "-0.0075089559,0.0462724492,0.160006106,0.986002326"
+                  },
+                  {
+                    "Target": {
+                      "Type": "GameObject",
+                      "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+                    },
+                    "Property": "Scale",
+                    "Value": "1.5,1.5,1.5"
                   }
                 ],
                 "MovedObjects": [
@@ -4105,7 +4129,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "1530.61206,-5178.54443,-982.935913"
+                    "Value": "-41.0454102,-4058.55469,-4110.77588"
                   },
                   {
                     "Target": {
@@ -4113,7 +4137,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Rotation",
-                    "Value": "0.0493986942,0.0142751578,0.159658566,0.985832155"
+                    "Value": "-0.166588932,-0.0208554659,0.158932984,0.972909868"
                   },
                   {
                     "Target": {
@@ -4121,7 +4145,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Scale",
-                    "Value": "1.36553288,1.36553288,1.36553288"
+                    "Value": "1.5,1.5,1.5"
                   },
                   {
                     "Target": {
@@ -4303,7 +4327,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "761.05072,-1801.38916,-1003.47424"
+                    "Value": "-418.282227,34.8984375,-3376.96338"
                   },
                   {
                     "Target": {
@@ -4319,7 +4343,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Scale",
-                    "Value": "0.851208866,0.851208866,1.09273386"
+                    "Value": "1.20000005,1.20000005,1.20000005"
                   },
                   {
                     "Target": {
@@ -4501,7 +4525,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "572.745972,-2018.29199,-784.748718"
+                    "Value": "-562.196289,-296.318359,-3434.21484"
                   },
                   {
                     "Target": {
@@ -4517,7 +4541,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Scale",
-                    "Value": "0.743380547,0.743380547,0.743380547"
+                    "Value": "1.20000005,1.20000005,1.20000005"
                   },
                   {
                     "Target": {
@@ -4707,7 +4731,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "242.134705,-1979.62695,-827.368347"
+                    "Value": "-897.931152,-308.061523,-3411.69312"
                   },
                   {
                     "Target": {
@@ -4716,6 +4740,14 @@
                     },
                     "Property": "Rotation",
                     "Value": "0.17077297,0.0444213375,-0.173018932,0.968982816"
+                  },
+                  {
+                    "Target": {
+                      "Type": "GameObject",
+                      "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+                    },
+                    "Property": "Scale",
+                    "Value": "1.5,1.5,1.5"
                   }
                 ],
                 "MovedObjects": [
@@ -4881,7 +4913,7 @@
                       "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
                     },
                     "Property": "Position",
-                    "Value": "760.614624,-2090.76758,-776.062866"
+                    "Value": "-384.332031,-368.47168,-3496.06348"
                   },
                   {
                     "Target": {
@@ -4890,6 +4922,14 @@
                     },
                     "Property": "Rotation",
                     "Value": "0.220069274,0.041820202,0.154744044,0.962223887"
+                  },
+                  {
+                    "Target": {
+                      "Type": "GameObject",
+                      "IdValue": "0ad766fc-a410-4258-859b-1ff654def393"
+                    },
+                    "Property": "Scale",
+                    "Value": "2,2,2"
                   },
                   {
                     "Target": {
@@ -4956,7 +4996,7 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Cactus",
-          "Position": "-704.384888,-4036.13867,662.987854",
+          "Position": "2744.48486,2047.78418,5464.9751",
           "Rotation": "0,0,0,1",
           "Scale": "1,1,1",
           "Tags": "",
@@ -4973,8 +5013,8 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal",
-              "Position": "1555.97632,-421.036133,-1083.00781",
-              "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
+              "Position": "2847.146,-1256.24316,-5329.60986",
+              "Rotation": "0.135982126,0.0992221981,0.296745658,0.940003037",
               "Scale": "2.30999994,2.30999255,3.1299777",
               "Tags": "",
               "Enabled": true,
@@ -5019,8 +5059,8 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (4)",
-              "Position": "2641.39868,-679.246582,-962.11322",
-              "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
+              "Position": "4042.08838,-1260.09473,-5454.87012",
+              "Rotation": "-0.211128876,-0.0141213313,0.312575758,0.926024616",
               "Scale": "4.81177378,4.81176662,5.63175201",
               "Tags": "",
               "Enabled": true,
@@ -5065,7 +5105,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (8)",
-              "Position": "-2560.04077,-3640.75684,-641.651428",
+              "Position": "3621.25879,867.764648,-5495.59229",
               "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
               "Scale": "4.81177378,4.81176662,5.63175201",
               "Tags": "",
@@ -5107,11 +5147,149 @@
               "Children": []
             },
             {
+              "__guid": "57b8f535-d987-4786-b504-1c10ac4d3c76",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (8)",
+              "Position": "5132.61377,-287.493164,-5465.02637",
+              "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
+              "Scale": "4.81177378,4.81176662,5.63175201",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "5ae4c293-e91c-4c6d-a78f-2a37e0dae380",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.18534,0.49767,0.07176,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "64966ba6-e826-44a5-b0f1-c84d2e1bbdb1",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (8)",
+              "Position": "1341.646,-980.370117,-4852.41846",
+              "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
+              "Scale": "4.81177378,4.81176662,5.63175201",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "88d1eb47-8106-4c96-939c-4cbeb6b25e5d",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.18534,0.49767,0.07176,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "9fbd2e49-49e3-4720-9b23-bb55738daa50",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (8)",
+              "Position": "2679.42236,2884.78418,-4224.45752",
+              "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
+              "Scale": "4.81177378,4.81176662,5.63175201",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "5dee24ac-a5ab-4e64-89f9-3ccafac86ae6",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.18534,0.49767,0.07176,1"
+                }
+              ],
+              "Children": []
+            },
+            {
               "__guid": "00b1b58e-7587-4a0d-8c43-fc7b374b8ff5",
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (9)",
-              "Position": "-2190.13818,-3762.49219,-602.141968",
+              "Position": "1038.02344,-1588.63379,-4790.90039",
               "Rotation": "-0.0163873136,0.0503940284,0.308809727,0.949646473",
               "Scale": "8.88865852,8.88865185,9.70863819",
               "Tags": "",
@@ -5157,7 +5335,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (5)",
-              "Position": "3645.4646,-4390.16504,-983.091797",
+              "Position": "3557.36279,-6828.93018,-5476.10791",
               "Rotation": "-0.00315738283,0.0528973714,0.538182616,0.841160715",
               "Scale": "4.81177378,4.81176662,5.63175201",
               "Tags": "",
@@ -5199,12 +5377,58 @@
               "Children": []
             },
             {
+              "__guid": "b627b26a-3b4f-4a07-ad4e-86718833a997",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (5)",
+              "Position": "7958.30225,-6487.2793,-5276.00732",
+              "Rotation": "-0.00315738283,0.0528973714,0.538182616,0.841160715",
+              "Scale": "4.81177378,4.81176662,5.63175201",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "84862031-99b5-415d-9c67-705e1e7c7c5d",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.28701,0.8,0.10047,1"
+                }
+              ],
+              "Children": []
+            },
+            {
               "__guid": "17af7b10-a2a3-4afd-9279-459445079b89",
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (1)",
-              "Position": "1298.18408,-409.616211,-1104.31299",
-              "Rotation": "0.0343750939,0.0403293371,0.970882773,0.233620763",
+              "Position": "221.310547,-1936.91211,-4765.21338",
+              "Rotation": "-0.0182991289,-0.176020771,0.955644488,0.235426083",
               "Scale": "5.11977386,5.11976624,6.54975128",
               "Tags": "",
               "Enabled": true,
@@ -5249,8 +5473,8 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (3)",
-              "Position": "-379.02301,-5006.15381,-921.198181",
-              "Rotation": "0.0306799412,0.0432069898,0.946463287,0.318432748",
+              "Position": "-586.39917,-6476.61426,-5219.57715",
+              "Rotation": "-0.0867257714,-0.0152231129,-0.0013253853,0.996114969",
               "Scale": "7.78592443,7.78591681,9.21590233",
               "Tags": "",
               "Enabled": true,
@@ -5295,8 +5519,8 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (7)",
-              "Position": "-2458.53198,-3473.53809,-605.136597",
-              "Rotation": "0.0722256452,0.00527919363,0.781314433,0.619922221",
+              "Position": "-5211.67725,-3863.97461,-3672.34253",
+              "Rotation": "0.204329178,0.173796177,0.761757672,0.589720011",
               "Scale": "6.22532511,6.22531748,8.77599716",
               "Tags": "",
               "Enabled": true,
@@ -5341,9 +5565,9 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (6)",
-              "Position": "4836.12256,-2984.24536,-1035.49707",
+              "Position": "7089.29834,496.533203,-5495.87402",
               "Rotation": "-0.00541429967,0.0527141988,0.501756728,0.863384128",
-              "Scale": "10.2822819,10.2822742,14.4684849",
+              "Scale": "6,6,6",
               "Tags": "",
               "Enabled": true,
               "NetworkMode": 2,
@@ -5387,8 +5611,8 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (10)",
-              "Position": "5971.67432,-2014.10498,-1042.29602",
-              "Rotation": "-0.00541429967,0.0527141988,0.501756728,0.863384128",
+              "Position": "6474.65576,-1464.24609,-5476.9248",
+              "Rotation": "0.0131073883,0.0513448939,0.173027724,0.983490407",
               "Scale": "11.2859116,11.2859039,14.321804",
               "Tags": "",
               "Enabled": true,
@@ -5429,11 +5653,195 @@
               "Children": []
             },
             {
+              "__guid": "b779768e-ac15-4a53-bf4c-5fc793122987",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (10)",
+              "Position": "10583.4766,3976.55957,-5583.18408",
+              "Rotation": "0.0131073883,0.0513448939,0.173027724,0.983490407",
+              "Scale": "11.2859116,11.2859039,14.321804",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "1235333a-986b-4292-8f81-762d807b5a07",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.4906,0.7907,0.22802,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "d23762ee-8bb9-4f6f-a7f2-bc506531f673",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (10)",
+              "Position": "6926.21045,3896.30371,-4950.50732",
+              "Rotation": "0.0131073883,0.0513448939,0.173027724,0.983490407",
+              "Scale": "11.2859116,11.2859039,14.321804",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "6eae7721-f311-4190-ad27-a41bb2a754ce",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.4906,0.7907,0.22802,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "1a9ea1db-73ed-42a6-a7fe-b320cf998ddc",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (10)",
+              "Position": "5407.2124,-6643.33203,-5263.92139",
+              "Rotation": "0.0495899916,0.0186797976,-0.706860065,0.705365777",
+              "Scale": "11.2859116,11.2859039,14.321804",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "52925f82-bec4-46f6-a349-82323190d6f4",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.4906,0.7907,0.22802,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "84a9e3b2-cc58-4092-aa1b-a041edf88506",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (10)",
+              "Position": "1443.9502,-11098.1289,-4382.03662",
+              "Rotation": "0.0495899916,0.0186797976,-0.706860065,0.705365777",
+              "Scale": "11.2859116,11.2859039,14.321804",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "bbbfbf30-649a-4f45-a6c5-257cd8d8d9a6",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.4906,0.7907,0.22802,1"
+                }
+              ],
+              "Children": []
+            },
+            {
               "__guid": "7a9a0701-5e74-4c50-8a92-1ce0033fe4b9",
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (11)",
-              "Position": "5867.66748,-1769.62109,-1015.90057",
+              "Position": "8746.19727,-3557.09766,-5475.46191",
               "Rotation": "-0.0434472822,0.0303386636,-0.325877517,0.943925738",
               "Scale": "5.98661804,5.98661041,9.02251244",
               "Tags": "",
@@ -5479,7 +5887,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_normal (2)",
-              "Position": "1319.47852,-2964.94775,-772.363708",
+              "Position": "-2622.38721,-8693.79492,-3958.04883",
               "Rotation": "0.0392478593,0.0356048793,0.992779791,0.107610583",
               "Scale": "3.7879343,3.78792667,5.21791124",
               "Tags": "",
@@ -5521,11 +5929,287 @@
               "Children": []
             },
             {
+              "__guid": "aa2af315-56ea-428c-97dd-b8a8b397fa84",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (2)",
+              "Position": "-1336.88074,-9730.52734,-3724.23486",
+              "Rotation": "0.0392478593,0.0356048793,0.992779791,0.107610583",
+              "Scale": "3.7879343,3.78792667,5.21791124",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "384d4c1e-9ba1-4140-9416-9fbce55645e3",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.4906,0.7907,0.22802,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "ac25ff56-3301-431a-a8fc-6351889a0198",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (2)",
+              "Position": "-445.336182,-10825.6182,-3625.81909",
+              "Rotation": "0.0392478593,0.0356048793,0.992779791,0.107610583",
+              "Scale": "3.7879343,3.78792667,5.21791124",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "5f0d1ace-30df-444b-93f5-f91c2da41924",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.4906,0.7907,0.22802,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "d3058b44-140e-4c9d-ad7b-61a0fa8ec77a",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (2)",
+              "Position": "9791.07422,-3319.49902,-5824.92432",
+              "Rotation": "0.0447205603,0.0284283981,0.960120618,0.274518251",
+              "Scale": "3.7879343,3.78792667,5.21791124",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "808f70c9-5abd-402e-8e2e-0bd0de2fb86d",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.4906,0.7907,0.22802,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "8f2bad52-c3ae-4490-a211-56395805f0fe",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (2)",
+              "Position": "11051.2695,-4363.72266,-5839.1123",
+              "Rotation": "0.0447205603,0.0284283981,0.960120618,0.274518251",
+              "Scale": "3.7879343,3.78792667,5.21791124",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "5c5b5e6a-0c92-4be1-9eae-b466b2c0b11f",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.4906,0.7907,0.22802,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "124f37af-f3c6-48fa-8512-e85c54689646",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (2)",
+              "Position": "11919.8242,-5465.61768,-5965.96436",
+              "Rotation": "0.0447205603,0.0284283981,0.960120618,0.274518251",
+              "Scale": "3.7879343,3.78792667,5.21791124",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "0297220c-667e-4c20-9754-842a7d65a148",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.4906,0.7907,0.22802,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "7289ee4e-7486-4e05-97fb-03370a998a13",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_cactus_normal (2)",
+              "Position": "-4950.04395,-8908.22754,-2364.56592",
+              "Rotation": "0.0392478593,0.0356048793,0.992779791,0.107610583",
+              "Scale": "3.7879343,3.78792667,5.21791124",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "702ae8ef-e5ac-4fdf-aec6-7bac3b9526be",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves.vmat",
+                  "Materials": null,
+                  "Model": "models/m_cactus_normal.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.4906,0.7907,0.22802,1"
+                }
+              ],
+              "Children": []
+            },
+            {
               "__guid": "f4179625-6d80-4ef4-9890-c76ce4606ffb",
               "__version": 2,
               "Flags": 0,
               "Name": "m_cactus_weird",
-              "Position": "-1538.49561,-2731.84351,-819.949341",
+              "Position": "-2070.4375,-1348.22559,-5338.08301",
               "Rotation": "-0.00806060061,0.0286209565,-0.539726257,0.841315389",
               "Scale": "2.88031936,2.88031936,2.88031936",
               "Tags": "",
@@ -103574,6 +104258,133 @@
         "71306516-0416-4962-ad57-604bccf93274": "271b608a-40cf-48f1-8b5a-7aefcccfb99d",
         "143114ab-4f92-4888-96ae-a120972ec204": "4a098530-1eb1-4a12-8c0b-e8dfb632ef35"
       }
+    },
+    {
+      "__guid": "2550e749-3b5e-4653-867c-cae0a100cd5c",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "chonktribuene_final",
+      "Position": "8360.59863,15360.6914,946.092773",
+      "Rotation": "-1.87901037E-08,1.06563945E-07,-0.98480773,0.173648223",
+      "Scale": "3,3,3",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.Prop",
+          "__guid": "cbd8df34-ab66-4fcd-922e-30cffbe9f013",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "Health": 0,
+          "IsStatic": false,
+          "MaterialGroup": null,
+          "Model": "models/chonktribuene_final.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnPropBreak": null,
+          "OnPropTakeDamage": null,
+          "StartAsleep": false,
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "f8ddb445-4838-4cfe-9712-9fc920b607fd",
+          "__enabled": true,
+          "Flags": 0,
+          "BodyGroups": 18446744073709551615,
+          "CreateAttachments": false,
+          "LodOverride": null,
+          "MaterialGroup": null,
+          "MaterialOverride": null,
+          "Materials": null,
+          "Model": "models/chonktribuene_final.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "df7b4e3a-67a8-4145-af0c-cf8e035ce280",
+          "__enabled": true,
+          "Flags": 0,
+          "ColliderFlags": 0,
+          "Elasticity": null,
+          "Friction": null,
+          "IsTrigger": false,
+          "Model": "models/chonktribuene_final.vmdl",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "RollingResistance": null,
+          "Static": false,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        },
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "ade5f9ae-38fb-459f-82b7-0f851f770c84",
+          "__enabled": true,
+          "Flags": 0,
+          "AngularDamping": 0,
+          "EnableImpactDamage": true,
+          "EnhancedCcd": false,
+          "Gravity": true,
+          "GravityScale": 1,
+          "ImpactDamage": 0,
+          "LinearDamping": 0,
+          "Locking": {
+            "X": false,
+            "Y": false,
+            "Z": false,
+            "Pitch": false,
+            "Yaw": false,
+            "Roll": false
+          },
+          "MassCenterOverride": "0,0,0",
+          "MassOverride": 0,
+          "MinImpactDamageSpeed": 500,
+          "MotionEnabled": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OverrideMassCenter": false,
+          "RigidbodyFlags": 0,
+          "SleepThreshold": 2,
+          "StartAsleep": false
+        }
+      ],
+      "Children": []
     }
   ],
   "SceneProperties": {
