@@ -1333,7 +1333,7 @@
                 "CacheToDisk": true,
                 "FormatOverride": "RGBA8888"
               },
-              "compiled": null
+              "compiled": "textures/generated/imagefile/109b371f6c6bad73.vtex"
             },
             "HpFillTexture": {
               "$compiler": "texture",
@@ -1371,7 +1371,7 @@
                 "CacheToDisk": true,
                 "FormatOverride": "RGBA8888"
               },
-              "compiled": null
+              "compiled": "textures/generated/imagefile/23a06e2efaa36956.vtex"
             },
             "HpOutlineTexture": {
               "$compiler": "texture",
@@ -1409,7 +1409,7 @@
                 "CacheToDisk": true,
                 "FormatOverride": "RGBA8888"
               },
-              "compiled": null
+              "compiled": "textures/generated/imagefile/d969524abc580de.vtex"
             },
             "ItemSlotTexture": {
               "$compiler": "texture",
@@ -1447,7 +1447,7 @@
                 "CacheToDisk": true,
                 "FormatOverride": "RGBA8888"
               },
-              "compiled": null
+              "compiled": "textures/generated/imagefile/bba22619c979959b.vtex"
             },
             "LavernaIcon": {
               "$compiler": "texture",
@@ -1485,7 +1485,7 @@
                 "CacheToDisk": true,
                 "FormatOverride": "RGBA8888"
               },
-              "compiled": null
+              "compiled": "textures/generated/imagefile/cfdc838dc3645c77.vtex"
             },
             "MaAtIcon": {
               "$compiler": "texture",
@@ -1523,7 +1523,7 @@
                 "CacheToDisk": true,
                 "FormatOverride": "RGBA8888"
               },
-              "compiled": null
+              "compiled": "textures/generated/imagefile/36d987db78c06787.vtex"
             },
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -1567,7 +1567,7 @@
                 "CacheToDisk": true,
                 "FormatOverride": "RGBA8888"
               },
-              "compiled": null
+              "compiled": "textures/generated/imagefile/27e59e2b29a9cc26.vtex"
             }
           },
           {
