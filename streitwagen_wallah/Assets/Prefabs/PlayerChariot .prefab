@@ -621,6 +621,14 @@
                     "Type": "Component",
                     "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
                   },
+                  "Property": "Model",
+                  "Value": "models/m_cherd_rig.vmdl"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  },
                   "Property": "Tint",
                   "Value": "0.85116,0.85116,0.85116,1"
                 },
@@ -913,6 +921,14 @@
                   },
                   "Property": "Scale",
                   "Value": "2.5,2.5,2.5"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  },
+                  "Property": "Model",
+                  "Value": "models/m_cherd_rig.vmdl"
                 },
                 {
                   "Target": {

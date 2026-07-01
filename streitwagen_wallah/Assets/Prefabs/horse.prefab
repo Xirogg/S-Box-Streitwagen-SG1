@@ -50,7 +50,7 @@
         "MaterialGroup": null,
         "MaterialOverride": null,
         "Materials": null,
-        "Model": "models/m_cherd_rig.vmdl",
+        "Model": "models/m_cherd_rig_new.vmdl",
         "Morphs": {},
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,

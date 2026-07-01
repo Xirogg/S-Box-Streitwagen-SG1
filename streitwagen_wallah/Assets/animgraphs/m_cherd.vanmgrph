@@ -99,7 +99,7 @@
 	}
 	m_previewModels = 
 	[
-		"models/m_cherd_rig.vmdl",
+		"models/m_cherd_rig_new.vmdl",
 	]
 	m_boneMergeModels = [  ]
 	m_cameraSettings = 
