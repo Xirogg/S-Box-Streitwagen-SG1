@@ -14,8 +14,10 @@ namespace Sandbox;
 /// and when to fire the random call, then broadcasts so everyone hears it positioned
 /// at (and following) the horse.
 ///
-/// NOTE: Sound A must be a LOOPING .sound asset — this component starts it once when
-/// the horse begins moving and stops the handle when it halts; it does not re-trigger.
+/// Sound A is kept looping IN CODE: sbox has no loop flag on SoundHandle/SoundEvent,
+/// so the clip is re-fired whenever it finishes while the horse is still moving, and
+/// stopped when the horse halts. Author Sound A with matching start/end for a seamless
+/// loop; otherwise expect a tiny gap each cycle.
 /// </summary>
 public sealed class ChariotHorseSfxmodule : Component
 {
@@ -79,6 +81,12 @@ public sealed class ChariotHorseSfxmodule : Component
 			loopActive = false;
 			StopLoop();
 		}
+
+		// Keep it ACTUALLY looping: the .sound may not be authored to loop, so whenever the
+		// clip finishes while we still want it playing, fire it again. (Re-triggering is the
+		// only reliable loop in s&box — there's no loop flag on SoundHandle/SoundEvent.)
+		if ( loopActive && MoveLoopSound is not null && (loopHandle is null || loopHandle.Finished) )
+			StartLoop();
 
 		// Random idle call.
 		if ( Time.Now >= nextIdleAt )

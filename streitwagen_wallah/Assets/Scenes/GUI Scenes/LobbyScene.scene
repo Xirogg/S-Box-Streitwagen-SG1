@@ -1,0 +1,1330 @@
+{
+  "__guid": "2662257d-be30-4487-b532-748bb35b7f8b",
+  "GameObjects": [
+    {
+      "__guid": "7d1e150f-702a-4305-852b-ad1ab60d4644",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "-- MANAGERS",
+      "Position": "149.994965,149.994995,-212.124985",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "GameNetworkManager",
+          "__guid": "acef8adb-f5ac-46a5-a133-7587028a9ddf",
+          "__enabled": true,
+          "Flags": 0,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "PlayerChariotPrefab": null,
+          "PlayerSpawnPoints": []
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "65a498b8-0793-447a-a88b-f99f1c0dabaa",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "Lobby Manager",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "LobbyManager",
+              "__guid": "777d50bc-ed11-4e4b-8062-9f79be8cc162",
+              "__enabled": true,
+              "Flags": 0,
+              "AegyptenScene": "scenes/egypt.scene",
+              "AegyptenTrackImage": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/tracks/track_aegypten.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/91ef7f0cb1b463ce.vtex"
+              },
+              "AkropolisScene": "scenes/greece.scene",
+              "AkropolisTrackImage": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/tracks/track_akropolis.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/405e3f80d5a11ab1.vtex"
+              },
+              "AltarScreen": {
+                "_type": "component",
+                "component_id": "f7467c4e-7100-4875-9f9e-37a7f466a160",
+                "go": "348ef706-68ae-4801-ae82-512e5f92e633",
+                "component_type": "AltarGUI"
+              },
+              "LobbyScreen": {
+                "_type": "component",
+                "component_id": "245ceaa2-4039-4339-90b9-42a162e41565",
+                "go": "b4b148cc-5cd8-4d3b-8bf7-5a95ca423fa3",
+                "component_type": "LobbyGUI"
+              },
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "RomScene": "scenes/rome(notdone).scene",
+              "RomTrackImage": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/tracks/track_rom.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/39f84b7f5b0c5950.vtex"
+              }
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "__guid": "ddefb55d-e479-4800-bcd3-e3ab823d4dbb",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "-- GUI",
+      "Position": "149.994965,149.994995,-212.124985",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "985b779f-1b41-4138-96cf-93fba6f07b8c",
+          "__enabled": true,
+          "Flags": 0,
+          "AutoScreenScale": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Opacity": 1,
+          "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
+          "TargetCamera": {
+            "_type": "component",
+            "component_id": "0f618e2b-9e4c-4a59-b99a-0a62265994d2",
+            "go": "435b303c-90d5-4185-acbe-1738d95861ea",
+            "component_type": "CameraComponent"
+          },
+          "ZIndex": 100
+        },
+        {
+          "__type": "Sandbox.LobbyBackgroundGUI",
+          "__guid": "cd3568ec-d3eb-4253-86f2-a235c20a306a",
+          "__enabled": true,
+          "Flags": 0,
+          "Background": {
+            "$compiler": "texture",
+            "$source": "imagefile",
+            "data": {
+              "FilePath": "ui/ingame gui/lobby/main_scroll_bg.jpg",
+              "MaxSize": 4096,
+              "ConvertHeightToNormals": false,
+              "NormalScale": 1,
+              "Rotate": 0,
+              "FlipVertical": false,
+              "FlipHorizontal": false,
+              "Cropping": {
+                "Left": 0,
+                "Top": 0,
+                "Right": 0,
+                "Bottom": 0
+              },
+              "Padding": {
+                "Left": 0,
+                "Top": 0,
+                "Right": 0,
+                "Bottom": 0
+              },
+              "InvertColor": false,
+              "Tint": "1,1,1,1",
+              "Blur": 0,
+              "Sharpen": 0,
+              "Brightness": 1,
+              "Contrast": 1,
+              "Saturation": 1,
+              "Hue": 0,
+              "Colorize": false,
+              "TargetColor": "1,1,1,1",
+              "CacheToDisk": true,
+              "FormatOverride": "RGBA8888"
+            },
+            "compiled": "textures/generated/imagefile/7f922a1ac3421526.vtex"
+          },
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "348ef706-68ae-4801-ae82-512e5f92e633",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "AltarGUIScreen  ",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": false,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.AltarGUI",
+              "__guid": "f7467c4e-7100-4875-9f9e-37a7f466a160",
+              "__enabled": true,
+              "Flags": 0,
+              "Button": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/altar ui/button_altarmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/eb5e35387a7d08c6.vtex"
+              },
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PillarActive": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/altar ui/altarsäule_aktiv.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/98411587834ca505.vtex"
+              },
+              "PillarInactive": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/altar ui/altarsäule_inaktiv.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/a281d4d356085f36.vtex"
+              },
+              "Powers": [
+                {
+                  "Name": "Maat",
+                  "Icon": {
+                    "$compiler": "texture",
+                    "$source": "imagefile",
+                    "data": {
+                      "FilePath": "ui/2d lobby ui/altar ui/maat_altar.png",
+                      "MaxSize": 4096,
+                      "ConvertHeightToNormals": false,
+                      "NormalScale": 1,
+                      "Rotate": 0,
+                      "FlipVertical": false,
+                      "FlipHorizontal": false,
+                      "Cropping": {
+                        "Left": 0,
+                        "Top": 0,
+                        "Right": 0,
+                        "Bottom": 0
+                      },
+                      "Padding": {
+                        "Left": 0,
+                        "Top": 0,
+                        "Right": 0,
+                        "Bottom": 0
+                      },
+                      "InvertColor": false,
+                      "Tint": "1,1,1,1",
+                      "Blur": 0,
+                      "Sharpen": 0,
+                      "Brightness": 1,
+                      "Contrast": 1,
+                      "Saturation": 1,
+                      "Hue": 0,
+                      "Colorize": false,
+                      "TargetColor": "1,1,1,1",
+                      "CacheToDisk": true,
+                      "FormatOverride": "RGBA8888"
+                    },
+                    "compiled": "textures/generated/imagefile/a8ce73e67001f13c.vtex"
+                  }
+                },
+                {
+                  "Name": "Dionysos",
+                  "Icon": {
+                    "$compiler": "texture",
+                    "$source": "imagefile",
+                    "data": {
+                      "FilePath": "ui/2d lobby ui/altar ui/dionysos_altar.png",
+                      "MaxSize": 4096,
+                      "ConvertHeightToNormals": false,
+                      "NormalScale": 1,
+                      "Rotate": 0,
+                      "FlipVertical": false,
+                      "FlipHorizontal": false,
+                      "Cropping": {
+                        "Left": 0,
+                        "Top": 0,
+                        "Right": 0,
+                        "Bottom": 0
+                      },
+                      "Padding": {
+                        "Left": 0,
+                        "Top": 0,
+                        "Right": 0,
+                        "Bottom": 0
+                      },
+                      "InvertColor": false,
+                      "Tint": "1,1,1,1",
+                      "Blur": 0,
+                      "Sharpen": 0,
+                      "Brightness": 1,
+                      "Contrast": 1,
+                      "Saturation": 1,
+                      "Hue": 0,
+                      "Colorize": false,
+                      "TargetColor": "1,1,1,1",
+                      "CacheToDisk": true,
+                      "FormatOverride": "RGBA8888"
+                    },
+                    "compiled": "textures/generated/imagefile/678743ddf42d17e8.vtex"
+                  }
+                },
+                {
+                  "Name": "Laverna",
+                  "Icon": {
+                    "$compiler": "texture",
+                    "$source": "imagefile",
+                    "data": {
+                      "FilePath": "ui/2d lobby ui/altar ui/laverna_altar.png",
+                      "MaxSize": 4096,
+                      "ConvertHeightToNormals": false,
+                      "NormalScale": 1,
+                      "Rotate": 0,
+                      "FlipVertical": false,
+                      "FlipHorizontal": false,
+                      "Cropping": {
+                        "Left": 0,
+                        "Top": 0,
+                        "Right": 0,
+                        "Bottom": 0
+                      },
+                      "Padding": {
+                        "Left": 0,
+                        "Top": 0,
+                        "Right": 0,
+                        "Bottom": 0
+                      },
+                      "InvertColor": false,
+                      "Tint": "1,1,1,1",
+                      "Blur": 0,
+                      "Sharpen": 0,
+                      "Brightness": 1,
+                      "Contrast": 1,
+                      "Saturation": 1,
+                      "Hue": 0,
+                      "Colorize": false,
+                      "TargetColor": "1,1,1,1",
+                      "CacheToDisk": true,
+                      "FormatOverride": "RGBA8888"
+                    },
+                    "compiled": "textures/generated/imagefile/78b77dd314e840e5.vtex"
+                  }
+                },
+                {
+                  "Name": "Taranis",
+                  "Icon": {
+                    "$compiler": "texture",
+                    "$source": "imagefile",
+                    "data": {
+                      "FilePath": "ui/2d lobby ui/altar ui/taranis_altar.png",
+                      "MaxSize": 4096,
+                      "ConvertHeightToNormals": false,
+                      "NormalScale": 1,
+                      "Rotate": 0,
+                      "FlipVertical": false,
+                      "FlipHorizontal": false,
+                      "Cropping": {
+                        "Left": 0,
+                        "Top": 0,
+                        "Right": 0,
+                        "Bottom": 0
+                      },
+                      "Padding": {
+                        "Left": 0,
+                        "Top": 0,
+                        "Right": 0,
+                        "Bottom": 0
+                      },
+                      "InvertColor": false,
+                      "Tint": "1,1,1,1",
+                      "Blur": 0,
+                      "Sharpen": 0,
+                      "Brightness": 1,
+                      "Contrast": 1,
+                      "Saturation": 1,
+                      "Hue": 0,
+                      "Colorize": false,
+                      "TargetColor": "1,1,1,1",
+                      "CacheToDisk": true,
+                      "FormatOverride": "RGBA8888"
+                    },
+                    "compiled": "textures/generated/imagefile/2001b93fe32103fc.vtex"
+                  }
+                }
+              ]
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "b4b148cc-5cd8-4d3b-8bf7-5a95ca423fa3",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "LobbyGUIScreen",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.Scripts.GUI.Lobby.LobbyGUI",
+              "__guid": "245ceaa2-4039-4339-90b9-42a162e41565",
+              "__enabled": true,
+              "Flags": 0,
+              "AbilityPanel": null,
+              "CharacterSlot": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/ui_character_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/f9a1fefccde8fd42.vtex"
+              },
+              "Dionysos": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/dionysos_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/3188dd1392167e2e.vtex"
+              },
+              "DisconnectedIcon": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/disconnectedicon_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/f0f59d23c185ad22.vtex"
+              },
+              "Laverna": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/laverna_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/50360311aa957469.vtex"
+              },
+              "Maat": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/maat_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/2cd01d0b21603673.vtex"
+              },
+              "MapFrame": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/ui_map_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/ad396e86b4c74fe6.vtex"
+              },
+              "MenuButton": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/button_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/b5b250e2e55a9011.vtex"
+              },
+              "NotReadyButton": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/notreadybutton_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/a793955e4532b8dc.vtex"
+              },
+              "NotReadyIcon": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/notreadyicon_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/b8787c2b384dae0e.vtex"
+              },
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "ReadyButton": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/readybutton_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/7a7983b6e4629fe2.vtex"
+              },
+              "ReadyIcon": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/readyicon_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/5aea8905c0a7bab4.vtex"
+              },
+              "SlotCount": 8,
+              "Taranis": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/taranis_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/d15926226c0ec834.vtex"
+              },
+              "Title": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/gametitle_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/607322eab4b8cf54.vtex"
+              }
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "__guid": "435b303c-90d5-4185-acbe-1738d95861ea",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "-- CAMERA",
+      "Position": "161.994965,459.334167,-229.095551",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "maincamera",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "0f618e2b-9e4c-4a59-b99a-0a62265994d2",
+          "__enabled": true,
+          "Flags": 0,
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "EnablePostProcessing": true,
+          "FieldOfView": 60,
+          "FovAxis": "Horizontal",
+          "IsMainCamera": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "PostProcessAnchor": null,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "RenderTexture": null,
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "711ed533-98dc-4a7b-ae5d-8b6329d6d9a0",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "Soundscape",
+      "Position": "-1472.0437,-1486.78113,2865.29614",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.BackgroundMucis",
+          "__guid": "873cda7b-1cc3-467b-98b0-cb8968a9d492",
+          "__enabled": true,
+          "Flags": 0,
+          "Music": "music/bgm/provisional bgm.sound",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Volume": 100
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "bddceed5-7c3b-4479-b4e3-f8d5af30c9c8",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "-- SFX",
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "Sandbox.SoundBoxComponent",
+          "__guid": "841b48db-207c-4293-9fd0-6d6f875c2f8e",
+          "__enabled": false,
+          "Flags": 0,
+          "Distance": 512,
+          "DistanceAttenuation": false,
+          "DistanceAttenuationOverride": false,
+          "Falloff": [
+            {
+              "x": 0,
+              "y": 1,
+              "in": 3.1415927,
+              "out": -3.1415927,
+              "mode": "Mirrored"
+            },
+            {
+              "x": 1,
+              "y": 0,
+              "in": 0,
+              "out": 0,
+              "mode": "Mirrored"
+            }
+          ],
+          "Force2d": false,
+          "MaxRepeatTime": 251512530,
+          "MinRepeatTime": 1,
+          "OcclusionEnabled": false,
+          "OcclusionOverride": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Pitch": 1,
+          "PlayOnStart": true,
+          "Repeat": true,
+          "ReverbEnabled": false,
+          "ReverbOverride": false,
+          "Scale": "1252525,125252552,125252528",
+          "SoundEvent": "music/bgm/scene_bgm/lobby_bgm.sound",
+          "SoundOverride": false,
+          "StopOnNew": false,
+          "TargetMixer": {
+            "Name": "music",
+            "Id": "b5c7ed68-ac2c-48a3-8161-1aed0d01232b"
+          },
+          "Volume": 1
+        },
+        {
+          "__type": "Sandbox.LobbyUISFX",
+          "__guid": "f858ce0d-d243-479e-8325-1c67115b90ea",
+          "__enabled": true,
+          "Flags": 0,
+          "ButtonSound": "music/sfx/lobby/lobby_sfx_buttonpressed.sound",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ],
+      "Children": []
+    }
+  ],
+  "SceneProperties": {
+    "NetworkInterpolation": true,
+    "TimeScale": 1,
+    "WantsSystemScene": true,
+    "Metadata": {},
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": false,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": "",
+      "DeferGeneration": false,
+      "CustomBounds": false
+    },
+    "GameObjectSystems": {
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "eedffc90-6034-4b42-b12f-80f83ada8bcd"
+        }
+      },
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
+      }
+    }
+  },
+  "ResourceVersion": 3,
+  "Title": null,
+  "Description": null,
+  "__references": [],
+  "__version": 3
+}

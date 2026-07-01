@@ -1,0 +1,135 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using System;
+@using System.Collections.Generic;
+@inherits PanelComponent
+@namespace Sandbox
+
+@*
+	LOBBY-HINTERGRUND (eigene Ebene)
+
+	Liegt auf dem GUI-Parent-Node – zusammen mit dem ScreenPanel – damit der
+	Hintergrund HINTER allen Screens (LobbyGUIScreen, AltarGUIScreen …) liegt und
+	beim Screenwechsel nicht neu aufgebaut wird oder flackert.
+
+	root ist komplett pointer-events: none -> fängt KEINE Klicks ab, die für die
+	darüberliegenden Screens bestimmt sind.
+
+	Das Bild wird per Code gesetzt (Style.SetBackgroundImage), damit es egal ist,
+	wie die Textur im Editor zugewiesen wurde ("Image File", "From Disk",
+	Gradient …). url(@..ResourcePath) würde bei Generator-Quellen leer bleiben.
+	Leer = nur der CSS-Farbverlauf (.sky).
+*@
+
+<root>
+	<div class="sky"></div>
+	<div class="scroll-bg-wrap">
+		<div class="scroll-bg-track">
+			<div class="scroll-bg-tile"></div>
+			<div class="scroll-bg-tile"></div>
+		</div>
+	</div>
+</root>
+
+<style>
+	root {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		/* HINTER allen Screens: z-index 0, während LobbyGUI/AltarGUI ihre roots auf
+		   z-index 1 setzen. KEIN negatives z-index – das schob den Hintergrund hinter
+		   die ScreenPanel-Renderfläche, sodass nur noch die Kamera-Clearfarbe (grau)
+		   durchschien (am stärksten auf dem leeren Altar-Screen sichtbar). */
+		z-index: 0;
+	}
+
+	/* CSS-Farbverlauf als Fallback hinter der (optionalen) Background-Textur. */
+	.sky {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		background-color: rgba(233, 186, 130, 1);
+		background-image: linear-gradient( to bottom, rgba(252, 226, 173, 1), rgba(221, 158, 102, 1) );
+	}
+
+	/* Endlos scrollender Hintergrund: zwei identische Kacheln nebeneinander in
+	   einer 200% breiten Spur; die Spur wandert per translateX von 0 auf -50%
+	   (= genau eine Kachelbreite) -> nahtlose Endlosschleife. Beide Kacheln
+	   bekommen die Background-Textur per Code (SetBackgroundImage). */
+	.scroll-bg-wrap {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.scroll-bg-track {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 200%;
+		height: 100%;
+		flex-direction: row;
+		animation: scroll-bg-x 40s linear infinite;
+	}
+
+	.scroll-bg-tile {
+		width: 50%;
+		height: 100%;
+		/* 100% 100% statt cover: s&box ignoriert "cover" auf prozentual
+		   bemessenen Elementen und zeigt die Textur in Originalgröße oben links.
+		   Jede Kachel ist exakt eine Bildschirmbreite -> füllt komplett. */
+		background-size: 100% 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	@@keyframes scroll-bg-x {
+		0% { transform: translateX( 0% ); }
+		100% { transform: translateX( -50% ); }
+	}
+</style>
+
+@code
+{
+	[Group( "Lobby UI – Hintergrund" )]
+	[Property] public Texture Background { get; set; }   // scrollt endlos; z.B. main_scroll_bg.jpg (leer = Farbverlauf)
+
+	// Bild der beiden Kacheln per Code setzen. Die Panels werden per Klasse im
+	// Baum gesucht (kein @ref – das bindet der s&box-Razor-Generator hier nicht).
+	protected override void OnTreeBuilt() => ApplyBackground();
+
+	void ApplyBackground()
+	{
+		if ( Background is null || Panel is null ) return;
+		foreach ( var tile in FindByClass( Panel, "scroll-bg-tile" ) )
+			tile.Style.SetBackgroundImage( Background );
+	}
+
+	static IEnumerable<Panel> FindByClass( Panel root, string cls )
+	{
+		if ( root is null ) yield break;
+		if ( root.HasClass( cls ) ) yield return root;
+		foreach ( var child in root.Children )
+			foreach ( var found in FindByClass( child, cls ) )
+				yield return found;
+	}
+
+	protected override void OnTreeFirstBuilt()
+	{
+		if ( Background is null || !Background.IsValid )
+			Log.Warning( "[LobbyBackgroundGUI] Background-Textur nicht zugewiesen/ungültig." );
+	}
+
+	// Neu aufbauen, sobald die Textur (un)gültig wird, sonst statisch.
+	protected override int BuildHash() => HashCode.Combine( Background?.IsValid ?? false );
+}

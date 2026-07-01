@@ -1,48 +1,121 @@
 @using Sandbox;
 @using Sandbox.UI;
-@using System.Linq;
-@inherits PanelComponent
 @using System;
+@using System.Linq;
+@using System.Collections.Generic;
+@inherits PanelComponent
+@namespace Sandbox.Scripts.GUI.Lobby
+
+@*
+	LOBBY / MAIN MENU UI  (Streitwagen-Wallah)
+
+	Aufbau nach "Aufbau_Vorlage_MainMenu.png":
+	  - Links:   4 Menü-Buttons (Button_MainMenu) + CHONK-Titel (GameTitle)
+	  - Mitte:   Ready-Button (NotReadyButton rot / ReadyButton grün) + Fähigkeiten-Panel (UI_Fähigkeit&Waagen)
+	  - Rechts:  Map-Vorschau (UI_Map) + Spieler-Slots (UI_Character) mit Status-Icons
+
+	ALLES über den Editor steuerbar: Jede Grafik ist eine [Property] Texture
+	(Gruppen "Lobby UI – ...").
+
+	WICHTIG: Die Bilder werden per CODE gesetzt (Style.SetBackgroundImage), NICHT
+	über CSS url(@..ResourcePath). Grund: Eine Textur, die im Inspector über das
+	Quellen-Menü ("Image File", "From Disk", "Color", "Gradient" …) erzeugt wird,
+	hat KEINEN gültigen ResourcePath, also kann url() sie nicht auflösen.
+	SetBackgroundImage nimmt das Texture-Objekt direkt und funktioniert mit jeder
+	Quelle. Größe/Position kommen weiterhin aus dem Stylesheet (background-size).
+	Die Panels werden dafür per CSS-Klasse im Panel-Baum gesucht (kein @ref – das
+	bindet der s&box-Razor-Generator hier nicht an Panel-Felder).
+
+	Funktional ist aktuell NUR der Ready-Button (Multiplayer-fähig, jeder Spieler
+	muss bereit sein -> Countdown -> Szenenwechsel). Der Rest ist optisches
+	Gerüst und wird nach und nach verkabelt.
+*@
 
 <root>
-	<div class="scroll-bg-wrap">
-		<div class="scroll-bg-track">
-			<div class="scroll-bg-tile"></div>
-			<div class="scroll-bg-tile"></div>
+	<!-- ======================= LINKS: Menü + Titel ======================= -->
+	<div class="menu-col">
+		<div class="menu-btn" onclick="@CycleTrack">
+			<div class="menu-label">Strecke: @TrackDisplayName</div>
+		</div>
+		<div class="menu-btn disabled">
+			<div class="menu-label">Charakter</div>
+		</div>
+		<div class="menu-btn disabled">
+			<div class="menu-label">Einstellungen</div>
+		</div>
+		<div class="menu-btn" onclick="@QuitGame">
+			<div class="menu-label">Verlassen</div>
 		</div>
 	</div>
 
-	<div class="track-section">
-		<div class="track-label">Ausgewählte Strecke:</div>
-		<div class="track-name @TrackClass">
-			<div class="track-preview" style="background-image: url(@TrackImagePath);"></div>
-			<div class="track-title">@TrackDisplayName</div>
-			<div class="track-hotkey">Tab</div>
+	<div class="title"></div>
+
+	<!-- ======================= MITTE: Ready + Fähigkeiten ======================= -->
+	<div class="ready-bar @( LocalIsReady ? "ready" : "notready" )" onclick="@ToggleReady">
+		<div class="ready-text">@( LocalIsReady ? "Bereit!" : "Bereit?" )</div>
+		<div class="ready-sub">Space · @ReadyCount / @TotalCount bereit</div>
+	</div>
+
+	<div class="ability-panel">
+		<div class="ability-body">
+			<div class="ability-name">@( LocalPlayer?.DisplayName ?? "—" )</div>
+			<div class="ability-hint">Fähigkeit &amp; Waagen folgen…</div>
 		</div>
 	</div>
 
+	<!-- ======================= RECHTS: Map + Spieler-Slots ======================= -->
+	<div class="map-frame">
+		<div class="map-preview"></div>
+		<div class="map-caption">@TrackDisplayName <span class="map-key">Tab</span></div>
+	</div>
+
+	<div class="slot-grid">
+		@{
+			var players = OrderedPlayers;
+		}
+		@for ( int i = 0; i < SlotCount; i++ )
+		{
+			var p = i < players.Count ? players[i] : null;
+			<div class="slot @( p is null ? "empty" : "" )">
+				<div class="slot-status"></div>
+				@if ( p is not null )
+				{
+					<div class="slot-name">@p.DisplayName</div>
+				}
+			</div>
+		}
+	</div>
+
+	<!-- ======================= Countdown-Overlay ======================= -->
 	@if ( CountdownActive )
 	{
-		<div class="center-area">
+		<div class="countdown-overlay">
 			<div class="countdown">@CountdownDisplay</div>
-		</div>
-	}
-	else
-	{
-		<div class="center-area">
-			<div class="ready-button @ReadyClass" onclick="@ToggleReady">
-				<div class="ready-title">@( LocalIsReady ? "Bereit!" : "Bereit?" )</div>
-				<div class="ready-info">Space — @ReadyCount / @TotalCount</div>
-			</div>
+			<div class="countdown-label">Rennen startet…</div>
 		</div>
 	}
 
-	<div class="quit-button" onclick="@QuitGame">
-		<div class="quit-title">Quit Game</div>
-		<div class="quit-hotkey">DEL</div>
-	</div>
+	<div class="currency">Publicity: @LocalCurrency</div>
 
-	<div class="currency-label">Currency: @LocalCurrency</div>
+	<!-- ======================= Strecken-Button (über "Strecke: XX") ======================= -->
+	<!-- Klickfläche genau über dem "Strecke: XX"-Menü-Button. Wechselt die Strecke
+	     über dieselbe Logik wie die "Change Track"-Hotkey (Tab):
+	     CycleTrack -> LocalPlayer.RequestCycleTrack. Liegt per z-index über dem
+	     Button und fängt dort den Linksklick ab. -->
+	<div class="track-btn" onclick="@CycleTrack"></div>
+
+	<!-- ======================= Bereit-Button (über der Ready-Bar) ======================= -->
+	<!-- Klickfläche genau über der Ready-Bar. Toggelt Bereit/Nicht-bereit über
+	     dieselbe Logik wie die "Ready"-Hotkey (ToggleReady -> SetReady( !IsReady )).
+	     Liegt per z-index über der Bar und fängt dort den Linksklick ab. -->
+	<div class="ready-btn" onclick="@ToggleReady"></div>
+
+	<!-- ======================= TEST-Button -> Altar ======================= -->
+	<!-- Klickfläche genau über dem "Charakter"-Menü-Button. Fängt dort per z-index
+	     den Linksklick ab und wechselt über die vorhandene Logik
+	     (LobbyManager.ShowAltar) auf den AltarGUIScreen: LobbyGUIScreen-Node aus,
+	     AltarGUIScreen-Node an. Nur zum Testen. -->
+	<div class="test-btn" onclick="@TestSwitchToAltar"></div>
 </root>
 
 <style>
@@ -52,215 +125,391 @@
 		top: 0;
 		width: 100%;
 		height: 100%;
+		font-family: Arial;
+		color: rgba(58, 36, 16, 1);
+		/* Über dem LobbyBackgroundGUI (z-index 0), damit der scrollende Hintergrund
+		   dahinter sichtbar bleibt. */
+		z-index: 1;
 	}
 
-	/* Seamless scrolling background. Two identical tiles sit side-by-side inside
-	   a 200%-wide track; the track translateX-animates from 0 to -50% (= exactly
-	   one tile width) on infinite linear loop, so when the second tile snaps
-	   back to start it visually equals the first, hiding the seam. */
-	.scroll-bg-wrap {
+	/* ----------------------------- Links: Menü ----------------------------- */
+	.menu-col {
 		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		background-color: rgba(15, 20, 45, 1);
+		left: 40px;
+		top: 40px;
+		width: 380px;
+		flex-direction: column;
+		gap: 30px;
 	}
 
-	.scroll-bg-track {
+	.menu-btn {
+		width: 380px;
+		height: 120px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: transform 0.1s ease;
+	}
+
+	.menu-btn:hover {
+		transform: scale( 1.04 );
+	}
+
+	.menu-btn.disabled {
+		opacity: 0.5;
+		cursor: default;
+	}
+
+	.menu-btn.disabled:hover {
+		transform: scale( 1 );
+	}
+
+	.menu-label {
+		font-size: 38px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+		text-align: center;
+	}
+
+	.title {
 		position: absolute;
-		left: 0;
-		top: 0;
-		width: 200%;
-		height: 100%;
-		flex-direction: row;
-		animation: scroll-bg-x 40s linear infinite;
-	}
-
-	.scroll-bg-tile {
-		width: 50%;
-		height: 100%;
-		background-image: url( "/ui/ingame gui/lobby/main_scroll_bg.jpg" );
-		background-size: cover;
+		left: 30px;
+		top: 660px;
+		width: 420px;
+		height: 230px;
+		background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
 	}
 
-	@@keyframes scroll-bg-x {
-		0%   { transform: translateX( 0% ); }
-		100% { transform: translateX( -50% ); }
-	}
-
-	.track-section {
+	/* ----------------------------- Mitte: Ready ----------------------------- */
+	.ready-bar {
 		position: absolute;
-		top: 48px;
-		right: 48px;
-		flex-direction: column;
-		align-items: flex-end;
-		gap: 16px;
-	}
-
-	.track-label {
-		font-size: 40px;
-		font-family: Arial;
-		color: rgba(255, 255, 255, 0.7);
-	}
-
-	.track-name {
-		padding: 20px 32px;
-		font-family: Arial;
-		color: white;
-		border-radius: 16px;
-		text-align: center;
+		left: 540px;
+		top: 50px;
+		width: 470px;
+		height: 150px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
 		flex-direction: column;
 		align-items: center;
-		gap: 12px;
+		justify-content: center;
+		gap: 6px;
+		cursor: pointer;
+		transition: transform 0.1s ease;
 	}
 
-	.track-preview {
-		width: 480px;
-		height: 270px;
-		border-radius: 10px;
-		background-size: cover;
-		background-position: center;
-		background-color: rgba(0, 0, 0, 0.4);
-		border: 3px solid rgba(255, 255, 255, 0.2);
+	.ready-bar:hover {
+		transform: scale( 1.03 );
 	}
 
-	.track-title {
-		font-size: 56px;
+	.ready-text {
+		font-size: 54px;
 		font-weight: bold;
+		color: white;
+		text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.6);
 	}
 
-	.track-hotkey {
-		font-size: 28px;
-		color: rgba(255, 255, 255, 0.5);
+	.ready-sub {
+		font-size: 24px;
+		color: rgba(255, 255, 255, 0.9);
+		text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);
 	}
 
-	.track-rom {
-		background-color: rgba(180, 60, 60, 0.85);
-		border: 4px solid rgba(220, 100, 100, 0.6);
+	/* ------------------------- Mitte: Fähigkeiten-Panel ------------------------- */
+	.ability-panel {
+		position: absolute;
+		left: 540px;
+		top: 230px;
+		width: 470px;
+		height: 770px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		align-items: center;
+		justify-content: flex-end;
 	}
 
-	.track-aegypten {
-		background-color: rgba(50, 150, 60, 0.85);
-		border: 4px solid rgba(90, 200, 100, 0.6);
+	.ability-body {
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 70px;
+		gap: 10px;
 	}
 
-	.track-akropolis {
-		background-color: rgba(50, 80, 180, 0.85);
-		border: 4px solid rgba(90, 120, 220, 0.6);
+	.ability-name {
+		font-size: 40px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
 	}
 
-	.center-area {
+	.ability-hint {
+		font-size: 24px;
+		color: rgba(74, 44, 12, 0.7);
+	}
+
+	/* ----------------------------- Rechts: Map ----------------------------- */
+	.map-frame {
+		position: absolute;
+		left: 1060px;
+		top: 40px;
+		width: 800px;
+		height: 480px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.map-preview {
+		width: 86%;
+		height: 72%;
+		margin-top: 5%;
+		background-size: 100% 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+		border-radius: 8px;
+	}
+
+	.map-caption {
+		margin-top: 16px;
+		flex-direction: row;
+		align-items: center;
+		gap: 16px;
+		font-size: 32px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+	}
+
+	.map-key {
+		font-size: 22px;
+		color: white;
+		background-color: rgba(74, 44, 12, 0.7);
+		border-radius: 6px;
+		padding: 2px 12px;
+	}
+
+	/* ------------------------- Rechts: Spieler-Slots ------------------------- */
+	.slot-grid {
+		position: absolute;
+		left: 1060px;
+		top: 560px;
+		width: 790px;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 30px;
+	}
+
+	.slot {
+		width: 175px;
+		height: 175px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		position: relative;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	.slot.empty {
+		opacity: 0.4;
+	}
+
+	/* Voll-Overlay: die Icon-PNGs haben das Symbol bereits oben rechts platziert. */
+	.slot-status {
 		position: absolute;
 		left: 0;
 		top: 0;
 		width: 100%;
 		height: 100%;
-		justify-content: center;
-		align-items: center;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		pointer-events: none;
 	}
 
-	.ready-button {
-		padding: 48px 160px;
-		font-family: Arial;
-		color: white;
-		background-color: rgba(80, 80, 80, 0.9);
-		border-radius: 24px;
-		cursor: pointer;
+	.slot-name {
+		position: absolute;
+		bottom: 14px;
+		max-width: 88%;
+		overflow: hidden;
+		font-size: 22px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
 		text-align: center;
-		transition: background-color 0.2s ease;
-		border: 6px solid rgba(255, 255, 255, 0.3);
+		white-space: nowrap;
+		background-color: rgba(255, 240, 210, 0.75);
+		border-radius: 6px;
+		padding: 2px 10px;
+	}
+
+	/* ----------------------------- Countdown ----------------------------- */
+	.countdown-overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
 		flex-direction: column;
 		align-items: center;
-		gap: 12px;
-	}
-
-	.ready-button:hover {
-		background-color: rgba(120, 120, 120, 0.9);
-	}
-
-	.ready-button.is-ready {
-		background-color: rgba(40, 160, 40, 0.9);
-		border-color: rgba(80, 220, 80, 0.6);
-	}
-
-	.ready-button.is-ready:hover {
-		background-color: rgba(30, 130, 30, 0.9);
-	}
-
-	.ready-title {
-		font-size: 84px;
-		font-weight: bold;
-	}
-
-	.ready-info {
-		font-size: 36px;
-		color: rgba(255, 255, 255, 0.6);
+		justify-content: center;
+		background-color: rgba(0, 0, 0, 0.55);
 	}
 
 	.countdown {
-		font-size: 256px;
-		font-family: Arial;
+		font-size: 300px;
 		font-weight: bold;
 		color: white;
-		text-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
+		text-shadow: 0px 6px 16px rgba(0, 0, 0, 0.8);
 	}
 
-	.quit-button {
+	.countdown-label {
+		font-size: 48px;
+		color: rgba(255, 255, 255, 0.85);
+	}
+
+	/* ----------------------------- Währung ----------------------------- */
+	.currency {
 		position: absolute;
-		bottom: 48px;
-		right: 48px;
-		padding: 20px 48px;
-		background-color: rgba(50, 50, 50, 0.9);
-		border: 4px solid rgba(255, 255, 255, 0.2);
-		border-radius: 16px;
-		cursor: pointer;
-		flex-direction: row;
-		align-items: center;
-		gap: 24px;
-		transition: background-color 0.2s ease;
-	}
-
-	.quit-button:hover {
-		background-color: rgba(80, 80, 80, 0.9);
-	}
-
-	.quit-title {
-		font-size: 40px;
-		font-family: Arial;
-		color: white;
-	}
-
-	.quit-hotkey {
-		font-size: 28px;
-		font-family: Arial;
-		color: rgba(255, 255, 255, 0.5);
-	}
-
-	.currency-label {
-		position: absolute;
-		bottom: 48px;
-		left: 48px;
-		padding: 16px 32px;
-		font-size: 40px;
-		font-family: Arial;
-		color: rgba(255, 220, 80, 1);
-		background-color: rgba(0, 0, 0, 0.55);
-		border: 3px solid rgba(255, 220, 80, 0.6);
+		left: 40px;
+		bottom: 30px;
+		padding: 12px 28px;
+		font-size: 32px;
+		font-weight: bold;
+		color: rgba(90, 58, 16, 1);
+		background-color: rgba(255, 225, 150, 0.85);
+		border: 3px solid rgba(140, 90, 30, 0.7);
 		border-radius: 12px;
-		text-shadow: 0px 2px 4px black;
+	}
+
+	/* ----------------------------- TEST-Button ----------------------------- */
+	/* Klickfläche genau über dem "Charakter"-Menü-Button (2. Button der menu-col:
+	   left 40, top 40 + 120 Höhe + 30 gap = top 190). z-index hält sie über dem
+	   Button; pointer-events + ein (fast unsichtbarer) Hintergrund sichern den
+	   Treffer (eine komplett durchsichtige Fläche wird in s&box sonst nicht
+	   zuverlässig getroffen). */
+	.test-btn {
+		position: absolute;
+		left: 40px;
+		top: 190px;
+		width: 380px;
+		height: 120px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(255, 0, 0, 0.06);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln. Der Button ist ein (fast durchsichtiges) Overlay
+	   ÜBER dem echten "Charakter"-Button-Graphic – ein halbtransparentes Schwarz
+	   tönt den darunterliegenden Button, sodass er beim Hovern dunkler wirkt. */
+	.test-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+
+	/* ----------------------------- Strecken-Button ----------------------------- */
+	/* Klickfläche genau über dem "Strecke: XX"-Button (1. Button der menu-col:
+	   left 40, top 40, 380x120). Wechselt die Strecke wie die Tab-Hotkey. z-index
+	   hält sie über dem Button; pointer-events + ein (fast unsichtbarer)
+	   Hintergrund sichern den Treffer. */
+	.track-btn {
+		position: absolute;
+		left: 40px;
+		top: 40px;
+		width: 380px;
+		height: 120px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(0, 0, 0, 0.04);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln (halbtransparentes Schwarz über dem Strecke-Button). */
+	.track-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+
+	/* ----------------------------- Bereit-Button ----------------------------- */
+	/* Klickfläche genau über der Ready-Bar (left 540, top 50, 470x150). Toggelt
+	   Bereit/Nicht-bereit wie die Hotkey. z-index hält sie über der Bar;
+	   pointer-events + ein (fast unsichtbarer) Hintergrund sichern den Treffer. */
+	.ready-btn {
+		position: absolute;
+		left: 540px;
+		top: 50px;
+		width: 470px;
+		height: 150px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(0, 0, 0, 0.04);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln (halbtransparentes Schwarz über der Ready-Bar). */
+	.ready-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
 	}
 </style>
 
 @code
 {
+	// ====================================================================
+	//  EDITOR-SLOTS — im Inspector die PNGs aus
+	//  "Assets/UI/2D Lobby UI/Main Menu UI" hineinziehen.
+	// ====================================================================
+
+	[Group( "Lobby UI – Rahmen" )]
+	[Property] public Texture Title { get; set; }                 // GameTitle_MainMenu (CHONK)
+	[Group( "Lobby UI – Rahmen" )]
+	[Property] public Texture MapFrame { get; set; }             // UI_Map_MainMenu
+	[Group( "Lobby UI – Rahmen" )]
+	[Property] public Texture AbilityPanel { get; set; }         // UI_Fähigkeit&Waagen_MainMenu
+	[Group( "Lobby UI – Rahmen" )]
+	[Property] public Texture CharacterSlot { get; set; }        // UI_Character_MainMenu
+
+	[Group( "Lobby UI – Buttons" )]
+	[Property] public Texture MenuButton { get; set; }           // Button_MainMenu (orange)
+	[Group( "Lobby UI – Buttons" )]
+	[Property] public Texture ReadyButton { get; set; }          // ReadyButton_MainMenu (grün)
+	[Group( "Lobby UI – Buttons" )]
+	[Property] public Texture NotReadyButton { get; set; }       // NotReadyButton_MainMenu (rot)
+
+	[Group( "Lobby UI – Status Icons" )]
+	[Property] public Texture ReadyIcon { get; set; }            // ReadyIcon_MainMenu (grüner Haken)
+	[Group( "Lobby UI – Status Icons" )]
+	[Property] public Texture NotReadyIcon { get; set; }         // NotReadyIcon_MainMenu (rotes X)
+	[Group( "Lobby UI – Status Icons" )]
+	[Property] public Texture DisconnectedIcon { get; set; }     // DisconnectedIcon_MainMenu (grau)
+
+	[Group( "Lobby UI – Götter (später)" )]
+	[Property] public Texture Dionysos { get; set; }
+	[Group( "Lobby UI – Götter (später)" )]
+	[Property] public Texture Laverna { get; set; }
+	[Group( "Lobby UI – Götter (später)" )]
+	[Property] public Texture Maat { get; set; }
+	[Group( "Lobby UI – Götter (später)" )]
+	[Property] public Texture Taranis { get; set; }
+
+	[Group( "Lobby UI – Layout" )]
+	[Property, Range( 1, 8 )] public int SlotCount { get; set; } = 8;
+
+	// ====================================================================
+	//  Daten
+	// ====================================================================
+
 	LobbyPlayer LocalPlayer => Scene.GetAllComponents<LobbyPlayer>()
 		.FirstOrDefault( p => p.Network.IsOwner );
 
 	IEnumerable<LobbyPlayer> AllPlayers => Scene.GetAllComponents<LobbyPlayer>();
+
+	// Stabile Reihenfolge, damit Slots nicht bei jedem Frame springen.
+	List<LobbyPlayer> OrderedPlayers => AllPlayers
+		.OrderBy( p => p.DisplayName )
+		.ThenBy( p => p.GameObject.Id )
+		.ToList();
 
 	bool LocalIsReady => LocalPlayer?.IsReady ?? false;
 	bool CountdownActive => LobbyManager.Instance?.CountdownActive ?? false;
@@ -269,20 +518,11 @@
 	int ReadyCount => AllPlayers.Count( p => p.IsReady );
 	int TotalCount => AllPlayers.Count();
 
-	// Local player's PG. The host pushes per-peer mirrors via RpcSetCurrency,
-	// so each peer reads its own total without trusting other clients.
+	// Eigener Publicity-Stand (host-gespiegelt pro Peer).
 	int LocalCurrency => PublicityCurrencyManager.LocalCurrency;
 
 	string CountdownDisplay => MathF.Ceiling( LobbyManager.Instance?.CountdownTimeLeft ?? 0f )
 		.ToString( "0" );
-	string ReadyClass => LocalIsReady ? "is-ready" : "";
-
-	// Routed through LobbyManager so the path comes from the strongly-typed
-	// Texture properties the asset pipeline can see — that's what guarantees the
-	// PNGs are bundled into the package joining clients download. The previous
-	// hardcoded "/ui/tracks/..." strings were invisible to the reference scanner,
-	// so the files weren't shipped and only the editor host saw the previews.
-	string TrackImagePath => LobbyManager.Instance?.GetTrackImagePath( CurrentTrack ) ?? "";
 
 	string TrackDisplayName => CurrentTrack switch
 	{
@@ -292,29 +532,128 @@
 		_ => "???"
 	};
 
-	string TrackClass => CurrentTrack switch
+	// Status-Icon je Slot: leer -> getrennt, sonst bereit/nicht bereit.
+	Texture StatusIcon( LobbyPlayer p )
+		=> p is null ? DisconnectedIcon : (p.IsReady ? ReadyIcon : NotReadyIcon);
+
+	// ====================================================================
+	//  Texturen per Code setzen (siehe Datei-Kommentar oben)
+	// ====================================================================
+
+	// Wird nach jedem Aufbau des Panel-Baums aufgerufen -> Bilder (neu) setzen.
+	// Re-Apply nötig, weil ein Rebuild Panels neu erzeugen kann.
+	protected override void OnTreeBuilt() => ApplyTextures();
+
+	void ApplyTextures()
 	{
-		TrackSelection.Rom => "track-rom",
-		TrackSelection.Aegypten => "track-aegypten",
-		TrackSelection.Akropolis => "track-akropolis",
-		_ => ""
-	};
+		var root = Panel;
+		if ( root is null ) return;
+
+		SetBgAll( root, "menu-btn", MenuButton );
+		SetBgAll( root, "title", Title );
+		SetBgAll( root, "ability-panel", AbilityPanel );
+		SetBgAll( root, "map-frame", MapFrame );
+
+		// Zustandsabhängig:
+		SetBgAll( root, "ready-bar", LocalIsReady ? ReadyButton : NotReadyButton );
+		SetBgAll( root, "map-preview", LobbyManager.Instance?.GetTrackTexture( CurrentTrack ) );
+
+		// Spieler-Slots in DOM-Reihenfolge den Spielern zuordnen (gleiche
+		// Reihenfolge wie die for-Schleife im Markup -> OrderedPlayers).
+		var players = OrderedPlayers;
+		var slots = FindByClass( root, "slot" ).ToList();
+		for ( int i = 0; i < slots.Count; i++ )
+		{
+			SetBg( slots[i], CharacterSlot );
+			var status = FindByClass( slots[i], "slot-status" ).FirstOrDefault();
+			var p = i < players.Count ? players[i] : null;
+			SetBg( status, StatusIcon( p ) );
+		}
+	}
+
+	static void SetBgAll( Panel root, string cls, Texture tex )
+	{
+		if ( tex is null ) return;
+		foreach ( var pnl in FindByClass( root, cls ) )
+			pnl.Style.SetBackgroundImage( tex );
+	}
+
+	static void SetBg( Panel pnl, Texture tex )
+	{
+		if ( pnl is null || tex is null ) return;
+		pnl.Style.SetBackgroundImage( tex );
+	}
+
+	// Alle Panels unter root (inkl. root) mit der CSS-Klasse cls.
+	static IEnumerable<Panel> FindByClass( Panel root, string cls )
+	{
+		if ( root is null ) yield break;
+		if ( root.HasClass( cls ) ) yield return root;
+		foreach ( var child in root.Children )
+			foreach ( var found in FindByClass( child, cls ) )
+				yield return found;
+	}
+
+	// Einmaliger Diagnose-Log: warnt, welche Editor-Slots noch leer/ungültig sind.
+	protected override void OnTreeFirstBuilt()
+	{
+		var all = new (string Name, Texture Tex)[]
+		{
+			(nameof( Title ), Title), (nameof( MapFrame ), MapFrame),
+			(nameof( AbilityPanel ), AbilityPanel), (nameof( CharacterSlot ), CharacterSlot),
+			(nameof( MenuButton ), MenuButton), (nameof( ReadyButton ), ReadyButton), (nameof( NotReadyButton ), NotReadyButton),
+			(nameof( ReadyIcon ), ReadyIcon), (nameof( NotReadyIcon ), NotReadyIcon), (nameof( DisconnectedIcon ), DisconnectedIcon),
+		};
+		foreach ( var (name, tex) in all )
+			if ( tex is null || !tex.IsValid )
+				Log.Warning( $"[LobbyGUI] Textur nicht zugewiesen/ungültig: {name}" );
+	}
+
+	// ====================================================================
+	//  Aktionen
+	// ====================================================================
 
 	void ToggleReady()
 	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
 		var player = LocalPlayer;
 		if ( player is null ) return;
 		player.SetReady( !player.IsReady );
 	}
 
+	void CycleTrack()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
+		LocalPlayer?.RequestCycleTrack();
+	}
+
+	// TEST-Button: Ein Linksklick irgendwo auf dem Vollbild-Button wechselt auf den
+	// Altar-Screen. Nutzt die schon vorhandene, getestete Umschalt-Logik im
+	// LobbyManager (LobbyScreen-Component aus, AltarScreen-Component an).
+	void TestSwitchToAltar()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
+
+		// Diagnose: zeigt im Console-Log, dass der Klick wirklich ankommt. Wenn diese
+		// Zeile beim Klicken NICHT erscheint, erreicht der Klick das Panel nicht
+		// (Pointer-Events/Überdeckung). Erscheint sie, aber kein Screenwechsel,
+		// liegt es an LobbyManager.Instance / den Screen-Zuweisungen.
+		Log.Info( $"[LobbyGUI] TEST-Button geklickt. LobbyManager.Instance = {(LobbyManager.Instance is null ? "NULL" : "OK")}" );
+		LobbyManager.Instance?.ShowAltar();
+	}
+
 	void QuitGame()
 	{
-		Log.Info("Quitting game..." );
+		Log.Info( "Quitting game..." );
 		Game.Close();
 	}
 
 	protected override void OnUpdate()
 	{
+		// Maus im Menü immer sichtbar, sonst sind die Buttons nicht anklickbar.
+		// Jeden Frame setzen, damit andere Systeme den Cursor nicht wegnehmen.
+		Mouse.Visibility = MouseVisibility.Visible;
+
 		if ( Input.Pressed( "Quit" ) )
 			Game.Close();
 	}
@@ -326,10 +665,13 @@
 		hash.Add( LobbyManager.Instance?.CountdownTimeLeft );
 		hash.Add( CurrentTrack );
 		hash.Add( TotalCount );
+		hash.Add( LocalIsReady );
 		hash.Add( LocalCurrency );
-		foreach ( var p in AllPlayers )
+		hash.Add( SlotCount );
+		foreach ( var p in OrderedPlayers )
 		{
 			hash.Add( p.IsReady );
+			hash.Add( p.DisplayName );
 		}
 		return hash.ToHashCode();
 	}
