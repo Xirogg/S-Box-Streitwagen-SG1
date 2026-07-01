@@ -1926,7 +1926,7 @@
             "MaxFOV": 100,
             "NodLerpSpeed": 1,
             "NodMax": 1,
-            "Offset": "-800,0,350",
+            "Offset": "-400,0,150",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
