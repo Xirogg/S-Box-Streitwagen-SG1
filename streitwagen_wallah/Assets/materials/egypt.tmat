@@ -1,0 +1,16 @@
+{
+  "AlbedoImage": "materials/textures/t_egypt_waves.png",
+  "RoughnessImage": "materials/textures/t_waves.png",
+  "NormalImage": "materials/default/default_normal.tga",
+  "HeightImage": "materials/default/default_height.tga",
+  "AOImage": "materials/default/default_ao.tga",
+  "UVScale": 1,
+  "Metalness": 0,
+  "NormalStrength": 1,
+  "HeightBlendStrength": 1.8976315,
+  "DisplacementScale": 0,
+  "NoTiling": true,
+  "Surface": null,
+  "__references": [],
+  "__version": 0
+}
