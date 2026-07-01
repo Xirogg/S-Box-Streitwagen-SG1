@@ -24,7 +24,7 @@
         "Health": 0,
         "IsStatic": false,
         "MaterialGroup": null,
-        "Model": "models/m_cherd_rig.vmdl",
+        "Model": "models/m_cherd_rig_new.vmdl",
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -37,51 +37,6 @@
         "Tint": "1,1,1,1"
       },
       {
-        "__type": "Sandbox.SkinnedModelRenderer",
-        "__guid": "5e08b23a-98b2-4b0d-b033-2a4919e3d079",
-        "__enabled": true,
-        "Flags": 0,
-        "AnimationGraph": null,
-        "BodyGroups": 18446744073709551615,
-        "BoneMergeTarget": null,
-        "CreateAttachments": false,
-        "CreateBoneObjects": false,
-        "LodOverride": null,
-        "MaterialGroup": null,
-        "MaterialOverride": null,
-        "Materials": null,
-        "Model": "models/m_cherd_rig_new.vmdl",
-        "Morphs": {},
-        "OnComponentDestroy": null,
-        "OnComponentDisabled": null,
-        "OnComponentEnabled": null,
-        "OnComponentFixedUpdate": null,
-        "OnComponentStart": null,
-        "OnComponentUpdate": null,
-        "Parameters": {
-          "bools": {},
-          "ints": {},
-          "floats": {},
-          "vectors": {},
-          "rotations": {}
-        },
-        "PlaybackRate": 1,
-        "RenderOptions": {
-          "GameLayer": true,
-          "OverlayLayer": false,
-          "BloomLayer": false,
-          "AfterUILayer": false
-        },
-        "RenderType": "On",
-        "Sequence": {
-          "Name": null,
-          "Looping": true,
-          "Blending": false
-        },
-        "Tint": "1,1,1,1",
-        "UseAnimGraph": true
-      },
-      {
         "__type": "Sandbox.ModelCollider",
         "__guid": "a923a3bb-2f46-4491-b70a-dda97de5970a",
         "__enabled": true,
@@ -90,7 +45,7 @@
         "Elasticity": null,
         "Friction": null,
         "IsTrigger": false,
-        "Model": "models/m_cherd_rig.vmdl",
+        "Model": "models/m_cherd_rig_new.vmdl",
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -140,6 +95,51 @@
         "RigidbodyFlags": 0,
         "SleepThreshold": 2,
         "StartAsleep": false
+      },
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "8426ea7f-98a8-40bb-a222-afeca8a75268",
+        "__enabled": true,
+        "Flags": 0,
+        "AnimationGraph": null,
+        "BodyGroups": 18446744073709551615,
+        "BoneMergeTarget": null,
+        "CreateAttachments": false,
+        "CreateBoneObjects": false,
+        "LodOverride": null,
+        "MaterialGroup": null,
+        "MaterialOverride": null,
+        "Materials": null,
+        "Model": "models/m_cherd_rig_new.vmdl",
+        "Morphs": {},
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
+        "PlaybackRate": 1,
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
+        "RenderType": "On",
+        "Sequence": {
+          "Name": null,
+          "Looping": true,
+          "Blending": false
+        },
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
       }
     ],
     "Children": [],
