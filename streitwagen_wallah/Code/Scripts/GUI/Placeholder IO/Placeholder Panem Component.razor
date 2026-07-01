@@ -1,4 +1,5 @@
 @using System;
+@using System.Linq;
 @using Sandbox;
 @using Sandbox.UI;
 @using LapSystem;
@@ -18,7 +19,12 @@
 		<div class="position" style="color: @PositionColor;">@PositionText</div>
 		<div class="currency">@LocalCurrency</div>
 
-		<div class="item">Power: @ItemDisplay</div>
+		<div class="item-slot" style="background-image: url(@ItemSlotPath);">
+			@if ( ShowItemIcon )
+			{
+				<div class="item-icon" style="background-image: url(@CurrentItemIconPath);"></div>
+			}
+		</div>
 
 		@if ( ShowPowerMessage )
 		{
@@ -109,14 +115,28 @@
 		font-family: Arial;
 		text-shadow: 0px 2px 4px black;
 	}
-	.item {
+	/* Item box in the top-right. The ItemSlot texture is the always-visible frame;
+	   the .item-icon child (only rendered while an item is held) draws the god-power
+	   icon on top of it. Both use inline background-image sourced from strongly-typed
+	   Texture properties so the asset pipeline bundles the PNGs for joining clients. */
+	.item-slot {
 		position: absolute;
 		top: 0px;
 		right: 132px;
-		color: white;
-		font-size: 64px;
-		font-family: Arial;
-		text-shadow: 0px 2px 4px black;
+		width: 192px;
+		height: 192px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+	.item-icon {
+		position: absolute;
+		top: 14%;
+		left: 14%;
+		width: 72%;
+		height: 72%;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 	.countdown {
 		position: absolute;
@@ -197,6 +217,51 @@
 	string HpOutlinePath => HpOutlineTexture?.ResourcePath ?? "";
 	string HpFillPath => HpFillTexture?.ResourcePath ?? "";
 
+	// Item-slot artwork. Same strongly-typed-Texture reasoning as the HP bar above:
+	// assign these in the inspector on the HUD prefab so the asset pipeline bundles the
+	// PNGs for joining clients (a runtime-built URL string is invisible to the scanner).
+	//   ItemSlotTexture  -> Assets/UI/InGame GUI/ItemSlot.png  (always-visible frame)
+	//   the four *Icon    -> the matching god-power PNG shown inside the slot.
+	[Group( "Item Slot" ), Property] public Texture ItemSlotTexture { get; set; }
+	[Group( "Item Slot" ), Property] public Texture LavernaIcon { get; set; }
+	[Group( "Item Slot" ), Property] public Texture TaranisIcon { get; set; }
+	[Group( "Item Slot" ), Property] public Texture MaAtIcon { get; set; }
+	[Group( "Item Slot" ), Property] public Texture DionysosIcon { get; set; }
+
+	string ItemSlotPath => ItemSlotTexture?.ResourcePath ?? "";
+
+	// Held key -> icon. Keys are free-form editor strings ("Dionysos", "Laverna",
+	// "Ma'at", "Taranis"), so normalize to letters-only lowercase before matching:
+	// "Ma'at" / "ma at" / "MaAt" all collapse to "maat".
+	Texture IconForKey( string key )
+	{
+		if ( string.IsNullOrEmpty( key ) ) return null;
+		var norm = new string( key.ToLowerInvariant().Where( char.IsLetter ).ToArray() );
+		return norm switch
+		{
+			"laverna" => LavernaIcon,
+			"taranis" => TaranisIcon,
+			"maat" => MaAtIcon,
+			"dionysos" => DionysosIcon,
+			_ => null
+		};
+	}
+
+	// Icon for the item the local player currently holds. "" when nothing is held or
+	// the key has no assigned icon — the .item-icon div is then not rendered and only
+	// the ItemSlot frame shows.
+	string CurrentItemIconPath
+	{
+		get
+		{
+			var t = Items;
+			if ( t is null || !t.HasItem ) return "";
+			return IconForKey( t.HeldItemKey )?.ResourcePath ?? "";
+		}
+	}
+
+	bool ShowItemIcon => !string.IsNullOrEmpty( CurrentItemIconPath );
+
 	PlayerLapTracker Lap => Components.Get<PlayerLapTracker>( FindMode.EverythingInSelfAndAncestors );
 	PlayerDamageSystem Damage => Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndAncestors );
 
@@ -237,23 +302,6 @@
 
 	string PowerMessage => Notifier?.CurrentText ?? "";
 	bool ShowPowerMessage => !string.IsNullOrEmpty( PowerMessage );
-
-	// Top-right "Power:" label. Shows the first two letters of the held item key
-	// (e.g. "dionysos" -> "DI", "ma at" -> "MA"), or "none" when empty.
-	string ItemDisplay
-	{
-		get
-		{
-			var t = Items;
-			if ( t is null || !t.HasItem ) return "none";
-
-			var key = ( t.HeldItemKey ?? "" ).Replace( " ", "" );
-			if ( string.IsNullOrEmpty( key ) ) return "none";
-
-			var two = key.Length >= 2 ? key.Substring( 0, 2 ) : key;
-			return two.ToUpperInvariant();
-		}
-	}
 
 	string LapText => Lap is null ? "-/-" : $"{Lap.CurrentLap}/{Lap.MaxLaps}";
 

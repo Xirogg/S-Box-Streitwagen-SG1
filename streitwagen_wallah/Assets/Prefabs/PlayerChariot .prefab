@@ -1267,14 +1267,278 @@
             "__guid": "01aaac77-aac1-4d21-aca7-c9019c5f39ac",
             "__enabled": true,
             "Flags": 0,
-            "HpFillTexture": "ui/ingame gui/hp bar/hp green.vtex",
-            "HpOutlineTexture": "ui/ingame gui/hp bar/hp outline.vtex",
+            "DionysosIcon": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/dionysos.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": null
+            },
+            "HpFillTexture": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/healthbar_fulloverlay.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": null
+            },
+            "HpOutlineTexture": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/healthbar_empty.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": null
+            },
+            "ItemSlotTexture": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/itemslot.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": null
+            },
+            "LavernaIcon": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/laverna.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": null
+            },
+            "MaAtIcon": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/maat.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": null
+            },
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
-            "OnComponentUpdate": null
+            "OnComponentUpdate": null,
+            "TaranisIcon": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/taranis.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": null
+            }
           },
           {
             "__type": "Sandbox.DebugPlaytestPanel",
