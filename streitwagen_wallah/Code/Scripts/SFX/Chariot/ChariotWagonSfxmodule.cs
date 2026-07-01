@@ -5,18 +5,18 @@ namespace Sandbox;
 
 /// <summary>
 /// Proximity SFX for the chariot wagon body:
-///   - Airtime    : Sound A the moment the chariot leaves the ground.
-///   - Sudden Stop: Sound A when it loses more than <see cref="SpeedDropThreshold"/>
-///                  speed within <see cref="DropWindow"/> seconds (e.g. a hard crash).
+///   - Airtime    : Sound A starts the moment the chariot leaves the ground and is
+///                  CUT OFF again as soon as it lands.
+///   - Sudden Stop: Sound A starts when it loses more than <see cref="SpeedDropThreshold"/>
+///                  speed within <see cref="DropWindow"/> seconds, and is CUT OFF once the
+///                  chariot is moving again (speed back above <see cref="ResumeSpeed"/>).
 ///
-/// Put this on the wagon node. Detection runs on the OWNING client (ground raycast +
-/// a short speed history on the wagon Rigidbody) and broadcasts a 3D sound that follows
-/// the chariot, so everyone hears it positioned at the player.
+/// Both sounds are long clips, so we keep their handles and stop them when the condition
+/// ends instead of letting the whole clip play out. Detection runs on the OWNING client
+/// and the start/stop is broadcast so everyone hears it positioned at the player.
 /// </summary>
 public sealed class ChariotWagonSfxmodule : Component
 {
-	public enum Clip { Airtime, SuddenStop }
-
 	[Property, Group( "Sounds" )] public SoundEvent AirtimeSound { get; set; }
 	[Property, Group( "Sounds" )] public SoundEvent SuddenStopSound { get; set; }
 
@@ -32,6 +32,9 @@ public sealed class ChariotWagonSfxmodule : Component
 	/// <summary>Minimum gap between sudden-stop sounds, so one crash fires it once.</summary>
 	[Property, Group( "Sudden Stop" )] public float StopCooldown { get; set; } = 1f;
 
+	/// <summary>Speed the chariot must regain for the sudden-stop sound to cut off ("moving again").</summary>
+	[Property, Group( "Sudden Stop" )] public float ResumeSpeed { get; set; } = 400f;
+
 	[Property, Group( "Playback" ), Range( 0f, 2f )] public float Volume { get; set; } = 1f;
 
 	/// <summary>World origin the 3D sounds emit from / follow. Defaults to this GameObject.</summary>
@@ -44,11 +47,19 @@ public sealed class ChariotWagonSfxmodule : Component
 
 	[Property, Group( "Debug" )] public bool DebugLog { get; set; } = false;
 
+	/// <summary>Short fade (seconds) when a sound is cut off, to avoid a click.</summary>
+	private const float StopFade = 0.1f;
+
+	// Airtime state
 	private bool groundedInit;
 	private bool wasGrounded;
+	private SoundHandle airtimeHandle;
 
+	// Sudden-stop state
 	private readonly List<(float time, float speed)> speedSamples = new();
 	private float stopCooldownUntil;
+	private SoundHandle stopHandle;
+	private bool stopSoundActive;
 
 	protected override void OnStart()
 	{
@@ -71,7 +82,17 @@ public sealed class ChariotWagonSfxmodule : Component
 		TickSuddenStop();
 	}
 
-	// ───────── Airtime ─────────
+	protected override void OnDisabled() => StopAll();
+	protected override void OnDestroy() => StopAll();
+
+	private void StopAll()
+	{
+		StopHandleLocal( ref airtimeHandle );
+		StopHandleLocal( ref stopHandle );
+		stopSoundActive = false;
+	}
+
+	// ───────── Airtime: play while airborne, cut on landing ─────────
 
 	private void TickAirtime()
 	{
@@ -86,7 +107,9 @@ public sealed class ChariotWagonSfxmodule : Component
 		}
 
 		if ( wasGrounded && !grounded )
-			PlayProximity( Clip.Airtime ); // just left the ground
+			StartAirtime();              // just left the ground
+		else if ( !wasGrounded && grounded )
+			StopAirtime();               // back on the ground → cut it
 
 		wasGrounded = grounded;
 	}
@@ -102,12 +125,19 @@ public sealed class ChariotWagonSfxmodule : Component
 		return tr.Hit;
 	}
 
-	// ───────── Sudden stop ─────────
+	// ───────── Sudden stop: play on the drop, cut once moving again ─────────
 
 	private void TickSuddenStop()
 	{
 		float now = Time.Now;
 		float speed = Body.Velocity.Length;
+
+		// Cut the crash sound once we've picked up speed again.
+		if ( stopSoundActive && speed >= ResumeSpeed )
+		{
+			StopSuddenStop();
+			stopSoundActive = false;
+		}
 
 		speedSamples.Add( (now, speed) );
 
@@ -128,35 +158,51 @@ public sealed class ChariotWagonSfxmodule : Component
 
 		if ( peak - speed >= SpeedDropThreshold )
 		{
-			PlayProximity( Clip.SuddenStop );
+			StartSuddenStop();
+			stopSoundActive = true;
 			stopCooldownUntil = now + StopCooldown;
 			speedSamples.Clear(); // re-arm only after speed builds up again
 		}
 	}
 
-	// ───────── proximity playback ─────────
+	// ───────── networked start/stop ─────────
 
-	private SoundHandle lastHandle;
-
-	private SoundHandle PlayProximity( Clip clip )
+	private void StartAirtime()
 	{
-		if ( PlayForEveryone && Networking.IsActive )
-		{
-			PlayProximityRpc( (int)clip );
-			return lastHandle;
-		}
-		return PlayProximityLocal( (int)clip );
+		if ( PlayForEveryone && Networking.IsActive ) StartAirtimeRpc();
+		else airtimeHandle = PlayLocal( AirtimeSound );
 	}
 
-	[Rpc.Broadcast]
-	private void PlayProximityRpc( int clip ) => lastHandle = PlayProximityLocal( clip );
-
-	private SoundHandle PlayProximityLocal( int clip )
+	private void StopAirtime()
 	{
-		var ev = Resolve( (Clip)clip );
+		if ( PlayForEveryone && Networking.IsActive ) StopAirtimeRpc();
+		else StopHandleLocal( ref airtimeHandle );
+	}
+
+	private void StartSuddenStop()
+	{
+		if ( PlayForEveryone && Networking.IsActive ) StartSuddenStopRpc();
+		else stopHandle = PlayLocal( SuddenStopSound );
+	}
+
+	private void StopSuddenStop()
+	{
+		if ( PlayForEveryone && Networking.IsActive ) StopSuddenStopRpc();
+		else StopHandleLocal( ref stopHandle );
+	}
+
+	[Rpc.Broadcast] private void StartAirtimeRpc() => airtimeHandle = PlayLocal( AirtimeSound );
+	[Rpc.Broadcast] private void StopAirtimeRpc() => StopHandleLocal( ref airtimeHandle );
+	[Rpc.Broadcast] private void StartSuddenStopRpc() => stopHandle = PlayLocal( SuddenStopSound );
+	[Rpc.Broadcast] private void StopSuddenStopRpc() => StopHandleLocal( ref stopHandle );
+
+	// ───────── playback helpers ─────────
+
+	private SoundHandle PlayLocal( SoundEvent ev )
+	{
 		if ( ev is null )
 		{
-			if ( DebugLog ) Log.Warning( $"[WagonSfx] {(Clip)clip} has no SoundEvent assigned." );
+			if ( DebugLog ) Log.Warning( "[WagonSfx] A SoundEvent is not assigned." );
 			return null;
 		}
 
@@ -165,15 +211,14 @@ public sealed class ChariotWagonSfxmodule : Component
 		if ( handle is null ) return null;
 
 		handle.Volume = Volume;
-		handle.Parent = origin;
+		handle.Parent = origin;       // follow the chariot
 		handle.FollowParent = true;
 		return handle;
 	}
 
-	private SoundEvent Resolve( Clip clip ) => clip switch
+	private void StopHandleLocal( ref SoundHandle handle )
 	{
-		Clip.Airtime => AirtimeSound,
-		Clip.SuddenStop => SuddenStopSound,
-		_ => null,
-	};
+		handle?.Stop( StopFade );
+		handle = null;
+	}
 }

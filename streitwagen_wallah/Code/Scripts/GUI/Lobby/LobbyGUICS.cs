@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
+using Sandbox.Scripts.GUI.Lobby;   // LobbyGUI-Component (Razor)
 
 public enum TrackSelection
 {
@@ -28,6 +29,15 @@ public sealed class LobbyManager : Component
 	[Property] public Texture RomTrackImage { get; set; }
 	[Property] public Texture AegyptenTrackImage { get; set; }
 	[Property] public Texture AkropolisTrackImage { get; set; }
+
+	// UI-Screens. Im Inspector die jeweilige Component reinziehen (LobbyGUI vom
+	// "LobbyGUIScreen"-Node, AltarGUI vom "AltarGUIScreen"-Node). Beim Umschalten
+	// wird der GANZE Node (das GameObject) des einen an- und der des anderen
+	// ausgeschaltet — nicht nur die Script-Component. Das gemeinsame ScreenPanel
+	// und der scrollende Hintergrund liegen auf dem Eltern-Node "-- GUI" und
+	// bleiben dadurch immer aktiv.
+	[Property, Group( "Screens" )] public LobbyGUI LobbyScreen { get; set; }
+	[Property, Group( "Screens" )] public AltarGUI AltarScreen { get; set; }
 
 	// Was un-synced; only RpcSetTrack pushed it, so a client joining after the
 	// host had already cycled the track would default to Rom forever. [Sync]
@@ -74,14 +84,51 @@ public sealed class LobbyManager : Component
 	/// </summary>
 	public string GetTrackImagePath( TrackSelection track )
 	{
-		var tex = track switch
+		return GetTrackTexture( track )?.ResourcePath ?? "";
+	}
+
+	/// <summary>
+	/// Strecken-Vorschau als Texture-Objekt. Wird von der LobbyGUI direkt per
+	/// Style.SetBackgroundImage gesetzt (unabhängig vom ResourcePath, siehe
+	/// Kommentar in LobbyGUI.razor).
+	/// </summary>
+	public Texture GetTrackTexture( TrackSelection track )
+	{
+		return track switch
 		{
 			TrackSelection.Rom => RomTrackImage,
 			TrackSelection.Aegypten => AegyptenTrackImage,
 			TrackSelection.Akropolis => AkropolisTrackImage,
 			_ => null
 		};
-		return tex?.ResourcePath ?? "";
+	}
+
+	/// <summary>
+	/// Wechselt vom Lobby- auf den Altar-Screen: LobbyGUIScreen-Node aus,
+	/// AltarGUIScreen-Node an. Rein lokale UI-Umschaltung (kein Networking).
+	/// </summary>
+	public void ShowAltar() => SwitchScreen( AltarScreen, LobbyScreen );
+
+	/// <summary>Zurück zum Lobby-Screen (Gegenstück zu <see cref="ShowAltar"/>).</summary>
+	public void ShowLobby() => SwitchScreen( LobbyScreen, AltarScreen );
+
+	// Schaltet den "show"-Node an und den "hide"-Node aus. Es wird das GameObject
+	// (der ganze Node) getoggelt, nicht die Component — dadurch geht der komplette
+	// Screen-Node mit allen Kindern an/aus. Nur wenn BEIDE zugewiesen sind, sonst
+	// säße man nach dem Ausschalten auf einem leeren Screen fest.
+	private void SwitchScreen( PanelComponent show, PanelComponent hide )
+	{
+		Log.Info( $"[LobbyManager] SwitchScreen: show={(show is null ? "NULL" : show.GetType().Name)}, " +
+			$"hide={(hide is null ? "NULL" : hide.GetType().Name)}" );
+
+		if ( show is null || hide is null )
+		{
+			Log.Warning( "[LobbyManager] Screen-Wechsel: LobbyScreen/AltarScreen nicht (beide) im Inspector zugewiesen." );
+			return;
+		}
+
+		hide.GameObject.Enabled = false;
+		show.GameObject.Enabled = true;
 	}
 
 	public void CycleTrack()
