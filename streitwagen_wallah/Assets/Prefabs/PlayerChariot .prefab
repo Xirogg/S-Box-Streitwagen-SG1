@@ -97,7 +97,7 @@
             "BrakeForce": 5,
             "GroundProbeDistance": 60,
             "GroundStickGap": 30,
-            "GroundStickStrength": 600,
+            "GroundStickStrength": 0,
             "LateralGrip": 5,
             "LowSpeedSteerBoost": 1.5,
             "LurchImpulse": 800,
@@ -118,7 +118,7 @@
               "component_type": "Rigidbody"
             },
             "SharpSteerMultiplier": 1.5,
-            "SlopeGripStrength": 0,
+            "SlopeGripStrength": 1,
             "SteerBoostFullSpeed": 400,
             "SteerReleaseDamping": 15,
             "SteerTorque": 200000
@@ -1113,7 +1113,7 @@
               "go": "66e4cb2c-136e-405b-9a51-6a3898f2dd27",
               "component_type": "Rigidbody"
             },
-            "LateralGrip": 0.90909094,
+            "LateralGrip": 0,
             "MaxSpeed": 2000,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -1123,7 +1123,7 @@
             "OnComponentUpdate": null,
             "PitchLimit": 45,
             "RollLimit": 2,
-            "SlopeGripStrength": 1,
+            "SlopeGripStrength": 0,
             "YawLimit": 35
           },
           {
@@ -1158,7 +1158,7 @@
             "__guid": "c3c6cc48-1331-42f8-b015-cc11ef08978f",
             "__enabled": true,
             "Flags": 0,
-            "Center": "8.76990509,-13.3621788,22",
+            "Center": "1.98306084,-6.21181679,22.5079422",
             "ColliderFlags": 0,
             "Elasticity": null,
             "Friction": null,
@@ -1174,7 +1174,7 @@
             "OnTriggerEnter": null,
             "OnTriggerExit": null,
             "RollingResistance": null,
-            "Scale": "67.5398102,84.5215759,18.2672749",
+            "Scale": "35.0102348,47.9804306,17.2513866",
             "Static": false,
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
