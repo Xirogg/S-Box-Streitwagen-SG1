@@ -18,6 +18,30 @@ public sealed class TestCamera : Component
 	[Property, Group( "Follow" )] public float RotationSmoothSpeed { get; set; } = 6f;
 	[Property, Group( "Follow" )] public float LookHeight { get; set; } = 40f;
 
+	// --- Camera Collision (spring-arm pull-in) ---
+	// Sphere-cast from a pivot on the chariot out to the follow position; if geometry is in
+	// the way, pull the camera in so it never clips into the ground / walls / obstacles.
+	[Property, Group( "Collision" )] public bool EnableCollision { get; set; } = true;
+
+	// Thickness of the cast AND the clearance kept between the camera and any surface.
+	// Bigger = camera stays further off walls (and hides small shake poke-through), but pulls
+	// in sooner. Must comfortably exceed CameraComponent.ZNear (1) so the near plane never clips.
+	[Property, Group( "Collision" )] public float CollisionRadius { get; set; } = 8f;
+
+	// Where the boom starts, measured up from the chariot origin. Keep it above the ground so
+	// the arm to the high rear camera clears the terrain on flat sections.
+	[Property, Group( "Collision" )] public float CollisionPivotHeight { get; set; } = 60f;
+
+	// The camera is never pulled closer than this to the pivot, so you always see the chariot.
+	[Property, Group( "Collision" )] public float CollisionMinDistance { get; set; } = 40f;
+
+	// How fast the camera eases back OUT after a wall clears (in-snap is instant to avoid clipping).
+	[Property, Group( "Collision" )] public float CollisionReturnSpeed { get; set; } = 8f;
+
+	// Extra objects/surfaces the collision trace must ignore. The whole player hierarchy is
+	// already ignored via GameObject.Root; "chariot" covers the runtime-tagged horse + chassis.
+	[Property, Group( "Collision" )] public List<string> CollisionIgnoreTags { get; set; } = new() { "chariot" };
+
 	// How far ahead of the chariot the camera looks, scaled by velocity (0 = no look-ahead, 0.2 = subtle, 0.5 = aggressive)
 	[Property, Group( "Look-Ahead" )] public float LookAheadStrength { get; set; } = 0.18f;
 
@@ -46,6 +70,9 @@ public sealed class TestCamera : Component
 	private float _currentRoll;
 	private float _currentDriftLateral;
 	private bool _initialized;
+
+	// Current spring-arm length (pivot -> camera). -1 = not yet initialized.
+	private float _armLen = -1f;
 
 	//Road Shake
 	private float _shakeTime;
@@ -130,6 +157,59 @@ public sealed class TestCamera : Component
 		_impactShake *= MathF.Exp( -ImpactShakeDecay * Time.Delta );
 	}
 
+	/// <summary>
+	/// Spring-arm collision: sphere-cast from <paramref name="pivot"/> (a point on the chariot)
+	/// out to the current follow position. If solid geometry blocks the boom, place the camera at
+	/// the contact so it can't clip into the ground or a wall. Snaps inward instantly to avoid
+	/// clipping, then eases back out once the obstruction clears so the pull-out isn't jarring.
+	/// </summary>
+	private void ApplyCameraCollision( Vector3 pivot )
+	{
+		if ( !EnableCollision )
+			return;
+
+		Vector3 toCam = WorldPosition - pivot;
+		float wishLen = toCam.Length;
+		if ( wishLen < 0.01f )
+			return; // camera sitting on the pivot; nothing to trace
+
+		Vector3 dir = toCam / wishLen;
+
+		var trace = Scene.Trace
+			.Sphere( CollisionRadius, pivot, WorldPosition )
+			.IgnoreGameObjectHierarchy( GameObject.Root );
+
+		// Ignore the runtime-tagged vehicle parts (horse + chassis) as a belt-and-suspenders
+		// on top of the hierarchy ignore, in case anything lives outside the prefab root.
+		if ( CollisionIgnoreTags is { Count: > 0 } )
+			trace = trace.WithoutTags( CollisionIgnoreTags.ToArray() );
+
+		var tr = trace.Run();
+
+		// tr.Distance is how far the sphere CENTER can travel before its surface touches geometry,
+		// so placing the camera there keeps it exactly CollisionRadius off the wall.
+		float allowedLen = tr.Hit
+			? Math.Clamp( tr.Distance, CollisionMinDistance, wishLen )
+			: wishLen;
+
+		if ( _armLen < 0f )
+			_armLen = allowedLen; // first frame: snap, don't lerp from 0
+
+		if ( allowedLen < _armLen )
+		{
+			// Blocked: pull in immediately so we never show a frame clipped into geometry.
+			_armLen = allowedLen;
+		}
+		else
+		{
+			// Clear: ease back out to the desired length.
+			float t = 1f - MathF.Exp( -MathF.Max( 0f, CollisionReturnSpeed ) * Time.Delta );
+			_armLen = MathX.Lerp( _armLen, allowedLen, t );
+		}
+
+		WorldPosition = pivot + dir * _armLen;
+	}
+
 	protected override void OnUpdate()
 	{
 		if ( IsProxy ) return;
@@ -172,6 +252,9 @@ public sealed class TestCamera : Component
 		{
 			WorldPosition = SmoothDamp( WorldPosition, desiredPosition, ref _posVelocity, PositionSmoothTime, Time.Delta );
 		}
+
+		// Keep the camera out of the ground / walls / obstacles by pulling it in along the boom.
+		ApplyCameraCollision( TargetGO.WorldPosition + Vector3.Up * CollisionPivotHeight );
 
 		// Look target with velocity look-ahead
 		Vector3 lookTarget = TargetGO.WorldPosition + Vector3.Up * LookHeight;

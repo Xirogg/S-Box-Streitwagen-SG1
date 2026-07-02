@@ -229,7 +229,7 @@
             "LookAheadPerSpeed": 0.03,
             "MaxClimbSpeed": 400,
             "MaxGroundDistance": 60,
-            "MaxStepHeight": 35,
+            "MaxStepHeight": 45,
             "MinMoveSpeed": 30,
             "MinStepHeight": 2,
             "OnComponentDestroy": null,
@@ -2180,6 +2180,14 @@
             "Flags": 0,
             "BaseFOV": 60,
             "ChariotPhysics": null,
+            "CollisionIgnoreTags": [
+              "chariot"
+            ],
+            "CollisionMinDistance": 50,
+            "CollisionPivotHeight": 60,
+            "CollisionRadius": 12,
+            "CollisionReturnSpeed": 8,
+            "EnableCollision": true,
             "FovLerpSpeed": 2,
             "IgnoredImpactTags": [
               "ground",
