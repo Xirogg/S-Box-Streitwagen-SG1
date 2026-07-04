@@ -38,6 +38,18 @@
         "TaranisSound": "music/sfx/god powers/taranis/taranis_sfx_ult_lightning.sound",
         "TaranisVoice": "music/sfx/god powers/taranis/taranis_sfx_ult.sound",
         "Volume": 1
+      },
+      {
+        "__type": "Sandbox.GodPowersImageModule",
+        "__guid": "662ec8a8-f08b-4743-9716-0622d19e77b8",
+        "__enabled": true,
+        "Flags": 0,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [],

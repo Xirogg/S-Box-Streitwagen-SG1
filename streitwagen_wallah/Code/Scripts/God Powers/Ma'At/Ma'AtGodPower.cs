@@ -74,6 +74,8 @@ public sealed class MaatPower : GodPower
 		ResolveNotifier()?.ShowTimed( "Kaaarma", EffectDuration );
 		// Sound A + voice, worldwide.
 		GodPowersUltimateSfxmodule.Instance?.PlayMaatUltimate();
+		// Sky image, per-player (each aimed at their own chariot).
+		GodPowersImageModule.Instance?.ShowMaatImage();
 
 		var players = new List<GameObject>( Scene.FindAllWithTag( PlayerTag ) );
 		if ( players.Count == 0 ) return;

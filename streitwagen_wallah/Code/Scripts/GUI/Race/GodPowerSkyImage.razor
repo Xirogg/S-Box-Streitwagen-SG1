@@ -1,0 +1,74 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+@namespace Sandbox
+
+@*
+	One short-lived world-space image, shown in the sky when a god power's ultimate
+	fires. Spawned purely locally by GodPowersImageModule on each client, never networked —
+	every player gets their own copy aimed at their own chariot, so this component just
+	draws the picture and cleans itself up.
+
+	It renders through a sibling Sandbox.WorldPanel ("Renders any attached PanelComponents
+	to the world in 3D space"). The picture is drawn with an <Image Texture="..."> element
+	(Sandbox.UI.Image) — the purpose-built way to render a Texture OBJECT. That's more
+	reliable than a `background-image: url(@Texture.ResourcePath)` binding or a code
+	Style.SetBackgroundImage: it takes the Texture directly, so it works no matter how the
+	editor slot was filled (Image File / From Disk / dragged asset) and needs no ResourcePath.
+*@
+
+<root>
+	<Image class="sky-image" Texture="@Picture" />
+</root>
+
+<style>
+	root {
+		width: 100%;
+		height: 100%;
+	}
+
+	/* Fill the (aspect-matched) panel; the WorldPanel's PanelSize already matches the
+	   image's aspect, so filling draws it undistorted. */
+	.sky-image {
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+@code
+{
+	/// <summary>The picture to draw. Set by GodPowersImageModule from its per-god Texture slot.
+	/// Named "Picture" (not "Image") so it doesn't collide with the &lt;Image&gt; element above.</summary>
+	[Property] public Texture Picture { get; set; }
+
+	/// <summary>Seconds the image stays up before it removes itself. Set by the module (Duration).</summary>
+	[Property] public float Lifetime { get; set; } = 5f;
+
+	/// <summary>Seconds of fade-out at the end of the lifetime.</summary>
+	[Property] public float FadeTime { get; set; } = 0.75f;
+
+	private float spawnedAt;
+
+	protected override void OnStart() => spawnedAt = Time.Now;
+
+	private float Elapsed => Time.Now - spawnedAt;
+	private float Remaining => Lifetime - Elapsed;
+
+	// Solid 1 for the bulk of the lifetime, only ramping down over the final FadeTime seconds.
+	private float FadeOpacity => Remaining >= FadeTime ? 1f : MathX.Clamp( Remaining / MathF.Max( FadeTime, 0.0001f ), 0f, 1f );
+
+	protected override void OnUpdate()
+	{
+		// Fade is driven straight on the panel each frame (no rebuild needed).
+		if ( Panel is not null )
+			Panel.Style.Opacity = FadeOpacity;
+
+		if ( Elapsed >= Lifetime )
+			GameObject.Destroy();
+	}
+
+	// Rebuild (→ the <Image> re-reads Picture) when the assigned texture changes,
+	// e.g. from null on the very first build to the module-set value.
+	protected override int BuildHash() => Picture?.GetHashCode() ?? 0;
+}

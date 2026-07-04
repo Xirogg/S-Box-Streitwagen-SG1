@@ -103985,7 +103985,7 @@
                 "AfterUILayer": false
               },
               "RenderType": "On",
-              "Tint": "0.74884,0.6757,0.6757,1"
+              "Tint": "1,1,1,1"
             },
             {
               "__type": "Sandbox.ModelCollider",
@@ -104314,13 +104314,242 @@
                 },
                 "Property": "MaatSoundB",
                 "Value": null
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "DebugLog",
+                "Value": true
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "DebugSpawnMaatOnStart",
+                "Value": true
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "DionysosImage",
+                "Value": {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/race ui/maat_image.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                }
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "Distance",
+                "Value": 15000
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "Duration",
+                "Value": 555
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "Height",
+                "Value": 3000
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "LavernaImage",
+                "Value": {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/race ui/laverna_image.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                }
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "MaatImage",
+                "Value": {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/race ui/maat_image.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                }
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "ScalePercent",
+                "Value": 2500
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "TaranisImage",
+                "Value": {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/race ui/laverna_image.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                }
               }
             ],
             "MovedObjects": []
           },
           "__PrefabIdToInstanceId": {
             "87eb9a22-0d13-49bc-bf98-e3a4a0f20ec1": "4ecc24c0-46d5-4cf9-9f3a-5e45a367cb0e",
-            "13d5a8e5-3f3f-49aa-902e-1d1ecbbcf79b": "cfb2909b-5bda-4a64-8cd9-379054f3639e"
+            "13d5a8e5-3f3f-49aa-902e-1d1ecbbcf79b": "cfb2909b-5bda-4a64-8cd9-379054f3639e",
+            "662ec8a8-f08b-4743-9716-0622d19e77b8": "9f29c714-256c-83ee-9802-d50a5996c59f"
           }
         }
       ]

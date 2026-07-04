@@ -194,6 +194,8 @@ public sealed class LightningPower : GodPower
 		ResolveNotifier()?.ShowTimed( "Boden Charged", UltimateDuration );
 		// Sound A + voice, worldwide.
 		GodPowersUltimateSfxmodule.Instance?.PlayTaranisUltimate();
+		// Sky image, per-player (each aimed at their own chariot).
+		GodPowersImageModule.Instance?.ShowTaranisImage();
 
 		// Caster immunity: stash and zero their incoming-damage multiplier.
 		casterDamage = Owner.IsValid()

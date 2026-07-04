@@ -147,6 +147,8 @@ public sealed class DionysosPower : GodPower
 		ResolveNotifier()?.ShowTimed( "Jääägermeister", DrunkDuration );
 		// Sound A + voice, worldwide.
 		GodPowersUltimateSfxmodule.Instance?.PlayDionysosUltimate();
+		// Sky image, per-player (each aimed at their own chariot).
+		GodPowersImageModule.Instance?.ShowDionysosImage();
 
 		Guid casterId = Guid.Empty;
 		if ( Owner.IsValid() )

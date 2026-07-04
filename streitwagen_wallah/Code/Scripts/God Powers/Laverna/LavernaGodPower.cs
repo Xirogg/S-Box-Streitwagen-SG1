@@ -132,6 +132,8 @@ public sealed class LavernaPower : GodPower
 		ResolveNotifier()?.Show( "Heute gestohlen morgen in Polen" );
 		// Sound A + voice, worldwide.
 		GodPowersUltimateSfxmodule.Instance?.PlayLavernaUltimate();
+		// Sky image, per-player (each aimed at their own chariot).
+		GodPowersImageModule.Instance?.ShowLavernaImage();
 
 		var ownerDamage = Owner.Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndDescendants );
 		if ( ownerDamage is null )
