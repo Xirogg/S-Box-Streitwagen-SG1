@@ -10,7 +10,7 @@
 <root>
 	@if ( !IsProxy )
 	{
-		<div class="lap">Lap @LapText</div>
+		<div class="lap">@LapText</div>
 		<div class="hpbar" style="background-image: url(@HpOutlinePath);">
 			<div class="hp-fill-clip" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;">
 				<div class="hp-fill" style="background-image: url(@HpFillPath);"></div>
@@ -56,7 +56,14 @@
 		flex-direction: column;
 		gap: 118px;
 	}
+	/* Lap counter, bottom-right. Pulled out of the root flow (was top-left)
+	   so the HP bar can take over the top-left corner. Insets mirror the other
+	   corner HUD elements: right: 132px like .item-slot, bottom: 132px like
+	   .position. Label is just "0/3" now — the "Lap" prefix was dropped. */
 	.lap {
+		position: absolute;
+		bottom: 132px;
+		right: 132px;
 		color: white;
 		font-size: 132px;
 		font-family: Arial;

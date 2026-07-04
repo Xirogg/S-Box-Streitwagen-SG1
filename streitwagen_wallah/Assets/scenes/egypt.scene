@@ -104373,7 +104373,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/548029f8c0b96d7c.vtex"
                 }
               },
               {
@@ -104442,7 +104442,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/4567573c66dda7e0.vtex"
                 }
               },
               {
@@ -104487,7 +104487,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/548029f8c0b96d7c.vtex"
                 }
               },
               {
@@ -104496,7 +104496,7 @@
                   "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
                 },
                 "Property": "ScalePercent",
-                "Value": 2500
+                "Value": 15000
               },
               {
                 "Target": {
@@ -104540,7 +104540,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/4567573c66dda7e0.vtex"
                 }
               }
             ],
