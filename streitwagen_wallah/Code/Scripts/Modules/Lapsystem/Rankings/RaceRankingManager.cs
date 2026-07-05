@@ -60,9 +60,13 @@ public sealed class RaceRankingManager : Component
 		if ( !Networking.IsHost ) return;
 		if ( tracker == null ) return;
 
-		var entry = FindOrCreateEntry( tracker );
-		if ( entry.FinishOrder == 0 )
-			entry.FinishOrder = nextFinishOrder++;
+		// FinishOrder ist am Tracker ein [Sync(SyncFlags.FromHost)]-Feld: der Host
+		// schreibt es autoritativ und es repliziert an ALLE Clients (auch an den
+		// Besitzer des Spielers). Vorher wurde die Zahl nur lokal am PlayerRankingEntry
+		// des Hosts gesetzt und kam bei den anderen Clients nie an – dort war die
+		// Ziel-Nachricht und die Finisher-Sortierung deshalb falsch.
+		if ( tracker.FinishOrder == 0 )
+			tracker.FinishOrder = nextFinishOrder++;
 	}
 
 	protected override void OnUpdate()
@@ -86,16 +90,16 @@ public sealed class RaceRankingManager : Component
 			seen.Add( entry.PlayerId );
 
 			entry.Tracker = tracker;
+			entry.PlayerName = ResolvePlayerName( tracker );
 			entry.CurrentLap = tracker.CurrentLap;
 			entry.CheckpointsThisLap = tracker.CheckpointsThisLap;
 			entry.LastProgressTime = tracker.LastProgressTime;
+			entry.RaceFinished = tracker.RaceFinished;
 
-			// FinishOrder kommt vom Host-Event; auf Clients leiten wir aus RaceFinished
-			// einen Platzhalter-Wert ab, falls das Event noch nicht angekommen ist.
-			if ( tracker.RaceFinished && !entry.RaceFinished )
-				entry.RaceFinished = true;
-			else
-				entry.RaceFinished = tracker.RaceFinished;
+			// FinishOrder wird host-autoritativ am Tracker gesetzt und via
+			// SyncFlags.FromHost repliziert – hier nur noch spiegeln, damit die
+			// Sortierung (CompareEntries) auf jedem Client denselben Wert sieht.
+			entry.FinishOrder = tracker.FinishOrder;
 		}
 
 		// 2. Verwaiste Einträge entfernen (Spieler hat Szene verlassen).
@@ -212,5 +216,16 @@ public sealed class RaceRankingManager : Component
 			current = current.Parent;
 		}
 		return tracker.GameObject.Id;
+	}
+
+	/// <summary>
+	/// Anzeigename des Spielers aus der Owner-Connection. Der Netzwerk-Besitz ist
+	/// repliziert, der Name ist also auf jedem Client für jeden Spieler verfügbar.
+	/// Fallback "Spieler", falls (noch) keine Connection aufgelöst werden kann.
+	/// </summary>
+	private static string ResolvePlayerName( PlayerLapTracker tracker )
+	{
+		var name = tracker.Network.Owner?.DisplayName;
+		return string.IsNullOrEmpty( name ) ? "Spieler" : name;
 	}
 }

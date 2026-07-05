@@ -168,12 +168,13 @@ public sealed class DionysosPower : GodPower
 			// Filter out the caster via PlayerId so we don't drunk-drive ourselves.
 			if ( casterId != Guid.Empty && controls.PlayerId == casterId ) continue;
 
-			// Routes to the player's owning peer; stacks with any timer already running.
-			//controls.AddDrunkTime( DrunkDuration );
-			
+			// [Rpc.Owner] routes to the player's owning peer (they're a proxy here on the
+			// caster); stacks with any timer already running.
+			controls.AddDrunkTimeRpc( DrunkDuration );
+
 			hits++;
 		}
 
-		//Log.Info( $"[DionysosPower] {hits} Spieler bekommen +{DrunkDuration}s Drunk" );
+		Log.Info( $"[DionysosPower] {hits} Spieler bekommen +{DrunkDuration}s Drunk" );
 	}
 }

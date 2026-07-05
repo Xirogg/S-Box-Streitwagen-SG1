@@ -18,6 +18,16 @@ public sealed class PlayerLapTracker : Component
 	[Sync] public int CurrentLap { get; set; }
 	[Sync] public bool RaceFinished { get; set; }
 
+	// Zieleinlauf-Reihenfolge: 1, 2, 3, ... in der Reihenfolge des Ankommens.
+	// 0 = noch nicht im Ziel. Wird HOST-autoritativ vom RaceRankingManager vergeben
+	// und via SyncFlags.FromHost an alle Clients repliziert.
+	//
+	// FromHost ist zwingend, weil dieser Tracker sonst OWNER-autoritativ ist: jeder
+	// Spieler wird per NetworkSpawn(channel) dem eigenen Client zugewiesen, der Host
+	// besitzt fremde Tracker also NICHT und könnte ihren Wert ohne dieses Flag gar
+	// nicht setzen. Nur der Host schreibt FinishOrder, alle anderen lesen ihn.
+	[Sync( SyncFlags.FromHost )] public int FinishOrder { get; set; }
+
 	// Fortschritt innerhalb der aktuellen Runde – wird vom RaceRankingManager
 	// fuers Live-Ranking gelesen.
 	[Sync] public int CheckpointsThisLap { get; set; }

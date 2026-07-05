@@ -105,6 +105,14 @@ public sealed class TestControlls : Component, Component.ICollisionListener
 	[Sync] public bool IsDrunk { get; private set; }
 
 	/// <summary>
+	/// Verbleibende Trunkenheits-Zeit in Sekunden. Wird pro Frame um Time.Delta
+	/// abgebaut. Solange > 0 ist der Lenk-Input invertiert (siehe ApplyInputs).
+	/// Dionysos' Ult addiert hier via AddDrunkTimeRpc — mehrfache Ults stapeln,
+	/// weil der Timer nur aufaddiert wird.
+	/// </summary>
+	private float _drunkTimer;
+
+	/// <summary>
 	/// True solange der Spieler Left/Right UND zusätzlich RamLeft/RamRight (Q/E) drückt.
 	/// Das ist der "scharf einlenken"-Modus — Q/E verstärkt das Lenken nur dann.
 	/// </summary>
@@ -133,6 +141,26 @@ public sealed class TestControlls : Component, Component.ICollisionListener
 		OnDrunkChanged?.Invoke( on );
 	}
 
+	/// <summary>
+	/// Addiert Trunkenheits-Zeit auf den Drunk-Timer (stapelt, wenn schon drunk).
+	/// Solange der Timer läuft, wird der Lenk-Input invertiert. Der Timer wird in
+	/// OnUpdate um Time.Delta abgebaut; bei 0 kehren die Controls zur Normale zurück.
+	///
+	/// [Rpc.Owner]: Dionysos' Ult läuft nur auf dem Caster. Dort sind die anderen
+	/// Spieler Proxies — _drunkTimer/IsDrunk direkt zu setzen würde nur die lokale
+	/// Kopie treffen, während ApplyInputs/TickDrunk beim OWNER laufen (die haben ein
+	/// `if ( IsProxy ) return`). Das RPC routet den Aufruf zum besitzenden Peer, wo
+	/// der Lenk-Input tatsächlich berechnet wird — gleiche Konvention wie
+	/// TransferHeldItemRpc oder der ChariotPhysics-Knockback.
+	/// </summary>
+	[Rpc.Owner]
+	public void AddDrunkTimeRpc( float seconds )
+	{
+		if ( seconds <= 0f ) return;
+		_drunkTimer += seconds;
+		SetDrunk( true );
+	}
+
 	protected override void OnStart()
 	{
 		if ( IsProxy ) return;
@@ -145,6 +173,8 @@ public sealed class TestControlls : Component, Component.ICollisionListener
 	{
 		if ( IsProxy ) return;
 
+		TickDrunk();
+
 		if ( RaceManager.Instance?.StartCountdownTimeLeft > 0f )
 		{
 			moveInput = Vector2.Zero;
@@ -153,6 +183,22 @@ public sealed class TestControlls : Component, Component.ICollisionListener
 
 		ApplyInputs();
 		TryApplyLurch();
+	}
+
+	/// <summary>
+	/// Baut den Drunk-Timer pro Frame ab. Fällt er auf 0, wird der Drunk-Zustand
+	/// (und damit die invertierte Lenkung) wieder abgeschaltet.
+	/// </summary>
+	private void TickDrunk()
+	{
+		if ( _drunkTimer <= 0f ) return;
+
+		_drunkTimer -= Time.Delta;
+		if ( _drunkTimer <= 0f )
+		{
+			_drunkTimer = 0f;
+			SetDrunk( false );
+		}
 	}
 
 	protected override void OnFixedUpdate()
@@ -216,11 +262,12 @@ public sealed class TestControlls : Component, Component.ICollisionListener
 			horizontalStrenght += sharpInputDir * SharpSteerMultiplier;
 		}
 
+		// Trunkenheit invertiert NUR das Lenken (links/rechts), nicht den Antrieb.
+		// horizontalStrenght enthält an dieser Stelle bereits den Sharp-Steer-Anteil,
+		// also kehrt ein einzelnes Vorzeichen den kompletten Lenk-Input um.
 		if ( IsDrunk )
 		{
-			verticalStrength = -verticalStrength;
 			horizontalStrenght = -horizontalStrenght;
-			sharpInputDir = -sharpInputDir;
 		}
 
 		moveInput = new Vector2( verticalStrength, horizontalStrenght );

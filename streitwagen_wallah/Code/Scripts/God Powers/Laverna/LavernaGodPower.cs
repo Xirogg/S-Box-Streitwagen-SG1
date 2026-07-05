@@ -2,6 +2,7 @@ using LapSystem.Rankings;
 using Sandbox;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Laverna:
@@ -22,6 +23,17 @@ public sealed class LavernaPower : GodPower
 
 	[Property, Group( "Item Dieb" )]
 	public bool ExcludeLastPlace { get; set; } = true;
+
+	/// <summary>
+	/// Fallback item key that identifies a Laverna power. HeldItemKey is the free-form
+	/// editor string from the item box's ItemPool ("Laverna", "Dionysos", ...). We
+	/// normally derive Laverna's key from the CASTER's own tracker at cast time (its
+	/// slot still reads "Laverna" during OnActivate), so this is only used if that
+	/// lookup fails. Compared normalized (letters-only lowercase), the same way the
+	/// HUD's IconForKey matches, so casing/spacing variants still resolve.
+	/// </summary>
+	[Property, Group( "Item Dieb" )]
+	public string LavernaItemKey { get; set; } = "Laverna";
 
 	/// <summary>
 	/// Short delay between the activation frame and the actual item transfer.
@@ -56,7 +68,17 @@ public sealed class LavernaPower : GodPower
 		Guid lastPlaceId = Guid.Empty;
 		if ( ExcludeLastPlace ) lastPlaceId = ResolveLastPlaceId();
 
-		var candidates = new List<PlayerItemTracker>();
+		// The key that counts as "a Laverna power". Prefer the caster's OWN slot —
+		// during OnActivate the thief's tracker still reads its held key (the
+		// use-cleanup that clears it runs after us), so this is the exact editor
+		// string in play. Fall back to the configured key if the slot is already empty.
+		string lavernaKey = !string.IsNullOrEmpty( thief.HeldItemKey ) ? thief.HeldItemKey : LavernaItemKey;
+
+		// Split eligible victims into two tiers so we can prefer stealing a
+		// non-Laverna item and only fall back to robbing another Laverna if that's
+		// all that's left. Self-exclusion and ExcludeLastPlace apply to both tiers.
+		var nonLavernaCandidates = new List<PlayerItemTracker>();
+		var lavernaCandidates = new List<PlayerItemTracker>();
 		foreach ( var t in Scene.GetAllComponents<PlayerItemTracker>() )
 		{
 			if ( t == thief ) continue;
@@ -65,16 +87,24 @@ public sealed class LavernaPower : GodPower
 			if ( lastPlaceId != Guid.Empty && ResolvePlayerId( t ) == lastPlaceId )
 				continue;
 
-			candidates.Add( t );
+			if ( IsLavernaKey( t.HeldItemKey, lavernaKey ) )
+				lavernaCandidates.Add( t );
+			else
+				nonLavernaCandidates.Add( t );
 		}
 
-		if ( candidates.Count == 0 )
+		// Tier 1: prefer non-Laverna items. Tier 2: forced to steal another Laverna.
+		var pool = nonLavernaCandidates.Count > 0 ? nonLavernaCandidates : lavernaCandidates;
+
+		// Tier 3: nobody eligible holds anything — steal nothing and say so.
+		if ( pool.Count == 0 )
 		{
-			if ( DebugLog ) Log.Info( "[LavernaPower] Item-Dieb found no eligible victim (nobody else is holding an item)." );
+			Log.Info( "[LavernaPower] Item-Dieb found no eligible victim (nobody else is holding an item)." );
+			ResolveNotifier()?.Show( "Pech gehabt!" );
 			return;
 		}
 
-		var victim = candidates[Random.Shared.Next( 0, candidates.Count )];
+		var victim = pool[Random.Shared.Next( 0, pool.Count )];
 
 		// Read the key now — by the time the deferred transfer runs the victim's
 		// slot has been wiped, so we'd lose the name otherwise.
@@ -110,6 +140,26 @@ public sealed class LavernaPower : GodPower
 		// Rankings are sorted with #1 at index 0, so the last entry is the lowest position.
 		var last = rankings[rankings.Count - 1];
 		return last.PlayerId;
+	}
+
+	/// <summary>
+	/// True if <paramref name="heldKey"/> names a Laverna power. Both keys are
+	/// normalized to letters-only lowercase before comparison (mirroring the HUD's
+	/// IconForKey), so "Laverna" / "laverna" / "La verna" all match. Comparing the
+	/// [Sync]'d HeldItemKey — rather than the victim's cloned prefab component — is
+	/// deliberate: the prefab reference is owner-local runtime state and is null on a
+	/// remote victim's proxy tracker, whereas HeldItemKey replicates to every client.
+	/// </summary>
+	private static bool IsLavernaKey( string heldKey, string lavernaKey )
+	{
+		return NormalizeKey( heldKey ) == NormalizeKey( lavernaKey )
+			&& !string.IsNullOrEmpty( NormalizeKey( heldKey ) );
+	}
+
+	private static string NormalizeKey( string key )
+	{
+		if ( string.IsNullOrEmpty( key ) ) return "";
+		return new string( key.ToLowerInvariant().Where( char.IsLetter ).ToArray() );
 	}
 
 	private static Guid ResolvePlayerId( PlayerItemTracker tracker )

@@ -14,6 +14,9 @@ public sealed class PlayerRankingEntry
 	/// <summary> Referenz auf den Tracker. Kann null werden, wenn der Spieler die Szene verlässt. </summary>
 	public PlayerLapTracker Tracker { get; set; }
 
+	/// <summary> Anzeigename des Spielers (aus der Owner-Connection). Für die Leaderboard-UI. </summary>
+	public string PlayerName { get; set; }
+
 	/// <summary> 1-basierte Platzierung. Wird vom Manager nach jedem Sortier-Pass gesetzt. </summary>
 	public int Position { get; set; }
 

@@ -1,4 +1,5 @@
 @using System;
+@using System.Collections.Generic;
 @using System.Linq;
 @using Sandbox;
 @using Sandbox.UI;
@@ -38,10 +39,36 @@
 
 		@if ( ShowFinishMessage )
 		{
-			<div class="finish-overlay" style="color: @FinishColour;">
-				<div class="finish-box" style="color: @FinishColour;">
-					<div class="finish-text">@FinishMessage </div>
-					<div class="finish-waiting">Warte auf alle Spieler...</div>
+			<div class="finish-overlay">
+				<div class="finish-box">
+					<div class="finish-text" style="color: @FinishColour;">@FinishMessage</div>
+
+					<div class="leaderboard">
+						@foreach ( var e in FinishedEntries )
+						{
+							<div class="lb-row">
+								<span class="lb-pos" style="color: @LeaderboardColour( e.FinishOrder );">P@(e.FinishOrder)</span>
+								<span class="lb-name">@NameFor( e )</span>
+							</div>
+						}
+
+						@if ( RacingEntries.Count > 0 )
+						{
+							<div class="lb-section">Noch im Rennen</div>
+							@foreach ( var e in RacingEntries )
+							{
+								<div class="lb-row lb-racing">
+									<span class="lb-pos">–</span>
+									<span class="lb-name">@NameFor( e )</span>
+								</div>
+							}
+						}
+					</div>
+
+					@if ( RacingEntries.Count > 0 )
+					{
+						<div class="finish-waiting">Warte auf alle Spieler...</div>
+					}
 				</div>
 			</div>
 		}
@@ -204,6 +231,53 @@
 		font-size: 32px;
 		font-family: Arial;
 		color: rgba(60, 60, 60, 0.8);
+	}
+
+	/* Post-race leaderboard, shown inside the finish box once the local player has
+	   finished. Rows come pre-sorted from RaceRankingManager: finishers first
+	   (by FinishOrder), then anyone still racing. */
+	.leaderboard {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 8px;
+		margin-top: 8px;
+		min-width: 560px;
+	}
+
+	.lb-row {
+		flex-direction: row;
+		align-items: center;
+		gap: 20px;
+		font-family: Arial;
+		font-size: 40px;
+		color: rgba(30, 30, 30, 1);
+	}
+
+	.lb-pos {
+		font-weight: bold;
+		width: 110px;
+	}
+
+	.lb-name {
+		font-weight: bold;
+	}
+
+	/* "Noch im Rennen" separator above the still-racing players. */
+	.lb-section {
+		margin-top: 16px;
+		font-family: Arial;
+		font-size: 30px;
+		font-weight: bold;
+		color: rgba(70, 70, 70, 0.9);
+	}
+
+	/* Still-racing rows are dimmed so finishers read as the result. */
+	.lb-racing {
+		color: rgba(90, 90, 90, 1);
+	}
+
+	.lb-racing .lb-pos {
+		color: rgba(120, 120, 120, 1);
 	}
 </style>
 
@@ -404,8 +478,50 @@
 		}
 	}
 
+	// --- Post-race leaderboard ------------------------------------------------
+
+	// The full ranking is already sorted by RaceRankingManager (finishers first by
+	// FinishOrder, then racers by progress), so the UI only needs to split it.
+	IReadOnlyList<PlayerRankingEntry> Board =>
+		RaceRankingManager.Instance?.Rankings ?? (IReadOnlyList<PlayerRankingEntry>)System.Array.Empty<PlayerRankingEntry>();
+
+	IEnumerable<PlayerRankingEntry> FinishedEntries => Board.Where( e => e.RaceFinished );
+	List<PlayerRankingEntry> RacingEntries => Board.Where( e => !e.RaceFinished ).ToList();
+
+	static string NameFor( PlayerRankingEntry e ) =>
+		string.IsNullOrEmpty( e?.PlayerName ) ? "Spieler" : e.PlayerName;
+
+	static string LeaderboardColour( int finishOrder ) => finishOrder switch
+	{
+		1 => "#2e7d32",
+		2 => "#7cb342",
+		3 => "#fdd835",
+		_ => "#e53935"
+	};
+
+	// Folds the whole board into one int so BuildHash re-renders the leaderboard
+	// when anyone finishes, changes order, or a name resolves.
+	int BoardSignature
+	{
+		get
+		{
+			var mgr = RaceRankingManager.Instance;
+			if ( mgr is null ) return 0;
+
+			var hc = new System.HashCode();
+			foreach ( var e in mgr.Rankings )
+			{
+				hc.Add( e.PlayerId );
+				hc.Add( e.RaceFinished );
+				hc.Add( e.FinishOrder );
+				hc.Add( e.PlayerName );
+			}
+			return hc.ToHashCode();
+		}
+	}
+
 	protected override int BuildHash() => System.HashCode.Combine(
 		System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder, Items?.HeldItemKey ),
-		System.HashCode.Combine( LocalCurrency, PowerMessage )
+		System.HashCode.Combine( LocalCurrency, PowerMessage, BoardSignature )
 	);
 }
