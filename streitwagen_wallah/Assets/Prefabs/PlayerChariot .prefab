@@ -1652,6 +1652,24 @@
             "OnComponentUpdate": null,
             "SharpSteerMultiplier": 1.8,
             "VerticalLift": 0.35
+          },
+          {
+            "__type": "MaatKarmaShield",
+            "__guid": "67591755-f7c9-41e1-89c8-a8cc73fa38ec",
+            "__enabled": true,
+            "Flags": 0,
+            "GrapeTag": "grape",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "ShieldColor": "0,1,1,0.35",
+            "ShieldMaterial": null,
+            "ShieldModel": "models/dev/sphere.vmdl",
+            "ShieldOffset": "0,0,3",
+            "ShieldRadius": 2
           }
         ],
         "Children": [

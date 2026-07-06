@@ -15,9 +15,6 @@ using System.Collections.Generic;
 /// </summary>
 public sealed class MaatPower : GodPower
 {
-	[Property, Group( "Karma Shield" )]
-	public float ShieldDuration { get; set; } = 8f;
-
 	[Property, Group( "Judgement (Ult)" )]
 	public string PlayerTag { get; set; } = "player";
 
@@ -50,7 +47,7 @@ public sealed class MaatPower : GodPower
 			return;
 		}
 
-		shield.Activate( ShieldDuration );
+		shield.Activate();
 
 		// Stay visible exactly as long as the shield itself is up — it can be
 		// consumed early by an incoming reflect, in which case the HUD should

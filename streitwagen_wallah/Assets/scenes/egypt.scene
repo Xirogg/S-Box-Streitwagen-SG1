@@ -104232,7 +104232,7 @@
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
-      "Enabled": true,
+      "Enabled": false,
       "NetworkMode": 2,
       "NetworkFlags": 0,
       "NetworkOrphaned": 0,
@@ -104576,7 +104576,7 @@
               "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
             },
             "Property": "Position",
-            "Value": "5125.41406,9491.81055,1360.75708"
+            "Value": "4093.72388,9617.32324,960.970825"
           },
           {
             "Target": {
@@ -104585,6 +104585,19 @@
             },
             "Property": "Rotation",
             "Value": "-0.0228838772,0.0913012922,0.242041335,0.96568954"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "ItemPool",
+            "Value": {
+              "Ma'at": {
+                "_type": "gameobject",
+                "prefab": "prefabs/god prefabs/ma'at/ma'atscriptprefab .prefab"
+              }
+            }
           },
           {
             "Target": {

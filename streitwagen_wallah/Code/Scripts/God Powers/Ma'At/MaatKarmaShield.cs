@@ -29,11 +29,16 @@ public sealed class MaatKarmaShield : Component, Component.ICollisionListener
 	[Property, Group( "Visual" )]
 	public float ShieldRadius { get; set; } = 80f;
 
+	/// <summary>
+	/// Local-space offset of the dome from its origin node. Defaults to z +1 so the
+	/// visual sits slightly above the node instead of dead-centre on it.
+	/// </summary>
+	[Property, Group( "Visual" )]
+	public Vector3 ShieldOffset { get; set; } = Vector3.Up;
+
 	public bool IsActive { get; private set; }
 
 	public event Action OnConsumed;
-
-	private float _expiresAt;
 
 	// Child object that carries the shield mesh. Created lazily, toggled on IsActive edges.
 	private GameObject _visualObject;
@@ -41,10 +46,14 @@ public sealed class MaatKarmaShield : Component, Component.ICollisionListener
 	private bool _visualShown;
 	private bool _warnedNoModel;
 
-	public void Activate( float duration )
+	/// <summary>
+	/// Aktiviert den Schild. Er läuft bewusst NICHT per Timer ab — er bleibt aktiv,
+	/// bis ihn eine gegnerische Fähigkeit über <see cref="TryConsume"/> verbraucht
+	/// (Ma'at-Ult, Laverna-Ult oder eine Traube). Es gibt daher keine Restlaufzeit.
+	/// </summary>
+	public void Activate()
 	{
 		IsActive = true;
-		_expiresAt = Time.Now + duration;
 		PlayShieldSound(); // Sound A — shield raised (proximity)
 	}
 
@@ -71,10 +80,8 @@ public sealed class MaatKarmaShield : Component, Component.ICollisionListener
 
 	protected override void OnUpdate()
 	{
-		if ( IsActive && Time.Now >= _expiresAt )
-			IsActive = false;
-
-		// Only touch the renderer when IsActive actually flips — no per-frame thrash.
+		// Kein Timer mehr: der Schild bleibt aktiv, bis TryConsume() ihn verbraucht.
+		// Nur den Renderer umschalten, wenn IsActive kippt — kein Per-Frame-Thrash.
 		if ( IsActive != _visualShown )
 			SetVisual( IsActive );
 	}
@@ -109,7 +116,7 @@ public sealed class MaatKarmaShield : Component, Component.ICollisionListener
 		_visualObject = Scene.CreateObject();
 		_visualObject.Name = "MaatShieldVisual";
 		_visualObject.SetParent( GameObject, false );
-		_visualObject.LocalPosition = Vector3.Zero;
+		_visualObject.LocalPosition = ShieldOffset;
 		_visualObject.LocalScale = ShieldRadius; // uniform: unit sphere → radius world units
 
 		_visualRenderer = _visualObject.Components.Create<ModelRenderer>();
