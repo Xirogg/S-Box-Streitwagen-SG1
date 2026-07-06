@@ -104341,7 +104341,7 @@
                   "$compiler": "texture",
                   "$source": "imagefile",
                   "data": {
-                    "FilePath": "ui/race ui/maat_image.png",
+                    "FilePath": "ui/race ui/dionysos_sky_image.png",
                     "MaxSize": 4096,
                     "ConvertHeightToNormals": false,
                     "NormalScale": 1,
@@ -104373,7 +104373,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": "textures/generated/imagefile/548029f8c0b96d7c.vtex"
+                  "compiled": null
                 }
               },
               {
@@ -104508,7 +104508,7 @@
                   "$compiler": "texture",
                   "$source": "imagefile",
                   "data": {
-                    "FilePath": "ui/race ui/laverna_image.png",
+                    "FilePath": "ui/race ui/taranis_sky_image.png",
                     "MaxSize": 4096,
                     "ConvertHeightToNormals": false,
                     "NormalScale": 1,
@@ -104540,7 +104540,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": "textures/generated/imagefile/4567573c66dda7e0.vtex"
+                  "compiled": null
                 }
               }
             ],
