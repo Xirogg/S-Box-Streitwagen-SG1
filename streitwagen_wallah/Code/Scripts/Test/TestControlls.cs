@@ -32,8 +32,15 @@ public sealed class TestControlls : Component, Component.ICollisionListener
 	private const float SteerInputDeadzone = 0.01f;
 
 	[Property, Group( "Ram Lurch" )] public float LurchImpulse { get; set; } = 800f;
-	//[Property, Group( "Ram Lurch" )]
-	public float LurchForwardOffset { get; set; } = 60f;
+
+	/// <summary>
+	/// Flache Abklingzeit (Sekunden) fuer den Ram-Lurch. Gilt gemeinsam fuer BEIDE
+	/// Richtungen (Q und E teilen sich denselben Timer). Solange sie laeuft, darf der
+	/// Spieler Q/E druecken, aber es passiert nichts.
+	/// </summary>
+	[Property, Group( "Ram Lurch" )] public float LurchCooldown { get; set; } = 3f;
+	// (LurchForwardOffset entfernt: der Lurch nutzt keinen Off-Center-Punkt mehr —
+	//  der Impuls wird jetzt zentriert auf beide Bodies angewandt, siehe TryApplyLurch.)
 
 	/// <summary>
 	/// How far below the horse to probe for ground when redirecting the pull
@@ -74,6 +81,9 @@ public sealed class TestControlls : Component, Component.ICollisionListener
 
 	private Rigidbody _chariotBody;
 	private PlayerCollisions _ramHandler;
+
+	/// <summary>Zeitpunkt des letzten ausgefuehrten Ram-Lurch, fuer <see cref="LurchCooldown"/>.</summary>
+	private float _lastLurchTime = -999f;
 
 	/// <summary>
 	/// The chariot body this horse pair pulls. Found by matching the ChariotPhysics whose
@@ -286,20 +296,43 @@ public sealed class TestControlls : Component, Component.ICollisionListener
 
 		if ( leftPressed == rightPressed ) return;
 
+		// Flache, richtungsuebergreifende Abklingzeit: Q und E teilen sich denselben Timer.
+		// Ab hier steht fest, dass genau eine Ram-Taste diesen Frame gedrueckt wurde — also
+		// ein echter Lurch-Versuch. Laeuft der Cooldown noch, passiert nichts (der Druck wird
+		// bewusst geschluckt).
+		if ( Time.Now - _lastLurchTime < LurchCooldown ) return;
+
 		float dir = leftPressed ? 1f : -1f;
 		if ( IsDrunk ) dir = -dir;
 
-		Vector3 lurchDir = -WorldRotation.Right * dir;
+		// Seitwärts-Ruck STRIKT IN DER HORIZONTALEN. Right auf die Bodenebene projizieren,
+		// bevor daraus die Richtung wird. Sonst hat -WorldRotation.Right auf jeder Neigung
+		// (Hügel, Bodenwelle, Feder-Jitter beim Fahren) einen Z-Anteil, und da die Z-Position
+		// des Pferdes NICHT gesperrt ist (nur Pitch+Roll), schleudert der Impuls es senkrecht
+		// in die Luft. Genau das ist der "geht hoch statt zur Seite"-Bug — und er ist
+		// inkonsistent, weil er von der zufälligen Neigung im Moment des Tastendrucks abhängt.
+		// Alle anderen Kräfte hier (CancelSlopeGravity, ApplyHorseLateralGrip, ApplyLocomotion)
+		// flachen aus exakt demselben Grund ab; der Lurch war die einzige Ausnahme.
+		Vector3 lurchDir = -WorldRotation.Right.WithZ( 0f );
+		if ( lurchDir.LengthSquared < 0.0001f ) return;
+		lurchDir = lurchDir.Normal * dir;
 
-		// Horse: shove its front sideways (translates + yaws it into the dodge).
-		Vector3 frontWorld = WorldPosition + WorldRotation.Forward * LurchForwardOffset;
-		Rigidbody.ApplyImpulseAt( frontWorld, lurchDir * LurchImpulse * Rigidbody.Mass );
+		// Cooldown erst JETZT starten, wenn der Lurch wirklich ausgefuehrt wird.
+		_lastLurchTime = Time.Now;
 
-		// Chariot: with the articulated ball-joint hitch the cart is no longer rigidly
-		// bolted to the horse, so the shove above doesn't drag it sideways on its own.
-		// Give the cart the SAME sideways delta-v (impulse = mass × LurchImpulse) at its
-		// centre of mass, so horse and cart dodge together — no need to crank LurchImpulse
-		// high enough to launch the horses.
+		// Pferd UND Wagen bekommen denselben ZENTRIERTEN Impuls (ApplyImpulse, nicht
+		// ApplyImpulseAt). Gleiche Delta-v für beide, weil Impuls = Masse × LurchImpulse —
+		// also weichen sie sauber gemeinsam zur Seite aus, genau wie gewünscht.
+		//
+		// Das alte ApplyImpulseAt am vorderen Offset-Punkt war die zweite Ursache des Bugs:
+		// ein Off-Center-Impuls erzeugt zusätzlich ein Giermoment. Bei der kleinen Gier-
+		// Trägheit des Pferdes wird daraus ein extremer Spin (mehrere hundert °/s), und je
+		// nach Blickrichtung/Neigung fällt ein Teil auf die gesperrten Pitch/Roll-Achsen und
+		// ein Teil auf die freie Z-Bewegung. Ergebnis: das Pferd bekam einen völlig
+		// überzogenen, richtungsabhängigen Schub ("nur die Pferde, viel zu viel"), während der
+		// Wagen brav zentriert weiterrutschte. Zentriert für beide beseitigt das komplett.
+		Rigidbody.ApplyImpulse( lurchDir * LurchImpulse * Rigidbody.Mass );
+
 		var chariot = ChariotBody;
 		if ( chariot.IsValid() )
 			chariot.ApplyImpulse( lurchDir * LurchImpulse * chariot.Mass );
