@@ -6,7 +6,7 @@
     "Name": "itemprefab",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
-    "Scale": "1,1,1",
+    "Scale": "0.25,0.25,0.25",
     "Tags": "",
     "Enabled": true,
     "NetworkMode": 2,
@@ -26,7 +26,7 @@
         "MaterialGroup": null,
         "MaterialOverride": null,
         "Materials": null,
-        "Model": null,
+        "Model": "models/item/chonkitemamphore.vmdl",
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -40,7 +40,7 @@
           "AfterUILayer": false
         },
         "RenderType": "On",
-        "Tint": "0,0,0,1"
+        "Tint": "0.77674,0.39488,0.23122,1"
       },
       {
         "__type": "Sandbox.BoxCollider",
@@ -106,6 +106,7 @@
           "go": "eea33dba-6300-4d41-b7a3-f10869e90daa",
           "component_type": "ModelRenderer"
         },
+        "SoundDebugMode": false,
         "Trigger": {
           "_type": "component",
           "component_id": "71306516-0416-4962-ad57-604bccf93274",

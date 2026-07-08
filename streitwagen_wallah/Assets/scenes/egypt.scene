@@ -62,7 +62,7 @@
           "CountdownVolume": 1.4666667,
           "GoSound": "music/sfx/ingame race/race_sfx_countdown_start.sound",
           "LobbyScene": "scenes/gui scenes/lobbyscene .scene",
-          "MaxLaps": 3,
+          "MaxLaps": 1,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -104373,7 +104373,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/2088e3e46cf88d2a.vtex"
                 }
               },
               {
@@ -104442,7 +104442,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/b1f4b4021a22f27a.vtex"
                 }
               },
               {
@@ -104487,7 +104487,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/51a7afa6253f3c06.vtex"
                 }
               },
               {
@@ -104540,7 +104540,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/edf07ae1b54eaab.vtex"
                 }
               }
             ],
