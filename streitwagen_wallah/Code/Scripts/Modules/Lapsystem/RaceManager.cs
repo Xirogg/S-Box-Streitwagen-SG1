@@ -5,11 +5,29 @@ using Sandbox;
 
 namespace LapSystem;
 
+/// <summary>
+/// Welche Strecke dieses Rennen ist. Pro Renn-Szene im Inspector am RaceManager setzen –
+/// entscheidet, unter welcher Strecken-Bestenliste die Zeiten gespeichert werden.
+/// </summary>
+public enum RaceTrack
+{
+	Rom,
+	Egypt,
+	Greece,
+}
+
 public sealed class RaceManager : Component
 {
 	public static RaceManager Instance { get; private set; }
 
 	[Property] public int MaxLaps { get; set; } = 3;
+
+	/// <summary>
+	/// Strecke dieses Rennens. Bestimmt, in welche Bestenliste (race_records.json) die
+	/// Zeiten geschrieben werden. WICHTIG: im Inspector pro Renn-Szene korrekt setzen.
+	/// </summary>
+	[Property] public RaceTrack Track { get; set; } = RaceTrack.Rom;
+
 	[Property] public SceneFile LobbyScene { get; set; }
 
 	// Start-countdown SFX. Each is played LOCALLY on every machine the moment the
@@ -230,7 +248,9 @@ public sealed class RaceManager : Component
 
 			// Steam display name of the finishing player's owner connection.
 			string playerName = tracker.Network.Owner?.DisplayName;
-			RaceRecordManager.SubmitTime( playerName, finishSeconds );
+			// Track comes from this scene's RaceManager (set in the inspector) so the time
+			// lands in the correct per-map leaderboard.
+			RaceRecordManager.SubmitTime( Track, playerName, finishSeconds );
 		}
 
 		OnPlayerFinished?.Invoke( tracker );

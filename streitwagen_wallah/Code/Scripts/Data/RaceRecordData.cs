@@ -18,11 +18,15 @@ public sealed class RaceRecordEntry
 }
 
 /// <summary>
-/// Container um die Bestenliste. Als eigene Klasse (statt bloßer List) gehalten, damit
-/// die Datei später problemlos um Metadaten (z. B. Version, Streckenname) erweitert
-/// werden kann, ohne das Format zu brechen.
+/// Gesamte Bestenliste aller Strecken – so wird die JSON-Datei aufgebaut und auch übers
+/// Netzwerk verteilt. Pro Strecke eine eigene Top-5-Liste, damit unterschiedlich lange
+/// Maps getrennte Rekorde führen.
+///
+/// <see cref="Tracks"/> ist nach Strecken-Name (RaceTrack-Enum als String, z. B. "Rom",
+/// "Egypt", "Greece") aufgeschlüsselt – so bleibt die Datei gut lesbar und unabhängig von
+/// der Reihenfolge/Anzahl der Enum-Werte, falls später Strecken dazukommen.
 /// </summary>
 public sealed class RaceRecordTable
 {
-	public List<RaceRecordEntry> Entries { get; set; } = new();
+	public Dictionary<string, List<RaceRecordEntry>> Tracks { get; set; } = new();
 }
