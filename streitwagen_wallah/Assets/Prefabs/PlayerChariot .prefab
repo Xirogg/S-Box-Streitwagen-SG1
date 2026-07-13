@@ -100,6 +100,7 @@
             "GroundStickStrength": 0,
             "LateralGrip": 5,
             "LowSpeedSteerBoost": 1.5,
+            "LurchCooldown": 3,
             "LurchImpulse": 800,
             "MaxAngularSpeed": 15000,
             "MaxVerticalSpeed": 1200,
