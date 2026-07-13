@@ -61,7 +61,7 @@
           "Countdown3Sound": "music/sfx/ingame race/race_sfx_countdown_03.sound",
           "CountdownVolume": 1.4666667,
           "GoSound": "music/sfx/ingame race/race_sfx_countdown_start.sound",
-          "LobbyScene": "scenes/gui scenes/lobbyscene .scene",
+          "LobbyScene": "scenes/gui scenes/lobbyscene.scene",
           "MaxLaps": 1,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -208,7 +208,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "54360a34-89e8-41a5-8570-4c1a677a9690"
+              "$blob": "98326571-444f-4ced-95da-544427aac58d"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
@@ -264,7 +264,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "7b318c30-c900-481e-943f-5de8f54c24d6"
+              "$blob": "0e04688b-5857-4e74-b739-4400f0bd7674"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"

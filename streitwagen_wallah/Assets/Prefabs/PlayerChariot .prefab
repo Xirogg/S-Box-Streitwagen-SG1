@@ -230,7 +230,7 @@
             "LookAheadPerSpeed": 0.03,
             "MaxClimbSpeed": 400,
             "MaxGroundDistance": 60,
-            "MaxStepHeight": 45,
+            "MaxStepHeight": 90,
             "MinMoveSpeed": 30,
             "MinStepHeight": 2,
             "OnComponentDestroy": null,
