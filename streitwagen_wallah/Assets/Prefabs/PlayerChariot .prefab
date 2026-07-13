@@ -2287,6 +2287,25 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "Order": 0
+          },
+          {
+            "__type": "Sandbox.Bloom",
+            "__guid": "d547ee5d-32fb-4b25-b5d1-d7847135356d",
+            "__enabled": true,
+            "Flags": 0,
+            "__version": 1,
+            "Filter": "Bilinear",
+            "Gamma": 2.2,
+            "Mode": "Blur",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Strength": 1,
+            "Threshold": 1,
+            "Tint": "1,1,1,1"
           }
         ],
         "Children": []
