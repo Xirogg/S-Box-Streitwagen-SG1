@@ -62,6 +62,11 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 		}
 
 		PublicityCurrencyManager.EnsureExists( Scene );
+
+		// Bring up the shared highscore manager in the lobby too. On the host this loads
+		// the Top 5 from disk and broadcasts them, so everyone who enters the lobby sees
+		// the current records. Idempotent + host-gated, exactly like the currency manager.
+		RaceRecordManager.EnsureExists( Scene );
 	}
 
 

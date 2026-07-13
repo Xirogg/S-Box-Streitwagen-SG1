@@ -34,11 +34,11 @@
 <root>
 	<!-- ======================= LINKS: Menü + Titel ======================= -->
 	<div class="menu-col">
-		<div class="menu-btn" onclick="@CycleTrack">
-			<div class="menu-label">Strecke: @TrackDisplayName</div>
+		<div class="menu-btn" onclick="@TestSwitchToAltar">
+			<div class="menu-label">Opferaltar</div>
 		</div>
 		<div class="menu-btn disabled">
-			<div class="menu-label">Charakter</div>
+			<div class="menu-label"> Charakter</div>
 		</div>
 		<div class="menu-btn disabled">
 			<div class="menu-label">Einstellungen</div>
@@ -66,7 +66,7 @@
 	<!-- ======================= RECHTS: Map + Spieler-Slots ======================= -->
 	<div class="map-frame">
 		<div class="map-preview"></div>
-		<div class="map-caption">@TrackDisplayName <span class="map-key">Tab</span></div>
+		<div class="map-caption">@TrackDisplayName</div>
 	</div>
 
 	<div class="slot-grid">
@@ -77,6 +77,10 @@
 		{
 			var p = i < players.Count ? players[i] : null;
 			<div class="slot @( p is null ? "empty" : "" )">
+				@if ( p is not null )
+				{
+					<div class="slot-avatar"></div>
+				}
 				<div class="slot-status"></div>
 				@if ( p is not null )
 				{
@@ -97,12 +101,13 @@
 
 	<div class="currency">PG: @LocalCurrency</div>
 
-	<!-- ======================= Strecken-Button (über "Strecke: XX") ======================= -->
-	<!-- Klickfläche genau über dem "Strecke: XX"-Menü-Button. Wechselt die Strecke
-	     über dieselbe Logik wie die "Change Track"-Hotkey (Tab):
-	     CycleTrack -> LocalPlayer.RequestCycleTrack. Liegt per z-index über dem
-	     Button und fängt dort den Linksklick ab. -->
-	<div class="track-btn" onclick="@CycleTrack"></div>
+	<!-- ======================= Opferaltar-Button (über "Opferaltar") ======================= -->
+	<!-- Klickfläche genau über dem "Opferaltar"-Menü-Button (1. Button der menu-col:
+	     left 40, top 40, 380x120). Wechselt über die vorhandene Logik
+	     (LobbyManager.ShowAltar) auf den AltarGUIScreen. z-index hält sie über dem
+	     Button; pointer-events + ein (fast unsichtbarer) Hintergrund sichern den
+	     Treffer. -->
+	<div class="altar-btn" onclick="@TestSwitchToAltar"></div>
 
 	<!-- ======================= Bereit-Button (über der Ready-Bar) ======================= -->
 	<!-- Klickfläche genau über der Ready-Bar. Toggelt Bereit/Nicht-bereit über
@@ -110,12 +115,17 @@
 	     Liegt per z-index über der Bar und fängt dort den Linksklick ab. -->
 	<div class="ready-btn" onclick="@ToggleReady"></div>
 
-	<!-- ======================= TEST-Button -> Altar ======================= -->
-	<!-- Klickfläche genau über dem "Charakter"-Menü-Button. Fängt dort per z-index
-	     den Linksklick ab und wechselt über die vorhandene Logik
-	     (LobbyManager.ShowAltar) auf den AltarGUIScreen: LobbyGUIScreen-Node aus,
-	     AltarGUIScreen-Node an. Nur zum Testen. -->
-	<div class="test-btn" onclick="@TestSwitchToAltar"></div>
+	<!-- ======================= Charakter-Button (über "Charakter") ======================= -->
+	<!-- Klickfläche genau über dem "Charakter"-Menü-Button (2. Button der menu-col:
+	     left 40, top 190, 380x120). Zeigt nur den Hover-Effekt (Abdunkeln), löst aber
+	     KEINE Aktion aus – bewusst ohne onclick. -->
+	<div class="character-btn"></div>
+
+	<!-- ======================= Strecken-Button (über der Map) ======================= -->
+	<!-- Klickfläche genau über der Map-Frame (left 1060, top 40, 800x480). Wechselt
+	     die Strecke wie die "Change Track"-Hotkey (Tab): CycleTrack ->
+	     LocalPlayer.RequestCycleTrack. Ohne Hover-Shader. -->
+	<div class="track-btn" onclick="@CycleTrack"></div>
 
 	<!-- ======================= Verlassen-Button (über "Verlassen") ======================= -->
 	<!-- Klickfläche genau über dem "Verlassen"-Menü-Button (4. Button der menu-col:
@@ -279,22 +289,13 @@
 		border-radius: 8px;
 	}
 
+	/* Nur der Streckenname (der "Tab"-Hinweis wurde entfernt, da die Map selbst
+	   klickbar ist). */
 	.map-caption {
 		margin-top: 16px;
-		flex-direction: row;
-		align-items: center;
-		gap: 16px;
 		font-size: 32px;
 		font-weight: bold;
 		color: rgba(74, 44, 12, 1);
-	}
-
-	.map-key {
-		font-size: 22px;
-		color: white;
-		background-color: rgba(74, 44, 12, 0.7);
-		border-radius: 6px;
-		padding: 2px 12px;
 	}
 
 	/* ------------------------- Rechts: Spieler-Slots ------------------------- */
@@ -320,6 +321,20 @@
 
 	.slot.empty {
 		opacity: 0.4;
+	}
+
+	/* Avatar-Bild im Slot: sitzt innerhalb des Rahmens, hinter dem Status-Icon und
+	   dem Namen. Nur belegte Slots erhalten dieses Panel (siehe Markup). */
+	.slot-avatar {
+		position: absolute;
+		left: 10%;
+		top: 10%;
+		width: 80%;
+		height: 80%;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		pointer-events: none;
 	}
 
 	/* Voll-Overlay: die Icon-PNGs haben das Symbol bereits oben rechts platziert. */
@@ -388,38 +403,13 @@
 		border-radius: 12px;
 	}
 
-	/* ----------------------------- TEST-Button ----------------------------- */
-	/* Klickfläche genau über dem "Charakter"-Menü-Button (2. Button der menu-col:
-	   left 40, top 40 + 120 Höhe + 30 gap = top 190). z-index hält sie über dem
+	/* ----------------------------- Opferaltar-Button ----------------------------- */
+	/* Klickfläche genau über dem "Opferaltar"-Menü-Button (1. Button der menu-col:
+	   left 40, top 40, 380x120). Öffnet den Altar-Screen. z-index hält sie über dem
 	   Button; pointer-events + ein (fast unsichtbarer) Hintergrund sichern den
 	   Treffer (eine komplett durchsichtige Fläche wird in s&box sonst nicht
 	   zuverlässig getroffen). */
-	.test-btn {
-		position: absolute;
-		left: 40px;
-		top: 190px;
-		width: 380px;
-		height: 120px;
-		z-index: 100;
-		cursor: pointer;
-		pointer-events: all;
-		background-color: rgba(255, 0, 0, 0.06);
-		transition: background-color 0.1s ease;
-	}
-
-	/* Hover: leichtes Abdunkeln. Der Button ist ein (fast durchsichtiges) Overlay
-	   ÜBER dem echten "Charakter"-Button-Graphic – ein halbtransparentes Schwarz
-	   tönt den darunterliegenden Button, sodass er beim Hovern dunkler wirkt. */
-	.test-btn:hover {
-		background-color: rgba(0, 0, 0, 0.2);
-	}
-
-	/* ----------------------------- Strecken-Button ----------------------------- */
-	/* Klickfläche genau über dem "Strecke: XX"-Button (1. Button der menu-col:
-	   left 40, top 40, 380x120). Wechselt die Strecke wie die Tab-Hotkey. z-index
-	   hält sie über dem Button; pointer-events + ein (fast unsichtbarer)
-	   Hintergrund sichern den Treffer. */
-	.track-btn {
+	.altar-btn {
 		position: absolute;
 		left: 40px;
 		top: 40px;
@@ -432,9 +422,50 @@
 		transition: background-color 0.1s ease;
 	}
 
-	/* Hover: leichtes Abdunkeln (halbtransparentes Schwarz über dem Strecke-Button). */
-	.track-btn:hover {
+	/* Hover: leichtes Abdunkeln (halbtransparentes Schwarz über dem Opferaltar-Button). */
+	.altar-btn:hover {
 		background-color: rgba(0, 0, 0, 0.2);
+	}
+
+	/* ----------------------------- Charakter-Button ----------------------------- */
+	/* Klickfläche genau über dem "Charakter"-Menü-Button (2. Button der menu-col:
+	   left 40, top 40 + 120 Höhe + 30 gap = top 190). Behält nur den Hover-Effekt,
+	   löst aber KEINE Aktion aus (kein onclick im Markup). */
+	.character-btn {
+		position: absolute;
+		left: 40px;
+		top: 190px;
+		width: 380px;
+		height: 120px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(0, 0, 0, 0.04);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln. Der Button ist ein (fast durchsichtiges) Overlay
+	   ÜBER dem echten "Charakter"-Button-Graphic – ein halbtransparentes Schwarz
+	   tönt den darunterliegenden Button, sodass er beim Hovern dunkler wirkt. */
+	.character-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+
+	/* ----------------------------- Strecken-Button ----------------------------- */
+	/* Klickfläche genau über der Map-Frame (left 1060, top 40, 800x480). Wechselt
+	   die Strecke wie die Tab-Hotkey. z-index hält sie über dem Frame; pointer-events
+	   + ein (fast unsichtbarer) Hintergrund sichern den Treffer. Kein :hover-Shader,
+	   damit die Map beim Überfahren nicht abdunkelt. */
+	.track-btn {
+		position: absolute;
+		left: 1060px;
+		top: 40px;
+		width: 800px;
+		height: 480px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(0, 0, 0, 0.04);
 	}
 
 	/* ----------------------------- Bereit-Button ----------------------------- */
@@ -498,6 +529,8 @@
 	[Property] public Texture AbilityPanel { get; set; }         // UI_Fähigkeit&Waagen_MainMenu
 	[Group( "Lobby UI – Rahmen" )]
 	[Property] public Texture CharacterSlot { get; set; }        // UI_Character_MainMenu
+	[Group( "Lobby UI – Rahmen" )]
+	[Property] public Texture PlayerAvatar { get; set; }         // Avatar-Bild im Charakter-Slot
 
 	[Group( "Lobby UI – Buttons" )]
 	[Property] public Texture MenuButton { get; set; }           // Button_MainMenu (orange)
@@ -594,8 +627,14 @@
 		for ( int i = 0; i < slots.Count; i++ )
 		{
 			SetBg( slots[i], CharacterSlot );
-			var status = FindByClass( slots[i], "slot-status" ).FirstOrDefault();
 			var p = i < players.Count ? players[i] : null;
+
+			// Avatar-Panel existiert nur in belegten Slots (siehe Markup) -> für leere
+			// Slots ist es null und SetBg macht nichts.
+			var avatar = FindByClass( slots[i], "slot-avatar" ).FirstOrDefault();
+			SetBg( avatar, PlayerAvatar );
+
+			var status = FindByClass( slots[i], "slot-status" ).FirstOrDefault();
 			SetBg( status, StatusIcon( p ) );
 		}
 	}
@@ -630,6 +669,7 @@
 		{
 			(nameof( Title ), Title), (nameof( MapFrame ), MapFrame),
 			(nameof( AbilityPanel ), AbilityPanel), (nameof( CharacterSlot ), CharacterSlot),
+			(nameof( PlayerAvatar ), PlayerAvatar),
 			(nameof( MenuButton ), MenuButton), (nameof( ReadyButton ), ReadyButton), (nameof( NotReadyButton ), NotReadyButton),
 			(nameof( ReadyIcon ), ReadyIcon), (nameof( NotReadyIcon ), NotReadyIcon), (nameof( DisconnectedIcon ), DisconnectedIcon),
 		};

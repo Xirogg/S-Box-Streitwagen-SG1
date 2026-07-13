@@ -48,6 +48,22 @@
             {
               "_type": "gameobject",
               "go": "bd6b2426-a539-425c-99fe-11da2296db71"
+            },
+            {
+              "_type": "gameobject",
+              "go": "fd9d2ad3-360f-4449-9a6d-97d435f88acc"
+            },
+            {
+              "_type": "gameobject",
+              "go": "c0985c7e-a4e6-47d2-aaca-9af0b7a51e14"
+            },
+            {
+              "_type": "gameobject",
+              "go": "4f5874d5-db15-4948-8f48-254c5714967a"
+            },
+            {
+              "_type": "gameobject",
+              "go": "95c0029e-2cc9-4eb1-aa6d-a0eda58d0381"
             }
           ]
         },
@@ -173,6 +189,78 @@
               "OwnerTransfer": 1,
               "Components": [],
               "Children": []
+            },
+            {
+              "__guid": "fd9d2ad3-360f-4449-9a6d-97d435f88acc",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "SP 5",
+              "Position": "-625.801758,2147.52783,-798.745483",
+              "Rotation": "0,0,0.46174863,0.887010813",
+              "Scale": "1,1,1",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [],
+              "Children": []
+            },
+            {
+              "__guid": "c0985c7e-a4e6-47d2-aaca-9af0b7a51e14",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "SP 6",
+              "Position": "-483.040344,1986.15869,-855.021484",
+              "Rotation": "0,0,0.5,0.866025388",
+              "Scale": "1,1,1",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [],
+              "Children": []
+            },
+            {
+              "__guid": "4f5874d5-db15-4948-8f48-254c5714967a",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "SP 7",
+              "Position": "-579.907043,1714.93506,-855.021484",
+              "Rotation": "0,0,0.57357645,0.819152057",
+              "Scale": "1,1,1",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [],
+              "Children": []
+            },
+            {
+              "__guid": "95c0029e-2cc9-4eb1-aa6d-a0eda58d0381",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "SP 8",
+              "Position": "-736.339294,1794.71924,-782.511719",
+              "Rotation": "0,0,0.5,0.866025388",
+              "Scale": "1,1,1",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [],
+              "Children": []
             }
           ]
         }
@@ -208,7 +296,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "5e36e6c3-818e-434f-b9c9-13e77f49d221"
+              "$blob": "e48dea4b-17b9-4614-90e5-8233d5ab2b20"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
@@ -264,7 +352,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "87f6389f-0e30-48f1-8b72-db54a5bff100"
+              "$blob": "cb3d83d3-6ead-4c3a-9396-96386018340a"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
