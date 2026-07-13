@@ -1,8 +1,8 @@
 {
-  "Title": "Chonk",
+  "Title": "Streitwagen-Wallah",
   "Type": "game",
   "Org": "local",
-  "Ident": "Chonk",
+  "Ident": "streitwagen_wallah",
   "Schema": 1,
   "IncludeSourceFiles": false,
   "Resources": null,
