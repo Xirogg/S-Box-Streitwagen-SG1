@@ -17,7 +17,11 @@ public sealed class LobbyPlayer : Component
 			return;
 		}
 
-		
+		// Während der Spieler im Lobby-Popup seinen Namen tippt, keine Hotkeys auslösen
+		// (Space = Bereit, Tab = Strecke) – sonst würde das Tippen ungewollt reagieren.
+		if ( PlayerNameManager.LocalNameInputActive )
+			return;
+
 		if ( Input.Pressed( "Ready" ) )
 		{
 			//Log.Info( "Ready UP" );

@@ -193,6 +193,75 @@ public sealed class RaceRecordManager : Component
 		ReloadFromDisk(); // läuft auf dem Host
 	}
 
+	/// <summary>
+	/// Löscht ALLE Rekorde einer bestimmten Strecke. Host-autoritativ: auf dem Host direkt,
+	/// auf einem Client per RPC an den Host. Danach wird gespeichert und an alle verteilt.
+	/// </summary>
+	public static void RequestClearTrack( RaceTrack track )
+	{
+		if ( Networking.IsHost )
+		{
+			ClearTrackInternal( track );
+			return;
+		}
+
+		Instance?.RpcClearTrackOnHost( track );
+	}
+
+	[Rpc.Host]
+	private void RpcClearTrackOnHost( RaceTrack track )
+	{
+		ClearTrackInternal( track );
+	}
+
+	private static void ClearTrackInternal( RaceTrack track )
+	{
+		if ( !Networking.IsHost ) return;
+
+		if ( !hostLoaded )
+		{
+			LoadFromDisk();
+			hostLoaded = true;
+		}
+
+		if ( !HostStore.Remove( track.ToString() ) )
+			return; // Strecke hatte keine Rekorde -> nichts zu speichern/verteilen
+
+		SaveToDisk();
+		PushRecords();
+	}
+
+	/// <summary>
+	/// Löscht ALLE Rekorde ALLER Strecken. Host-autoritativ (Client -> RPC an Host). Die Datei
+	/// wird danach leer geschrieben und die leere Liste an alle verteilt.
+	/// </summary>
+	public static void RequestClearAll()
+	{
+		if ( Networking.IsHost )
+		{
+			ClearAllInternal();
+			return;
+		}
+
+		Instance?.RpcClearAllOnHost();
+	}
+
+	[Rpc.Host]
+	private void RpcClearAllOnHost()
+	{
+		ClearAllInternal();
+	}
+
+	private static void ClearAllInternal()
+	{
+		if ( !Networking.IsHost ) return;
+
+		HostStore.Clear();
+		hostLoaded = true;
+		SaveToDisk();   // schreibt eine leere Tabelle
+		PushRecords();
+	}
+
 	// ---------- Internals ----------
 
 	private static List<RaceRecordEntry> GetOrCreate( Dictionary<string, List<RaceRecordEntry>> store, string key )

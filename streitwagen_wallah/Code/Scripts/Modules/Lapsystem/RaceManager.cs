@@ -85,6 +85,7 @@ public sealed class RaceManager : Component
 
 		PublicityCurrencyManager.EnsureExists( Scene );
 		RaceRecordManager.EnsureExists( Scene );
+		PlayerNameManager.EnsureExists( Scene );
 	}
 
 	protected override void OnStart()
@@ -246,8 +247,9 @@ public sealed class RaceManager : Component
 			if ( tracker.FinishTime <= 0f )
 				tracker.FinishTime = finishSeconds;
 
-			// Steam display name of the finishing player's owner connection.
-			string playerName = tracker.Network.Owner?.DisplayName;
+			// Effective display name (custom nickname if set, else Steam name) so records
+			// use the same name the player picked in the lobby.
+			string playerName = PlayerNameManager.GetDisplayName( tracker.Network.Owner );
 			// Track comes from this scene's RaceManager (set in the inspector) so the time
 			// lands in the correct per-map leaderboard.
 			RaceRecordManager.SubmitTime( Track, playerName, finishSeconds );
