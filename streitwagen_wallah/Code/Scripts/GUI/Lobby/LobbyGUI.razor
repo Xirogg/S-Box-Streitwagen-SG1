@@ -95,7 +95,7 @@
 		</div>
 	}
 
-	<div class="currency">Publicity: @LocalCurrency</div>
+	<div class="currency">PG: @LocalCurrency</div>
 
 	<!-- ======================= Strecken-Button (über "Strecke: XX") ======================= -->
 	<!-- Klickfläche genau über dem "Strecke: XX"-Menü-Button. Wechselt die Strecke
@@ -116,6 +116,13 @@
 	     (LobbyManager.ShowAltar) auf den AltarGUIScreen: LobbyGUIScreen-Node aus,
 	     AltarGUIScreen-Node an. Nur zum Testen. -->
 	<div class="test-btn" onclick="@TestSwitchToAltar"></div>
+
+	<!-- ======================= Verlassen-Button (über "Verlassen") ======================= -->
+	<!-- Klickfläche genau über dem "Verlassen"-Menü-Button (4. Button der menu-col:
+	     left 40, top 40 + 3*(120+30) = 490, 380x120). Beendet das Spiel über
+	     QuitGame. z-index hält sie über dem Button; pointer-events + ein (fast
+	     unsichtbarer) Hintergrund sichern den Treffer. -->
+	<div class="quit-btn" onclick="@QuitGame"></div>
 </root>
 
 <style>
@@ -158,7 +165,6 @@
 	}
 
 	.menu-btn.disabled {
-		opacity: 0.5;
 		cursor: default;
 	}
 
@@ -452,6 +458,29 @@
 	.ready-btn:hover {
 		background-color: rgba(0, 0, 0, 0.2);
 	}
+
+	/* ----------------------------- Verlassen-Button ----------------------------- */
+	/* Klickfläche genau über dem "Verlassen"-Button (4. Button der menu-col:
+	   left 40, top 490, 380x120). Beendet das Spiel. z-index hält sie über dem
+	   Button; pointer-events + ein (fast unsichtbarer) Hintergrund sichern den
+	   Treffer. */
+	.quit-btn {
+		position: absolute;
+		left: 40px;
+		top: 490px;
+		width: 380px;
+		height: 120px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(0, 0, 0, 0.04);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln (halbtransparentes Schwarz über dem Verlassen-Button). */
+	.quit-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
 </style>
 
 @code
@@ -644,6 +673,7 @@
 
 	void QuitGame()
 	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
 		Log.Info( "Quitting game..." );
 		Game.Close();
 	}

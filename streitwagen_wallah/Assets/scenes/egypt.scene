@@ -35,11 +35,7 @@
           "PlayerSpawnPoints": [
             {
               "_type": "gameobject",
-              "go": "bd6b2426-a539-425c-99fe-11da2296db71"
-            },
-            {
-              "_type": "gameobject",
-              "go": "83317797-c667-4971-bd3d-a86a26ac95d3"
+              "go": "9b93e3f4-34d3-4d5f-9fee-a919fca09422"
             },
             {
               "_type": "gameobject",
@@ -47,7 +43,11 @@
             },
             {
               "_type": "gameobject",
-              "go": "9b93e3f4-34d3-4d5f-9fee-a919fca09422"
+              "go": "83317797-c667-4971-bd3d-a86a26ac95d3"
+            },
+            {
+              "_type": "gameobject",
+              "go": "bd6b2426-a539-425c-99fe-11da2296db71"
             }
           ]
         },
@@ -106,7 +106,7 @@
               "__guid": "9b93e3f4-34d3-4d5f-9fee-a919fca09422",
               "__version": 2,
               "Flags": 0,
-              "Name": "SP\" ",
+              "Name": "SP 1",
               "Position": "-339.412933,2694.1626,-826.507202",
               "Rotation": "0,0,0.5,0.866025388",
               "Scale": "1,1,1",
@@ -124,7 +124,7 @@
               "__guid": "96a94db3-a7c5-4bed-a6ab-2572de9f7e1c",
               "__version": 2,
               "Flags": 0,
-              "Name": "SP\" ",
+              "Name": "SP 2",
               "Position": "-234.858017,2411.37842,-879.902222",
               "Rotation": "0,0,0.4617486,0.887010813",
               "Scale": "1,1,1",
@@ -142,7 +142,7 @@
               "__guid": "83317797-c667-4971-bd3d-a86a26ac95d3",
               "__version": 2,
               "Flags": 0,
-              "Name": "SP\" ",
+              "Name": "SP 3",
               "Position": "-499.759094,2338.28662,-798.030762",
               "Rotation": "0,0,0.4617486,0.887010813",
               "Scale": "1,1,1",
@@ -160,7 +160,7 @@
               "__guid": "bd6b2426-a539-425c-99fe-11da2296db71",
               "__version": 2,
               "Flags": 0,
-              "Name": "SP\" ",
+              "Name": "SP 4",
               "Position": "-393.732208,2169.83154,-814.847168",
               "Rotation": "0,0,0.57357645,0.819152057",
               "Scale": "1,1,1",
@@ -208,7 +208,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "bae317b8-82c0-4083-806e-6719c0e11bc4"
+              "$blob": "5e36e6c3-818e-434f-b9c9-13e77f49d221"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
@@ -264,7 +264,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "a5309586-6290-44db-bb46-fe8e263679ca"
+              "$blob": "87f6389f-0e30-48f1-8b72-db54a5bff100"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
