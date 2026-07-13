@@ -68,7 +68,7 @@ public sealed class PlayerLapTracker : Component
 	{
 		if ( !Network.IsOwner ) return;
 		if ( RaceFinished ) return;
-		if ( CurrentLap == 0 ) return; // erst nach erstem Linien-Crossing zaehlen
+		if ( CurrentLap == 0 ) return; // Lap 0 ist nur der Grid-Start, zaehlt noch nicht
 
 		if ( !passedSectors.Add( sector.SectorIndex ) ) return; // schon gehabt
 
@@ -89,7 +89,8 @@ public sealed class PlayerLapTracker : Component
 		var rm = RaceManager.Instance;
 		if ( rm == null ) return;
 
-		// Erste Ueberquerung -> Runde 1 startet
+		// Lap 0 ist nur der Start am Grid (Startlinie liegt direkt vor den Spawnpoints) ->
+		// keine Sektoren noetig, direkt weiter zu Lap 1.
 		if ( CurrentLap == 0 )
 		{
 			CurrentLap = 1;
@@ -102,11 +103,11 @@ public sealed class PlayerLapTracker : Component
 		// Alle Sektoren in dieser Runde besucht? -> Runde gilt
 		if ( passedSectors.Count >= rm.Sectors.Count )
 		{
-			CurrentLap++;
 			LastProgressTime = Time.Now;
-			RpcLapCompleted( CurrentLap - 1 );
+			RpcLapCompleted( CurrentLap );
 
-			if ( CurrentLap > rm.MaxLaps )
+			// CurrentLap zaehlt abgeschlossene Runden -> MaxLaps erreicht = Rennen vorbei
+			if ( CurrentLap >= rm.MaxLaps )
 			{
 				RaceFinished = true;
 				RpcFinished();
@@ -114,6 +115,7 @@ public sealed class PlayerLapTracker : Component
 				return;
 			}
 
+			CurrentLap++;
 			CheckpointsThisLap = 0;
 			passedSectors.Clear();
 		}
