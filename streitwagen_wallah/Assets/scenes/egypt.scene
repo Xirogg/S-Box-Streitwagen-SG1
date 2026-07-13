@@ -208,7 +208,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "f45f8b5b-3b7a-4cc3-94e6-10bf8480f7c3"
+              "$blob": "52ac1f11-4ee1-4d80-a1fe-9c6ba92acfcb"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
@@ -264,7 +264,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "5a021d77-0617-41d0-b1f8-58e01b2bfd95"
+              "$blob": "760f4e45-5240-4f5c-8421-eb6ed5f5c8da"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
@@ -7108,6 +7108,27 @@
             },
             "Property": "Rotation",
             "Value": "-0.0228838772,0.0913012922,0.242041335,0.96568954"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "854a9a97-dde3-4d54-83c1-83f9e60b44f5"
+            },
+            "Property": "MaterialOverride",
+            "Value": "materials/fresnel_effect.vmat"
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "854a9a97-dde3-4d54-83c1-83f9e60b44f5"
+            },
+            "Property": "RenderOptions",
+            "Value": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": true,
+              "AfterUILayer": false
+            }
           },
           {
             "Target": {

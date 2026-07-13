@@ -7,9 +7,9 @@ Layer0
 	//---- Rendering ----
 	F_DO_NOT_CAST_SHADOWS 1
 
-	g_flOutline_Strength "0.377"
-	g_vColor "[0.501961 0.000000 0.000000 1.000000]"
-	g_vOutline_Color "[0.945098 0.925490 0.835294 1.000000]"
+	g_flOutline_Strength "0.980"
+	g_vColor "[0.325490 0.121569 0.062745 1.000000]"
+	g_vOutline_Color "[1.000000 0.980392 0.000000 1.000000]"
 
 	//---- Fog ----
 	g_bFogEnabled "1"
