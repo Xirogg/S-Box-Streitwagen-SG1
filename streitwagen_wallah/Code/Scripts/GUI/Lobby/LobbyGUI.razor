@@ -156,7 +156,7 @@
 	{
 		<div class="records-overlay" onrightclick="@CloseRecords">
 			<div class="records-window">
-				<div class="records-title">Bestenzeiten — @TrackDisplayName</div>
+				<div class="records-title">Bestenzeiten —  @TrackDisplayName</div>
 
 				<div class="records-head">
 					<div class="col-rank">Platz</div>
@@ -586,8 +586,8 @@
 	/* ----------------------------- Strecken-Button ----------------------------- */
 	/* Klickfläche genau über der Map-Frame (left 1060, top 40, 800x480). Wechselt
 	   die Strecke wie die Tab-Hotkey. z-index hält sie über dem Frame; pointer-events
-	   + ein (fast unsichtbarer) Hintergrund sichern den Treffer. Kein :hover-Shader,
-	   damit die Map beim Überfahren nicht abdunkelt. */
+	   + ein (fast unsichtbarer) Hintergrund sichern den Treffer. Beim Hovern glüht der
+	   Map-Rahmen golden auf – derselbe Glow wie beim eigenen Charakter-Slot (.slot.own). */
 	.track-btn {
 		position: absolute;
 		left: 1060px;
@@ -598,6 +598,12 @@
 		cursor: pointer;
 		pointer-events: all;
 		background-color: rgba(0, 0, 0, 0.04);
+		border-radius: 12px;
+		transition: box-shadow 0.12s ease;
+	}
+
+	.track-btn:hover {
+		box-shadow: 0px 0px 30px rgba(255, 210, 90, 0.95);
 	}
 
 	/* ----------------------------- Bereit-Button ----------------------------- */
