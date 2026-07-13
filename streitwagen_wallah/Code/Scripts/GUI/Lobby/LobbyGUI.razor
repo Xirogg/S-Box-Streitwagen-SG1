@@ -3,6 +3,7 @@
 @using System;
 @using System.Linq;
 @using System.Collections.Generic;
+@using LapSystem;
 @inherits PanelComponent
 @namespace Sandbox.Scripts.GUI.Lobby
 
@@ -122,10 +123,10 @@
 	<div class="character-btn"></div>
 
 	<!-- ======================= Strecken-Button (über der Map) ======================= -->
-	<!-- Klickfläche genau über der Map-Frame (left 1060, top 40, 800x480). Wechselt
-	     die Strecke wie die "Change Track"-Hotkey (Tab): CycleTrack ->
-	     LocalPlayer.RequestCycleTrack. Ohne Hover-Shader. -->
-	<div class="track-btn" onclick="@CycleTrack"></div>
+	<!-- Klickfläche genau über der Map-Frame (left 1060, top 40, 800x480). LINKSKLICK
+	     wechselt die Strecke wie die "Change Track"-Hotkey (Tab). RECHTSKLICK öffnet die
+	     Bestenliste der aktuellen Strecke (RaceRecordManager). Ohne Hover-Shader. -->
+	<div class="track-btn" onclick="@CycleTrack" onrightclick="@OpenRecords"></div>
 
 	<!-- ======================= Verlassen-Button (über "Verlassen") ======================= -->
 	<!-- Klickfläche genau über dem "Verlassen"-Menü-Button (4. Button der menu-col:
@@ -133,6 +134,46 @@
 	     QuitGame. z-index hält sie über dem Button; pointer-events + ein (fast
 	     unsichtbarer) Hintergrund sichern den Treffer. -->
 	<div class="quit-btn" onclick="@QuitGame"></div>
+
+	<!-- ======================= Bestenliste-Popup (Rechtsklick auf die Map) ======================= -->
+	<!-- Vollbild-Overlay über allem (z-index 300). Es fängt den NÄCHSTEN Rechtsklick
+	     irgendwo ab und schließt damit das Fenster. Weil das Overlay beim Öffnen-Klick
+	     noch nicht existiert, schließt derselbe Klick es nicht sofort wieder. -->
+	@if ( RecordsOpen )
+	{
+		<div class="records-overlay" onrightclick="@CloseRecords">
+			<div class="records-window">
+				<div class="records-title">Bestenzeiten — @TrackDisplayName</div>
+
+				<div class="records-head">
+					<div class="col-rank">Platz</div>
+					<div class="col-name">Name</div>
+					<div class="col-time">Zeit</div>
+					<div class="col-date">Datum</div>
+				</div>
+
+				@{
+					var recs = CurrentRecords;
+				}
+				@if ( recs.Count == 0 )
+				{
+					<div class="records-empty">Noch keine Rekorde für diese Strecke.</div>
+				}
+				@for ( int i = 0; i < recs.Count; i++ )
+				{
+					var e = recs[i];
+					<div class="records-row">
+						<div class="col-rank">@( i + 1 )</div>
+						<div class="col-name">@e.PlayerName</div>
+						<div class="col-time">@RaceRecordManager.FormatTime( e.TimeSeconds )</div>
+						<div class="col-date">@RaceRecordManager.FormatRelativeDate( e.Date )</div>
+					</div>
+				}
+
+				
+			</div>
+		</div>
+	}
 </root>
 
 <style>
@@ -512,6 +553,83 @@
 	.quit-btn:hover {
 		background-color: rgba(0, 0, 0, 0.2);
 	}
+
+	/* ----------------------------- Bestenliste (Records-Popup) ----------------------------- */
+	/* Vollbild-Overlay: fängt den nächsten Rechtsklick (irgendwo) ab und schließt damit das
+	   Fenster. Liegt über allem (z-index 300 > die 100er-Klickflächen) und blockiert per
+	   pointer-events die Interaktion mit dem Rest der Lobby, solange es offen ist (modal). */
+	.records-overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 300;
+		pointer-events: all;
+		align-items: center;
+		justify-content: center;
+		background-color: rgba(0, 0, 0, 0.55);
+	}
+
+	.records-window {
+		width: 1200px;
+		flex-direction: column;
+		padding: 40px 50px;
+		background-color: rgba(255, 235, 195, 0.98);
+		border: 5px solid rgba(140, 90, 30, 0.9);
+		border-radius: 20px;
+	}
+
+	.records-title {
+		font-size: 46px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+		text-align: center;
+		margin-bottom: 24px;
+	}
+
+	.records-head {
+		flex-direction: row;
+		padding-bottom: 12px;
+		margin-bottom: 8px;
+		border-bottom: 3px solid rgba(140, 90, 30, 0.6);
+		font-size: 26px;
+		font-weight: bold;
+		color: rgba(90, 58, 16, 1);
+	}
+
+	.records-row {
+		flex-direction: row;
+		align-items: center;
+		padding: 10px 6px;
+		font-size: 30px;
+		color: rgba(74, 44, 12, 1);
+	}
+
+	.records-row:hover {
+		background-color: rgba(255, 210, 130, 0.5);
+		border-radius: 8px;
+	}
+
+	/* Spalten: Platz + Zeit + Datum fest, Name füllt den Rest. */
+	.col-rank { width: 120px; }
+	.col-name { flex-grow: 1; overflow: hidden; white-space: nowrap; }
+	.col-time { width: 190px; }
+	.col-date { width: 250px; }
+
+	.records-empty {
+		font-size: 30px;
+		color: rgba(74, 44, 12, 0.8);
+		text-align: center;
+		padding: 40px 0;
+	}
+
+	.records-hint {
+		margin-top: 26px;
+		font-size: 22px;
+		color: rgba(74, 44, 12, 0.6);
+		text-align: center;
+	}
 </style>
 
 @code
@@ -593,6 +711,24 @@
 		TrackSelection.Akropolis => "Akropolis",
 		_ => "???"
 	};
+
+	// True, solange das Bestenlisten-Popup offen ist. Rein lokale UI (nicht synchronisiert):
+	// jeder Spieler öffnet/schließt es für sich.
+	bool RecordsOpen;
+
+	// Die Lobby wählt Strecken über TrackSelection (Rom/Aegypten/Akropolis), die Rekorde
+	// liegen aber unter RaceTrack (Rom/Egypt/Greece) – hier die Zuordnung.
+	RaceTrack CurrentRaceTrack => CurrentTrack switch
+	{
+		TrackSelection.Rom => RaceTrack.Rom,
+		TrackSelection.Aegypten => RaceTrack.Egypt,
+		TrackSelection.Akropolis => RaceTrack.Greece,
+		_ => RaceTrack.Rom
+	};
+
+	// Top 5 der aktuell in der Lobby gewählten Strecke (schnellste zuerst). Kommt aus dem
+	// host-gespiegelten Store des RaceRecordManager – auf jedem Peer verfügbar.
+	IReadOnlyList<RaceRecordEntry> CurrentRecords => RaceRecordManager.GetRecords( CurrentRaceTrack );
 
 	// Status-Icon je Slot: leer -> getrennt, sonst bereit/nicht bereit.
 	Texture StatusIcon( LobbyPlayer p )
@@ -696,6 +832,22 @@
 		LocalPlayer?.RequestCycleTrack();
 	}
 
+	// Rechtsklick auf die Map -> Bestenliste der aktuellen Strecke öffnen. Beim Öffnen die
+	// Rekorde frisch nachladen (Host liest die Datei neu & verteilt sie; Client bittet den
+	// Host darum) – so ist die Liste garantiert aktuell.
+	void OpenRecords()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
+		RaceRecordManager.RequestReload();
+		RecordsOpen = true;
+	}
+
+	// Rechtsklick irgendwo (auf das Vollbild-Overlay) -> schließen.
+	void CloseRecords()
+	{
+		RecordsOpen = false;
+	}
+
 	// TEST-Button: Ein Linksklick irgendwo auf dem Vollbild-Button wechselt auf den
 	// Altar-Screen. Nutzt die schon vorhandene, getestete Umschalt-Logik im
 	// LobbyManager (LobbyScreen-Component aus, AltarScreen-Component an).
@@ -743,6 +895,21 @@
 			hash.Add( p.IsReady );
 			hash.Add( p.DisplayName );
 		}
+
+		// Popup-Zustand + Inhalt: rebuildet die UI, wenn es geöffnet/geschlossen wird oder
+		// wenn (nach einem Reload) neue Rekorde für die gezeigte Strecke reinkommen.
+		hash.Add( RecordsOpen );
+		if ( RecordsOpen )
+		{
+			hash.Add( CurrentRaceTrack );
+			foreach ( var e in CurrentRecords )
+			{
+				hash.Add( e.PlayerName );
+				hash.Add( e.TimeSeconds );
+				hash.Add( e.Date );
+			}
+		}
+
 		return hash.ToHashCode();
 	}
 }

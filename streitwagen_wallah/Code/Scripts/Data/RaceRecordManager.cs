@@ -170,6 +170,29 @@ public sealed class RaceRecordManager : Component
 		PushRecords();
 	}
 
+	/// <summary>
+	/// Fordert ein Neuladen an – gedacht für "beim Öffnen der Bestenliste". Auf dem Host
+	/// wird direkt von der Platte neu geladen und an alle verteilt; auf einem Client wird
+	/// der Host per RPC darum gebeten (nur er hat die Datei). Danach kommt das Ergebnis
+	/// über den normalen Broadcast + <see cref="OnRecordsChanged"/> zurück.
+	/// </summary>
+	public static void RequestReload()
+	{
+		if ( Networking.IsHost )
+		{
+			ReloadFromDisk();
+			return;
+		}
+
+		Instance?.RpcRequestReloadOnHost();
+	}
+
+	[Rpc.Host]
+	private void RpcRequestReloadOnHost()
+	{
+		ReloadFromDisk(); // läuft auf dem Host
+	}
+
 	// ---------- Internals ----------
 
 	private static List<RaceRecordEntry> GetOrCreate( Dictionary<string, List<RaceRecordEntry>> store, string key )
@@ -304,14 +327,17 @@ public sealed class RaceRecordManager : Component
 			for ( int i = 0; i < list.Count; i++ )
 			{
 				var e = list[i];
-				Log.Info( $"Place: {i + 1} | Track: {key} | Name: {e.PlayerName} | Time: {FormatTime( e.TimeSeconds )} | Date: {RelativeDateGerman( e.Date )}" );
+				Log.Info( $"Place: {i + 1} | Track: {key} | Name: {e.PlayerName} | Time: {FormatTime( e.TimeSeconds )} | Date: {FormatRelativeDate( e.Date )}" );
 			}
 		}
 	}
 
-	// Wandelt ein gespeichertes ISO-Datum ("yyyy-MM-dd") in einen deutschen Relativtext um:
-	// "heute", "vor 1 Tag", "vor X Tagen", "vor X Monaten", "vor X Jahren".
-	private static string RelativeDateGerman( string isoDate )
+	/// <summary>
+	/// Wandelt ein gespeichertes ISO-Datum ("yyyy-MM-dd") in einen deutschen Relativtext um:
+	/// "heute", "vor 1 Tag", "vor X Tagen", "vor X Monaten", "vor X Jahren". Öffentlich, damit
+	/// die Lobby-UI dasselbe Format nutzt wie der Debug-Log.
+	/// </summary>
+	public static string FormatRelativeDate( string isoDate )
 	{
 		if ( !TryParseIsoDate( isoDate, out var date ) )
 			return string.IsNullOrWhiteSpace( isoDate ) ? "unbekannt" : isoDate;
