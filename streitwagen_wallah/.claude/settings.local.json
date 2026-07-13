@@ -5,7 +5,10 @@
       "Read(//c/Program Files/Steam/steamapps/common/**)",
       "Read(//c//**)",
       "WebSearch",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(ls -la \"C:\\\\Users\\\\jonil\\\\Downloads\\\\sBOX API.json\" 2>/dev/null | head; echo \"---size---\"; wc -c \"C:\\\\Users\\\\jonil\\\\Downloads\\\\sBOX API.json\" 2>/dev/null)",
+      "Bash(python -c ' *)",
+      "Bash(DATA=\"/c/Program Files \\(x86\\)/Steam/steamapps/common/sbox/data\" *)"
     ]
   }
 }

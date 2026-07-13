@@ -219,13 +219,12 @@ public sealed class RaceRankingManager : Component
 	}
 
 	/// <summary>
-	/// Anzeigename des Spielers aus der Owner-Connection. Der Netzwerk-Besitz ist
-	/// repliziert, der Name ist also auf jedem Client für jeden Spieler verfügbar.
-	/// Fallback "Spieler", falls (noch) keine Connection aufgelöst werden kann.
+	/// Anzeigename des Spielers: Custom-Nickname (falls gesetzt), sonst Steam-Name. Kommt
+	/// aus dem host-gespiegelten <see cref="PlayerNameManager"/> und ist damit auf jedem
+	/// Client für jeden Spieler verfügbar. Fallback "Spieler" steckt in GetDisplayName.
 	/// </summary>
 	private static string ResolvePlayerName( PlayerLapTracker tracker )
 	{
-		var name = tracker.Network.Owner?.DisplayName;
-		return string.IsNullOrEmpty( name ) ? "Spieler" : name;
+		return PlayerNameManager.GetDisplayName( tracker.Network.Owner );
 	}
 }

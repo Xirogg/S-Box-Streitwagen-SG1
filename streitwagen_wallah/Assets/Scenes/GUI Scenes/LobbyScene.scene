@@ -618,7 +618,44 @@
               "__guid": "245ceaa2-4039-4339-90b9-42a162e41565",
               "__enabled": true,
               "Flags": 0,
-              "AbilityPanel": null,
+              "AbilityPanel": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/ui_fähigkeit&waagen_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": null
+              },
               "CharacterSlot": {
                 "$compiler": "texture",
                 "$source": "imagefile",
@@ -967,6 +1004,44 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
+              "PlayerAvatar": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/avatar_placeholder.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": true,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": null
+              },
               "ReadyButton": {
                 "$compiler": "texture",
                 "$source": "imagefile",

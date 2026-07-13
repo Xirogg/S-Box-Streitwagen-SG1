@@ -28,6 +28,12 @@ public sealed class PlayerLapTracker : Component
 	// nicht setzen. Nur der Host schreibt FinishOrder, alle anderen lesen ihn.
 	[Sync( SyncFlags.FromHost )] public int FinishOrder { get; set; }
 
+	// Gesamt-Rennzeit dieses Spielers in Sekunden, host-autoritativ beim Zieleinlauf
+	// gesetzt (RaceManager.NotifyPlayerFinished). 0 = noch nicht im Ziel. Wie FinishOrder
+	// via SyncFlags.FromHost repliziert, weil der Tracker sonst OWNER-autoritativ ist und
+	// der Host fremde Tracker nicht beschreiben dürfte.
+	[Sync( SyncFlags.FromHost )] public float FinishTime { get; set; }
+
 	// Fortschritt innerhalb der aktuellen Runde – wird vom RaceRankingManager
 	// fuers Live-Ranking gelesen.
 	[Sync] public int CheckpointsThisLap { get; set; }

@@ -3,6 +3,7 @@
 @using System;
 @using System.Linq;
 @using System.Collections.Generic;
+@using LapSystem;
 @inherits PanelComponent
 @namespace Sandbox.Scripts.GUI.Lobby
 
@@ -34,11 +35,11 @@
 <root>
 	<!-- ======================= LINKS: Menü + Titel ======================= -->
 	<div class="menu-col">
-		<div class="menu-btn" onclick="@CycleTrack">
-			<div class="menu-label">Strecke: @TrackDisplayName</div>
+		<div class="menu-btn" onclick="@TestSwitchToAltar">
+			<div class="menu-label">Opferaltar</div>
 		</div>
 		<div class="menu-btn disabled">
-			<div class="menu-label">Charakter</div>
+			<div class="menu-label"> Charakter</div>
 		</div>
 		<div class="menu-btn disabled">
 			<div class="menu-label">Einstellungen</div>
@@ -58,7 +59,7 @@
 
 	<div class="ability-panel">
 		<div class="ability-body">
-			<div class="ability-name">@( LocalPlayer?.DisplayName ?? "—" )</div>
+			<div class="ability-name">@( LocalPlayer is null ? "—" : DisplayNameFor( LocalPlayer ) )</div>
 			<div class="ability-hint">Fähigkeit &amp; Waagen folgen…</div>
 		</div>
 	</div>
@@ -66,7 +67,7 @@
 	<!-- ======================= RECHTS: Map + Spieler-Slots ======================= -->
 	<div class="map-frame">
 		<div class="map-preview"></div>
-		<div class="map-caption">@TrackDisplayName <span class="map-key">Tab</span></div>
+		<div class="map-caption">@TrackDisplayName</div>
 	</div>
 
 	<div class="slot-grid">
@@ -76,11 +77,28 @@
 		@for ( int i = 0; i < SlotCount; i++ )
 		{
 			var p = i < players.Count ? players[i] : null;
-			<div class="slot @( p is null ? "empty" : "" )">
+			bool own = p is not null && p.Network.IsOwner;
+			<div class="slot @( p is null ? "empty" : "" ) @( own ? "own" : "" )">
+				@if ( p is not null )
+				{
+					<div class="slot-avatar"></div>
+				}
 				<div class="slot-status"></div>
 				@if ( p is not null )
 				{
-					<div class="slot-name">@p.DisplayName</div>
+					<div class="slot-name">@DisplayNameFor( p )</div>
+				}
+				@*
+					Nur der EIGENE Slot bekommt diese Klickfläche über dem Charakter-Bild
+					(Linksklick öffnet das Namens-Popup). Eigenes Overlay mit pointer-events +
+					fast unsichtbarem Hintergrund, weil s&box komplett durchsichtige Flächen
+					nicht zuverlässig trifft (gleiches Muster wie die anderen Lobby-Buttons).
+				*@
+				@if ( own )
+				{
+					<div class="slot-rename" onclick=@(() => OnSlotClicked( p ))>
+						<div class="slot-rename-hint">Name ändern</div>
+					</div>
 				}
 			</div>
 		}
@@ -95,14 +113,15 @@
 		</div>
 	}
 
-	<div class="currency">Publicity: @LocalCurrency</div>
+	<div class="currency">PG: @LocalCurrency</div>
 
-	<!-- ======================= Strecken-Button (über "Strecke: XX") ======================= -->
-	<!-- Klickfläche genau über dem "Strecke: XX"-Menü-Button. Wechselt die Strecke
-	     über dieselbe Logik wie die "Change Track"-Hotkey (Tab):
-	     CycleTrack -> LocalPlayer.RequestCycleTrack. Liegt per z-index über dem
-	     Button und fängt dort den Linksklick ab. -->
-	<div class="track-btn" onclick="@CycleTrack"></div>
+	<!-- ======================= Opferaltar-Button (über "Opferaltar") ======================= -->
+	<!-- Klickfläche genau über dem "Opferaltar"-Menü-Button (1. Button der menu-col:
+	     left 40, top 40, 380x120). Wechselt über die vorhandene Logik
+	     (LobbyManager.ShowAltar) auf den AltarGUIScreen. z-index hält sie über dem
+	     Button; pointer-events + ein (fast unsichtbarer) Hintergrund sichern den
+	     Treffer. -->
+	<div class="altar-btn" onclick="@TestSwitchToAltar"></div>
 
 	<!-- ======================= Bereit-Button (über der Ready-Bar) ======================= -->
 	<!-- Klickfläche genau über der Ready-Bar. Toggelt Bereit/Nicht-bereit über
@@ -110,12 +129,90 @@
 	     Liegt per z-index über der Bar und fängt dort den Linksklick ab. -->
 	<div class="ready-btn" onclick="@ToggleReady"></div>
 
-	<!-- ======================= TEST-Button -> Altar ======================= -->
-	<!-- Klickfläche genau über dem "Charakter"-Menü-Button. Fängt dort per z-index
-	     den Linksklick ab und wechselt über die vorhandene Logik
-	     (LobbyManager.ShowAltar) auf den AltarGUIScreen: LobbyGUIScreen-Node aus,
-	     AltarGUIScreen-Node an. Nur zum Testen. -->
-	<div class="test-btn" onclick="@TestSwitchToAltar"></div>
+	<!-- ======================= Charakter-Button (über "Charakter") ======================= -->
+	<!-- Klickfläche genau über dem "Charakter"-Menü-Button (2. Button der menu-col:
+	     left 40, top 190, 380x120). Zeigt nur den Hover-Effekt (Abdunkeln), löst aber
+	     KEINE Aktion aus – bewusst ohne onclick. -->
+	<div class="character-btn"></div>
+
+	<!-- ======================= Strecken-Button (über der Map) ======================= -->
+	<!-- Klickfläche genau über der Map-Frame (left 1060, top 40, 800x480). LINKSKLICK
+	     wechselt die Strecke wie die "Change Track"-Hotkey (Tab). RECHTSKLICK öffnet die
+	     Bestenliste der aktuellen Strecke (RaceRecordManager). Ohne Hover-Shader. -->
+	<div class="track-btn" onclick="@CycleTrack" onrightclick="@OpenRecords"></div>
+
+	<!-- ======================= Verlassen-Button (über "Verlassen") ======================= -->
+	<!-- Klickfläche genau über dem "Verlassen"-Menü-Button (4. Button der menu-col:
+	     left 40, top 40 + 3*(120+30) = 490, 380x120). Beendet das Spiel über
+	     QuitGame. z-index hält sie über dem Button; pointer-events + ein (fast
+	     unsichtbarer) Hintergrund sichern den Treffer. -->
+	<div class="quit-btn" onclick="@QuitGame"></div>
+
+	<!-- ======================= Bestenliste-Popup (Rechtsklick auf die Map) ======================= -->
+	<!-- Vollbild-Overlay über allem (z-index 300). Es fängt den NÄCHSTEN Rechtsklick
+	     irgendwo ab und schließt damit das Fenster. Weil das Overlay beim Öffnen-Klick
+	     noch nicht existiert, schließt derselbe Klick es nicht sofort wieder. -->
+	@if ( RecordsOpen )
+	{
+		<div class="records-overlay" onrightclick="@CloseRecords">
+			<div class="records-window">
+				<div class="records-title">Bestenzeiten —  @TrackDisplayName</div>
+
+				<div class="records-head">
+					<div class="col-rank">Platz</div>
+					<div class="col-name">Name</div>
+					<div class="col-time">Zeit</div>
+					<div class="col-date">Datum</div>
+				</div>
+
+				@{
+					var recs = CurrentRecords;
+				}
+				@if ( recs.Count == 0 )
+				{
+					<div class="records-empty">Noch keine Rekorde für diese Strecke.</div>
+				}
+				@for ( int i = 0; i < recs.Count; i++ )
+				{
+					var e = recs[i];
+					<div class="records-row">
+						<div class="col-rank">@( i + 1 )</div>
+						<div class="col-name">@e.PlayerName</div>
+						<div class="col-time">@RaceRecordManager.FormatTime( e.TimeSeconds )</div>
+						<div class="col-date">@RaceRecordManager.FormatRelativeDate( e.Date )</div>
+					</div>
+				}
+
+				<!-- Zurücksetzen-Buttons: Linksklick. Nur der Host löscht wirklich; ein Client
+				     schickt die Anfrage per RPC an den Host (siehe RaceRecordManager). -->
+				<div class="records-buttons">
+					<div class="records-btn" onclick="@ResetCurrentTrack">Zurücksetzen</div>
+					<div class="records-btn danger" onclick="@ResetAllTracks">Alles Zurücksetzen</div>
+				</div>
+
+				<div class="records-hint">Rechtsklick zum Schließen</div>
+			</div>
+		</div>
+	}
+
+	<!-- ======================= Namens-Popup (Linksklick auf den eigenen Slot) ======================= -->
+	<!-- Modal: das Overlay blockiert die Lobby dahinter. Geschlossen wird NUR über "Fertig"
+	     (bestätigt den Namen). Das TextEntry hat MaxLength 20; SetLocalName kürzt zusätzlich. -->
+	@if ( NamePopupOpen )
+	{
+		<div class="name-overlay">
+			<div class="name-window">
+				<div class="name-title">Namen anpassen</div>
+				<div class="name-sub">Max. 20 Zeichen</div>
+
+				<TextEntry class="name-input" MaxLength="@MaxNameLength" Placeholder="@LocalSteamName" Value:bind="@NameInput" />
+
+				<div class="name-buttons">
+					<div class="name-btn" onclick="@ConfirmName">Ändern</div>
+				</div>
+			</div>
+		</div>
+	}
 </root>
 
 <style>
@@ -158,7 +255,6 @@
 	}
 
 	.menu-btn.disabled {
-		opacity: 0.5;
 		cursor: default;
 	}
 
@@ -273,22 +369,13 @@
 		border-radius: 8px;
 	}
 
+	/* Nur der Streckenname (der "Tab"-Hinweis wurde entfernt, da die Map selbst
+	   klickbar ist). */
 	.map-caption {
 		margin-top: 16px;
-		flex-direction: row;
-		align-items: center;
-		gap: 16px;
 		font-size: 32px;
 		font-weight: bold;
 		color: rgba(74, 44, 12, 1);
-	}
-
-	.map-key {
-		font-size: 22px;
-		color: white;
-		background-color: rgba(74, 44, 12, 0.7);
-		border-radius: 6px;
-		padding: 2px 12px;
 	}
 
 	/* ------------------------- Rechts: Spieler-Slots ------------------------- */
@@ -314,6 +401,72 @@
 
 	.slot.empty {
 		opacity: 0.4;
+	}
+
+	/* Eigener Slot: anklickbar (Linksklick öffnet das Namens-Popup). Beim Hovern glüht der
+	   Rahmen golden auf (Shader-artiger Glow), damit klar ist, dass er interaktiv ist. */
+	.slot.own {
+		cursor: pointer;
+		border-radius: 10px;
+		transition: transform 0.12s ease, box-shadow 0.12s ease;
+	}
+
+	.slot.own:hover {
+		transform: scale( 1.05 );
+		box-shadow: 0px 0px 30px rgba(255, 210, 90, 0.95);
+	}
+
+	/* Klickfläche über dem eigenen Charakter-Bild (nur der eigene Slot, siehe Markup).
+	   Fast unsichtbarer Hintergrund sichert den Treffer in s&box. */
+	.slot-rename {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 10;
+		pointer-events: all;
+		cursor: pointer;
+		align-items: center;
+		justify-content: center;
+		border-radius: 10px;
+		background-color: rgba(0, 0, 0, 0.04);
+		transition: background-color 0.12s ease;
+	}
+
+	.slot-rename:hover {
+		background-color: rgba(0, 0, 0, 0.18);
+	}
+
+	/* "Name ändern"-Hinweis: nur beim Hovern sichtbar. */
+	.slot-rename-hint {
+		opacity: 0;
+		font-size: 22px;
+		font-weight: bold;
+		color: white;
+		text-align: center;
+		background-color: rgba(60, 40, 15, 0.85);
+		border-radius: 8px;
+		padding: 6px 14px;
+		transition: opacity 0.12s ease;
+	}
+
+	.slot-rename:hover .slot-rename-hint {
+		opacity: 1;
+	}
+
+	/* Avatar-Bild im Slot: sitzt innerhalb des Rahmens, hinter dem Status-Icon und
+	   dem Namen. Nur belegte Slots erhalten dieses Panel (siehe Markup). */
+	.slot-avatar {
+		position: absolute;
+		left: 10%;
+		top: 10%;
+		width: 80%;
+		height: 80%;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		pointer-events: none;
 	}
 
 	/* Voll-Overlay: die Icon-PNGs haben das Symbol bereits oben rechts platziert. */
@@ -382,38 +535,13 @@
 		border-radius: 12px;
 	}
 
-	/* ----------------------------- TEST-Button ----------------------------- */
-	/* Klickfläche genau über dem "Charakter"-Menü-Button (2. Button der menu-col:
-	   left 40, top 40 + 120 Höhe + 30 gap = top 190). z-index hält sie über dem
+	/* ----------------------------- Opferaltar-Button ----------------------------- */
+	/* Klickfläche genau über dem "Opferaltar"-Menü-Button (1. Button der menu-col:
+	   left 40, top 40, 380x120). Öffnet den Altar-Screen. z-index hält sie über dem
 	   Button; pointer-events + ein (fast unsichtbarer) Hintergrund sichern den
 	   Treffer (eine komplett durchsichtige Fläche wird in s&box sonst nicht
 	   zuverlässig getroffen). */
-	.test-btn {
-		position: absolute;
-		left: 40px;
-		top: 190px;
-		width: 380px;
-		height: 120px;
-		z-index: 100;
-		cursor: pointer;
-		pointer-events: all;
-		background-color: rgba(255, 0, 0, 0.06);
-		transition: background-color 0.1s ease;
-	}
-
-	/* Hover: leichtes Abdunkeln. Der Button ist ein (fast durchsichtiges) Overlay
-	   ÜBER dem echten "Charakter"-Button-Graphic – ein halbtransparentes Schwarz
-	   tönt den darunterliegenden Button, sodass er beim Hovern dunkler wirkt. */
-	.test-btn:hover {
-		background-color: rgba(0, 0, 0, 0.2);
-	}
-
-	/* ----------------------------- Strecken-Button ----------------------------- */
-	/* Klickfläche genau über dem "Strecke: XX"-Button (1. Button der menu-col:
-	   left 40, top 40, 380x120). Wechselt die Strecke wie die Tab-Hotkey. z-index
-	   hält sie über dem Button; pointer-events + ein (fast unsichtbarer)
-	   Hintergrund sichern den Treffer. */
-	.track-btn {
+	.altar-btn {
 		position: absolute;
 		left: 40px;
 		top: 40px;
@@ -426,9 +554,56 @@
 		transition: background-color 0.1s ease;
 	}
 
-	/* Hover: leichtes Abdunkeln (halbtransparentes Schwarz über dem Strecke-Button). */
-	.track-btn:hover {
+	/* Hover: leichtes Abdunkeln (halbtransparentes Schwarz über dem Opferaltar-Button). */
+	.altar-btn:hover {
 		background-color: rgba(0, 0, 0, 0.2);
+	}
+
+	/* ----------------------------- Charakter-Button ----------------------------- */
+	/* Klickfläche genau über dem "Charakter"-Menü-Button (2. Button der menu-col:
+	   left 40, top 40 + 120 Höhe + 30 gap = top 190). Behält nur den Hover-Effekt,
+	   löst aber KEINE Aktion aus (kein onclick im Markup). */
+	.character-btn {
+		position: absolute;
+		left: 40px;
+		top: 190px;
+		width: 380px;
+		height: 120px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(0, 0, 0, 0.04);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln. Der Button ist ein (fast durchsichtiges) Overlay
+	   ÜBER dem echten "Charakter"-Button-Graphic – ein halbtransparentes Schwarz
+	   tönt den darunterliegenden Button, sodass er beim Hovern dunkler wirkt. */
+	.character-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+
+	/* ----------------------------- Strecken-Button ----------------------------- */
+	/* Klickfläche genau über der Map-Frame (left 1060, top 40, 800x480). Wechselt
+	   die Strecke wie die Tab-Hotkey. z-index hält sie über dem Frame; pointer-events
+	   + ein (fast unsichtbarer) Hintergrund sichern den Treffer. Beim Hovern glüht der
+	   Map-Rahmen golden auf – derselbe Glow wie beim eigenen Charakter-Slot (.slot.own). */
+	.track-btn {
+		position: absolute;
+		left: 1060px;
+		top: 40px;
+		width: 800px;
+		height: 480px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(0, 0, 0, 0.04);
+		border-radius: 12px;
+		transition: box-shadow 0.12s ease;
+	}
+
+	.track-btn:hover {
+		box-shadow: 0px 0px 30px rgba(255, 210, 90, 0.95);
 	}
 
 	/* ----------------------------- Bereit-Button ----------------------------- */
@@ -452,6 +627,221 @@
 	.ready-btn:hover {
 		background-color: rgba(0, 0, 0, 0.2);
 	}
+
+	/* ----------------------------- Verlassen-Button ----------------------------- */
+	/* Klickfläche genau über dem "Verlassen"-Button (4. Button der menu-col:
+	   left 40, top 490, 380x120). Beendet das Spiel. z-index hält sie über dem
+	   Button; pointer-events + ein (fast unsichtbarer) Hintergrund sichern den
+	   Treffer. */
+	.quit-btn {
+		position: absolute;
+		left: 40px;
+		top: 490px;
+		width: 380px;
+		height: 120px;
+		z-index: 100;
+		cursor: pointer;
+		pointer-events: all;
+		background-color: rgba(0, 0, 0, 0.04);
+		transition: background-color 0.1s ease;
+	}
+
+	/* Hover: leichtes Abdunkeln (halbtransparentes Schwarz über dem Verlassen-Button). */
+	.quit-btn:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+
+	/* ----------------------------- Bestenliste (Records-Popup) ----------------------------- */
+	/* Vollbild-Overlay: fängt den nächsten Rechtsklick (irgendwo) ab und schließt damit das
+	   Fenster. Liegt über allem (z-index 300 > die 100er-Klickflächen) und blockiert per
+	   pointer-events die Interaktion mit dem Rest der Lobby, solange es offen ist (modal). */
+	.records-overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 300;
+		pointer-events: all;
+		align-items: center;
+		justify-content: center;
+		background-color: rgba(0, 0, 0, 0.55);
+	}
+
+	.records-window {
+		width: 1200px;
+		flex-direction: column;
+		padding: 40px 50px;
+		background-color: rgba(255, 235, 195, 0.98);
+		border: 5px solid rgba(140, 90, 30, 0.9);
+		border-radius: 20px;
+	}
+
+	.records-title {
+		font-size: 46px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+		text-align: center;
+		margin-bottom: 24px;
+	}
+
+	.records-head {
+		flex-direction: row;
+		padding-bottom: 12px;
+		margin-bottom: 8px;
+		border-bottom: 3px solid rgba(140, 90, 30, 0.6);
+		font-size: 26px;
+		font-weight: bold;
+		color: rgba(90, 58, 16, 1);
+	}
+
+	.records-row {
+		flex-direction: row;
+		align-items: center;
+		padding: 10px 6px;
+		font-size: 30px;
+		color: rgba(74, 44, 12, 1);
+	}
+
+	.records-row:hover {
+		background-color: rgba(255, 210, 130, 0.5);
+		border-radius: 8px;
+	}
+
+	/* Spalten: Platz + Zeit + Datum fest, Name füllt den Rest. */
+	.col-rank { width: 120px; }
+	.col-name { flex-grow: 1; overflow: hidden; white-space: nowrap; }
+	.col-time { width: 190px; }
+	.col-date { width: 250px; }
+
+	.records-empty {
+		font-size: 30px;
+		color: rgba(74, 44, 12, 0.8);
+		text-align: center;
+		padding: 40px 0;
+	}
+
+	.records-hint {
+		margin-top: 26px;
+		font-size: 22px;
+		color: rgba(74, 44, 12, 0.6);
+		text-align: center;
+	}
+
+	/* Zurücksetzen-Buttons unter der Liste. */
+	.records-buttons {
+		flex-direction: row;
+		justify-content: center;
+		gap: 30px;
+		margin-top: 30px;
+	}
+
+	.records-btn {
+		padding: 14px 34px;
+		font-size: 28px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+		background-color: rgba(255, 205, 120, 0.95);
+		border: 3px solid rgba(140, 90, 30, 0.8);
+		border-radius: 12px;
+		cursor: pointer;
+		pointer-events: all;
+		align-items: center;
+		justify-content: center;
+		transition: transform 0.1s ease, background-color 0.1s ease;
+	}
+
+	.records-btn:hover {
+		transform: scale( 1.05 );
+		background-color: rgba(255, 220, 150, 1);
+	}
+
+	/* "Alles Zurücksetzen" – rötlich, weil deutlich destruktiver. */
+	.records-btn.danger {
+		background-color: rgba(205, 95, 70, 0.95);
+		color: white;
+		border-color: rgba(150, 50, 30, 0.85);
+	}
+
+	.records-btn.danger:hover {
+		background-color: rgba(225, 115, 85, 1);
+	}
+
+	/* ----------------------------- Namens-Popup ----------------------------- */
+	.name-overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 350;
+		pointer-events: all;
+		align-items: center;
+		justify-content: center;
+		background-color: rgba(0, 0, 0, 0.55);
+	}
+
+	.name-window {
+		width: 720px;
+		flex-direction: column;
+		align-items: center;
+		padding: 44px 50px;
+		background-color: rgba(255, 235, 195, 0.98);
+		border: 5px solid rgba(140, 90, 30, 0.9);
+		border-radius: 20px;
+	}
+
+	.name-title {
+		font-size: 44px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+		text-align: center;
+	}
+
+	.name-sub {
+		margin-top: 8px;
+		margin-bottom: 26px;
+		font-size: 24px;
+		color: rgba(74, 44, 12, 0.7);
+		text-align: center;
+	}
+
+	.name-input {
+		width: 100%;
+		height: 74px;
+		padding: 0 20px;
+		font-size: 34px;
+		color: rgba(74, 44, 12, 1);
+		background-color: rgba(255, 250, 235, 1);
+		border: 3px solid rgba(140, 90, 30, 0.7);
+		border-radius: 12px;
+	}
+
+	.name-buttons {
+		flex-direction: row;
+		justify-content: center;
+		margin-top: 30px;
+	}
+
+	.name-btn {
+		padding: 14px 50px;
+		font-size: 30px;
+		font-weight: bold;
+		color: white;
+		background-color: rgba(90, 160, 70, 0.95);
+		border: 3px solid rgba(50, 110, 40, 0.85);
+		border-radius: 12px;
+		cursor: pointer;
+		pointer-events: all;
+		align-items: center;
+		justify-content: center;
+		transition: transform 0.1s ease, background-color 0.1s ease;
+	}
+
+	.name-btn:hover {
+		transform: scale( 1.05 );
+		background-color: rgba(105, 180, 85, 1);
+	}
 </style>
 
 @code
@@ -469,6 +859,8 @@
 	[Property] public Texture AbilityPanel { get; set; }         // UI_Fähigkeit&Waagen_MainMenu
 	[Group( "Lobby UI – Rahmen" )]
 	[Property] public Texture CharacterSlot { get; set; }        // UI_Character_MainMenu
+	[Group( "Lobby UI – Rahmen" )]
+	[Property] public Texture PlayerAvatar { get; set; }         // Avatar-Bild im Charakter-Slot
 
 	[Group( "Lobby UI – Buttons" )]
 	[Property] public Texture MenuButton { get; set; }           // Button_MainMenu (orange)
@@ -507,9 +899,14 @@
 
 	// Stabile Reihenfolge, damit Slots nicht bei jedem Frame springen.
 	List<LobbyPlayer> OrderedPlayers => AllPlayers
-		.OrderBy( p => p.DisplayName )
+		.OrderBy( p => DisplayNameFor( p ) )
 		.ThenBy( p => p.GameObject.Id )
 		.ToList();
+
+	// Anzeigename eines Spielers: Custom-Nickname (falls gesetzt), sonst Steam-Name –
+	// aufgelöst über den host-gespiegelten PlayerNameManager (auf jedem Peer verfügbar).
+	string DisplayNameFor( LobbyPlayer p )
+		=> p is null ? "" : PlayerNameManager.GetDisplayName( p.Network.Owner );
 
 	bool LocalIsReady => LocalPlayer?.IsReady ?? false;
 	bool CountdownActive => LobbyManager.Instance?.CountdownActive ?? false;
@@ -531,6 +928,34 @@
 		TrackSelection.Akropolis => "Akropolis",
 		_ => "???"
 	};
+
+	// True, solange das Bestenlisten-Popup offen ist. Rein lokale UI (nicht synchronisiert):
+	// jeder Spieler öffnet/schließt es für sich.
+	bool RecordsOpen;
+
+	// Namens-Popup: offen-Zustand + aktueller Textfeld-Inhalt. NameInput bewusst NICHT im
+	// BuildHash, sonst würde jeder Tastendruck das Panel neu bauen.
+	bool NamePopupOpen;
+	string NameInput = "";
+
+	int MaxNameLength => PlayerNameManager.MaxNameLength;
+
+	// Steam-Name des lokalen Spielers – Platzhalter im Textfeld, wenn (noch) kein Custom-Name.
+	string LocalSteamName => Connection.Local?.DisplayName ?? "";
+
+	// Die Lobby wählt Strecken über TrackSelection (Rom/Aegypten/Akropolis), die Rekorde
+	// liegen aber unter RaceTrack (Rom/Egypt/Greece) – hier die Zuordnung.
+	RaceTrack CurrentRaceTrack => CurrentTrack switch
+	{
+		TrackSelection.Rom => RaceTrack.Rom,
+		TrackSelection.Aegypten => RaceTrack.Egypt,
+		TrackSelection.Akropolis => RaceTrack.Greece,
+		_ => RaceTrack.Rom
+	};
+
+	// Top 5 der aktuell in der Lobby gewählten Strecke (schnellste zuerst). Kommt aus dem
+	// host-gespiegelten Store des RaceRecordManager – auf jedem Peer verfügbar.
+	IReadOnlyList<RaceRecordEntry> CurrentRecords => RaceRecordManager.GetRecords( CurrentRaceTrack );
 
 	// Status-Icon je Slot: leer -> getrennt, sonst bereit/nicht bereit.
 	Texture StatusIcon( LobbyPlayer p )
@@ -565,8 +990,14 @@
 		for ( int i = 0; i < slots.Count; i++ )
 		{
 			SetBg( slots[i], CharacterSlot );
-			var status = FindByClass( slots[i], "slot-status" ).FirstOrDefault();
 			var p = i < players.Count ? players[i] : null;
+
+			// Avatar-Panel existiert nur in belegten Slots (siehe Markup) -> für leere
+			// Slots ist es null und SetBg macht nichts.
+			var avatar = FindByClass( slots[i], "slot-avatar" ).FirstOrDefault();
+			SetBg( avatar, PlayerAvatar );
+
+			var status = FindByClass( slots[i], "slot-status" ).FirstOrDefault();
 			SetBg( status, StatusIcon( p ) );
 		}
 	}
@@ -601,6 +1032,7 @@
 		{
 			(nameof( Title ), Title), (nameof( MapFrame ), MapFrame),
 			(nameof( AbilityPanel ), AbilityPanel), (nameof( CharacterSlot ), CharacterSlot),
+			(nameof( PlayerAvatar ), PlayerAvatar),
 			(nameof( MenuButton ), MenuButton), (nameof( ReadyButton ), ReadyButton), (nameof( NotReadyButton ), NotReadyButton),
 			(nameof( ReadyIcon ), ReadyIcon), (nameof( NotReadyIcon ), NotReadyIcon), (nameof( DisconnectedIcon ), DisconnectedIcon),
 		};
@@ -627,6 +1059,55 @@
 		LocalPlayer?.RequestCycleTrack();
 	}
 
+	// Rechtsklick auf die Map -> Bestenliste der aktuellen Strecke öffnen. Beim Öffnen die
+	// Rekorde frisch nachladen (Host liest die Datei neu & verteilt sie; Client bittet den
+	// Host darum) – so ist die Liste garantiert aktuell.
+	void OpenRecords()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
+		RaceRecordManager.RequestReload();
+		RecordsOpen = true;
+	}
+
+	// Rechtsklick irgendwo (auf das Vollbild-Overlay) -> schließen.
+	void CloseRecords()
+	{
+		RecordsOpen = false;
+	}
+
+	// Linksklick auf einen Spieler-Slot: nur der EIGENE Slot öffnet das Namens-Popup.
+	void OnSlotClicked( LobbyPlayer p )
+	{
+		if ( p is null || !p.Network.IsOwner ) return;
+
+		LobbyUISFX.Instance?.PlayButtonSound();
+		NameInput = PlayerNameManager.LocalCustomNameOrEmpty; // aktuellen Custom-Namen vorbelegen
+		NamePopupOpen = true;                                 // Hotkey-Sperre setzt OnUpdate (siehe unten)
+	}
+
+	// "Fertig": Namen übernehmen (leer = zurück zum Steam-Namen) und Popup schließen.
+	void ConfirmName()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();
+		PlayerNameManager.SetLocalName( NameInput );
+		NamePopupOpen = false;
+	}
+
+	// Linksklick "Zurücksetzen" -> alle Rekorde der aktuell gewählten Strecke löschen.
+	// Popup bleibt offen und zeigt sofort die leere Liste (host) bzw. nach RPC-Antwort (client).
+	void ResetCurrentTrack()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();
+		RaceRecordManager.RequestClearTrack( CurrentRaceTrack );
+	}
+
+	// Linksklick "Alles Zurücksetzen" -> alle Rekorde ALLER Strecken löschen.
+	void ResetAllTracks()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();
+		RaceRecordManager.RequestClearAll();
+	}
+
 	// TEST-Button: Ein Linksklick irgendwo auf dem Vollbild-Button wechselt auf den
 	// Altar-Screen. Nutzt die schon vorhandene, getestete Umschalt-Logik im
 	// LobbyManager (LobbyScreen-Component aus, AltarScreen-Component an).
@@ -644,6 +1125,7 @@
 
 	void QuitGame()
 	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
 		Log.Info( "Quitting game..." );
 		Game.Close();
 	}
@@ -654,7 +1136,13 @@
 		// Jeden Frame setzen, damit andere Systeme den Cursor nicht wegnehmen.
 		Mouse.Visibility = MouseVisibility.Visible;
 
-		if ( Input.Pressed( "Quit" ) )
+		// Hotkey-Sperre spiegelt IMMER den echten Popup-Zustand (selbstkorrigierend, damit
+		// die Sperre nicht z. B. nach einem Szenenwechsel hängen bleibt). LobbyPlayer liest
+		// dieses Flag, um Space/Tab beim Tippen zu ignorieren.
+		PlayerNameManager.LocalNameInputActive = NamePopupOpen;
+
+		// Nicht beenden, während der Spieler seinen Namen tippt (Quit hängt auf Entf).
+		if ( !NamePopupOpen && Input.Pressed( "Quit" ) )
 			Game.Close();
 	}
 
@@ -671,8 +1159,26 @@
 		foreach ( var p in OrderedPlayers )
 		{
 			hash.Add( p.IsReady );
-			hash.Add( p.DisplayName );
+			hash.Add( DisplayNameFor( p ) ); // Custom-Name/Steam-Name -> UI aktualisiert sich bei Änderung
 		}
+
+		// Popup-Zustand + Inhalt: rebuildet die UI, wenn es geöffnet/geschlossen wird oder
+		// wenn (nach einem Reload) neue Rekorde für die gezeigte Strecke reinkommen.
+		hash.Add( RecordsOpen );
+		if ( RecordsOpen )
+		{
+			hash.Add( CurrentRaceTrack );
+			foreach ( var e in CurrentRecords )
+			{
+				hash.Add( e.PlayerName );
+				hash.Add( e.TimeSeconds );
+				hash.Add( e.Date );
+			}
+		}
+
+		// Namens-Popup auf/zu. NameInput bewusst NICHT im Hash (sonst Rebuild pro Tastendruck).
+		hash.Add( NamePopupOpen );
+
 		return hash.ToHashCode();
 	}
 }
