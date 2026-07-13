@@ -8,7 +8,10 @@
       "WebFetch(domain:github.com)",
       "Bash(ls -la \"C:\\\\Users\\\\jonil\\\\Downloads\\\\sBOX API.json\" 2>/dev/null | head; echo \"---size---\"; wc -c \"C:\\\\Users\\\\jonil\\\\Downloads\\\\sBOX API.json\" 2>/dev/null)",
       "Bash(python -c ' *)",
-      "Bash(DATA=\"/c/Program Files \\(x86\\)/Steam/steamapps/common/sbox/data\" *)"
+      "Bash(DATA=\"/c/Program Files \\(x86\\)/Steam/steamapps/common/sbox/data\" *)",
+      "Bash(dotnet --version)",
+      "Bash(dotnet --list-sdks)",
+      "Bash(f=\"/c/Users/jonil/Downloads/sBOX API.json\"; echo \"exists:\"; ls -la \"$f\" 2>&1 | head -1; echo \"--- drop-shadow / dropshadow hits ---\"; grep -o -i \"drop[- ]\\\\?shadow\" \"$f\" 2>/dev/null | sort | uniq -c | head; echo \"--- filter function names near 'FilterFunction' ---\"; grep -o -i \"filterfunction[a-z]*\" \"$f\" 2>/dev/null | sort | uniq -c | head -40)"
     ]
   }
 }

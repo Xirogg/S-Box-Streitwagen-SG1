@@ -5,9 +5,11 @@ using System;
 /// Base class for all god powers under the new item-driven architecture.
 ///
 /// Lifecycle:
-///   1. Spawned as a clone of a GodPower-prefab by PlayerItemTracker on pickup.
+///   1. Spawned as a clone of a GodPower-prefab by PlayerItemTracker on pickup. At
+///      that moment the pickup rolls a chance to make this the Ultimate version and
+///      sets <see cref="IsUltimate"/> accordingly — the player no longer chooses.
 ///   2. Tracker calls TryActivate() or TryActivateUltimate() exactly once when the
-///      player presses Use (modifier = Ultimate).
+///      player presses Use. Which one runs is decided purely by IsUltimate.
 ///   3. After activation the component lives for ActiveLingerDuration seconds so any
 ///      timed after-effects (drunk, judgement) finish, then it is destroyed.
 ///
@@ -77,6 +79,14 @@ public abstract class GodPower : Component
 
 	/// <summary>True once the power has been used. Blocks any further activation.</summary>
 	public bool IsSpent { get; private set; }
+
+	/// <summary>
+	/// Which variant this pickup rolled. Set once by PlayerItemTracker right after the
+	/// clone is spawned (15% chance on a normal item-box pickup, or inherited from the
+	/// stolen item on a Laverna transfer). When true the player's Use press fires the
+	/// Ultimate ability; when false it fires the Normal one. The player no longer picks.
+	/// </summary>
+	public bool IsUltimate { get; set; }
 
 	/// <summary>
 	/// The linger value picked at activation time (LingerAfterNormal or

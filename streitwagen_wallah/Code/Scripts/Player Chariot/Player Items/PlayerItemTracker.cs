@@ -11,10 +11,12 @@ namespace Sandbox;
 /// Lifecycle:
 ///   1. ItemPrefab on the host picks a random (key, prefab) and calls GrantItemRpc.
 ///   2. GrantItemRpc runs on the OWNING client. It clones the prefab as a child of
-///      ItemHost, sets the GodPower's Owner to PlayerRoot, and writes HeldItemKey
-///      ([Sync], so other clients' HUDs update too).
-///   3. Owner presses UseAction (modifier = Ultimate). TryActivate runs the effect,
-///      flips IsSpent.
+///      ItemHost, sets the GodPower's Owner to PlayerRoot, rolls the Normal/Ultimate
+///      variant into GodPower.IsUltimate, and writes HeldItemKey ([Sync], so other
+///      clients' HUDs update too).
+///   3. Owner presses UseAction. Whether the Normal or Ultimate ability runs is
+///      decided by the held power's IsUltimate flag, not by the player. TryActivate
+///      runs the effect, flips IsSpent.
 ///   4. Tracker schedules destruction after the power's ActiveLingerDuration so any
 ///      timed after-effect (drunk, judgement) finishes cleanly.
 ///   5. Destroy → HeldItemKey cleared → HUD shows "none" → player can pick up again.
@@ -45,10 +47,6 @@ public sealed class PlayerItemTracker : Component
 
 	[Property, Group( "Input" )]
 	public string UseAction { get; set; } = "UseItem";
-
-	/// <summary>Hold while pressing UseAction to fire the Ultimate. Leave empty to disable.</summary>
-	[Property, Group( "Input" )]
-	public string UltimateModifierAction { get; set; } = "Run";
 
 	[Property, Group( "Debug" )]
 	public bool DebugLog { get; set; } = true;
@@ -136,7 +134,7 @@ public sealed class PlayerItemTracker : Component
 	/// to an instant grant if there's no ItemSoundPlayer on the player.
 	/// </summary>
 	[Rpc.Owner]
-	public void BeginPickupSequenceRpc( string key, GameObject prefab )
+	public void BeginPickupSequenceRpc( string key, GameObject prefab, bool isUltimate )
 	{
 		if ( !CanGrant( key, prefab ) ) return;
 
@@ -144,16 +142,16 @@ public sealed class PlayerItemTracker : Component
 		if ( sfx is null )
 		{
 			if ( DebugLog ) Log.Info( "[PlayerItemTracker] No ItemSoundPlayer found — granting instantly (no pickup jingle)." );
-			DoGrant( key, prefab );
+			DoGrant( key, prefab, isUltimate );
 			return;
 		}
 
 		// Mark busy so a second box hit during the jingle can't also grant. [Sync] so
 		// the host's ItemPrefab sees it. Cleared inside DoGrant when the sequence ends.
 		PickupPending = true;
-		if ( DebugLog ) Log.Info( $"[PlayerItemTracker] Pickup '{key}' — playing sound sequence, granting after it finishes." );
+		if ( DebugLog ) Log.Info( $"[PlayerItemTracker] Pickup '{key}' (ult={isUltimate}) — playing sound sequence, granting after it finishes." );
 
-		sfx.PlayPickupSequence( () => DoGrant( key, prefab ) );
+		sfx.PlayPickupSequence( () => DoGrant( key, prefab, isUltimate ) );
 	}
 
 	/// <summary>
@@ -162,10 +160,10 @@ public sealed class PlayerItemTracker : Component
 	/// pickup jingle. Runs on the OWNING client.
 	/// </summary>
 	[Rpc.Owner]
-	public void GrantItemRpc( string key, GameObject prefab )
+	public void GrantItemRpc( string key, GameObject prefab, bool isUltimate )
 	{
 		if ( !CanGrant( key, prefab ) ) return;
-		DoGrant( key, prefab );
+		DoGrant( key, prefab, isUltimate );
 	}
 
 	/// <summary>Shared pre-grant validation for both the pickup and transfer paths.</summary>
@@ -190,7 +188,7 @@ public sealed class PlayerItemTracker : Component
 	/// publishes HeldItemKey. Always clears <see cref="PickupPending"/> so the slot
 	/// can't get stuck busy. Re-checks validity because it may run after a sound delay.
 	/// </summary>
-	private void DoGrant( string key, GameObject prefab )
+	private void DoGrant( string key, GameObject prefab, bool isUltimate )
 	{
 		PickupPending = false;
 
@@ -226,12 +224,16 @@ public sealed class PlayerItemTracker : Component
 
 		heldPower.Owner = PlayerRoot.IsValid() ? PlayerRoot : FindRoot( GameObject );
 
+		// Lock in the variant rolled at pickup (or inherited from a stolen item). This
+		// is what UseHeldItem reads to decide Normal vs Ultimate — the player can't pick.
+		heldPower.IsUltimate = isUltimate;
+
 		heldPrefab = prefab;
 		HeldItemKey = key;
 		OnItemGranted?.Invoke( key, heldPower );
 
 		if ( DebugLog )
-			Log.Info( $"[PlayerItemTracker] Granted '{key}' -> spawned {heldPower.GetType().Name} under {heldInstance.Parent?.Name}." );
+			Log.Info( $"[PlayerItemTracker] Granted '{key}' (ult={isUltimate}) -> spawned {heldPower.GetType().Name} under {heldInstance.Parent?.Name}." );
 	}
 
 	protected override void OnUpdate()
@@ -241,26 +243,26 @@ public sealed class PlayerItemTracker : Component
 		if ( string.IsNullOrEmpty( UseAction ) ) return;
 		if ( !Input.Pressed( UseAction ) ) return;
 
-		bool ultimate = !string.IsNullOrEmpty( UltimateModifierAction )
-			&& Input.Down( UltimateModifierAction );
-
 		if ( DebugLog )
-			Log.Info( $"[PlayerItemTracker] UseAction '{UseAction}' pressed. Ultimate={ultimate}. HeldItemKey='{HeldItemKey}'." );
+			Log.Info( $"[PlayerItemTracker] UseAction '{UseAction}' pressed. Ultimate={heldPower.IsUltimate}. HeldItemKey='{HeldItemKey}'." );
 
-		UseHeldItem( ultimate );
+		UseHeldItem();
 	}
 
 	/// <summary>
-	/// Fire the held power (Normal or Ultimate). On success, mark the instance for
-	/// destruction after its linger duration. The slot stays occupied until the
-	/// linger elapses so the player can't double-dip during a still-running effect.
+	/// Fire the held power. Whether the Normal or Ultimate ability runs is decided by
+	/// the held power's IsUltimate flag (rolled at pickup), not by the player. On
+	/// success, mark the instance for destruction after its linger duration. The slot
+	/// stays occupied until the linger elapses so the player can't double-dip during a
+	/// still-running effect.
 	/// </summary>
-	public void UseHeldItem( bool ultimate )
+	public void UseHeldItem()
 	{
 		if ( Network.IsProxy ) return;
 		if ( heldPower is null ) return;
 
 		var key = HeldItemKey;
+		bool ultimate = heldPower.IsUltimate;
 		bool ok = ultimate ? heldPower.TryActivateUltimate() : heldPower.TryActivate();
 		if ( !ok )
 		{
@@ -332,6 +334,8 @@ public sealed class PlayerItemTracker : Component
 
 		string stolenKey = HeldItemKey;
 		var stolenPrefab = heldPrefab;
+		// Carry the variant across the steal — robbing an Ultimate hands over an Ultimate.
+		bool stolenUltimate = heldPower is not null && heldPower.IsUltimate;
 
 		// Wipe victim slot — destroys their clone of the power so they lose access immediately.
 		if ( heldInstance.IsValid() )
@@ -342,10 +346,10 @@ public sealed class PlayerItemTracker : Component
 		HeldItemKey = "";
 
 		if ( DebugLog )
-			Log.Info( $"[PlayerItemTracker] Robbed of '{stolenKey}' by {recipient.GameObject?.Name} — forwarding to recipient." );
+			Log.Info( $"[PlayerItemTracker] Robbed of '{stolenKey}' (ult={stolenUltimate}) by {recipient.GameObject?.Name} — forwarding to recipient." );
 
 		// Routes to the recipient's owner client and clones the same prefab into their tracker.
-		recipient.GrantItemRpc( stolenKey, stolenPrefab );
+		recipient.GrantItemRpc( stolenKey, stolenPrefab, stolenUltimate );
 	}
 
 	private static GameObject FindRoot( GameObject from )

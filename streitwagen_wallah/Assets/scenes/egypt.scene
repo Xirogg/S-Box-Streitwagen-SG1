@@ -6634,7 +6634,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "263e51b1-8f59-4f25-b186-80ef3ec17d21"
+                      "$blob": "a2903d9e-5a41-475d-a241-025cbfcba3ad"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6690,7 +6690,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "181d3202-37e6-4bc0-9cdd-f9d770f6a431"
+                      "$blob": "ec13d8fe-3ab2-4bde-87e5-97b48a8a5ce0"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6746,7 +6746,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "65f4b1a8-3662-4629-ba35-ab516ebb5509"
+                      "$blob": "9e700d95-266b-42de-918b-a0e54f9c04b5"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -7339,6 +7339,14 @@
             },
             "Property": "MinRespawnSeconds",
             "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "UltimateChance",
+            "Value": 0.15
           }
         ],
         "MovedObjects": []
@@ -7397,6 +7405,14 @@
             },
             "Property": "MinRespawnSeconds",
             "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "UltimateChance",
+            "Value": 0.15
           }
         ],
         "MovedObjects": []
@@ -7455,6 +7471,14 @@
             },
             "Property": "MinRespawnSeconds",
             "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "UltimateChance",
+            "Value": 0.15
           }
         ],
         "MovedObjects": []
@@ -7513,6 +7537,14 @@
             },
             "Property": "MinRespawnSeconds",
             "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "UltimateChance",
+            "Value": 0.15
           }
         ],
         "MovedObjects": []
@@ -7571,6 +7603,14 @@
             },
             "Property": "MinRespawnSeconds",
             "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "UltimateChance",
+            "Value": 0.15
           }
         ],
         "MovedObjects": []
@@ -7629,6 +7669,14 @@
             },
             "Property": "MinRespawnSeconds",
             "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "UltimateChance",
+            "Value": 0.15
           }
         ],
         "MovedObjects": []
@@ -7687,6 +7735,14 @@
             },
             "Property": "MinRespawnSeconds",
             "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "UltimateChance",
+            "Value": 0.15
           }
         ],
         "MovedObjects": []
