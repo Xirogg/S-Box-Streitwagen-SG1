@@ -208,7 +208,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "bae317b8-82c0-4083-806e-6719c0e11bc4"
+              "$blob": "d3df7764-d74a-41dd-9cbf-aa622bdd2118"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
@@ -264,7 +264,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "a5309586-6290-44db-bb46-fe8e263679ca"
+              "$blob": "9393c439-16b1-420f-a32a-82abbbc2693b"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
