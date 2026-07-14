@@ -652,6 +652,14 @@
                     "Type": "Component",
                     "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
                   },
+                  "Property": "MaterialOverride",
+                  "Value": "materials/t_waves.vmat"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  },
                   "Property": "Tint",
                   "Value": "0.85116,0.85116,0.85116,1"
                 },
@@ -944,6 +952,14 @@
                   },
                   "Property": "Scale",
                   "Value": "2.5,2.5,2.5"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  },
+                  "Property": "MaterialOverride",
+                  "Value": "materials/t_waves.vmat"
                 },
                 {
                   "Target": {
@@ -2019,11 +2035,27 @@
                 },
                 {
                   "Target": {
+                    "Type": "Component",
+                    "IdValue": "4e4a611c-f7df-43ec-85b6-c9ae75e4d53d"
+                  },
+                  "Property": "MaterialOverride",
+                  "Value": "materials/t_waves.vmat"
+                },
+                {
+                  "Target": {
                     "Type": "GameObject",
                     "IdValue": "ff120b27-da99-4bbd-a4f3-99bba339c7aa"
                   },
                   "Property": "Position",
                   "Value": "4.76837215E-07,0,2.07451558"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "6a8bdd62-b24b-4ce2-b460-4444e3c529f1"
+                  },
+                  "Property": "MaterialOverride",
+                  "Value": "materials/t_waves.vmat"
                 },
                 {
                   "Target": {
@@ -2035,11 +2067,27 @@
                 },
                 {
                   "Target": {
+                    "Type": "Component",
+                    "IdValue": "8e436953-8e6d-40d9-b8ed-b28cd355dae3"
+                  },
+                  "Property": "MaterialOverride",
+                  "Value": "materials/t_waves.vmat"
+                },
+                {
+                  "Target": {
                     "Type": "GameObject",
                     "IdValue": "b7d18007-ebae-475d-81da-fcec7a592ee3"
                   },
                   "Property": "Position",
                   "Value": "4.76837215E-07,0,2.07451558"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "73ef8824-cc09-4fcf-9f6c-be120d333909"
+                  },
+                  "Property": "MaterialOverride",
+                  "Value": "materials/t_waves.vmat"
                 }
               ],
               "MovedObjects": []
@@ -2260,6 +2308,14 @@
                   },
                   "Property": "Position",
                   "Value": "0,0,19.3231621"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "b2a9f265-3d99-43ae-84ee-75a1ed50226a"
+                  },
+                  "Property": "MaterialOverride",
+                  "Value": "materials/t_waves.vmat"
                 }
               ],
               "MovedObjects": []
