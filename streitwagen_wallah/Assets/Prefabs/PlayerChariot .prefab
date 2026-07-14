@@ -1112,6 +1112,44 @@
         "OwnerTransfer": 1,
         "Components": [
           {
+            "__type": "PlayerStats",
+            "__guid": "52f44405-517d-4018-aca4-477bf4f7002e",
+            "__enabled": true,
+            "Flags": 0,
+            "Attack": {
+              "BaseValue": 30
+            },
+            "Chariot": null,
+            "DebugLog": false,
+            "Defense": {
+              "BaseValue": 100
+            },
+            "MaxSpeedPercent": {
+              "BaseValue": 100
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Weight": {
+              "BaseValue": 100
+            }
+          },
+          {
+            "__type": "PlayerRaceModifiers",
+            "__guid": "a14052cb-0cdc-4520-b3c9-069c6c876c4d",
+            "__enabled": true,
+            "Flags": 0,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
+          },
+          {
             "__type": "ChariotPhysics",
             "__guid": "ae1b2e7b-09fa-4825-b32d-1d1d6eadc9a2",
             "__enabled": true,
@@ -1261,7 +1299,12 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
-            "Stats": null
+            "Stats": {
+              "_type": "component",
+              "component_id": "52f44405-517d-4018-aca4-477bf4f7002e",
+              "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
+              "component_type": "PlayerStats"
+            }
           },
           {
             "__type": "LapSystem.PlayerLapTracker",

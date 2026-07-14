@@ -78,14 +78,22 @@ public sealed class PlayerStats : Component
 
 	/// <summary>
 	/// A single stat. BaseValue is what's edited in the prefab; modifiers are
-	/// runtime-only and stack additively by key so multiple sources can buff/debuff
-	/// the same stat without overwriting each other.
+	/// runtime-only and stack by key so multiple sources can buff/debuff the same
+	/// stat without overwriting each other.
+	///
+	/// Two modifier kinds:
+	///   - FLAT: added to BaseValue (e.g. +10 attack).
+	///   - PERCENT: a fraction applied AFTER the flats (0.05 = +5%, -0.1 = -10%).
+	///     Percents from different keys sum first, then multiply once, so the final
+	///     value is <c>(BaseValue + Σflat) * (1 + Σpercent)</c>. This is what the
+	///     Opferaltar's level-3 "+5% Attack/Defense" bonus uses via SetPercent.
 	/// </summary>
 	public class Stat
 	{
 		[Property] public float BaseValue { get; set; } = 100f;
 
 		private readonly Dictionary<string, float> _flatMods = new();
+		private readonly Dictionary<string, float> _pctMods = new();
 
 		public float Value
 		{
@@ -94,13 +102,30 @@ public sealed class PlayerStats : Component
 				float v = BaseValue;
 				foreach ( var m in _flatMods.Values )
 					v += m;
-				return v;
+
+				float pct = 0f;
+				foreach ( var p in _pctMods.Values )
+					pct += p;
+
+				return v * (1f + pct);
 			}
 		}
 
 		public void SetModifier( string key, float flat ) => _flatMods[key] = flat;
 		public void ClearModifier( string key ) => _flatMods.Remove( key );
-		public void ClearAllModifiers() => _flatMods.Clear();
+
+		/// <summary>
+		/// Set a percentage modifier. <paramref name="percent"/> is a fraction:
+		/// 0.05 = +5%, -0.1 = -10%. Stacks additively with other percent keys.
+		/// </summary>
+		public void SetPercent( string key, float percent ) => _pctMods[key] = percent;
+		public void ClearPercent( string key ) => _pctMods.Remove( key );
+
+		public void ClearAllModifiers()
+		{
+			_flatMods.Clear();
+			_pctMods.Clear();
+		}
 
 		public static implicit operator float( Stat s ) => s?.Value ?? 0f;
 	}

@@ -13,7 +13,11 @@
       "Bash(dotnet --list-sdks)",
       "Bash(f=\"/c/Users/jonil/Downloads/sBOX API.json\"; echo \"exists:\"; ls -la \"$f\" 2>&1 | head -1; echo \"--- drop-shadow / dropshadow hits ---\"; grep -o -i \"drop[- ]\\\\?shadow\" \"$f\" 2>/dev/null | sort | uniq -c | head; echo \"--- filter function names near 'FilterFunction' ---\"; grep -o -i \"filterfunction[a-z]*\" \"$f\" 2>/dev/null | sort | uniq -c | head -40)",
       "Bash(echo \"--- BoxShadow / spread refs ---\")",
-      "Bash(grep -o -i '[^\"]*\\\\\\(BoxShadow\\\\|ShadowSpread\\\\|Spread\\\\\\)[^\"]*' '/c/Users/jonil/Downloads/sBOX API.json')"
+      "Bash(grep -o -i '[^\"]*\\\\\\(BoxShadow\\\\|ShadowSpread\\\\|Spread\\\\\\)[^\"]*' '/c/Users/jonil/Downloads/sBOX API.json')",
+      "Bash(python -m pip install --quiet pypdf)",
+      "Bash(python -c \"import uuid; print\\(uuid.uuid4\\(\\)\\); print\\(uuid.uuid4\\(\\)\\)\")",
+      "Bash(grep -nB6 '\"Name\": \"Wagen \",' \"Assets/Prefabs/PlayerChariot .prefab\")",
+      "Bash(timeout 180 dotnet build streitwagen_wallah.csproj -v quiet -nologo)"
     ]
   }
 }

@@ -86,6 +86,10 @@ public sealed class RaceManager : Component
 		PublicityCurrencyManager.EnsureExists( Scene );
 		RaceRecordManager.EnsureExists( Scene );
 		PlayerNameManager.EnsureExists( Scene );
+
+		// Opferaltar backend also lives in race scenes: it grants the bought start items
+		// and applies the level-3 bonuses once players have spawned (see its OnUpdate).
+		AltarUpgradeManager.EnsureExists( Scene );
 	}
 
 	protected override void OnStart()

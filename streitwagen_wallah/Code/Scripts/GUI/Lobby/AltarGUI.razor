@@ -9,27 +9,27 @@
 @*
 	OPFERALTAR-SCREEN  (Streitwagen-Wallah)
 
-	Aufbau nach "Aufbau_Vorlage_Opferaltar.png":
-	  - Oben links: Zurück-Button (Button_AltarMenu + Label "Zurück")
-	  - 4 Altar-Säulen nebeneinander (AltarSäule_Aktiv / _Inaktiv), jede mit:
-	      * God-Power-Icon (z.B. Maat_Altar) mittig im Kreis
-	      * 1 Button darunter (Button_AltarMenu) mit dem Götternamen
+	Vier Altar-Säulen (ein Gott je Säule). Der Spieler kann für Publikumsgunst (PG)
+	EINEN Gott bis Stufe 3 ausbauen (AltarUpgradeManager). Klick auf eine Götter-
+	Taste wählt den Gott zur Ansicht; das Detail-Panel zeigt Stufe/Bonus/Kosten und
+	den "Opfern"-Knopf. Der gekaufte Gott brennt (aktive Säule); ein Wechsel setzt den
+	vorherigen Gott zurück.
 
 	KEIN eigener Hintergrund – nutzt den scrollenden Hintergrund vom GUI-Parent
 	(LobbyBackgroundGUI). root ist daher transparent.
 
-	ALLES über den Editor steuerbar: Säulen-/Button-Texturen als [Property],
-	die Götter als editierbare Liste (Name + Icon). Bilder werden – wie in der
-	LobbyGUI – per Code gesetzt (Style.SetBackgroundImage), damit "Image File"-
-	Zuweisungen ohne ResourcePath trotzdem funktionieren.
-
-	Auswahl (Aktiv/Inaktiv-Kerze) ist rein LOKAL (kein [Sync]); der Zurück-Button
-	ist vorerst nur ein Label/Platzhalter bis die Screen-Navigation steht.
+	Texturen (Säulen/Buttons/Icons) werden – wie in der LobbyGUI – per Code gesetzt
+	(Style.SetBackgroundImage), damit "Image File"-Zuweisungen ohne ResourcePath
+	trotzdem funktionieren. Der Screen-Zustand kommt aus dem host-autoritativen
+	AltarUpgradeManager (Auswahl/Stufe) und PublicityCurrencyManager (PG).
 *@
 
 <root>
-	<div class="back-btn" onclick="@GoBack">
-		<div class="btn-label">Zurück</div>
+	<div class="topbar">
+		<div class="back-btn" onclick="@GoBack">
+			<div class="btn-label">Zurück</div>
+		</div>
+		<div class="pg-display">Publikumsgunst: @LocalPG PG</div>
 	</div>
 
 	<div class="altar-row">
@@ -37,22 +37,62 @@
 		{
 			int idx = i;
 			var power = Powers[idx];
-			<div class="pillar-col">
-				<div class="pillar @( idx == SelectedIndex ? "active" : "" )">
+			var god = AltarUpgradeManager.ParseGod( power.Name );
+			int ownedLevel = ( god == OwnedGod && OwnedGod != GodId.None ) ? OwnedLevel : 0;
+
+			<div class="pillar-col @( idx == SelectedIndex ? "viewing" : "" )">
+				<div class="pillar @( god == OwnedGod && OwnedGod != GodId.None ? "active" : "" )">
 					<div class="pillar-icon"></div>
 				</div>
-				<div class="pillar-btn" onclick="@(() => Select( idx ))">
+
+				<div class="level-pips">
+					@for ( int l = 1; l <= AltarUpgradeManager.MaxLevel; l++ )
+					{
+						<div class="pip @( l <= ownedLevel ? "on" : "" )"></div>
+					}
+				</div>
+
+				<div class="pillar-btn god-btn" onclick="@(() => Select( idx ))">
 					<div class="btn-label">@power.Name</div>
+					<div class="hover-shade"></div>
 				</div>
 			</div>
 		}
 	</div>
 
+	@if ( SelectedGod != GodId.None )
+	{
+		<div class="detail-wrap">
+			<div class="detail">
+				<div class="detail-title">@AltarUpgradeManager.DisplayName( SelectedGod )</div>
+				<div class="detail-line">Aktuelle Stufe: @SelectedOwnedLevel / @AltarUpgradeManager.MaxLevel</div>
+				<div class="detail-line">Stufe 3 Bonus: @AltarUpgradeManager.BonusText( SelectedGod )</div>
+
+				@if ( SelectedCost < 0 )
+				{
+					<div class="detail-cost maxed">Maximal ausgebaut</div>
+				}
+				else
+				{
+					<div class="detail-cost">Stufe @NextLevelForSelected freischalten: <span class="cost-num">@CostLabel</span></div>
+
+					@if ( IsSwitch )
+					{
+						<div class="detail-warn">Wechsel setzt @AltarUpgradeManager.DisplayName( OwnedGod ) zurück (keine Rückerstattung)!</div>
+					}
+
+					<div class="buy-btn @( CanAfford ? "" : "disabled" )" onclick="@BuySelected">
+						<div class="btn-label">Opfern</div>
+						<div class="hover-shade"></div>
+					</div>
+				}
+			</div>
+		</div>
+	}
+
 	<!-- ======================= TEST-Button -> Lobby ======================= -->
 	<!-- Klickfläche genau über dem "Zurück"-Button. Fängt dort per z-index den
-	     Linksklick ab und wechselt über die vorhandene Logik
-	     (LobbyManager.ShowLobby) zurück: AltarGUIScreen-Node aus,
-	     LobbyGUIScreen-Node an. Nur zum Testen. -->
+	     Linksklick ab und wechselt über die vorhandene Logik zurück. Nur zum Testen. -->
 	<div class="test-btn" onclick="@TestSwitchToLobby"></div>
 </root>
 
@@ -70,7 +110,15 @@
 		z-index: 1;
 	}
 
-	/* ----------------------------- Zurück-Button ----------------------------- */
+	/* ----------------------------- Topbar ----------------------------- */
+	.topbar {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 200px;
+	}
+
 	.back-btn {
 		position: absolute;
 		left: 40px;
@@ -90,6 +138,16 @@
 		filter: brightness( 0.8 );
 	}
 
+	.pg-display {
+		position: absolute;
+		right: 48px;
+		top: 56px;
+		font-size: 40px;
+		font-weight: bold;
+		color: rgba(250, 230, 150, 1);
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+	}
+
 	/* ----------------------------- Säulen-Reihe ----------------------------- */
 	.altar-row {
 		position: absolute;
@@ -105,21 +163,23 @@
 	.pillar-col {
 		flex-direction: column;
 		align-items: center;
-		gap: 20px;
+		gap: 16px;
 		width: 380px;
+		transition: transform 0.12s ease;
+	}
+
+	/* Der aktuell zur Ansicht gewählte Gott wird leicht hervorgehoben. */
+	.pillar-col.viewing {
+		transform: scale( 1.04 );
 	}
 
 	.pillar {
 		width: 380px;
-		height: 700px;
+		height: 620px;
 		position: relative;
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
 		transition: transform 0.12s ease;
-	}
-
-	.pillar.active {
-		transform: scale( 1.04 );
 	}
 
 	/* Voll-Overlay: das God-Power-Icon liegt auf der gleichen Leinwandgröße wie
@@ -135,7 +195,31 @@
 		pointer-events: none;
 	}
 
+	/* ----------------------------- Stufen-Pips ----------------------------- */
+	.level-pips {
+		flex-direction: row;
+		gap: 12px;
+		justify-content: center;
+		align-items: center;
+		height: 28px;
+	}
+
+	.pip {
+		width: 26px;
+		height: 26px;
+		border-radius: 26px;
+		background-color: rgba(0, 0, 0, 0.35);
+		border: 2px solid rgba(74, 44, 12, 0.8);
+	}
+
+	.pip.on {
+		background-color: rgba(255, 190, 40, 1);
+		border-color: rgba(120, 70, 10, 1);
+	}
+
+	/* ----------------------------- Götter-Buttons ----------------------------- */
 	.pillar-btn {
+		position: relative;
 		width: 250px;
 		height: 92px;
 		background-size: 100% 100%;
@@ -148,7 +232,24 @@
 
 	.pillar-btn:hover {
 		transform: scale( 1.05 );
-		filter: brightness( 0.8 );
+	}
+
+	/* Abdunkeln beim Hovern: ein Vollflächen-Overlay über der Button-Grafik, das
+	   von transparent auf halb-schwarz blendet (der "Shader"-Effekt in CSS). */
+	.hover-shade {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0);
+		transition: background-color 0.12s ease;
+		pointer-events: none;
+	}
+
+	.god-btn:hover .hover-shade,
+	.buy-btn:hover .hover-shade {
+		background-color: rgba(0, 0, 0, 0.38);
 	}
 
 	.btn-label {
@@ -158,11 +259,84 @@
 		text-align: center;
 	}
 
+	/* ----------------------------- Detail-/Kauf-Panel ----------------------------- */
+	.detail-wrap {
+		position: absolute;
+		left: 0;
+		bottom: 36px;
+		width: 100%;
+		flex-direction: row;
+		justify-content: center;
+		z-index: 5;
+	}
+
+	.detail {
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+		min-width: 620px;
+		padding: 24px 40px;
+		background-color: rgba(30, 18, 6, 0.92);
+		border: 3px solid rgba(255, 190, 40, 0.85);
+		border-radius: 14px;
+	}
+
+	.detail-title {
+		font-size: 46px;
+		font-weight: bold;
+		color: rgba(255, 210, 90, 1);
+	}
+
+	.detail-line {
+		font-size: 30px;
+		color: rgba(240, 230, 210, 1);
+	}
+
+	.detail-cost {
+		font-size: 32px;
+		color: rgba(240, 230, 210, 1);
+		margin-top: 6px;
+	}
+
+	.detail-cost .cost-num {
+		font-weight: bold;
+		color: rgba(255, 210, 90, 1);
+	}
+
+	.detail-cost.maxed {
+		color: rgba(150, 220, 150, 1);
+		font-weight: bold;
+	}
+
+	.detail-warn {
+		font-size: 26px;
+		color: rgba(255, 130, 110, 1);
+		text-align: center;
+	}
+
+	.buy-btn {
+		position: relative;
+		width: 260px;
+		height: 92px;
+		margin-top: 10px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: transform 0.1s ease;
+	}
+
+	.buy-btn:hover {
+		transform: scale( 1.05 );
+	}
+
+	.buy-btn.disabled {
+		filter: brightness( 0.45 );
+		cursor: default;
+	}
+
 	/* ----------------------------- TEST-Button ----------------------------- */
-	/* Klickfläche genau über dem "Zurück"-Button (back-btn: left 40, top 40,
-	   320x120). z-index hält sie darüber; pointer-events + ein (fast unsichtbarer)
-	   Hintergrund sichern den Treffer (eine komplett durchsichtige Fläche wird in
-	   s&box sonst nicht zuverlässig getroffen). */
 	.test-btn {
 		position: absolute;
 		left: 40px;
@@ -176,9 +350,6 @@
 		transition: background-color 0.1s ease;
 	}
 
-	/* Hover: leichtes Abdunkeln. Der Button ist ein (fast durchsichtiges) Overlay
-	   ÜBER dem echten "Zurück"-Button-Graphic – ein halbtransparentes Schwarz
-	   tönt den darunterliegenden Button, sodass er beim Hovern dunkler wirkt. */
 	.test-btn:hover {
 		background-color: rgba(0, 0, 0, 0.2);
 	}
@@ -196,7 +367,7 @@
 	[Property] public Texture PillarInactive { get; set; }  // AltarSäule_Inaktiv (Kerze aus)
 
 	[Group( "Altar UI – Buttons" )]
-	[Property] public Texture Button { get; set; }          // Button_AltarMenu (Zurück + pro Säule)
+	[Property] public Texture Button { get; set; }          // Button_AltarMenu (Zurück + pro Säule + Opfern)
 
 	// Eine Säule pro Eintrag. Standard: die 4 Götter – im Inspector nur noch das
 	// jeweilige Icon (z.B. Maat_Altar) zuweisen, Namen anpassen oder umsortieren.
@@ -210,29 +381,71 @@
 	};
 
 	// ====================================================================
-	//  Lokaler UI-Zustand (kein [Sync] – Auswahl ist pro Client)
+	//  Lokaler UI-Zustand (welcher Gott wird gerade betrachtet – pro Client)
 	// ====================================================================
 
-	private int SelectedIndex { get; set; } = -1;   // -1 = keine Säule aktiv
+	private int SelectedIndex { get; set; } = -1;   // -1 = keine Säule betrachtet
 
 	int PowerCount => Powers?.Count ?? 0;
 
+	// ---- Abgeleitete Werte aus den host-autoritativen Managern ----
+
+	int LocalPG => PublicityCurrencyManager.LocalCurrency;
+	ulong LocalSteamId => PublicityCurrencyManager.LocalSteamId;
+
+	GodId OwnedGod => AltarUpgradeManager.LocalChoice.God;
+	int OwnedLevel => AltarUpgradeManager.LocalChoice.Level;
+
+	GodId SelectedGod => ( SelectedIndex >= 0 && SelectedIndex < PowerCount )
+		? AltarUpgradeManager.ParseGod( Powers[SelectedIndex].Name )
+		: GodId.None;
+
+	int SelectedOwnedLevel => ( SelectedGod == OwnedGod && OwnedGod != GodId.None ) ? OwnedLevel : 0;
+
+	// -1 = bereits maximal ausgebaut; 0 = gratis; sonst PG-Preis der nächsten Stufe.
+	int SelectedCost => SelectedGod == GodId.None
+		? -1
+		: AltarUpgradeManager.CostForNextLevel( LocalSteamId, SelectedGod );
+
+	int NextLevelForSelected => ( SelectedGod == OwnedGod && OwnedGod != GodId.None ) ? OwnedLevel + 1 : 1;
+
+	bool IsSwitch => OwnedGod != GodId.None && SelectedGod != GodId.None && SelectedGod != OwnedGod;
+
+	bool CanAfford => SelectedCost >= 0 && LocalPG >= SelectedCost;
+
+	string CostLabel => SelectedCost == 0 ? "Gratis" : $"{SelectedCost} PG";
+
+	// ====================================================================
+	//  Interaktion
+	// ====================================================================
+
 	void Select( int index )
 	{
-		// Erneuter Klick auf die aktive Säule hebt die Auswahl wieder auf.
+		LobbyUISFX.Instance?.PlayButtonSound();
+		// Erneuter Klick auf die betrachtete Säule schließt das Detail-Panel wieder.
 		SelectedIndex = (SelectedIndex == index) ? -1 : index;
+	}
+
+	// Kauf/Upgrade des gerade betrachteten Gottes. Host prüft Kosten/PG erneut
+	// autoritativ; die lokalen Guards sind nur für sofortiges UI-Feedback.
+	void BuySelected()
+	{
+		if ( SelectedGod == GodId.None ) return;
+		if ( SelectedCost < 0 ) return;   // maxed
+		if ( !CanAfford ) return;         // zu wenig PG
+
+		LobbyUISFX.Instance?.PlayButtonSound();
+		AltarUpgradeManager.Instance?.RequestPurchaseRpc( (int)SelectedGod );
 	}
 
 	// Zurück zum Lobby-Screen (AltarGUI aus, LobbyGUI an). Zentral im LobbyManager.
 	void GoBack() => LobbyManager.Instance?.ShowLobby();
 
 	// TEST-Button: Ein Linksklick irgendwo auf dem Vollbild-Button wechselt zurück
-	// auf den Lobby-Screen. Nutzt dieselbe Umschalt-Logik wie GoBack/der Test-Button
-	// in der LobbyGUI (AltarGUIScreen-Node aus, LobbyGUIScreen-Node an).
+	// auf den Lobby-Screen (gleiche Umschalt-Logik wie GoBack).
 	void TestSwitchToLobby()
 	{
 		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
-		Log.Info( $"[AltarGUI] TEST-Button geklickt. LobbyManager.Instance = {(LobbyManager.Instance is null ? "NULL" : "OK")}" );
 		LobbyManager.Instance?.ShowLobby();
 	}
 
@@ -249,16 +462,23 @@
 
 		SetBgAll( root, "back-btn", Button );
 		SetBgAll( root, "pillar-btn", Button );
+		SetBgAll( root, "buy-btn", Button );
 
-		// Säulen in DOM-Reihenfolge den Powers zuordnen (gleiche Reihenfolge wie
-		// die for-Schleife im Markup).
+		var ownedGod = OwnedGod;
+
+		// Säulen in DOM-Reihenfolge den Powers zuordnen (gleiche Reihenfolge wie die
+		// for-Schleife im Markup). Die "aktive" (brennende) Säule ist der GEKAUFTE Gott.
 		var cols = FindByClass( root, "pillar-col" ).ToList();
 		for ( int i = 0; i < cols.Count; i++ )
 		{
 			var pillar = FindByClass( cols[i], "pillar" ).FirstOrDefault();
 			var icon = FindByClass( cols[i], "pillar-icon" ).FirstOrDefault();
 
-			SetBg( pillar, i == SelectedIndex ? PillarActive : PillarInactive );
+			bool owned = i < PowerCount
+				&& ownedGod != GodId.None
+				&& AltarUpgradeManager.ParseGod( Powers[i].Name ) == ownedGod;
+
+			SetBg( pillar, owned ? PillarActive : PillarInactive );
 			if ( i < PowerCount )
 				SetBg( icon, Powers[i].Icon );
 		}
@@ -307,11 +527,17 @@
 		Mouse.Visibility = MouseVisibility.Visible;
 	}
 
+	// Rebuild, sobald sich die betrachtete Säule, die PG oder die gekaufte
+	// Auswahl/Stufe ändern (BuildHash wird jeden Frame geprüft).
 	protected override int BuildHash()
 	{
+		var choice = AltarUpgradeManager.LocalChoice;
 		var hash = new HashCode();
 		hash.Add( SelectedIndex );
 		hash.Add( PowerCount );
+		hash.Add( LocalPG );
+		hash.Add( (int)choice.God );
+		hash.Add( choice.Level );
 		if ( Powers != null )
 			foreach ( var p in Powers )
 				hash.Add( p?.Name );
