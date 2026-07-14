@@ -180,118 +180,6 @@
       ]
     },
     {
-      "__guid": "01ca91ad-2ba9-41a5-ac69-d5964aa4808d",
-      "__version": 2,
-      "Flags": 0,
-      "Name": "racetrack",
-      "Position": "21041.623,-7504.20508,244.399017",
-      "Rotation": "0,0,0.258819044,0.965925813",
-      "Scale": "6,6,5",
-      "Tags": "world",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkFlags": 0,
-      "NetworkOrphaned": 0,
-      "NetworkTransmit": true,
-      "OwnerTransfer": 1,
-      "Components": [
-        {
-          "__type": "Sandbox.MeshComponent",
-          "__guid": "df6f6444-017c-4ef9-a76f-3052487ea65a",
-          "__enabled": true,
-          "Flags": 0,
-          "ColliderFlags": 0,
-          "Collision": "Mesh",
-          "Color": "0.94419,0.94419,0.80805,1",
-          "Elasticity": null,
-          "Friction": null,
-          "HideInGame": false,
-          "IsTrigger": false,
-          "Mesh": {
-            "Data": {
-              "$blob": "df0ead28-6d5d-40b0-b647-4bd3cfa0aeec"
-            },
-            "Materials": [
-              "materials/t_waves_pyramide.vmat"
-            ]
-          },
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "OnObjectTriggerEnter": null,
-          "OnObjectTriggerExit": null,
-          "OnTriggerEnter": null,
-          "OnTriggerExit": null,
-          "RenderType": "On",
-          "RollingResistance": null,
-          "SmoothingAngle": 180,
-          "Static": true,
-          "Surface": null,
-          "SurfaceVelocity": "0,0,0"
-        }
-      ],
-      "Children": []
-    },
-    {
-      "__guid": "7304f900-c15c-41bb-abba-ed6c35d91efb",
-      "__version": 2,
-      "Flags": 0,
-      "Name": "racetrackmauer",
-      "Position": "21041.623,-7504.20508,131.239105",
-      "Rotation": "0,0,0.258819044,0.965925813",
-      "Scale": "6,6,5",
-      "Tags": "world",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkFlags": 0,
-      "NetworkOrphaned": 0,
-      "NetworkTransmit": true,
-      "OwnerTransfer": 1,
-      "Components": [
-        {
-          "__type": "Sandbox.MeshComponent",
-          "__guid": "cf6180fb-7a5f-4284-9f83-2ef03c2948e5",
-          "__enabled": true,
-          "Flags": 0,
-          "ColliderFlags": 0,
-          "Collision": "Mesh",
-          "Color": "0.79608,0.67451,0.31373,1",
-          "Elasticity": null,
-          "Friction": null,
-          "HideInGame": false,
-          "IsTrigger": false,
-          "Mesh": {
-            "Data": {
-              "$blob": "69ae8e83-3055-48f3-9ea0-8e8c6835e8d3"
-            },
-            "Materials": [
-              "materials/t_waves_pyramide.vmat"
-            ]
-          },
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "OnObjectTriggerEnter": null,
-          "OnObjectTriggerExit": null,
-          "OnTriggerEnter": null,
-          "OnTriggerExit": null,
-          "RenderType": "On",
-          "RollingResistance": null,
-          "SmoothingAngle": 180,
-          "Static": true,
-          "Surface": null,
-          "SurfaceVelocity": "0,0,0"
-        }
-      ],
-      "Children": []
-    },
-    {
       "__guid": "5a02766f-86a7-4daa-903a-c1bc09c9bcf2",
       "__version": 2,
       "Flags": 0,
@@ -2583,144 +2471,6 @@
               }
             }
           ]
-        },
-        {
-          "__guid": "5eb6ee73-294c-4d9f-bc17-f19cebb95451",
-          "__version": 2,
-          "Flags": 0,
-          "Name": "m_pyramide_m",
-          "Position": "7452.08984,-2092.20703,-200.630859",
-          "Rotation": "0,0,0.0839082301,0.996473491",
-          "Scale": "0.349999994,0.349999994,0.239999995",
-          "Tags": "",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkFlags": 0,
-          "NetworkOrphaned": 0,
-          "NetworkTransmit": true,
-          "OwnerTransfer": 1,
-          "Components": [
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "970bf8e0-c067-4e4b-bf50-ba4db397a8bc",
-              "__enabled": true,
-              "Flags": 0,
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "LodOverride": null,
-              "MaterialGroup": null,
-              "MaterialOverride": "materials/t_waves_pyramide.vmat",
-              "Materials": null,
-              "Model": "models/m_pyramide_m.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
-              "Tint": "0.95349,0.72221,0.2927,1"
-            }
-          ],
-          "Children": []
-        },
-        {
-          "__guid": "9fa288f6-56ad-4223-a1bf-b336bccdd6e5",
-          "__version": 2,
-          "Flags": 0,
-          "Name": "m_pyramide_m (1)",
-          "Position": "14214.002,892.3125,-379.861328",
-          "Rotation": "-0,0,-0.999548078,-0.0300610512",
-          "Scale": "0.300000012,0.300000012,0.200000003",
-          "Tags": "",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkFlags": 0,
-          "NetworkOrphaned": 0,
-          "NetworkTransmit": true,
-          "OwnerTransfer": 1,
-          "Components": [
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "f0077a35-35d5-43b4-9765-03b3d1016b1d",
-              "__enabled": true,
-              "Flags": 0,
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "LodOverride": null,
-              "MaterialGroup": null,
-              "MaterialOverride": "materials/t_waves_pyramide.vmat",
-              "Materials": null,
-              "Model": "models/m_pyramide_m.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
-              "Tint": "1,0.72163,0.20465,1"
-            }
-          ],
-          "Children": []
-        },
-        {
-          "__guid": "ad2f8bd2-2943-4152-b9e9-3ca923326a8c",
-          "__version": 2,
-          "Flags": 0,
-          "Name": "m_pyramide_m (2)",
-          "Position": "781.520935,-2984.0415,-242.161621",
-          "Rotation": "0,0,0.258819044,0.965925813",
-          "Scale": "0.349999994,0.349999994,0.300000012",
-          "Tags": "",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkFlags": 0,
-          "NetworkOrphaned": 0,
-          "NetworkTransmit": true,
-          "OwnerTransfer": 1,
-          "Components": [
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "8810ffa1-618e-4e6e-b178-3136c6bb7b6f",
-              "__enabled": true,
-              "Flags": 0,
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "LodOverride": null,
-              "MaterialGroup": null,
-              "MaterialOverride": "materials/t_waves_pyramide.vmat",
-              "Materials": null,
-              "Model": "models/m_pyramide_m.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "On",
-              "Tint": "1,0.72163,0.20465,1"
-            }
-          ],
-          "Children": []
         },
         {
           "__guid": "10c82f3c-e294-413e-adaa-66dba404bb5a",
@@ -6572,6 +6322,294 @@
             }
           ],
           "Children": []
+        },
+        {
+          "__guid": "d33bb5d4-efff-4de9-89e0-c81c8715832a",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "Pyramids",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [],
+          "Children": [
+            {
+              "__guid": "ad2f8bd2-2943-4152-b9e9-3ca923326a8c",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_pyramide_m (2)",
+              "Position": "781.520935,-2984.0415,-242.161621",
+              "Rotation": "0,0,0.258819044,0.965925813",
+              "Scale": "0.349999994,0.349999994,0.300000012",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "8810ffa1-618e-4e6e-b178-3136c6bb7b6f",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves_pyramide.vmat",
+                  "Materials": null,
+                  "Model": "models/m_pyramide_m.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,0.72163,0.20465,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "9fa288f6-56ad-4223-a1bf-b336bccdd6e5",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_pyramide_m (1)",
+              "Position": "14214.002,892.3125,-379.861328",
+              "Rotation": "-0,0,-0.999548078,-0.0300610512",
+              "Scale": "0.300000012,0.300000012,0.200000003",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "f0077a35-35d5-43b4-9765-03b3d1016b1d",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves_pyramide.vmat",
+                  "Materials": null,
+                  "Model": "models/m_pyramide_m.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "1,0.72163,0.20465,1"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "5eb6ee73-294c-4d9f-bc17-f19cebb95451",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "m_pyramide_m",
+              "Position": "7452.08984,-2092.20703,-200.630859",
+              "Rotation": "0,0,0.0839082301,0.996473491",
+              "Scale": "0.349999994,0.349999994,0.239999995",
+              "Tags": "",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.ModelRenderer",
+                  "__guid": "970bf8e0-c067-4e4b-bf50-ba4db397a8bc",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "BodyGroups": 18446744073709551615,
+                  "CreateAttachments": false,
+                  "LodOverride": null,
+                  "MaterialGroup": null,
+                  "MaterialOverride": "materials/t_waves_pyramide.vmat",
+                  "Materials": null,
+                  "Model": "models/m_pyramide_m.vmdl",
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "RenderOptions": {
+                    "GameLayer": true,
+                    "OverlayLayer": false,
+                    "BloomLayer": false,
+                    "AfterUILayer": false
+                  },
+                  "RenderType": "On",
+                  "Tint": "0.95349,0.72221,0.2927,1"
+                }
+              ],
+              "Children": []
+            }
+          ]
+        },
+        {
+          "__guid": "3d029809-888c-44ae-bb5e-ded65276d811",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "Track ",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [],
+          "Children": [
+            {
+              "__guid": "7304f900-c15c-41bb-abba-ed6c35d91efb",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "racetrackmauer",
+              "Position": "20516.0898,-18191.2168,-835.623047",
+              "Rotation": "0,0,0.258819044,0.965925813",
+              "Scale": "6,6,5",
+              "Tags": "world",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.MeshComponent",
+                  "__guid": "cf6180fb-7a5f-4284-9f83-2ef03c2948e5",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "ColliderFlags": 0,
+                  "Collision": "Mesh",
+                  "Color": "0.79608,0.67451,0.31373,1",
+                  "Elasticity": null,
+                  "Friction": null,
+                  "HideInGame": false,
+                  "IsTrigger": false,
+                  "Mesh": {
+                    "Data": {
+                      "$blob": "d8010c29-9981-4508-81bb-d7df20e92237"
+                    },
+                    "Materials": [
+                      "materials/t_waves_pyramide.vmat"
+                    ]
+                  },
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnObjectTriggerEnter": null,
+                  "OnObjectTriggerExit": null,
+                  "OnTriggerEnter": null,
+                  "OnTriggerExit": null,
+                  "RenderType": "On",
+                  "RollingResistance": null,
+                  "SmoothingAngle": 180,
+                  "Static": true,
+                  "Surface": null,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "01ca91ad-2ba9-41a5-ac69-d5964aa4808d",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "racetrack",
+              "Position": "20516.0898,-18191.2168,-722.463135",
+              "Rotation": "0,0,0.258819044,0.965925813",
+              "Scale": "6,6,5",
+              "Tags": "world",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.MeshComponent",
+                  "__guid": "df6f6444-017c-4ef9-a76f-3052487ea65a",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "ColliderFlags": 0,
+                  "Collision": "Mesh",
+                  "Color": "0.94419,0.94419,0.80805,1",
+                  "Elasticity": null,
+                  "Friction": null,
+                  "HideInGame": false,
+                  "IsTrigger": false,
+                  "Mesh": {
+                    "Data": {
+                      "$blob": "a92158f9-2409-4c08-a87d-38812151ac99"
+                    },
+                    "Materials": [
+                      "materials/t_waves_pyramide.vmat"
+                    ]
+                  },
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnObjectTriggerEnter": null,
+                  "OnObjectTriggerExit": null,
+                  "OnTriggerEnter": null,
+                  "OnTriggerExit": null,
+                  "RenderType": "On",
+                  "RollingResistance": null,
+                  "SmoothingAngle": 180,
+                  "Static": true,
+                  "Surface": null,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ],
+              "Children": []
+            }
+          ]
         }
       ]
     },
