@@ -48,6 +48,14 @@ public sealed class PlayerItemTracker : Component
 	[Property, Group( "Input" )]
 	public string UseAction { get; set; } = "UseItem";
 
+	/// <summary>
+	/// Fixed delay (seconds) between driving into an item box and actually receiving the
+	/// item. Replaces the old "wait for the pickup jingle to finish" gate — the pickup
+	/// sounds now play purely for feedback and no longer control when the grant happens.
+	/// </summary>
+	[Property, Group( "Items" ), Range( 0f, 10f )]
+	public float PickupDelaySeconds { get; set; } = 2f;
+
 	[Property, Group( "Debug" )]
 	public bool DebugLog { get; set; } = true;
 
@@ -55,9 +63,9 @@ public sealed class PlayerItemTracker : Component
 	[Sync] public string HeldItemKey { get; set; } = "";
 
 	/// <summary>
-	/// True while a pickup's sound sequence is playing but the item hasn't been granted
-	/// yet. [Sync] so the host's ItemPrefab sees it too and won't let a SECOND box start
-	/// granting during the jingle. Owner-written.
+	/// True while a pickup's delay timer is running but the item hasn't been granted yet.
+	/// [Sync] so the host's ItemPrefab sees it too and won't let a SECOND box start granting
+	/// during the delay. Owner-written.
 	/// </summary>
 	[Sync] public bool PickupPending { get; set; }
 
@@ -83,8 +91,8 @@ public sealed class PlayerItemTracker : Component
 	public bool HasItem => !string.IsNullOrEmpty( HeldItemKey );
 
 	/// <summary>
-	/// True if the slot is occupied OR a pickup jingle is mid-flight. The item box
-	/// checks this so a power can't be granted twice while the sounds are still playing.
+	/// True if the slot is occupied OR a pickup delay timer is mid-flight. The item box
+	/// checks this so a power can't be granted twice while a pickup is still resolving.
 	/// </summary>
 	public bool IsBusy => HasItem || PickupPending;
 
@@ -128,30 +136,33 @@ public sealed class PlayerItemTracker : Component
 	}
 
 	/// <summary>
-	/// Pickup entry point used by the item box. Runs on the OWNING client. Plays the
-	/// ItemSoundPlayer's two-clip jingle (Sound 1 → Sound 2) FIRST and only grants the
-	/// item once the second clip finishes — so the sounds delay the pickup. Falls back
-	/// to an instant grant if there's no ItemSoundPlayer on the player.
+	/// Pickup entry point used by the item box. Runs on the OWNING client. Starts the
+	/// ItemSoundPlayer's jingle purely for feedback (fire-and-forget) and grants the item
+	/// after a fixed <see cref="PickupDelaySeconds"/> timer — the sounds no longer gate the
+	/// grant. If the delay is zero the item is granted immediately.
 	/// </summary>
 	[Rpc.Owner]
 	public void BeginPickupSequenceRpc( string key, GameObject prefab, bool isUltimate )
 	{
 		if ( !CanGrant( key, prefab ) ) return;
 
-		var sfx = FindSoundPlayer();
-		if ( sfx is null )
+		// Play the pickup jingle for feedback only — it's fully decoupled from the grant now.
+		FindSoundPlayer()?.PlayPickupSequence( null );
+
+		if ( PickupDelaySeconds <= 0f )
 		{
-			if ( DebugLog ) Log.Info( "[PlayerItemTracker] No ItemSoundPlayer found — granting instantly (no pickup jingle)." );
+			if ( DebugLog ) Log.Info( $"[PlayerItemTracker] Pickup '{key}' (ult={isUltimate}) — no delay, granting now." );
 			DoGrant( key, prefab, isUltimate );
 			return;
 		}
 
-		// Mark busy so a second box hit during the jingle can't also grant. [Sync] so
-		// the host's ItemPrefab sees it. Cleared inside DoGrant when the sequence ends.
+		// Mark busy so a second box hit during the delay can't also grant. [Sync] so the
+		// host's ItemPrefab sees it. Cleared inside DoGrant when the timer elapses.
 		PickupPending = true;
-		if ( DebugLog ) Log.Info( $"[PlayerItemTracker] Pickup '{key}' (ult={isUltimate}) — playing sound sequence, granting after it finishes." );
+		if ( DebugLog ) Log.Info( $"[PlayerItemTracker] Pickup '{key}' (ult={isUltimate}) — granting in {PickupDelaySeconds}s." );
 
-		sfx.PlayPickupSequence( () => DoGrant( key, prefab, isUltimate ) );
+		// Fixed timer from driving into the box → grant, independent of the sound effects.
+		Invoke( PickupDelaySeconds, () => DoGrant( key, prefab, isUltimate ) );
 	}
 
 	/// <summary>
