@@ -132,7 +132,7 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 		}
 
 		// Mario-Kart rule: if the player already holds something (or is still
-		// lingering on a previous use, or is mid-pickup-jingle), the box stays for the
+		// lingering on a previous use, or is mid-pickup-delay), the box stays for the
 		// next player.
 		if ( tracker.IsBusy )
 		{
@@ -155,15 +155,18 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 		}
 
 		// Roll the variant on the host so it's authoritative and consistent with the
-		// host-side key pick above. 15% (default) → Ultimate, otherwise Normal. The
-		// player no longer chooses; the flag rides along to the tracker's grant.
-		bool isUltimate = Random.Shared.Float( 0f, 1f ) < UltimateChance;
+		// host-side key pick above. The player no longer chooses; the flag rides along to
+		// the grant. Base chance is this box's UltimateChance plus any per-player bonus
+		// (Laverna's Opferaltar level-3 "+5% ULT chance"), clamped to [0..1].
+		float extraUlt = FindModifiersOnPlayer( tracker )?.ExtraUltimateChance ?? 0f;
+		float ultChance = Math.Clamp( UltimateChance + extraUlt, 0f, 1f );
+		bool isUltimate = Random.Shared.Float( 0f, 1f ) < ultChance;
 
-		// Plays the pickup jingle (Sound 1 → Sound 2) on the player and grants the item
-		// only after the second clip finishes — so the sound delays the grant.
+		// Starts the pickup jingle (feedback only) and grants the item after the tracker's
+		// fixed PickupDelaySeconds timer — the sounds no longer delay the grant.
 		tracker.BeginPickupSequenceRpc( key, prefab, isUltimate );
 
-		if ( DebugLog ) Log.Info( $"[ItemPrefab] Pickup '{key}' (ult={isUltimate}) by {other.GameObject?.Name} — sound sequence started, hiding box." );
+		if ( DebugLog ) Log.Info( $"[ItemPrefab] Pickup '{key}' (ult={isUltimate}) by {other.GameObject?.Name} — pickup timer started, hiding box." );
 
 		Available = false;
 		float wait = Random.Shared.Float( MinRespawnSeconds, MaxRespawnSeconds );
@@ -208,6 +211,18 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 			node = node.Parent;
 		}
 		return null;
+	}
+
+	/// <summary>
+	/// Resolve the entering player's <see cref="PlayerRaceModifiers"/> (may be null).
+	/// Its <c>ExtraUltimateChance</c> is the Opferaltar's per-player ULT bonus. Found
+	/// from the tracker's player root so it works regardless of where the component sits.
+	/// </summary>
+	private static PlayerRaceModifiers FindModifiersOnPlayer( PlayerItemTracker tracker )
+	{
+		if ( tracker is null ) return null;
+		var root = tracker.PlayerRoot.IsValid() ? tracker.PlayerRoot : tracker.GameObject?.Root;
+		return root?.Components.Get<PlayerRaceModifiers>( FindMode.EverythingInSelfAndDescendants );
 	}
 
 	/// <summary>

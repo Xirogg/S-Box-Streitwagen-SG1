@@ -59,6 +59,10 @@ public sealed class PublicityCurrencyManager : Component
 	private static readonly HashSet<ulong> Bounties = new();
 	private static readonly HashSet<ulong> FinishRewarded = new();
 
+	// Per-player PG-earn bonus (Dionysos Opferaltar level-3 "+5% PG"). 0.05 = +5%.
+	// Host-only; set fresh each race by AltarUpgradeManager, so it's cleared on load.
+	private static readonly Dictionary<ulong, float> CurrencyBonusPercent = new();
+
 	// ---------- Client-visible mirror ----------
 
 	private static readonly Dictionary<ulong, int> ClientMirror = new();
@@ -90,6 +94,7 @@ public sealed class PublicityCurrencyManager : Component
 			RaceBonusEarned.Clear();
 			BountyMalusAppliedBy.Clear();
 			FinishRewarded.Clear();
+			CurrencyBonusPercent.Clear();
 
 			var rm = RaceManager.Instance;
 			if ( rm != null )
@@ -217,6 +222,23 @@ public sealed class PublicityCurrencyManager : Component
 		return true;
 	}
 
+	/// <summary>
+	/// Host-only. Set a player's PG-earn bonus (0.05 = +5%). Applied to POSITIVE rewards
+	/// only — finish rewards and capped combat rewards — never to spends or the bounty
+	/// malus. Set by <see cref="AltarUpgradeManager"/> at race start for Dionysos level 3.
+	/// Passing 0 removes the entry.
+	/// </summary>
+	public static void SetCurrencyBonusPercent( ulong steamId, float pct )
+	{
+		if ( !Networking.IsHost ) return;
+		if ( steamId == 0 ) return;
+
+		if ( pct == 0f )
+			CurrencyBonusPercent.Remove( steamId );
+		else
+			CurrencyBonusPercent[steamId] = pct;
+	}
+
 	// ---------- Internals ----------
 
 	private void HandlePlayerFinished( PlayerLapTracker tracker )
@@ -236,12 +258,16 @@ public sealed class PublicityCurrencyManager : Component
 			: 0;
 		if ( reward <= 0 ) return;
 
-		AddCurrency( steamId, reward );
+		AddCurrency( steamId, ApplyCurrencyBonus( steamId, reward ) );
 	}
 
 	private static void AwardCapped( ulong steamId, int amount )
 	{
 		if ( amount <= 0 ) return;
+
+		// Boost the combat reward by the player's PG bonus first, then cap. The +50/race
+		// cap therefore counts the boosted amounts (a bonus can't be used to blow past it).
+		amount = ApplyCurrencyBonus( steamId, amount );
 
 		RaceBonusEarned.TryGetValue( steamId, out var earned );
 		int remaining = BonusCapPerRace - earned;
@@ -250,6 +276,19 @@ public sealed class PublicityCurrencyManager : Component
 		int give = Math.Min( amount, remaining );
 		RaceBonusEarned[steamId] = earned + give;
 		AddCurrency( steamId, give );
+	}
+
+	/// <summary>
+	/// Scale a positive reward by the player's <see cref="CurrencyBonusPercent"/>
+	/// (Dionysos altar level-3). Rounds to nearest int. Non-positive amounts pass
+	/// through unchanged so spends and the bounty malus are never inflated.
+	/// </summary>
+	private static int ApplyCurrencyBonus( ulong steamId, int amount )
+	{
+		if ( amount <= 0 ) return amount;
+		if ( !CurrencyBonusPercent.TryGetValue( steamId, out var pct ) || pct == 0f )
+			return amount;
+		return (int)MathF.Round( amount * (1f + pct) );
 	}
 
 	private static void ApplyBountyConsequences( ulong attackerSteamId, ulong victimSteamId )
