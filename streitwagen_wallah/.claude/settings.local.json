@@ -17,7 +17,8 @@
       "Bash(python -m pip install --quiet pypdf)",
       "Bash(python -c \"import uuid; print\\(uuid.uuid4\\(\\)\\); print\\(uuid.uuid4\\(\\)\\)\")",
       "Bash(grep -nB6 '\"Name\": \"Wagen \",' \"Assets/Prefabs/PlayerChariot .prefab\")",
-      "Bash(timeout 180 dotnet build streitwagen_wallah.csproj -v quiet -nologo)"
+      "Bash(timeout 180 dotnet build streitwagen_wallah.csproj -v quiet -nologo)",
+      "Bash(dotnet build *)"
     ]
   }
 }

@@ -54,6 +54,15 @@ public sealed class AltarUpgradeManager : Component
 
 	public const int MaxLevel = 3;
 
+	/// <summary>
+	/// DEBUG: when true, every upgrade is free — <see cref="CostForNextLevel"/> reports 0 and
+	/// <see cref="RequestPurchaseRpc"/> skips the PG deduction entirely. Toggle it live via the
+	/// "Debug – Gratis-Upgrades" checkbox on the AltarGUI component (it mirrors this flag each
+	/// frame). Enforced on the host (the authority), so it works in solo/host editor sessions.
+	/// The MaxLevel cap and the "one god only, switching resets" rule still apply.
+	/// </summary>
+	public static bool DebugFreeUpgrades { get; set; }
+
 	/// <summary>Chance (0..1) that L1+ starts the race with the god's ULTIMATE item.</summary>
 	public const float UltRollChance = 0.10f;
 
@@ -184,6 +193,8 @@ public sealed class AltarUpgradeManager : Component
 		int targetLevel = (god == cur.God) ? cur.Level + 1 : 1;
 		if ( targetLevel > MaxLevel ) return -1;
 
+		if ( DebugFreeUpgrades ) return 0;   // debug: everything free
+
 		int cost = CostForLevel( targetLevel );
 		if ( targetLevel == 1 && PublicityCurrencyManager.GetCurrency( steamId ) == 0 )
 			cost = 0;
@@ -238,6 +249,9 @@ public sealed class AltarUpgradeManager : Component
 		int cost = CostForLevel( targetLevel );
 		if ( targetLevel == 1 && PublicityCurrencyManager.GetCurrency( steamId ) == 0 )
 			cost = 0; // first favor is free while broke (e.g. first race)
+
+		if ( DebugFreeUpgrades )
+			cost = 0; // debug: skip the PG cost entirely
 
 		if ( cost > 0 && !PublicityCurrencyManager.TryModify( steamId, -cost ) )
 			return; // not enough PG
