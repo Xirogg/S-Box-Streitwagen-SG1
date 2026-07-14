@@ -69,7 +69,7 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Track": "Rom"
+          "Track": "Egypt"
         },
         {
           "__type": "LapSystem.Rankings.RaceRankingManager",
@@ -6527,7 +6527,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "c4b5f9a6-21e8-413b-895b-497673e01c2d"
+                      "$blob": "81d1bc37-1995-4524-94d9-ce706fba5927"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6583,7 +6583,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "3fc8533d-9832-4947-8f5e-85464b394b8b"
+                      "$blob": "08af1769-5384-4fb0-ad53-77142298cb01"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6639,7 +6639,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "cc73089a-802a-4798-9cb4-ef7cf93a92b8"
+                      "$blob": "fff954e5-c407-48ac-aef6-815accccaab2"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
