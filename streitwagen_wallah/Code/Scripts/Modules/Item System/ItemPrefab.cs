@@ -132,7 +132,7 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 		}
 
 		// Mario-Kart rule: if the player already holds something (or is still
-		// lingering on a previous use, or is mid-pickup-jingle), the box stays for the
+		// lingering on a previous use, or is mid-pickup-delay), the box stays for the
 		// next player.
 		if ( tracker.IsBusy )
 		{
@@ -162,11 +162,11 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 		float ultChance = Math.Clamp( UltimateChance + extraUlt, 0f, 1f );
 		bool isUltimate = Random.Shared.Float( 0f, 1f ) < ultChance;
 
-		// Plays the pickup jingle (Sound 1 → Sound 2) on the player and grants the item
-		// only after the second clip finishes — so the sound delays the grant.
+		// Starts the pickup jingle (feedback only) and grants the item after the tracker's
+		// fixed PickupDelaySeconds timer — the sounds no longer delay the grant.
 		tracker.BeginPickupSequenceRpc( key, prefab, isUltimate );
 
-		if ( DebugLog ) Log.Info( $"[ItemPrefab] Pickup '{key}' (ult={isUltimate}) by {other.GameObject?.Name} — sound sequence started, hiding box." );
+		if ( DebugLog ) Log.Info( $"[ItemPrefab] Pickup '{key}' (ult={isUltimate}) by {other.GameObject?.Name} — pickup timer started, hiding box." );
 
 		Available = false;
 		float wait = Random.Shared.Float( MinRespawnSeconds, MaxRespawnSeconds );

@@ -2583,6 +2583,37 @@
           }
         ],
         "Children": []
+      },
+      {
+        "__guid": "e2b9fea5-93db-42db-9b9d-0d5e1cd88ea8",
+        "__version": 2,
+        "Flags": 0,
+        "Name": "Modifiers",
+        "Position": "0,0,0",
+        "Rotation": "0,0,0,1",
+        "Scale": "1,1,1",
+        "Tags": "",
+        "Enabled": true,
+        "NetworkMode": 1,
+        "NetworkFlags": 0,
+        "NetworkOrphaned": 0,
+        "NetworkTransmit": true,
+        "OwnerTransfer": 1,
+        "Components": [
+          {
+            "__type": "PlayerRaceModifiers",
+            "__guid": "d5ea045d-a0ad-4d81-b8e5-20399b6ebcc5",
+            "__enabled": true,
+            "Flags": 0,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
+          }
+        ],
+        "Children": []
       }
     ],
     "__properties": {
