@@ -208,7 +208,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "d3df7764-d74a-41dd-9cbf-aa622bdd2118"
+              "$blob": "80944c79-50ed-4ba4-89ab-312855b74537"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
@@ -264,7 +264,7 @@
           "IsTrigger": false,
           "Mesh": {
             "Data": {
-              "$blob": "9393c439-16b1-420f-a32a-82abbbc2693b"
+              "$blob": "fe4edae6-c59a-4ddc-95f0-3ba3f83ace4d"
             },
             "Materials": [
               "materials/t_waves_pyramide.vmat"
@@ -6620,7 +6620,7 @@
               "OnComponentUpdate": null,
               "SkyIndirectLighting": true,
               "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
-              "Tint": "1,1,1,1"
+              "Tint": "1,0.71535,0.52558,1"
             },
             {
               "__type": "Sandbox.EnvmapProbe",
@@ -6695,7 +6695,7 @@
               "ShadowCascadeSplitRatio": 0,
               "ShadowHardness": 1,
               "Shadows": true,
-              "SkyColor": "0.98667,1,0.6,1",
+              "SkyColor": "0.32215,0.32558,0.22261,1",
               "Visualizer": {}
             }
           ],
