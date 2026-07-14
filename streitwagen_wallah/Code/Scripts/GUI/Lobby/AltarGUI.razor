@@ -26,8 +26,10 @@
 
 <root>
 	<div class="topbar">
-		<div class="back-btn" onclick="@GoBack">
-			<div class="btn-label">Zurück</div>
+		<div class="back-btn">
+			<div class="btn-overlay" onclick="@GoBack">
+				<div class="btn-label">Zurück</div>
+			</div>
 		</div>
 		<div class="pg-display">Publikumsgunst: @LocalPG PG</div>
 	</div>
@@ -52,9 +54,10 @@
 					}
 				</div>
 
-				<div class="pillar-btn god-btn" onclick="@(() => Select( idx ))">
-					<div class="btn-label">@power.Name</div>
-					<div class="hover-shade"></div>
+				<div class="pillar-btn">
+					<div class="btn-overlay god-btn" onclick="@(() => Select( idx ))">
+						<div class="btn-label">@power.Name</div>
+					</div>
 				</div>
 			</div>
 		}
@@ -81,9 +84,10 @@
 						<div class="detail-warn">Wechsel setzt @AltarUpgradeManager.DisplayName( OwnedGod ) zurück (keine Rückerstattung)!</div>
 					}
 
-					<div class="buy-btn @( CanAfford ? "" : "disabled" )" onclick="@BuySelected">
-						<div class="btn-label">Opfern</div>
-						<div class="hover-shade"></div>
+					<div class="buy-btn @( CanAfford ? "" : "disabled" )">
+						<div class="btn-overlay" onclick="@BuySelected">
+							<div class="btn-label">Opfern</div>
+						</div>
 					</div>
 				}
 			</div>
@@ -127,15 +131,6 @@
 		height: 120px;
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		transition: transform 0.1s ease;
-	}
-
-	.back-btn:hover {
-		transform: scale( 1.04 );
-		filter: brightness( 0.8 );
 	}
 
 	.pg-display {
@@ -224,32 +219,26 @@
 		height: 92px;
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		transition: transform 0.1s ease;
 	}
 
-	.pillar-btn:hover {
-		transform: scale( 1.05 );
-	}
-
-	/* Abdunkeln beim Hovern: ein Vollflächen-Overlay über der Button-Grafik, das
-	   von transparent auf halb-schwarz blendet (der "Shader"-Effekt in CSS). */
-	.hover-shade {
+	/* Klick-/Hover-Fläche über der Button-Grafik. Gleicher Hover-"Shader" wie die
+	   LobbyGUI-Buttons (.altar-btn/.ready-btn ...): leicht abdunkeln, indem eine
+	   transparente Fläche beim Hovern von rgba(0,0,0,0.04) auf rgba(0,0,0,0.2) blendet. */
+	.btn-overlay {
 		position: absolute;
 		left: 0;
 		top: 0;
 		width: 100%;
 		height: 100%;
-		background-color: rgba(0, 0, 0, 0);
-		transition: background-color 0.12s ease;
-		pointer-events: none;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		background-color: rgba(0, 0, 0, 0.04);
+		transition: background-color 0.1s ease;
 	}
 
-	.god-btn:hover .hover-shade,
-	.buy-btn:hover .hover-shade {
-		background-color: rgba(0, 0, 0, 0.38);
+	.btn-overlay:hover {
+		background-color: rgba(0, 0, 0, 0.2);
 	}
 
 	.btn-label {
@@ -321,19 +310,19 @@
 		margin-top: 10px;
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		transition: transform 0.1s ease;
-	}
-
-	.buy-btn:hover {
-		transform: scale( 1.05 );
 	}
 
 	.buy-btn.disabled {
 		filter: brightness( 0.45 );
+	}
+
+	/* Deaktiviert: kein Klick-Cursor und kein Hover-Abdunkeln. */
+	.buy-btn.disabled .btn-overlay {
 		cursor: default;
+	}
+
+	.buy-btn.disabled .btn-overlay:hover {
+		background-color: rgba(0, 0, 0, 0.04);
 	}
 
 	/* ----------------------------- TEST-Button ----------------------------- */
