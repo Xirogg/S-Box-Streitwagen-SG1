@@ -6527,7 +6527,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "81d1bc37-1995-4524-94d9-ce706fba5927"
+                      "$blob": "1730e81f-efd8-43a8-b4e3-f55081c4a41c"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6583,7 +6583,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "08af1769-5384-4fb0-ad53-77142298cb01"
+                      "$blob": "26e6102f-2b6d-4fd4-9f1d-ed5de718c7a5"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6639,7 +6639,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "fff954e5-c407-48ac-aef6-815accccaab2"
+                      "$blob": "63b119fe-a7d3-4004-900d-745d6f6a677c"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -7261,6 +7261,14 @@
             },
             "Property": "MinRespawnSeconds",
             "Value": 5
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+            },
+            "Property": "UltimateChance",
+            "Value": 1
           }
         ],
         "MovedObjects": []

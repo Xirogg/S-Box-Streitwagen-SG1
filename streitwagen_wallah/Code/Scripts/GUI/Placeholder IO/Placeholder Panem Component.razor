@@ -325,35 +325,62 @@
 	[Group( "Item Slot" ), Property] public Texture MaAtIcon { get; set; }
 	[Group( "Item Slot" ), Property] public Texture DionysosIcon { get; set; }
 
+	// Ultimate-variant icons. Shown instead of the normal icon above while the held item
+	// was rolled as an Ultimate at pickup (see IsUltimateHeld, driven by
+	// PlayerItemTracker.HeldPower.IsUltimate). Drag the matching ULT PNG into each slot in
+	// the inspector — same asset-pipeline reasoning as the normal icons. Leaving a god's
+	// Ult slot empty is safe: IconForKey falls back to that god's normal icon.
+	[Group( "Item Slot (Ultimate)" ), Property] public Texture LavernaUltIcon { get; set; }
+	[Group( "Item Slot (Ultimate)" ), Property] public Texture TaranisUltIcon { get; set; }
+	[Group( "Item Slot (Ultimate)" ), Property] public Texture MaAtUltIcon { get; set; }
+	[Group( "Item Slot (Ultimate)" ), Property] public Texture DionysosUltIcon { get; set; }
+
 	string ItemSlotPath => ItemSlotTexture?.ResourcePath ?? "";
+
+	// Normal-ability icon for a normalized god key. Split out from IconForKey so the
+	// Ultimate lookup can fall back to it.
+	Texture NormalIconForKey( string norm ) => norm switch
+	{
+		"laverna" => LavernaIcon,
+		"taranis" => TaranisIcon,
+		"maat" => MaAtIcon,
+		"dionysos" => DionysosIcon,
+		_ => null
+	};
+
+	// Ultimate-variant icon for a normalized god key. Returns null when that god's Ult
+	// slot is left empty, so IconForKey can fall back to the normal icon.
+	Texture UltIconForKey( string norm ) => norm switch
+	{
+		"laverna" => LavernaUltIcon,
+		"taranis" => TaranisUltIcon,
+		"maat" => MaAtUltIcon,
+		"dionysos" => DionysosUltIcon,
+		_ => null
+	};
 
 	// Held key -> icon. Keys are free-form editor strings ("Dionysos", "Laverna",
 	// "Ma'at", "Taranis"), so normalize to letters-only lowercase before matching:
-	// "Ma'at" / "ma at" / "MaAt" all collapse to "maat".
-	Texture IconForKey( string key )
+	// "Ma'at" / "ma at" / "MaAt" all collapse to "maat". When the held item is an
+	// Ultimate we prefer its Ult icon, but fall back to the normal icon if that slot
+	// hasn't been assigned yet — never blank the slot just because an Ult icon is missing.
+	Texture IconForKey( string key, bool ultimate )
 	{
 		if ( string.IsNullOrEmpty( key ) ) return null;
 		var norm = new string( key.ToLowerInvariant().Where( char.IsLetter ).ToArray() );
-		return norm switch
-		{
-			"laverna" => LavernaIcon,
-			"taranis" => TaranisIcon,
-			"maat" => MaAtIcon,
-			"dionysos" => DionysosIcon,
-			_ => null
-		};
+		return ( ultimate ? UltIconForKey( norm ) : null ) ?? NormalIconForKey( norm );
 	}
 
 	// Icon for the item the local player currently holds. "" when nothing is held or
 	// the key has no assigned icon — the .item-icon div is then not rendered and only
-	// the ItemSlot frame shows.
+	// the ItemSlot frame shows. Picks the Ultimate variant when the held item is one.
 	string CurrentItemIconPath
 	{
 		get
 		{
 			var t = Items;
 			if ( t is null || !t.HasItem ) return "";
-			return IconForKey( t.HeldItemKey )?.ResourcePath ?? "";
+			return IconForKey( t.HeldItemKey, IsUltimateHeld )?.ResourcePath ?? "";
 		}
 	}
 
