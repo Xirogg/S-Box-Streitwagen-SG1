@@ -6634,7 +6634,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "a2903d9e-5a41-475d-a241-025cbfcba3ad"
+                      "$blob": "5fa61cab-9815-40c7-ac5d-49cc6f0048b7"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6690,7 +6690,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "ec13d8fe-3ab2-4bde-87e5-97b48a8a5ce0"
+                      "$blob": "cfcc85ec-ec8f-41eb-99f0-726d167efff2"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6746,7 +6746,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "9e700d95-266b-42de-918b-a0e54f9c04b5"
+                      "$blob": "cc877814-b609-4cdb-a22d-fe3481a68868"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -7346,7 +7346,7 @@
               "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
             },
             "Property": "UltimateChance",
-            "Value": 0.15
+            "Value": 1
           }
         ],
         "MovedObjects": []

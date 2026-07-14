@@ -173,21 +173,20 @@
 		background-repeat: no-repeat;
 	}
 	/* Ultimate pickup highlight. isUltimate is rolled at pickup and rides on the held
-	   GodPower; the HUD reads it via PlayerItemTracker.HeldPower. We use drop-shadow
-	   (NOT box-shadow) so the red glow follows the ItemSlotTexture's alpha outline
-	   instead of a square halo — box-shadow is always rectangular, drop-shadow traces
-	   the actual non-transparent pixels of the frame image. It pulses between a soft
-	   and a stronger red so the player can tell they're holding the powerful variant. */
+	   GodPower; the HUD reads it via PlayerItemTracker.HeldPower. The ItemSlot texture
+	   is a CIRCLE, so border-radius: 50% rounds the div to match it and the box-shadow
+	   traces that circle — a red ring hugging the frame instead of a square-ish haze.
+	   The 4th box-shadow value is spread (Sandbox.UI.Shadow.Spread): it expands the
+	   shadow outward before the blur, giving a thick, clearly visible ring. Bump spread
+	   for a fatter ring, blur for a softer edge. The 0.2s transition fades the glow in
+	   on pickup and out on use — same feel as the lobby button's hover glow. */
 	.item-slot.ultimate {
-		animation: ultimate-slot-pulse 1.3s ease-in-out infinite;
+		border-radius: 200%;
+		box-shadow: 0px 0px 0px 0px rgba(255, 40, 40, 1.00);
+		transition: box-shadow 0.2s ease;
 	}
 	.item-icon.ultimate {
-		filter: saturate( 1.2 );
-	}
-	@@keyframes ultimate-slot-pulse {
-		0% { filter: drop-shadow( 20px 0px 16px rgba(31, 210, 130, 0.11) ); }
-		50% { filter: drop-shadow( 20px 0px 118px rgba(31, 235, 35, 0.85) ); }
-		100% { filter: drop-shadow( 20px 0px 16px rgba(31, 230, 230, 0.45) ); }
+		filter: saturate( 1.15 );
 	}
 	.countdown {
 		position: absolute;
