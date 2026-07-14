@@ -230,7 +230,7 @@
             "LookAheadPerSpeed": 0.03,
             "MaxClimbSpeed": 400,
             "MaxGroundDistance": 60,
-            "MaxStepHeight": 90,
+            "MaxStepHeight": 75,
             "MinMoveSpeed": 30,
             "MinStepHeight": 2,
             "OnComponentDestroy": null,
@@ -1858,6 +1858,36 @@
               },
               "compiled": "textures/generated/imagefile/9b506530d9190167.vtex"
             }
+          },
+          {
+            "__type": "Sandbox.ClimbAssist",
+            "__guid": "30602484-a790-45d4-b619-3034a69b78b1",
+            "__enabled": true,
+            "Flags": 0,
+            "Body": {
+              "_type": "component",
+              "component_id": "4932540a-ba13-4f07-bd43-b3da02c0d833",
+              "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
+              "component_type": "Rigidbody"
+            },
+            "ClimbBoost": 1.25,
+            "DebugLog": false,
+            "FootOffset": 25,
+            "LookAhead": 45,
+            "LookAheadPerSpeed": 0.03,
+            "MaxClimbSpeed": 400,
+            "MaxGroundDistance": 60,
+            "MaxStepHeight": 98.73373,
+            "MinMoveSpeed": 30,
+            "MinStepHeight": 2,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "ProbeCount": 3,
+            "ProbeHalfWidth": 30
           }
         ],
         "Children": [
