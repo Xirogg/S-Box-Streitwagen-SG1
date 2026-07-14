@@ -61,7 +61,7 @@
           "Countdown3Sound": "music/sfx/ingame race/race_sfx_countdown_03.sound",
           "CountdownVolume": 1.4666667,
           "GoSound": "music/sfx/ingame race/race_sfx_countdown_start.sound",
-          "LobbyScene": "scenes/gui scenes/lobbyscene .scene",
+          "LobbyScene": "scenes/gui scenes/lobbyscene.scene",
           "MaxLaps": 1,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
@@ -69,7 +69,7 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Track": "Rom"
+          "Track": "Egypt"
         },
         {
           "__type": "LapSystem.Rankings.RaceRankingManager",
@@ -6527,7 +6527,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "c4b5f9a6-21e8-413b-895b-497673e01c2d"
+                      "$blob": "b1c62b79-b765-457f-81a8-da86811b2647"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6583,7 +6583,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "3fc8533d-9832-4947-8f5e-85464b394b8b"
+                      "$blob": "4082e23d-bcf2-41dd-9325-95ab6010a3ee"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6639,7 +6639,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "cc73089a-802a-4798-9cb4-ef7cf93a92b8"
+                      "$blob": "0e96bca8-3bb1-473d-9ac7-7e7562fd28fe"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -7207,42 +7207,13 @@
           {
             "Target": {
               "Type": "Component",
-              "IdValue": "854a9a97-dde3-4d54-83c1-83f9e60b44f5"
-            },
-            "Property": "MaterialOverride",
-            "Value": "materials/fresnel_effect.vmat"
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "854a9a97-dde3-4d54-83c1-83f9e60b44f5"
-            },
-            "Property": "RenderOptions",
-            "Value": {
-              "GameLayer": true,
-              "OverlayLayer": false,
-              "BloomLayer": true,
-              "AfterUILayer": false
-            }
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "854a9a97-dde3-4d54-83c1-83f9e60b44f5"
-            },
-            "Property": "Tint",
-            "Value": "1,1,1,1"
-          },
-          {
-            "Target": {
-              "Type": "Component",
               "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
             },
             "Property": "ItemPool",
             "Value": {
-              "Ma'at": {
+              "Taranis": {
                 "_type": "gameobject",
-                "prefab": "prefabs/god prefabs/ma'at/ma'atscriptprefab .prefab"
+                "prefab": "prefabs/god prefabs/taranis/taranisscriptprefab.prefab"
               }
             }
           },
@@ -7251,16 +7222,8 @@
               "Type": "Component",
               "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
             },
-            "Property": "MaxRespawnSeconds",
-            "Value": 5
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
-            },
-            "Property": "MinRespawnSeconds",
-            "Value": 5
+            "Property": "UltimateChance",
+            "Value": 1
           }
         ],
         "MovedObjects": []

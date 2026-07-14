@@ -230,7 +230,7 @@
             "LookAheadPerSpeed": 0.03,
             "MaxClimbSpeed": 400,
             "MaxGroundDistance": 60,
-            "MaxStepHeight": 90,
+            "MaxStepHeight": 75,
             "MinMoveSpeed": 30,
             "MinStepHeight": 2,
             "OnComponentDestroy": null,
@@ -1117,15 +1117,18 @@
             "__enabled": true,
             "Flags": 0,
             "Attack": {
-              "BaseValue": 30
+              "BaseValue": 30,
+              "Value": 30
             },
             "Chariot": null,
             "DebugLog": false,
             "Defense": {
-              "BaseValue": 100
+              "BaseValue": 100,
+              "Value": 100
             },
             "MaxSpeedPercent": {
-              "BaseValue": 100
+              "BaseValue": 100,
+              "Value": 100
             },
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -1134,20 +1137,9 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "Weight": {
-              "BaseValue": 100
+              "BaseValue": 100,
+              "Value": 100
             }
-          },
-          {
-            "__type": "PlayerRaceModifiers",
-            "__guid": "a14052cb-0cdc-4520-b3c9-069c6c876c4d",
-            "__enabled": true,
-            "Flags": 0,
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null
           },
           {
             "__type": "ChariotPhysics",
@@ -1337,8 +1329,109 @@
             "ZIndex": 100
           },
           {
+            "__type": "Sandbox.DebugPlaytestPanel",
+            "__guid": "b9d2f1a4-3c7e-4f0a-9e21-7d6c8a1b4e55",
+            "__enabled": true,
+            "Flags": 0,
+            "CycleAction": "DebugCyclePreset",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Presets": [
+              {
+                "Name": "Playtesting 1",
+                "PullForce": 5500,
+                "BrakeForce": null,
+                "SteerTorque": 5500,
+                "MaxAngularSpeed": null,
+                "LateralGrip": null,
+                "MaxSpeed": 2500,
+                "DriftForce": null,
+                "ChariotAngularDamping": null,
+                "ChariotLateralGrip": null,
+                "ChariotMass": null
+              },
+              {
+                "Name": "Playtesting Fast",
+                "PullForce": null,
+                "BrakeForce": null,
+                "SteerTorque": 12525252,
+                "MaxAngularSpeed": null,
+                "LateralGrip": null,
+                "MaxSpeed": null,
+                "DriftForce": null,
+                "ChariotAngularDamping": null,
+                "ChariotLateralGrip": null,
+                "ChariotMass": null
+              },
+              {
+                "Name": "Playtesting Slow",
+                "PullForce": 6500,
+                "BrakeForce": null,
+                "SteerTorque": null,
+                "MaxAngularSpeed": 250,
+                "LateralGrip": 9,
+                "MaxSpeed": null,
+                "DriftForce": null,
+                "ChariotAngularDamping": 3,
+                "ChariotLateralGrip": null,
+                "ChariotMass": null
+              }
+            ],
+            "ToggleAction": "Debugging"
+          },
+          {
+            "__type": "PlayerCollisions",
+            "__guid": "04b3de93-2d79-4e77-861d-90846bc9b7b5",
+            "__enabled": true,
+            "Flags": 0,
+            "AngularImpulseFactor": 0.0008,
+            "BaseImpulse": 2500,
+            "ChariotExtraSpin": 1.6,
+            "ChariotImpulseRatio": 1.1,
+            "CollisionDebrisPrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/debris/chariotdebris.prefab"
+            },
+            "Cooldown": 0.2,
+            "DebugLog": true,
+            "ImpulsePerClosingSpeed": 2500,
+            "LateralBias": 0.55,
+            "MaxImpulse": 20000,
+            "MinClosingSpeed": 0.8,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "SharpSteerMultiplier": 1.8,
+            "VerticalLift": 0.35
+          },
+          {
+            "__type": "MaatKarmaShield",
+            "__guid": "67591755-f7c9-41e1-89c8-a8cc73fa38ec",
+            "__enabled": true,
+            "Flags": 0,
+            "GrapeTag": "grape",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "ShieldColor": "0,1,1,0.35",
+            "ShieldMaterial": null,
+            "ShieldModel": "models/dev/sphere.vmdl",
+            "ShieldOffset": "0,0,3",
+            "ShieldRadius": 2
+          },
+          {
             "__type": "Sandbox.Placeholder_Panem_Component",
-            "__guid": "01aaac77-aac1-4d21-aca7-c9019c5f39ac",
+            "__guid": "5e117cae-cba8-483c-ba7e-77c6f351de39",
             "__enabled": true,
             "Flags": 0,
             "DionysosIcon": {
@@ -1378,6 +1471,44 @@
                 "FormatOverride": "RGBA8888"
               },
               "compiled": "textures/generated/imagefile/109b371f6c6bad73.vtex"
+            },
+            "DionysosUltIcon": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/ult icons/dionysos_ult_ability.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": "textures/generated/imagefile/71f957e36c7a19d9.vtex"
             },
             "HpFillTexture": {
               "$compiler": "texture",
@@ -1531,6 +1662,44 @@
               },
               "compiled": "textures/generated/imagefile/cfdc838dc3645c77.vtex"
             },
+            "LavernaUltIcon": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/ult icons/laverna_ult_ability.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": "textures/generated/imagefile/4afa6e359c66f217.vtex"
+            },
             "MaAtIcon": {
               "$compiler": "texture",
               "$source": "imagefile",
@@ -1568,6 +1737,44 @@
                 "FormatOverride": "RGBA8888"
               },
               "compiled": "textures/generated/imagefile/36d987db78c06787.vtex"
+            },
+            "MaAtUltIcon": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/ult icons/maat_ult_ability.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": "textures/generated/imagefile/5c018e8f6c09e61c.vtex"
             },
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -1612,108 +1819,75 @@
                 "FormatOverride": "RGBA8888"
               },
               "compiled": "textures/generated/imagefile/27e59e2b29a9cc26.vtex"
+            },
+            "TaranisUltIcon": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/ingame gui/ult icons/taranis_ult_ability.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": "textures/generated/imagefile/9b506530d9190167.vtex"
             }
           },
           {
-            "__type": "Sandbox.DebugPlaytestPanel",
-            "__guid": "b9d2f1a4-3c7e-4f0a-9e21-7d6c8a1b4e55",
+            "__type": "Sandbox.ClimbAssist",
+            "__guid": "30602484-a790-45d4-b619-3034a69b78b1",
             "__enabled": true,
             "Flags": 0,
-            "CycleAction": "DebugCyclePreset",
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "Presets": [
-              {
-                "Name": "Playtesting 1",
-                "PullForce": 5500,
-                "BrakeForce": null,
-                "SteerTorque": 5500,
-                "MaxAngularSpeed": null,
-                "LateralGrip": null,
-                "MaxSpeed": 2500,
-                "DriftForce": null,
-                "ChariotAngularDamping": null,
-                "ChariotLateralGrip": null,
-                "ChariotMass": null
-              },
-              {
-                "Name": "Playtesting Fast",
-                "PullForce": null,
-                "BrakeForce": null,
-                "SteerTorque": 12525252,
-                "MaxAngularSpeed": null,
-                "LateralGrip": null,
-                "MaxSpeed": null,
-                "DriftForce": null,
-                "ChariotAngularDamping": null,
-                "ChariotLateralGrip": null,
-                "ChariotMass": null
-              },
-              {
-                "Name": "Playtesting Slow",
-                "PullForce": 6500,
-                "BrakeForce": null,
-                "SteerTorque": null,
-                "MaxAngularSpeed": 250,
-                "LateralGrip": 9,
-                "MaxSpeed": null,
-                "DriftForce": null,
-                "ChariotAngularDamping": 3,
-                "ChariotLateralGrip": null,
-                "ChariotMass": null
-              }
-            ],
-            "ToggleAction": "Debugging"
-          },
-          {
-            "__type": "PlayerCollisions",
-            "__guid": "04b3de93-2d79-4e77-861d-90846bc9b7b5",
-            "__enabled": true,
-            "Flags": 0,
-            "AngularImpulseFactor": 0.0008,
-            "BaseImpulse": 2500,
-            "ChariotExtraSpin": 1.6,
-            "ChariotImpulseRatio": 1.1,
-            "CollisionDebrisPrefab": {
-              "_type": "gameobject",
-              "prefab": "prefabs/debris/chariotdebris.prefab"
+            "Body": {
+              "_type": "component",
+              "component_id": "4932540a-ba13-4f07-bd43-b3da02c0d833",
+              "go": "1d57d1d7-8e4a-4eee-8841-c017ece0e1f2",
+              "component_type": "Rigidbody"
             },
-            "Cooldown": 0.2,
-            "DebugLog": true,
-            "ImpulsePerClosingSpeed": 2500,
-            "LateralBias": 0.55,
-            "MaxImpulse": 20000,
-            "MinClosingSpeed": 0.8,
+            "ClimbBoost": 1.25,
+            "DebugLog": false,
+            "FootOffset": 25,
+            "LookAhead": 45,
+            "LookAheadPerSpeed": 0.03,
+            "MaxClimbSpeed": 400,
+            "MaxGroundDistance": 60,
+            "MaxStepHeight": 98.73373,
+            "MinMoveSpeed": 30,
+            "MinStepHeight": 2,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
-            "SharpSteerMultiplier": 1.8,
-            "VerticalLift": 0.35
-          },
-          {
-            "__type": "MaatKarmaShield",
-            "__guid": "67591755-f7c9-41e1-89c8-a8cc73fa38ec",
-            "__enabled": true,
-            "Flags": 0,
-            "GrapeTag": "grape",
-            "OnComponentDestroy": null,
-            "OnComponentDisabled": null,
-            "OnComponentEnabled": null,
-            "OnComponentFixedUpdate": null,
-            "OnComponentStart": null,
-            "OnComponentUpdate": null,
-            "ShieldColor": "0,1,1,0.35",
-            "ShieldMaterial": null,
-            "ShieldModel": "models/dev/sphere.vmdl",
-            "ShieldOffset": "0,0,3",
-            "ShieldRadius": 2
+            "ProbeCount": 3,
+            "ProbeHalfWidth": 30
           }
         ],
         "Children": [
