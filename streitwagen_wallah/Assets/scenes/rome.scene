@@ -56,6 +56,11 @@
           "__guid": "096a865f-8296-49df-8022-17c7ea1463ae",
           "__enabled": true,
           "Flags": 0,
+          "Countdown1Sound": null,
+          "Countdown2Sound": null,
+          "Countdown3Sound": null,
+          "CountdownVolume": 1,
+          "GoSound": null,
           "LobbyScene": "scenes/gui scenes/lobbyscene .scene",
           "MaxLaps": 3,
           "OnComponentDestroy": null,
@@ -63,7 +68,8 @@
           "OnComponentEnabled": null,
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
-          "OnComponentUpdate": null
+          "OnComponentUpdate": null,
+          "Track": "Rom"
         },
         {
           "__type": "LapSystem.Rankings.RaceRankingManager",
@@ -172,40 +178,6 @@
           ]
         }
       ]
-    },
-    {
-      "__guid": "76d77459-24b6-4e61-bb10-5378140c0a2f",
-      "__version": 2,
-      "Flags": 0,
-      "Name": "2D Skybox",
-      "Position": "-2092.64624,310.314484,322.765656",
-      "Rotation": "0,0,0,1",
-      "Scale": "1,1,1",
-      "Tags": "skybox",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkFlags": 0,
-      "NetworkOrphaned": 0,
-      "NetworkTransmit": true,
-      "OwnerTransfer": 1,
-      "Components": [
-        {
-          "__type": "Sandbox.SkyBox2D",
-          "__guid": "0bb31a74-842d-4990-8aef-148c592d658b",
-          "__enabled": true,
-          "Flags": 0,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "SkyIndirectLighting": true,
-          "SkyMaterial": "materials/skybox/skybox_sunrise_01.vmat",
-          "Tint": "1,0.97814,0.56279,1"
-        }
-      ],
-      "Children": []
     },
     {
       "__guid": "1ba86f72-6b0a-4132-b05d-57174488ef31",
@@ -1198,7 +1170,7 @@
       "__guid": "de06dbbe-d76a-467a-bb40-84bcaa05a6f5",
       "__version": 2,
       "Flags": 0,
-      "Name": "-- LIGHTNING ",
+      "Name": "-- LIGHTING ",
       "Position": "-759.291748,-186.945587,332.52124",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
@@ -1232,6 +1204,7 @@
               "__guid": "6c23fcdf-cdb2-49ae-9f74-1fa109b17f26",
               "__enabled": true,
               "Flags": 0,
+              "ContactShadows": true,
               "Contribution": "Diffuse, Specular, Transmissive",
               "FogMode": "Enabled",
               "FogStrength": 1,
@@ -1292,6 +1265,40 @@
               "ProbeDensity": 5,
               "RelocationTexture": null,
               "RenderExcludeTags": ""
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "76d77459-24b6-4e61-bb10-5378140c0a2f",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "2D Skybox",
+          "Position": "-1333.35449,497.260071,-9.75558472",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "skybox",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.SkyBox2D",
+              "__guid": "0bb31a74-842d-4990-8aef-148c592d658b",
+              "__enabled": true,
+              "Flags": 0,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "SkyIndirectLighting": true,
+              "SkyMaterial": "materials/skybox/skybox_sunrise_01.vmat",
+              "Tint": "1,0.97814,0.56279,1"
             }
           ],
           "Children": []
