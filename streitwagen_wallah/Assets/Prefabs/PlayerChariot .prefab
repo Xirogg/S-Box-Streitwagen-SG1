@@ -2362,7 +2362,6 @@
               "_type": "gameobject",
               "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
             },
-            "UltimateModifierAction": "UseUlt",
             "UseAction": "UseItem"
           }
         ],

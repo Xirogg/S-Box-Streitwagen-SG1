@@ -32,6 +32,14 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 	[Property, Group( "Items" )]
 	public Dictionary<string, GameObject> ItemPool { get; set; } = new();
 
+	/// <summary>
+	/// Chance (0..1) that a pickup from this box grants the Ultimate variant instead of
+	/// the Normal one. Rolled per-pickup on the host and passed to the player's tracker,
+	/// which locks it into the spawned GodPower's IsUltimate. Default 0.15 = 15%.
+	/// </summary>
+	[Property, Group( "Items" ), Range( 0f, 1f )]
+	public float UltimateChance { get; set; } = 0.15f;
+
 	[Property, Group( "Visuals" )]
 	public ModelRenderer Renderer { get; set; }
 
@@ -146,11 +154,16 @@ public sealed class ItemPrefab : Component, Component.ITriggerListener
 			return;
 		}
 
+		// Roll the variant on the host so it's authoritative and consistent with the
+		// host-side key pick above. 15% (default) → Ultimate, otherwise Normal. The
+		// player no longer chooses; the flag rides along to the tracker's grant.
+		bool isUltimate = Random.Shared.Float( 0f, 1f ) < UltimateChance;
+
 		// Plays the pickup jingle (Sound 1 → Sound 2) on the player and grants the item
 		// only after the second clip finishes — so the sound delays the grant.
-		tracker.BeginPickupSequenceRpc( key, prefab );
+		tracker.BeginPickupSequenceRpc( key, prefab, isUltimate );
 
-		if ( DebugLog ) Log.Info( $"[ItemPrefab] Pickup '{key}' by {other.GameObject?.Name} — sound sequence started, hiding box." );
+		if ( DebugLog ) Log.Info( $"[ItemPrefab] Pickup '{key}' (ult={isUltimate}) by {other.GameObject?.Name} — sound sequence started, hiding box." );
 
 		Available = false;
 		float wait = Random.Shared.Float( MinRespawnSeconds, MaxRespawnSeconds );

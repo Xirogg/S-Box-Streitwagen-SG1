@@ -20,10 +20,10 @@
 		<div class="position" style="color: @PositionColor;">@PositionText</div>
 		<div class="currency">@LocalCurrency</div>
 
-		<div class="item-slot" style="background-image: url(@ItemSlotPath);">
+		<div class="item-slot @(ShowUltimateGlow ? "ultimate" : "")" style="background-image: url(@ItemSlotPath);">
 			@if ( ShowItemIcon )
 			{
-				<div class="item-icon" style="background-image: url(@CurrentItemIconPath);"></div>
+				<div class="item-icon @(ShowUltimateGlow ? "ultimate" : "")" style="background-image: url(@CurrentItemIconPath);"></div>
 			}
 		</div>
 
@@ -171,6 +171,22 @@
 		background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
+	}
+	/* Ultimate pickup highlight. isUltimate is rolled at pickup and rides on the held
+	   GodPower; the HUD reads it via PlayerItemTracker.HeldPower. The ItemSlot texture
+	   is a CIRCLE, so border-radius: 50% rounds the div to match it and the box-shadow
+	   traces that circle — a red ring hugging the frame instead of a square-ish haze.
+	   The 4th box-shadow value is spread (Sandbox.UI.Shadow.Spread): it expands the
+	   shadow outward before the blur, giving a thick, clearly visible ring. Bump spread
+	   for a fatter ring, blur for a softer edge. The 0.2s transition fades the glow in
+	   on pickup and out on use — same feel as the lobby button's hover glow. */
+	.item-slot.ultimate {
+		border-radius: 200%;
+		box-shadow: 0px 0px 0px 0px rgba(255, 40, 40, 1.00);
+		transition: box-shadow 0.2s ease;
+	}
+	.item-icon.ultimate {
+		filter: saturate( 1.15 );
 	}
 	.countdown {
 		position: absolute;
@@ -342,6 +358,22 @@
 	}
 
 	bool ShowItemIcon => !string.IsNullOrEmpty( CurrentItemIconPath );
+
+	// True while the held item is the Ultimate variant. IsUltimate was rolled at pickup
+	// and lives on the owner-local cloned power (HeldPower). On a proxy HUD HeldPower is
+	// null (proxies never clone the power), so this is simply false there.
+	bool IsUltimateHeld
+	{
+		get
+		{
+			var t = Items;
+			return t?.HeldPower is not null && t.HeldPower.IsUltimate;
+		}
+	}
+
+	// Only glow while an icon is actually drawn, so an unmapped key can't leave the slot
+	// pulsing over an empty frame.
+	bool ShowUltimateGlow => ShowItemIcon && IsUltimateHeld;
 
 	PlayerLapTracker Lap => Components.Get<PlayerLapTracker>( FindMode.EverythingInSelfAndAncestors );
 	PlayerDamageSystem Damage => Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndAncestors );
@@ -522,6 +554,6 @@
 
 	protected override int BuildHash() => System.HashCode.Combine(
 		System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder, Items?.HeldItemKey ),
-		System.HashCode.Combine( LocalCurrency, PowerMessage, BoardSignature )
+		System.HashCode.Combine( LocalCurrency, PowerMessage, BoardSignature, ShowUltimateGlow )
 	);
 }
