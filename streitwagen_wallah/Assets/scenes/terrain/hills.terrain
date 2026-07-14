@@ -1,0 +1,27 @@
+{
+  "Maps": {
+    "$blob": "1133720a-3cd5-4573-bc96-b251797de493"
+  },
+  "Resolution": 512,
+  "TerrainSize": 20000,
+  "TerrainHeight": 10000,
+  "Materials": [
+    "materials/greece.tmat"
+  ],
+  "MaterialSettings": {
+    "HeightBlendEnabled": true,
+    "HeightBlendSharpness": 0.87,
+    "Sampler": {
+      "Filter": "Anisotropic",
+      "AddressModeU": "Wrap",
+      "AddressModeV": "Wrap",
+      "AddressModeW": "Wrap",
+      "MipLodBias": 0,
+      "MaxAnisotropy": 8,
+      "BorderColor": "0,0,0,0"
+    }
+  },
+  "ResourceVersion": 3,
+  "__references": [],
+  "__version": 3
+}
