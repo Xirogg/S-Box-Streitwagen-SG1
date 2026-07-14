@@ -1877,7 +1877,7 @@
             "LookAheadPerSpeed": 0.03,
             "MaxClimbSpeed": 400,
             "MaxGroundDistance": 60,
-            "MaxStepHeight": 98.73373,
+            "MaxStepHeight": 17.485207,
             "MinMoveSpeed": 30,
             "MinStepHeight": 2,
             "OnComponentDestroy": null,
@@ -2575,6 +2575,7 @@
             "OnComponentFixedUpdate": null,
             "OnComponentStart": null,
             "OnComponentUpdate": null,
+            "PickupDelaySeconds": 2,
             "PlayerRoot": {
               "_type": "gameobject",
               "go": "71a98175-0ea3-4983-ab02-05c2d758014c"
