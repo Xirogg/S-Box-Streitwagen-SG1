@@ -6527,7 +6527,63 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "d8010c29-9981-4508-81bb-d7df20e92237"
+                      "$blob": "c4b5f9a6-21e8-413b-895b-497673e01c2d"
+                    },
+                    "Materials": [
+                      "materials/t_waves_pyramide.vmat"
+                    ]
+                  },
+                  "OnComponentDestroy": null,
+                  "OnComponentDisabled": null,
+                  "OnComponentEnabled": null,
+                  "OnComponentFixedUpdate": null,
+                  "OnComponentStart": null,
+                  "OnComponentUpdate": null,
+                  "OnObjectTriggerEnter": null,
+                  "OnObjectTriggerExit": null,
+                  "OnTriggerEnter": null,
+                  "OnTriggerExit": null,
+                  "RenderType": "On",
+                  "RollingResistance": null,
+                  "SmoothingAngle": 180,
+                  "Static": true,
+                  "Surface": null,
+                  "SurfaceVelocity": "0,0,0"
+                }
+              ],
+              "Children": []
+            },
+            {
+              "__guid": "e3962c19-6eaa-4d93-bca7-82583d20ec77",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "Track Walls Invis",
+              "Position": "20516.0898,-18191.2168,16.7254639",
+              "Rotation": "0,0,0.258819044,0.965925813",
+              "Scale": "6,6,5",
+              "Tags": "world",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [
+                {
+                  "__type": "Sandbox.MeshComponent",
+                  "__guid": "ab043109-66ae-4300-a594-5a8da9545052",
+                  "__enabled": true,
+                  "Flags": 0,
+                  "ColliderFlags": 0,
+                  "Collision": "Mesh",
+                  "Color": "0.79608,0.4102,0.31373,0",
+                  "Elasticity": null,
+                  "Friction": null,
+                  "HideInGame": false,
+                  "IsTrigger": false,
+                  "Mesh": {
+                    "Data": {
+                      "$blob": "3fc8533d-9832-4947-8f5e-85464b394b8b"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6583,7 +6639,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "a92158f9-2409-4c08-a87d-38812151ac99"
+                      "$blob": "cc73089a-802a-4798-9cb4-ef7cf93a92b8"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
