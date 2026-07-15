@@ -64,6 +64,14 @@ public enum AltarBonus
 /// PRICE climbs with how much is already active, not with which god: see <see cref="SacrificeCosts"/>.
 /// The free A/B swap sidesteps the ladder entirely — swapping never changes the active count.
 ///
+/// CURSE (Götter-Fluch): greed is punished. Every rung of the price ladder carries a curse chance —
+/// see <see cref="CurseChances"/> — rolled the instant the sacrifice goes through. The first favour is
+/// always safe (0%); the fourth is near-certain (90%). The curse is a single bool per player
+/// (<see cref="IsCursed"/>), replicated to every peer, and it survives the Lobby -&gt; Race scene change
+/// because it is what hands the player a Kopfgeld (bounty) at race start — see <see cref="ApplyBounties"/>
+/// and <see cref="PublicityCurrencyManager.SetBounty"/>. Like purchases, it clears on the next re-roll,
+/// so a curse costs you exactly one race.
+///
 /// LIFECYCLE OF A ROLL: favours re-roll every race cycle, which we key off entering the LOBBY (a scene
 /// with no <see cref="RaceManager"/>). A race scene must never re-roll — the race has to honour exactly
 /// the letters the player saw when they paid. A re-roll also CLEARS every purchase: each race is bought
@@ -92,6 +100,18 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	/// player who rolled C everywhere can still buy the lot. If a god is ever added, add a rung.
 	/// </summary>
 	public static readonly int[] SacrificeCosts = { 30, 80, 150, 300 };
+
+	/// <summary>
+	/// Chance (0..1) that the Nth simultaneous favour curses the player, indexed by how many they
+	/// already have active — the SAME index as <see cref="SacrificeCosts"/>, so the two tables read as
+	/// one row per rung: 30 PG/0%, 80 PG/50%, 150 PG/75%, 300 PG/90%.
+	///
+	/// The first favour being free of risk is what makes the ladder a real decision rather than a tax:
+	/// everyone can take one favour every race and never be cursed, so buying a second is the first
+	/// moment the player actually chooses to gamble. Rolled by <see cref="TryCurse"/> immediately after
+	/// the sacrifice, never on the free A/B swap (a swap buys nothing — see <see cref="IsFreeSwap"/>).
+	/// </summary>
+	public static readonly float[] CurseChances = { 0.00f, 0.50f, 0.75f, 0.90f };
 
 	/// <summary>
 	/// DEBUG: when true, every sacrifice is free — <see cref="CostForGod"/> reports 0 and
@@ -142,6 +162,12 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		/// <summary>Gods whose rolled favour is live for the next race. At most one of them rolled A/B.</summary>
 		public readonly HashSet<GodId> Active = new();
 		public readonly Dictionary<GodId, AltarOption> Options = new();
+
+		/// <summary>
+		/// The Götter-Fluch. Set by <see cref="TryCurse"/> when a sacrifice loses its <see cref="CurseChances"/>
+		/// roll, cleared by <see cref="RollFavours"/> on the next cycle. Turns into a Kopfgeld at race start.
+		/// </summary>
+		public bool Cursed;
 	}
 
 	// ---------- Authoritative state (host process, survives scene changes) ----------
@@ -192,6 +218,10 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		// everything, so freshly-loaded clients get the current purchases + favours.
 		bool newCycle = !RaceManager.Instance.IsValid();
 
+		// Debug: print who came OUT of the last race still cursed, before the re-roll wipes it.
+		if ( newCycle )
+			LogRoster( "Lobby (vor Neu-Würfeln)" );
+
 		foreach ( var kv in HostStore )
 		{
 			if ( newCycle )
@@ -199,6 +229,12 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 			else
 				PushPlayer( kv.Key, kv.Value );
 		}
+
+		// "If a player is cursed and goes to Race, he gets a Bounty" — this is that moment. The curse
+		// was rolled back in the lobby and rode here in the static store; the Kopfgeld only exists in a
+		// race, because ramming is the only thing that reads it.
+		if ( !newCycle )
+			ApplyBounties( "Race-Start" );
 	}
 
 	/// <summary>
@@ -214,6 +250,12 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	{
 		if ( !IsAuthority ) return;
 		PushAll();
+
+		// A player who joins (or reconnects) once the race is already running missed the OnStart pass,
+		// and their curse outlived the disconnect in the static store — so re-state the bounties. Curses
+		// can't change during a race (the altar UI is lobby-only), so OnStart + this covers every case.
+		if ( RaceManager.Instance.IsValid() )
+			ApplyBounties( $"Join: {PlayerNameManager.GetDisplayName( channel )}" );
 	}
 
 	protected override void OnDestroy()
@@ -242,6 +284,11 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	{
 		foreach ( var god in st.Options.Keys )
 			PushGod( steamId, st, god );
+
+		// Outside the per-god loop on purpose: the curse is one flag for the whole player, and it must
+		// still reach a peer whose Options are somehow empty (nothing rolled yet) — otherwise a cursed
+		// player could show up clean on a client that joined at an awkward moment.
+		RpcSetCursed( steamId, st.Cursed );
 	}
 
 	/// <summary>
@@ -284,6 +331,29 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 
 	/// <summary>How many favours this player currently has live. Indexes <see cref="SacrificeCosts"/>.</summary>
 	public static int ActiveCount( ulong steamId ) => Lookup( steamId )?.Active.Count ?? 0;
+
+	/// <summary>
+	/// True when the gods have cursed this player for the coming race. Readable on EVERY peer (the host
+	/// broadcasts it via <see cref="RpcSetCursed"/>), which is what makes it safe for UI, race logic and
+	/// client-side debug alike — unlike <see cref="PublicityCurrencyManager.HasBounty"/>, which is
+	/// host-only. In a race the two mean the same thing: cursed players are exactly the bounty carriers.
+	/// </summary>
+	public static bool IsCursed( ulong steamId ) => Lookup( steamId )?.Cursed ?? false;
+
+	/// <summary>Curse chance (0..1) of the Nth favour, where <paramref name="tier"/> = favours already active.</summary>
+	public static float CurseChanceForTier( int tier )
+	{
+		if ( tier < 0 || CurseChances.Length == 0 ) return 0f;
+		if ( tier >= CurseChances.Length ) return CurseChances[^1];
+		return CurseChances[tier];
+	}
+
+	/// <summary>
+	/// The risk this player takes on their NEXT sacrifice. 0 once they're already cursed — the curse is a
+	/// bool, so there is nothing left to lose. Exposed for a future risk display on the altar UI.
+	/// </summary>
+	public static float CurseChanceForNextPurchase( ulong steamId )
+		=> IsCursed( steamId ) ? 0f : CurseChanceForTier( ActiveCount( steamId ) );
 
 	/// <summary>
 	/// The favour <paramref name="god"/> rolled for this player this race cycle. Returns
@@ -334,6 +404,13 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 
 	public static bool LocalIsActive( GodId god ) => IsActive( PublicityCurrencyManager.LocalSteamId, god );
 	public static bool LocalIsFreeSwap( GodId god ) => IsFreeSwap( PublicityCurrencyManager.LocalSteamId, god );
+
+	/// <summary>True when the LOCAL player is carrying the Götter-Fluch into the next race.</summary>
+	public static bool LocalIsCursed => IsCursed( PublicityCurrencyManager.LocalSteamId );
+
+	/// <summary>The curse risk the LOCAL player takes on their next sacrifice (0..1).</summary>
+	public static float LocalCurseChanceForNextPurchase
+		=> CurseChanceForNextPurchase( PublicityCurrencyManager.LocalSteamId );
 
 	/// <summary>The favour <paramref name="god"/> rolled for the LOCAL player this race cycle.</summary>
 	public static AltarOption LocalOption( GodId god ) => GetOption( PublicityCurrencyManager.LocalSteamId, god );
@@ -418,6 +495,16 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		st.Active.Clear();
 		st.Options.Clear();
 
+		// The curse is bought with the purchases, so it dies with them: one cursed race, then a clean
+		// slate. Dropping the bounty here too keeps the two from drifting apart — a player who is no
+		// longer cursed must not walk into the next race still carrying last race's Kopfgeld.
+		if ( st.Cursed )
+		{
+			st.Cursed = false;
+			RpcSetCursed( steamId, false );
+		}
+		PublicityCurrencyManager.SetBounty( steamId, false );
+
 		foreach ( var god in Gods.Keys )
 		{
 			st.Options[god] = RollOption();
@@ -490,6 +577,13 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		int cost = CostForGod( steamId, god );
 		if ( cost < 0 ) return;   // already active, or every slot spent
 
+		// Both are read BEFORE anything mutates, because both describe the ladder rung this sacrifice is
+		// being made ON. Once st.Active has grown, ActiveCount reports the rung ABOVE — pricing already
+		// happened above for the same reason, and the curse has to be rolled against the same rung the
+		// player was charged for, or the odds silently shift one column right.
+		int tier = ActiveCount( steamId );
+		bool wasSwap = IsFreeSwap( steamId, god );
+
 		if ( cost > 0 && !PublicityCurrencyManager.TryModify( steamId, -cost ) )
 			return; // not enough PG
 
@@ -510,6 +604,36 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 
 		Log.Info( $"[AltarUpgradeManager] {conn?.DisplayName} -> {god} (Option {st.Options[god]}, paid {cost} PG, " +
 			$"now active: {string.Join( ", ", st.Active )})" );
+
+		// "Chance always needs to be applied directly after purchase" — so roll here, not at race start.
+		// A swap is exempt: it moves the item slot instead of buying a favour, costs nothing, and leaves
+		// the active count untouched, so there is no new rung to gamble on.
+		if ( !wasSwap )
+			TryCurse( steamId, st, tier );
+	}
+
+	/// <summary>
+	/// Roll this sacrifice's <see cref="CurseChances"/> rung and curse the player if it comes up.
+	///
+	/// Skipped once the player is already cursed: the curse is a bool, so a second one would change
+	/// nothing — and rolling anyway would only spam the log with results that can't matter.
+	/// </summary>
+	private void TryCurse( ulong steamId, PlayerAltar st, int tier )
+	{
+		if ( st.Cursed ) return;
+
+		float chance = CurseChanceForTier( tier );
+		if ( chance <= 0f ) return;   // first favour is always safe
+
+		bool cursed = Random.Shared.Float( 0f, 1f ) < chance;
+
+		Log.Info( $"[Curse] {NameFor( steamId )} rolled favour #{tier + 1} at {chance:P0} risk -> " +
+			$"{(cursed ? "VERFLUCHT" : "sicher")}" );
+
+		if ( !cursed ) return;
+
+		st.Cursed = true;
+		RpcSetCursed( steamId, true );
 	}
 
 	[Rpc.Broadcast]
@@ -524,11 +648,97 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		OnAltarChanged?.Invoke();
 	}
 
+	/// <summary>
+	/// Push one player's curse flag to every peer. Also the DEBUG hook the lobby relies on: it fires on
+	/// each machine the moment a curse lands, so every player sees who just got hit without needing a
+	/// visual indicator on the altar.
+	/// </summary>
+	[Rpc.Broadcast]
+	private void RpcSetCursed( ulong steamId, bool cursed )
+	{
+		var st = MirrorFor( steamId );
+
+		// PushAll/PushPlayer re-send the whole store on every join and scene load, so most calls here
+		// carry state the peer already has. Bail on those: otherwise a single player joining would print
+		// a curse line for everyone in the lobby, and "X is now clean" would scroll past every scene load.
+		if ( st.Cursed == cursed ) return;
+
+		st.Cursed = cursed;
+
+		Log.Info( $"[Curse] {NameFor( steamId )} ({steamId}) ist jetzt {(cursed ? "VERFLUCHT" : "sauber")}." );
+
+		OnAltarChanged?.Invoke();
+	}
+
 	private static PlayerAltar MirrorFor( ulong steamId )
 	{
 		if ( !ClientMirror.TryGetValue( steamId, out var st ) )
 			ClientMirror[steamId] = st = new PlayerAltar();
 		return st;
+	}
+
+	/// <summary>
+	/// Best-effort display name for logs. Falls back to the raw Steam ID for a player who has
+	/// disconnected (their altar state outlives their Connection in the static store).
+	/// </summary>
+	private static string NameFor( ulong steamId )
+	{
+		var all = Connection.All;
+		for ( int i = 0; i < all.Count; i++ )
+		{
+			if ( all[i]?.SteamId == steamId )
+				return PlayerNameManager.GetDisplayName( all[i] );
+		}
+		return steamId.ToString();
+	}
+
+	// ---------- Curse -> Bounty (host-only) ----------
+
+	/// <summary>
+	/// Hand every cursed player a Kopfgeld for this race, and explicitly clear it for everyone else.
+	///
+	/// The "everyone else" half is the point: bounties are re-stated from scratch here rather than
+	/// cleared somewhere and set here, so there is no ordering dependency on
+	/// <see cref="PublicityCurrencyManager"/>'s own per-race reset (component OnStart order across
+	/// GameObjects isn't guaranteed) and no way for a stale bounty to survive into a race the player
+	/// isn't cursed for. Idempotent, so calling it again for a late joiner is free.
+	/// </summary>
+	private void ApplyBounties( string context )
+	{
+		foreach ( var kv in HostStore )
+			PublicityCurrencyManager.SetBounty( kv.Key, kv.Value.Cursed );
+
+		LogRoster( context );
+	}
+
+	/// <summary>
+	/// DEBUG: dump every known player's curse/bounty state to EVERY peer's console.
+	///
+	/// Composed on the host (only it can see the bounty set and the authoritative store) and shipped as
+	/// one finished string, because the clients cannot re-derive this: their mirror carries the curse but
+	/// never the Kopfgeld. Broadcasting also covers the case that would otherwise go silent on a client —
+	/// <see cref="RpcSetCursed"/> only logs on CHANGE, and <see cref="ClientMirror"/> is static, so a
+	/// client walking a curse from the lobby into a race sees no change and would print nothing at all.
+	/// </summary>
+	private void LogRoster( string context )
+	{
+		if ( HostStore.Count == 0 )
+		{
+			Log.Info( $"[Curse/{context}] Noch keine Spieler bekannt." );
+			return;
+		}
+
+		var lines = HostStore.Select( kv =>
+			$"{NameFor( kv.Key )}: verflucht={kv.Value.Cursed}, Kopfgeld={PublicityCurrencyManager.HasBounty( kv.Key )}, " +
+			$"Gaben={kv.Value.Active.Count}, PG={PublicityCurrencyManager.GetCurrency( kv.Key )}" );
+
+		RpcLogRoster( context, string.Join( "  |  ", lines ) );
+	}
+
+	[Rpc.Broadcast]
+	private void RpcLogRoster( string context, string summary )
+	{
+		Log.Info( $"[Curse/{context}] {summary}" );
 	}
 
 	// ---------- Race-start application (host-only) ----------

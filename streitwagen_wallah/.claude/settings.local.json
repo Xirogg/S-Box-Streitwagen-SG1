@@ -32,7 +32,8 @@
       "Bash(python q.py type \"Sandbox.Networking\")",
       "Bash(dotnet --list-runtimes)",
       "Bash(timeout 240 dotnet build Code/streitwagen_wallah.csproj -p:TargetFramework=net9.0 -p:LangVersion=13 --nologo -v q)",
-      "Bash(dotnet \"/c/Program Files/dotnet/sdk/9.0.313/Roslyn/bincore/csc.dll\" -noconfig -nostdlib+ -t:library -langversion:latest -out:nul.dll \"C:/SandBox Projects/S-Box-Streitwagen-SG1/streitwagen_wallah/Code/Scripts/GUI/Lobby/AltarUpgradeManager.cs\")"
+      "Bash(dotnet \"/c/Program Files/dotnet/sdk/9.0.313/Roslyn/bincore/csc.dll\" -noconfig -nostdlib+ -t:library -langversion:latest -out:nul.dll \"C:/SandBox Projects/S-Box-Streitwagen-SG1/streitwagen_wallah/Code/Scripts/GUI/Lobby/AltarUpgradeManager.cs\")",
+      "PowerShell(dotnet build \"C:\\\\SandBox Projects\\\\S-Box-Streitwagen-SG1\\\\streitwagen_wallah\\\\Code\\\\streitwagen_wallah.csproj\" -v q --nologo 2>&1)"
     ]
   }
 }

@@ -15,9 +15,18 @@ using System.Collections.Generic;
 ///   - Finish rewards: 1st=100, 2nd=80, 3rd=60, 4th-5th=40, 6th-8th=20
 ///   - +5 PG per ability hit on an opponent
 ///   - +5 PG per physical Q/E ram hit
-///   - Bounty: +20 PG one-time to attacker, -5 PG one-time per attacker to the cursed player
+///   - Bounty ("Physischer Schaden an Spieler mit Kopfgeld", so RAM hits only — an ability
+///     landing on a bounty carrier pays its ordinary +5 and nothing more):
+///       * attacker: +20 PG one-time, capped at <see cref="BountyRewardCapPerRace"/> for the
+///         whole race — the cap is what makes the documented per-game maximum add up to
+///         100 (1st) + 50 (bonus) + 20 (bounty) = 170 PG.
+///       * cursed victim: -5 PG one-time per distinct attacker, UNCAPPED. Being the marked
+///         player is meant to be a real loss, so three hunters cost three times as much.
 ///   - Combat/ability bonuses are capped at +50 PG per race
 ///   - Total currency never drops below 0
+///
+/// Who carries a bounty is decided by <see cref="AltarUpgradeManager"/>: the Götter-Fluch is
+/// rolled at the altar in the lobby and turned into a Kopfgeld at race start.
 ///
 /// Auto-spawned by <see cref="EnsureExists"/> from <see cref="GameNetworkManager"/>
 /// (lobby) and <see cref="RaceManager"/> (race), so it doesn't need to be placed
@@ -34,6 +43,14 @@ public sealed class PublicityCurrencyManager : Component
 	public const int RamHitReward      = 5;
 	public const int BountyHitReward   = 20;
 	public const int BountyVictimMalus = 5;
+
+	/// <summary>
+	/// Most PG one player can earn from bounties across a whole race. Deliberately equal to
+	/// <see cref="BountyHitReward"/>: hunting a second cursed player pays nothing, so the Kopfgeld is a
+	/// one-off prize rather than a farm. Separate from <see cref="BonusCapPerRace"/> — the +50 combat
+	/// cap and this +20 stack, which is exactly how the balancing doc reaches 170 PG max per game.
+	/// </summary>
+	public const int BountyRewardCapPerRace = 20;
 
 	// Index = finish position. 0 unused. 4..5 share, 6..8 share.
 	private static readonly int[] FinishRewardTable =
@@ -59,6 +76,11 @@ public sealed class PublicityCurrencyManager : Component
 	private static readonly HashSet<ulong> Bounties = new();
 	private static readonly HashSet<ulong> FinishRewarded = new();
 
+	// Bounty PG earned this race, per attacker. Enforces BountyRewardCapPerRace across ALL victims,
+	// which BountyMalusAppliedBy can't do: that one is keyed by victim and only stops the same pair
+	// from paying out twice, so without this a hunter would collect a fresh +20 per cursed player.
+	private static readonly Dictionary<ulong, int> BountyEarned = new();
+
 	// Per-player PG-earn bonus (Dionysos Opferaltar level-3 "+5% PG"). 0.05 = +5%.
 	// Host-only; set fresh each race by AltarUpgradeManager, so it's cleared on load.
 	private static readonly Dictionary<ulong, float> CurrencyBonusPercent = new();
@@ -69,6 +91,16 @@ public sealed class PublicityCurrencyManager : Component
 
 	/// <summary> Fires on every peer whenever a player's PG total changes. (steamId, newAmount) </summary>
 	public static event Action<ulong, int> OnCurrencyChanged;
+
+	/// <summary>
+	/// True on the host, or when there's no network session at all (solo editor play). Matches
+	/// <see cref="AltarUpgradeManager"/>'s notion of authority.
+	///
+	/// Only <see cref="SetBounty"/> uses this so far; the PG store deliberately still gates on
+	/// <c>Networking.IsHost</c>, because widening that would change how currency behaves in the editor
+	/// and is a bigger decision than this change should make.
+	/// </summary>
+	private static bool IsAuthority => !Networking.IsActive || Networking.IsHost;
 
 	// ---------- Lifecycle ----------
 
@@ -88,11 +120,16 @@ public sealed class PublicityCurrencyManager : Component
 			foreach ( var kv in HostStore )
 				RpcSetCurrency( kv.Key, kv.Value );
 
-			// Every scene load is treated as a fresh "race state": bonus caps reset,
-			// bounty malus tracking resets. Bounties themselves persist across scenes
-			// because the curse is supposed to follow the player until consumed.
+			// Every scene load is treated as a fresh "race state": bonus caps reset, bounty
+			// payout/malus tracking resets.
+			//
+			// Bounties themselves are NOT cleared here. They aren't ours to time: the curse behind them
+			// lives in AltarUpgradeManager and has to survive the Lobby -> Race scene change, so that
+			// manager re-states every player's bounty from their curse on both sides of the change
+			// (ApplyBounties / RollFavours). Clearing here would race its OnStart for no gain.
 			RaceBonusEarned.Clear();
 			BountyMalusAppliedBy.Clear();
+			BountyEarned.Clear();
 			FinishRewarded.Clear();
 			CurrencyBonusPercent.Clear();
 
@@ -148,24 +185,42 @@ public sealed class PublicityCurrencyManager : Component
 	/// <summary> Convenience: the local peer's current PG total. Cheap dictionary lookup. </summary>
 	public static int LocalCurrency => GetCurrency( LocalSteamId );
 
+	/// <summary>
+	/// Whether this player carries a Kopfgeld. HOST-SIDE TRUTH ONLY — the bounty set is never
+	/// replicated, so this reads false on a client no matter who is marked. That's deliberate rather
+	/// than an omission: the bounty is derived 1:1 from the curse, and
+	/// <see cref="AltarUpgradeManager.IsCursed"/> IS replicated, so any peer that needs to know (UI,
+	/// client-side debug) should ask that instead. Everything that consumes the bounty — the PG rules
+	/// below — runs on the host anyway.
+	/// </summary>
 	public static bool HasBounty( ulong steamId ) => Bounties.Contains( steamId );
 
 	// ---------- Write API (host-only; calls on clients are no-ops) ----------
 
-	/// <summary> Mark/unmark a player as carrying a Kopfgeld (bounty). </summary>
+	/// <summary>
+	/// Mark/unmark a player as carrying a Kopfgeld (bounty). Called only by
+	/// <see cref="AltarUpgradeManager"/>, which derives it from the Götter-Fluch at race start.
+	///
+	/// Gated on <see cref="IsAuthority"/> rather than <c>Networking.IsHost</c> so a solo editor session
+	/// (no lobby, so IsHost is false) still marks bounties — otherwise the curse would roll and log in
+	/// testing but silently never produce one, which looks exactly like a bug.
+	/// </summary>
 	public static void SetBounty( ulong steamId, bool on )
 	{
-		if ( !Networking.IsHost ) return;
+		if ( !IsAuthority ) return;
 		if ( steamId == 0 ) return;
 
-		if ( on ) Bounties.Add( steamId );
-		else      Bounties.Remove( steamId );
+		bool changed = on ? Bounties.Add( steamId ) : Bounties.Remove( steamId );
+		if ( !changed ) return;
+
+		Log.Info( $"[Kopfgeld] {steamId}: {(on ? "TRÄGT KOPFGELD" : "Kopfgeld entfernt")}" );
 	}
 
 	/// <summary>
 	/// A god-ability landed a damaging hit. Callable from any peer; if called on a
-	/// non-host it forwards to the host via Rpc.Host. Award +5 PG (capped) and apply
-	/// bounty rules. Caller is trusted — harden if cheating becomes a concern.
+	/// non-host it forwards to the host via Rpc.Host. Awards +5 PG (capped). Does NOT
+	/// settle bounties — that needs a physical ram, see <see cref="NotifyRamHit"/>.
+	/// Caller is trusted — harden if cheating becomes a concern.
 	/// </summary>
 	public static void NotifyAbilityHit( GameObject attackerRoot, GameObject victimRoot )
 	{
@@ -194,8 +249,11 @@ public sealed class PublicityCurrencyManager : Component
 	private void RpcReportAbilityHit( ulong attackerSteamId, ulong victimSteamId )
 	{
 		if ( !Networking.IsHost ) return;
+
+		// No bounty settlement here on purpose: the rule is "Physischer Schaden an Spieler mit
+		// Kopfgeld", and a god power isn't physical damage. An ability that lands on a bounty carrier
+		// pays its ordinary +5 like any other hit — collecting the Kopfgeld means ramming them.
 		AwardCapped( attackerSteamId, AbilityHitReward );
-		ApplyBountyConsequences( attackerSteamId, victimSteamId );
 	}
 
 	[Rpc.Host]
@@ -291,20 +349,47 @@ public sealed class PublicityCurrencyManager : Component
 		return (int)MathF.Round( amount * (1f + pct) );
 	}
 
+	/// <summary>
+	/// Settle a physical ram against a bounty carrier: the attacker collects, the marked player pays.
+	///
+	/// Who is "the attacker" is already decided upstream and needs no tie-break here — PlayerCollisions
+	/// only reports a hit when Q/E was actually held, and reports it one-directionally as
+	/// (rammer, rammed). So when two bounty carriers collide, the one who drove the ram is the one this
+	/// runs for: they take the +20 and the player they hit takes the -5, regardless of the attacker
+	/// also being cursed. A carrier's own bounty never costs them anything on hits they land.
+	/// </summary>
 	private static void ApplyBountyConsequences( ulong attackerSteamId, ulong victimSteamId )
 	{
-		if ( victimSteamId == 0 ) return;
+		if ( attackerSteamId == 0 || victimSteamId == 0 ) return;
 		if ( !Bounties.Contains( victimSteamId ) ) return;
 
+		// One settlement per attacker/victim PAIR: "einmalig (pro Spieler)". Ramming the same marked
+		// player all race is worth one payout, but each additional hunter is a fresh -5 for the victim.
 		if ( !BountyMalusAppliedBy.TryGetValue( victimSteamId, out var set ) )
 		{
 			set = new HashSet<ulong>();
 			BountyMalusAppliedBy[victimSteamId] = set;
 		}
-		if ( !set.Add( attackerSteamId ) ) return; // already paid out vs this attacker
+		if ( !set.Add( attackerSteamId ) ) return; // already settled vs this attacker
 
-		AddCurrency( attackerSteamId, BountyHitReward );
+		// Victim's loss is applied first and unconditionally: it is uncapped, so it must not be skipped
+		// just because the attacker has already maxed out their bounty earnings for the race.
 		AddCurrency( victimSteamId, -BountyVictimMalus );
+
+		BountyEarned.TryGetValue( attackerSteamId, out var earned );
+		int give = Math.Min( BountyHitReward, BountyRewardCapPerRace - earned );
+		if ( give <= 0 )
+		{
+			Log.Info( $"[Kopfgeld] {attackerSteamId} rammt {victimSteamId}: -{BountyVictimMalus} PG für das Opfer, " +
+				$"aber Kopfgeld-Cap ({BountyRewardCapPerRace} PG/Rennen) schon erreicht -> kein Bonus." );
+			return;
+		}
+
+		BountyEarned[attackerSteamId] = earned + give;
+		AddCurrency( attackerSteamId, give );
+
+		Log.Info( $"[Kopfgeld] {attackerSteamId} rammt {victimSteamId}: +{give} PG Angreifer / " +
+			$"-{BountyVictimMalus} PG Opfer (Kopfgeld dieses Rennen: {earned + give}/{BountyRewardCapPerRace} PG)" );
 	}
 
 	private static void AddCurrency( ulong steamId, int delta )
