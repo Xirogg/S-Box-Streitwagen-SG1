@@ -698,18 +698,27 @@
 		// die [Altar/Sync]-Zeile warum). Kommt sie mit "gültig=0/29", ist der Fluch da und nur die
 		// Texturen fehlen auf diesem Rechner – zwei völlig verschiedene Baustellen.
 		if ( AltarUpgradeManager.DebugSyncLog )
-		{
-			Log.Info( $"[Altar/Popup] geöffnet | Frames gültig={CurseFramesValid}/{CurseFrameCount} " +
-				$"fps={CurseFrameRate} ich={LocalSteamId}" );
+			ReportFrameState( "Popup geöffnet" );
+	}
 
-			if ( CurseFrameCount > 0 && CurseFramesValid == 0 )
-			{
-				Log.Warning( "[Altar/Popup] Alle Fluch-Frames sind hier UNGÜLTIG – die Liste ist zugewiesen, aber die " +
-					"Texturen sind auf diesem Peer nicht auflösbar. Das ist ein Asset-Problem (nicht kompiliert/nicht " +
-					"im Paket), kein Netzwerk-Problem: Szene im Editor speichern, damit die Frames eine kompilierte " +
-					"\"compiled\"-Referenz bekommen (wie PillarActive/Button)." );
-			}
-		}
+	// Schickt den Frame-Zustand DIESES Rechners in JEDE Konsole (auch die des Hosts) – siehe
+	// AltarUpgradeManager.RpcLogDiag. Beantwortet genau eine Frage, und zwar auf dem Peer, auf dem
+	// sie sich stellt:
+	//   Frames=0/0    -> die Liste ist auf diesem Peer LEER: er lädt eine andere/ältere Szene.
+	//   Frames=0/29   -> die Liste ist da, die Texturen lösen hier nicht auf: Asset-/Paket-Problem.
+	//   Frames=29/29  -> alles da; dann liegt es weder am Netzwerk noch an den Assets.
+	void ReportFrameState( string context )
+	{
+		string who = PlayerNameManager.LocalDisplayName;
+		string host = AltarUpgradeManager.IsAuthority ? "HOST" : "CLIENT";
+		string msg = $"[Altar/Frames] {context} | {host} {who} ({LocalSteamId}): " +
+			$"Frames gültig={CurseFramesValid}/{CurseFrameCount}, Popup-Größe={CursePopupWidth}x{CursePopupHeight}%";
+
+		// Broadcast, damit es auch im Host-Fenster steht. Fällt auf ein lokales Log zurück, falls der
+		// Manager (noch) nicht da ist – dann ist die Zeile immerhin auf diesem Peer sichtbar.
+		var mgr = AltarUpgradeManager.Instance;
+		if ( mgr.IsValid() ) mgr.RpcLogDiag( msg );
+		else Log.Info( msg + "  (kein Manager – nur lokal)" );
 	}
 
 	void CloseCursePopup()
@@ -874,6 +883,11 @@
 			Log.Info( $"[AltarGUI] Fluch-Animation: {CurseFramesValid}/{frames} Frames gültig @ {CurseFrameRate} fps = " +
 				$"{frames / MathF.Max( CurseFrameRate, 0.001f ):0.##}s" );
 		}
+
+		// Sofort melden, sobald DIESER Peer den Altar-Screen baut – dann steht die Zahl im
+		// Host-Fenster, ohne dass erst jemand verflucht werden muss.
+		if ( AltarUpgradeManager.DebugSyncLog )
+			ReportFrameState( "Altar-Screen gebaut" );
 	}
 
 	protected override void OnUpdate()

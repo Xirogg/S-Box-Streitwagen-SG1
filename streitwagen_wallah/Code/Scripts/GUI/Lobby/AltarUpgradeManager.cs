@@ -923,6 +923,19 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		Log.Info( $"[Curse/{context}] {summary}" );
 	}
 
+	/// <summary>
+	/// DIAGNOSE, Gegenrichtung zu <see cref="RpcLogRoster"/>: ein CLIENT schreibt in JEDE Konsole,
+	/// auch die des Hosts.
+	///
+	/// Der Grund ist banal, hat uns aber mehrere Runden gekostet: Interessant ist immer der Zustand
+	/// auf dem verfluchten Peer, und das ist praktisch nie der Host — der Host protokolliert also
+	/// brav gar nichts, während die eine Zahl, auf die es ankommt, in einem Fenster steht, in das
+	/// niemand schaut. Broadcast statt <see cref="Rpc.Host"/>, damit es auch dann sichtbar ist, wenn
+	/// jemand nur den Client vor sich hat.
+	/// </summary>
+	[Rpc.Broadcast]
+	public void RpcLogDiag( string msg ) => Log.Info( msg );
+
 	// ---------- Race-start application (host-only) ----------
 
 	protected override void OnUpdate()
