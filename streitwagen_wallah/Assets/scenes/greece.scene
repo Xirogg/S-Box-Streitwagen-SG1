@@ -217,7 +217,7 @@
               "__guid": "c2246ced-6e61-41c1-a83d-255025d45d17",
               "__version": 2,
               "Flags": 0,
-              "Name": "CP1",
+              "Name": "Start Finish",
               "Position": "8866.87207,3387.23022,3921.2478",
               "Rotation": "0,0,0,1",
               "Scale": "1,1,1",
@@ -284,7 +284,7 @@
                           "IdValue": "365a5aed-60da-4e66-b71b-e223f2cc1f03"
                         },
                         "Property": "Center",
-                        "Value": "-1.75316811,0,4.99627304"
+                        "Value": "-2.49557877,0,4.99627304"
                       },
                       {
                         "Target": {
@@ -292,7 +292,7 @@
                           "IdValue": "365a5aed-60da-4e66-b71b-e223f2cc1f03"
                         },
                         "Property": "Scale",
-                        "Value": "31.4367332,50,59.9925461"
+                        "Value": "50.4063263,50,59.9925461"
                       }
                     ],
                     "MovedObjects": []
@@ -2614,7 +2614,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "5f803f56-4bf0-478b-a154-149ea7b3a87e"
+                          "$blob": "65015ace-4424-4629-ac93-fb10a19b786a"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -2670,7 +2670,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "db36aefb-5b40-4b36-b997-6d170d5e2226"
+                          "$blob": "edea37ac-a69e-408b-abd4-4e0a2a48c449"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -2726,7 +2726,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "ae12671e-6a2d-44b6-b14e-50cacecf2517"
+                          "$blob": "184c00e4-3c76-4afb-b918-a2726e5121a7"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -2782,7 +2782,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "4f8de47d-afbb-4a91-b742-0f346540a923"
+                          "$blob": "771523c7-a966-48e5-af82-742babbbb47d"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -2838,7 +2838,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "be6934c8-b24e-456d-ac5a-9e530e5fd73e"
+                          "$blob": "89439612-100d-401b-902f-08f937c5b44f"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -2894,7 +2894,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "4c359973-5ef1-4f78-9ae2-15b534c188ff"
+                          "$blob": "ade82240-9021-44cc-afcc-2ea2cf153e06"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -2950,7 +2950,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "9699f8ce-2cce-4816-a588-6d2c84677e08"
+                          "$blob": "60827af9-323b-440c-8c17-a5cfce6a0672"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -3006,7 +3006,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "37ed88f0-a842-43b5-b4c7-88052eb8aa8d"
+                          "$blob": "163b85b5-031b-4ec6-8217-560801a8dbf7"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -3062,7 +3062,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "2ae843ab-55b9-44cf-b9ad-44891576ad5a"
+                          "$blob": "03d87213-1153-4883-abec-9826ad65deef"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3118,7 +3118,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "d56980f9-468b-4650-9020-771ededadfef"
+                          "$blob": "b5c36b18-4df6-47c7-bd82-4330683f6219"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3174,7 +3174,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "563d8084-ce20-4b94-88cd-4604eb146a37"
+                          "$blob": "b688f48d-e6f6-417c-abba-c3c81b000433"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3230,7 +3230,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "acc3f577-7633-4492-9ff8-7ecf83096de3"
+                          "$blob": "2cd7f5e1-91b5-4c61-9aea-16ed2f81a24e"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3286,7 +3286,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "f3c8383d-9f25-4553-bd59-d5b357ffa492"
+                          "$blob": "2f390c94-1ba5-43b6-8e13-46171a76aca9"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3342,7 +3342,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "344c3304-27b7-46ee-84f9-a51827faa31c"
+                          "$blob": "0bd4ee1c-da2f-4afd-9269-ad40bcfe435c"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3398,7 +3398,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "d916f167-e641-421f-8702-1c8e70478a88"
+                          "$blob": "d65e83cc-9614-4196-8926-231078cbbaea"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3454,7 +3454,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "bf99cc02-f6c1-4007-b8ce-dba422bca8fe"
+                          "$blob": "649f468d-8628-437e-9f88-4760687f975a"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3510,7 +3510,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "8216da0a-9d13-473c-9731-534b445364c4"
+                          "$blob": "d37e84d0-928f-4b40-81f3-2030c488ef4d"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3566,7 +3566,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "25be435d-a2d5-4db7-a68d-939b52db541d"
+                          "$blob": "f397b6f4-06b6-4206-9fd3-1729e991ea2d"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3622,7 +3622,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "3c650e96-1342-4d26-b55e-887647d56206"
+                          "$blob": "1822b0e3-3e4b-4176-8c31-64df2fee25ec"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3678,7 +3678,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "2e35977a-0699-4289-8476-3d0b5b7e042a"
+                          "$blob": "3a160ae7-62c2-4b0c-a879-c654cc99a089"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3734,7 +3734,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "c865d8b9-7e68-47db-8e5a-7921dfe624a6"
+                          "$blob": "6c38e312-f241-47a9-86d7-fd4946362418"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3790,7 +3790,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "25da2e92-2817-4fd1-8da1-3176b0297492"
+                          "$blob": "3d7b26b1-725b-46f7-8bb2-219dad093a68"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3846,7 +3846,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "151676f9-a5d1-41a3-9071-65bf231b1126"
+                          "$blob": "eed135da-d0b5-4c64-bae1-52a65b43d8ad"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3902,7 +3902,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "5aa2e41a-49b9-4fed-9e8c-2ef02aa35eea"
+                          "$blob": "d4797dbb-cea0-45e8-ade8-789aeb704414"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -3958,7 +3958,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "1da953e1-8ade-4728-a615-ac2b4c5bb5eb"
+                          "$blob": "72e236f8-aafe-4d5e-b28c-8d78c8a0e38c"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4014,7 +4014,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "8117e196-6be0-4260-852b-9e4b16186edb"
+                          "$blob": "20154f21-fc6e-49aa-8b49-c32462b1a354"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4070,7 +4070,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "87b4907c-84d0-4b0f-8732-844ca8180f1c"
+                          "$blob": "95e9c1e2-8a59-4069-80a2-31ebf7430ed1"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4126,7 +4126,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "6cb74efb-f48f-44cf-80c7-5e4ee555ff34"
+                          "$blob": "a9e80a26-33ab-4e5e-8e40-c04c93e65d47"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4182,7 +4182,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "ab814d48-45df-4227-a40a-608b8f45e9ef"
+                          "$blob": "92bf8da2-76be-450a-ab09-473d4c5028e8"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4238,7 +4238,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "4dd4d614-7e31-422b-83e5-2fd32a97875e"
+                          "$blob": "656df307-310b-452a-b5ca-3b88d9da1768"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4294,7 +4294,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "12242016-4736-45a1-8d1f-8bd25fcf468e"
+                          "$blob": "6b44d0a7-3906-4d8b-9936-e40f7a8998b7"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4350,7 +4350,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "259da331-68ca-4aa6-968f-b99a712ec9ba"
+                          "$blob": "8f3b9bd4-fb38-41a6-8b7b-509cf0050ecc"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4406,7 +4406,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "c466cc6e-ec87-4b87-b13e-12baefce2d92"
+                          "$blob": "83bef159-1ba5-4e29-974d-8e27b5d17925"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4462,7 +4462,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "af9629a7-9cef-4eb4-b61b-ec54be20689c"
+                          "$blob": "d08ae66f-c1bc-4376-b39d-c2b872420061"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4518,7 +4518,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "34141f03-dce1-409e-9c3f-dd2ecdbc9707"
+                          "$blob": "6cb0e26a-7482-41af-9a2a-68e3d5098c70"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4574,7 +4574,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "2a6f7a03-4c16-4eb4-84b8-71f23f21a3c1"
+                          "$blob": "76f8ea5f-763b-4db3-97e5-875c76d08116"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4630,7 +4630,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "c6dcfd4d-18d5-408c-bee4-10f87bc9ecb7"
+                          "$blob": "c458ef69-e09f-4271-9ed1-56826bd4b530"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4686,7 +4686,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "b99db064-c2a3-4ae7-a8b7-60e240d3edbd"
+                          "$blob": "ca377b43-3726-481c-82bc-edb22536d81a"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4742,7 +4742,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "15a5e471-36a6-487a-a7f8-4a4a4e918c8f"
+                          "$blob": "c16b42b3-bd4f-403a-b15e-fb031feb2e1f"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4798,7 +4798,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "7336583a-9b91-4e9b-a3c7-d0d7e1b6ce49"
+                          "$blob": "2dd7de5c-7d50-4ad2-a536-ff59c352acf0"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4854,7 +4854,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "db0d7c5d-7aa4-4e19-a60e-06fc14539438"
+                          "$blob": "992e66be-4867-4003-a639-4bf85acb96b4"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4910,7 +4910,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "c40c696e-4833-4e50-b0ce-281cb0406e3d"
+                          "$blob": "d37b0c86-21a5-48ed-9a74-19109426b083"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -4966,7 +4966,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "a0667deb-6002-408c-916c-d27c880c6cf0"
+                          "$blob": "6aa8e871-7661-4fc3-bac5-300aa1ce6905"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5022,7 +5022,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "76b85811-d7f2-4392-bcbd-d1adcce445c6"
+                          "$blob": "da4143cc-5d9a-487a-aaab-9a6679e95d8a"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5078,7 +5078,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "4b2dff0c-ffac-44f1-8a7c-4fa070df827a"
+                          "$blob": "b4cb4150-b5fb-42f2-a953-e1a061b7aed6"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5134,7 +5134,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "4ffe6eb4-30fa-414c-89f9-97ae7fae45a8"
+                          "$blob": "c06e1c2c-1795-43cc-b221-d3abe3de6d4d"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5190,7 +5190,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "bc1a6a13-4f16-4d1b-a6c2-cae96a49af63"
+                          "$blob": "c71b3dd4-0acd-430f-a901-c94f067644ec"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5246,7 +5246,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "4496d066-5e47-4dcf-9de5-52c0009128c4"
+                          "$blob": "9eaf39ef-2459-4c97-9f8d-64ec8ad5dad7"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5302,7 +5302,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "3fdb88d8-4f81-4ea2-837e-a454ad757366"
+                          "$blob": "3b10ec42-a7b4-47cd-a061-4881506d55fe"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5358,7 +5358,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "45b851eb-315a-42be-b21b-df44fdaa35fe"
+                          "$blob": "8035076f-d56c-4639-8236-b459fd26c80a"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5414,7 +5414,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "a631f926-c62b-45ca-a552-f5e11b53dcf5"
+                          "$blob": "282e5e77-dd96-433a-bc18-e4ba440ffdc9"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5470,7 +5470,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "b26128b6-a759-4da3-ae24-0408eb48b293"
+                          "$blob": "bd9fa778-570a-4953-8505-984c9da02a72"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5526,7 +5526,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "c6bee82f-8df1-4852-9173-6bfd045a16ff"
+                          "$blob": "b3ffd4cb-0a72-4518-aea9-19f86fbe1836"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5582,7 +5582,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "81f1c9df-d39d-43c0-a1f9-3a8b4cf74817"
+                          "$blob": "c3dc0837-db4a-4a08-8b7f-de75bd8cb1a9"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5657,7 +5657,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "9166ee5d-6120-41ca-a476-37dcdb49ba04"
+                          "$blob": "0ffea29e-1d2c-4bb4-be9b-29fe9a4ac7e8"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -5713,7 +5713,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "29093fb4-05f9-42c2-b004-18b968d6e347"
+                          "$blob": "18cfeebe-5d15-4e7e-a2fc-35df830f758b"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -5769,7 +5769,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "bff5d5e1-858a-456e-9579-31fc4db104a9"
+                          "$blob": "0c42ba2d-36c2-4161-aaa7-7542919e0ec9"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -5825,7 +5825,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "22c11dbc-5bf1-4374-ad87-e2b19c2c5a18"
+                          "$blob": "40e7befc-fbfb-44f6-bed7-d0c43c0a53cd"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5881,7 +5881,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "d28340a0-6941-494d-b276-c9adf465f08c"
+                          "$blob": "2f7b9124-e286-4dec-b4cd-e01f203997f6"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5937,7 +5937,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "dae7ab82-bb1b-492c-96f9-39ab33bb10a7"
+                          "$blob": "d5cce28e-e67d-4065-82e2-744de272b850"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -5993,7 +5993,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "23934465-2256-4a0e-993e-8b19b51690a5"
+                          "$blob": "50141c98-4f44-49f9-af14-64efa4c4abc1"
                         },
                         "Materials": [
                           "materials/default.vmat"
@@ -6049,7 +6049,7 @@
                       "IsTrigger": false,
                       "Mesh": {
                         "Data": {
-                          "$blob": "af15e8c0-b221-46f2-aeba-17841564ef5b"
+                          "$blob": "78783071-5797-432a-a3ee-d4522019446f"
                         },
                         "Materials": [
                           "materials/t_waves_racetrack.vmat"
@@ -6107,7 +6107,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "c1736643-1fc5-4a82-9510-ee71ad73017c"
+                      "$blob": "aed17624-9c91-46d2-9f98-1a99923d8ce2"
                     },
                     "Materials": [
                       "materials/t_waves_racetrack.vmat"
@@ -13812,7 +13812,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "b940b5d0-11f9-403e-8ac5-e0ad70b96246"
+                      "$blob": "f4fbe5db-259c-4fc4-a340-159be925b99a"
                     },
                     "Materials": [
                       "materials/t_waves_racetrack.vmat"
@@ -13868,7 +13868,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "8fe19d5c-e117-497e-9ba7-5c0130969869"
+                      "$blob": "aa4c88a6-c7c5-4569-86a5-f10a76fd5df6"
                     },
                     "Materials": [
                       "materials/t_waves_racetrack.vmat"
@@ -13924,7 +13924,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "1a439db6-bb22-40df-8cc4-de3f961560a5"
+                      "$blob": "68ed8376-55cb-4c21-95ae-a743f450949c"
                     },
                     "Materials": [
                       "materials/t_waves_racetrack.vmat"
@@ -13973,14 +13973,14 @@
                   "Flags": 0,
                   "ColliderFlags": 0,
                   "Collision": "Mesh",
-                  "Color": "1,0.0093,0.0093,0",
+                  "Color": "0.95814,0.00891,0.00891,0.02",
                   "Elasticity": null,
                   "Friction": null,
                   "HideInGame": false,
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "a0ba0866-b9c1-4552-b6a1-5d32160f4dd6"
+                      "$blob": "d631730c-fe54-4de2-b05b-1af6918ea676"
                     },
                     "Materials": [
                       "materials/t_waves_racetrack.vmat"
@@ -14036,7 +14036,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "e4713c3f-0c54-48dc-9cf3-4da440b24a5a"
+                      "$blob": "2f3eeed6-8ee8-4ffe-ac5d-4af2f3d8782b"
                     },
                     "Materials": [
                       "materials/t_waves_racetrack.vmat"
@@ -14092,7 +14092,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "6a029644-b6a0-4680-9fe6-e7f7aa1d7d1e"
+                      "$blob": "6fe2b153-6bbe-490b-a858-b7337441be30"
                     },
                     "Materials": [
                       "materials/t_waves_racetrack.vmat"

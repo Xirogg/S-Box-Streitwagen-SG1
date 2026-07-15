@@ -11,7 +11,22 @@
 <root>
 	@if ( !IsProxy )
 	{
-		<div class="lap">@LapText</div>
+		@* The three lap glyphs get their artwork assigned in code (OnTreeBuilt), not via a
+		   url() in the style attribute — see the LapImage properties below for why. *@
+		<div class="lap" @ref="LapRow">
+			@if ( CurrentLapTexture is not null )
+			{
+				<div class="lap-img" @ref="CurrentLapImage"></div>
+			}
+			@if ( LapSlashTexture is not null )
+			{
+				<div class="lap-img" @ref="SlashImage"></div>
+			}
+			@if ( MaxLapTexture is not null )
+			{
+				<div class="lap-img" @ref="MaxLapImage"></div>
+			}
+		</div>
 		<div class="hpbar" style="background-image: url(@HpOutlinePath);">
 			<div class="hp-fill-clip" style="width: @(HPPercent.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%;">
 				<div class="hp-fill" style="background-image: url(@HpFillPath);"></div>
@@ -86,15 +101,25 @@
 	/* Lap counter, bottom-right. Pulled out of the root flow (was top-left)
 	   so the HP bar can take over the top-left corner. Insets mirror the other
 	   corner HUD elements: right: 132px like .item-slot, bottom: 132px like
-	   .position. Label is just "0/3" now — the "Lap" prefix was dropped. */
+	   .position. Was a "0/3" text label; now three images laid out in a row:
+	   current lap / max lap. */
+	/* No gap here: it's set from code in OnTreeBuilt so it scales with LapImageHeight
+	   instead of staying at a fixed px width as the glyphs grow. */
 	.lap {
 		position: absolute;
-		bottom: 132px;
-		right: 132px;
-		color: white;
-		font-size: 132px;
-		font-family: Arial;
-		text-shadow: 0px 2px 2px black;
+		bottom: 60px;
+		right: 60px;
+		flex-direction: row;
+		align-items: center;
+	}
+	/* background-image, height and aspect-ratio are all assigned from code in
+	   ApplyLapImage — the artwork comes from a Texture object rather than a url(), so it
+	   can't live here. background-size: contain is the safety net: if the aspect ever
+	   disagrees with the box, the artwork letterboxes instead of stretching. */
+	.lap-img {
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 	.currency {
 		position: absolute;
@@ -444,7 +469,80 @@
 	string PowerMessage => Notifier?.CurrentText ?? "";
 	bool ShowPowerMessage => !string.IsNullOrEmpty( PowerMessage );
 
-	string LapText => Lap is null ? "-/-" : $"{Lap.CurrentLap}/{Lap.MaxLaps}";
+	// --- Lap counter artwork --------------------------------------------------
+	// Replaces the old "0/3" text label. Same strongly-typed-Texture reasoning as the
+	// HP bar and item slot above: assign these in the inspector on the HUD prefab so the
+	// asset pipeline bundles the PNGs for joining clients.
+	//
+	// LapNumberTextures is ordered: element 0 is the "lap 1" artwork, element 1 is
+	// "lap 2", and so on. Add or swap entries to change how many laps can be drawn —
+	// nothing here is hardcoded to three.
+	[Group( "Lap Counter" ), Property] public List<Texture> LapNumberTextures { get; set; } = new();
+	[Group( "Lap Counter" ), Property] public Texture LapSlashTexture { get; set; }
+
+	// Glyph height in panel px, and the single knob that scales the whole counter — the gap
+	// between glyphs is derived from it below. 660 is 5x the 132px font-size the old text
+	// label used, which is where the "same size as the label" baseline came from.
+	[Group( "Lap Counter" ), Property] public float LapImageHeight { get; set; } = 660f;
+
+	// Gap between glyphs, as a fraction of glyph height. Keeps the spacing proportional at
+	// any LapImageHeight (12px at the original 132px height).
+	const float LapGapRatio = 12f / 132f;
+
+	// Artwork for a lap number. Index is lap-1, clamped to the list: CurrentLap is 0
+	// on the grid until the start line is first crossed, so before the race starts this
+	// shows the "lap 1" asset rather than nothing. A MaxLaps higher than the list length
+	// falls back to the last entry instead of blanking out.
+	Texture LapNumberTexture( int lap )
+	{
+		var list = LapNumberTextures;
+		if ( list is null || list.Count == 0 ) return null;
+		return list[Math.Clamp( lap - 1, 0, list.Count - 1 )];
+	}
+
+	Texture CurrentLapTexture => Lap is null ? null : LapNumberTexture( Lap.CurrentLap );
+	Texture MaxLapTexture => Lap is null ? null : LapNumberTexture( Lap.MaxLaps );
+
+	// Panel handles for the three glyphs, so OnTreeBuilt can push the artwork straight onto
+	// them. Null whenever the matching @if didn't render that div.
+	Panel LapRow { get; set; }
+	Panel CurrentLapImage { get; set; }
+	Panel SlashImage { get; set; }
+	Panel MaxLapImage { get; set; }
+
+	// The lap art is assigned in the editor as "From Image" (a Sandbox.Resources.ImageFileGenerator
+	// that builds the Texture from a PNG), not "From Disk". A generated texture is created at
+	// runtime and is NOT a loaded resource, so it has no meaningful ResourcePath — the
+	// `background-image: url(...)` trick the HP bar and item slot use would resolve to an empty
+	// URL and draw nothing. Style.BackgroundImage takes the Texture object itself, which works
+	// for both generated and from-disk textures, so route through it rather than through a path.
+	//
+	// Height and aspect ratio are set here too rather than in the stylesheet: the aspect comes
+	// off the texture's own dimensions, which keeps the row tight around narrow art ("I") and
+	// wide art ("III") alike and lets a replacement asset of any proportions lay itself out.
+	void ApplyLapImage( Panel panel, Texture tex )
+	{
+		if ( panel is null || tex is null ) return;
+
+		panel.Style.BackgroundImage = tex;
+		panel.Style.Height = Length.Pixels( LapImageHeight );
+		panel.Style.AspectRatio = tex.Height > 0 ? (float)tex.Width / tex.Height : 1f;
+	}
+
+	// Runs after every tree build, not just the first, so the glyphs re-bind whenever the lap
+	// changes and the tree re-renders. The textures are part of BuildHash as well, which covers
+	// a generated texture that finishes resolving after the first build.
+	protected override void OnTreeBuilt()
+	{
+		base.OnTreeBuilt();
+
+		if ( LapRow is not null )
+			LapRow.Style.ColumnGap = Length.Pixels( LapImageHeight * LapGapRatio );
+
+		ApplyLapImage( CurrentLapImage, CurrentLapTexture );
+		ApplyLapImage( SlashImage, LapSlashTexture );
+		ApplyLapImage( MaxLapImage, MaxLapTexture );
+	}
 
 	// Local player's PG total. Host pushes per-peer mirrors via RpcSetCurrency.
 	int LocalCurrency => PublicityCurrencyManager.LocalCurrency;
@@ -580,8 +678,12 @@
 		}
 	}
 
+	// The lap-counter group is hashed so the tree rebuilds — and OnTreeBuilt re-applies the
+	// artwork — when the assigned textures change, when a generated texture finishes
+	// resolving, or when LapImageHeight is dragged in the inspector.
 	protected override int BuildHash() => System.HashCode.Combine(
 		System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder, Items?.HeldItemKey ),
-		System.HashCode.Combine( LocalCurrency, PowerMessage, BoardSignature, ShowUltimateGlow )
+		System.HashCode.Combine( LocalCurrency, PowerMessage, BoardSignature, ShowUltimateGlow ),
+		System.HashCode.Combine( Lap?.MaxLaps, CurrentLapTexture, LapSlashTexture, MaxLapTexture, LapImageHeight )
 	);
 }

@@ -71,8 +71,8 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 		// Shared display-name manager (custom nicknames -> everyone; Steam name as default).
 		PlayerNameManager.EnsureExists( Scene );
 
-		// Opferaltar backend (persistent god + level per player, PG spending). Lives in
-		// the lobby for the shop UI; same host-gated idempotent pattern as the others.
+		// Opferaltar backend (active god + per-race random favour roll per player, PG spending).
+		// Lives in the lobby for the shop UI; same host-gated idempotent pattern as the others.
 		AltarUpgradeManager.EnsureExists( Scene );
 	}
 

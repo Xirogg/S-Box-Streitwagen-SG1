@@ -18,7 +18,27 @@
       "Bash(python -c \"import uuid; print\\(uuid.uuid4\\(\\)\\); print\\(uuid.uuid4\\(\\)\\)\")",
       "Bash(grep -nB6 '\"Name\": \"Wagen \",' \"Assets/Prefabs/PlayerChariot .prefab\")",
       "Bash(timeout 180 dotnet build streitwagen_wallah.csproj -v quiet -nologo)",
-      "Bash(dotnet build *)"
+      "Bash(dotnet build *)",
+      "Read(//c/Users/jonil/Downloads/**)",
+      "Bash(python -m pip install pillow --quiet)",
+      "Bash(python -c \"from PIL import Image; print\\('pillow ok'\\)\")",
+      "Bash(python \"C:\\\\Users\\\\jonil\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--SandBox-Projects-S-Box-Streitwagen-SG1-streitwagen-wallah\\\\4eb430ff-b5ac-4703-986a-05e5869d14d4\\\\scratchpad\\\\redband.py\")",
+      "Bash(python \"C:\\\\Users\\\\jonil\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--SandBox-Projects-S-Box-Streitwagen-SG1-streitwagen-wallah\\\\4eb430ff-b5ac-4703-986a-05e5869d14d4\\\\scratchpad\\\\redband2.py\")",
+      "Bash(timeout 300 dotnet build Code/streitwagen_wallah.csproj -p:OutputPath=\"C:\\\\Users\\\\jonil\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--SandBox-Projects-S-Box-Streitwagen-SG1-streitwagen-wallah\\\\4eb430ff-b5ac-4703-986a-05e5869d14d4\\\\scratchpad\\\\buildout/\" -p:DocumentationFile= -v q -nologo)",
+      "Bash(SB=\"/c/Program Files \\(x86\\)/Steam/steamapps/common/sbox\"; echo \"=== dotnet dirs in sbox ===\"; find \"$SB\" -maxdepth 3 -iname \"dotnet*\" -o -maxdepth 3 -iname \"*sdk*\" 2>/dev/null | head -10; echo \"=== global.json anywhere? ===\"; ls \"$SB/global.json\" 2>/dev/null; ls \"C:\\\\SandBox Projects\\\\S-Box-Streitwagen-SG1\\\\streitwagen_wallah\\\\global.json\" 2>/dev/null; echo \"\\(none if blank\\)\"; echo \"=== any net10 runtime installed ===\"; dotnet --list-runtimes 2>&1 | grep -i \"10\\\\.\" | head -5 || echo \"no net10 runtime\")",
+      "Bash(ls -la \"C:\\\\Users\\\\jonil\\\\Downloads\\\\sBOX API.json\")",
+      "Bash(python q.py type \"Sandbox.Connection\")",
+      "Bash(python q.py type \"Sandbox.Rpc\")",
+      "Bash(python q.py type \"Sandbox.Networking\")",
+      "Bash(dotnet --list-runtimes)",
+      "Bash(timeout 240 dotnet build Code/streitwagen_wallah.csproj -p:TargetFramework=net9.0 -p:LangVersion=13 --nologo -v q)",
+      "Bash(dotnet \"/c/Program Files/dotnet/sdk/9.0.313/Roslyn/bincore/csc.dll\" -noconfig -nostdlib+ -t:library -langversion:latest -out:nul.dll \"C:/SandBox Projects/S-Box-Streitwagen-SG1/streitwagen_wallah/Code/Scripts/GUI/Lobby/AltarUpgradeManager.cs\")",
+      "PowerShell(dotnet build \"C:\\\\SandBox Projects\\\\S-Box-Streitwagen-SG1\\\\streitwagen_wallah\\\\Code\\\\streitwagen_wallah.csproj\" -v q --nologo 2>&1)",
+      "Bash(python -)",
+      "Bash(timeout 300 dotnet build \"Code/streitwagen_wallah.csproj\" -v q --nologo)",
+      "Bash(git --no-pager diff -- \"Code/Scripts/God Powers/LightningPower .cs\")",
+      "Bash(timeout 180 dotnet build streitwagen_wallah.slnx -v q --nologo)",
+      "Bash(cd \"C:/Program Files \\(x86\\)/Steam/steamapps/common/sbox\" && grep -rn --include=*.razor -iE \"<img[^>]*Texture\" . 2>/dev/null | head -20; echo \"--- addons/base ---\"; grep -rn --include=*.razor -iE \"Style\\\\.BackgroundImage|BackgroundImage\\\\s*=\" . 2>/dev/null | head -20)"
     ]
   }
 }
