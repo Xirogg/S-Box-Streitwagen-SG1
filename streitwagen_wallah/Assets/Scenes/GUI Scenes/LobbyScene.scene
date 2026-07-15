@@ -345,6 +345,7 @@
                 },
                 "compiled": "textures/generated/imagefile/eb5e35387a7d08c6.vtex"
               },
+              "DebugFreeUpgrades": true,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -654,7 +655,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/5e5e28a3102d07ee.vtex"
               },
               "CharacterSlot": {
                 "$compiler": "texture",
@@ -1040,7 +1041,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/bd412e464585751b.vtex"
               },
               "ReadyButton": {
                 "$compiler": "texture",

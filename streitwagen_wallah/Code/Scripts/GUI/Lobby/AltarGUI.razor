@@ -18,9 +18,17 @@
 
 	EIN Klick auf die Götter-Taste OPFERT direkt für diesen Gott (aktiviert dessen
 	ausgewürfelte Gunst fürs nächste Rennen) – kein Detail-Panel, kein separater
-	"Opfern"-Knopf. Ein Gott ist nur noch AKTIV oder NICHT AKTIV; der aktive Gott
-	brennt (aktive Säule). Ein Wechsel auf einen anderen Gott setzt den vorherigen
-	zurück (keine Rückerstattung, vom Host erzwungen).
+	"Opfern"-Knopf. MEHRERE Götter dürfen gleichzeitig aktiv sein; jede aktive Säule
+	brennt. Preis und Regeln macht komplett der host-autoritative AltarUpgradeManager:
+
+	  * C-Gaben (passive Boni) stapeln unbegrenzt – notfalls alle vier gleichzeitig.
+	  * A/B-Gaben geben ein Start-Item, davon gibt es nur EINEN Platz. Ein zweiter
+	    A/B-Gott ist deshalb ein GRATIS-Wechsel: der alte wird deaktiviert.
+	  * Der Preis steigt mit der Anzahl schon aktiver Gaben (30/80/150/300 PG).
+
+	Das leere Gold-Schild am Fuß jeder Säulen-Textur zeigt genau diesen Zustand an:
+	"30 PG" (Preis), "Aktiv" (schon gekauft) oder "Wechseln" (gratis A/B-Tausch) –
+	siehe PriceLabel(). Rot = zu wenig PG.
 
 	KEIN eigener Hintergrund – nutzt den scrollenden Hintergrund vom GUI-Parent
 	(LobbyBackgroundGUI). root ist daher transparent.
@@ -35,7 +43,7 @@
 	Texturen (Säulen/Buttons/Icons) werden – wie in der LobbyGUI – per Code gesetzt
 	(Style.SetBackgroundImage), damit "Image File"-Zuweisungen ohne ResourcePath
 	trotzdem funktionieren. Der Screen-Zustand kommt aus dem host-autoritativen
-	AltarUpgradeManager (aktiver Gott + ausgewürfelte Gunst je Gott) und
+	AltarUpgradeManager (aktive Götter + ausgewürfelte Gunst je Gott) und
 	PublicityCurrencyManager (PG).
 *@
 
@@ -58,19 +66,21 @@
 			int idx = i;
 			var power = Powers[idx];
 			var god = AltarUpgradeManager.ParseGod( power.Name );
-			bool owned = god == OwnedGod && OwnedGod != GodId.None;
+			bool active = AltarUpgradeManager.LocalIsActive( god );
 
 			<div class="pillar-col">
-				<div class="pillar @( owned ? "active" : "" )">
+				<div class="pillar @( active ? "active" : "" )">
 					<div class="pillar-icon"></div>
 					<!-- Ausgewürfelte Gunst dieses Gottes für DIESEN Spieler (A/B/C),
 					     liegt im roten Trommel-Bereich der Säulen-Textur. -->
 					<div class="pillar-option">@OptionLetter( god )</div>
+					<!-- Preis/Status im leeren Gold-Schild am Säulenfuß (Teil der Textur). -->
+					<div class="pillar-price @PriceClass( god )">@PriceLabel( god )</div>
 				</div>
 
 				<!-- EIN Button je Gott: Klick opfert direkt für diesen Gott. onclick auf dem
 				     deckenden Button selbst -> zuverlässig klickbar; dunkelt beim Hovern ab. -->
-				<div class="pillar-btn @( owned ? "owned" : "" )" onclick="@(() => BuyGod( idx ))">
+				<div class="pillar-btn @( active ? "owned" : "" )" onclick="@(() => BuyGod( idx ))">
 					<div class="btn-label">@power.Name</div>
 				</div>
 			</div>
@@ -209,6 +219,42 @@
 		pointer-events: none;
 	}
 
+	/* ----------------------------- Preis-Schild ----------------------------- */
+	/* Sitzt im leeren Gold-Schild am Fuß der Säulen-Textur. Wie beim Options-Label
+	   sind die Werte aus AltarSäule_Aktiv/Inaktiv.png (437x804) ausgemessen: die
+	   Innenfläche des Schilds (ohne schwarzen Rand) läuft von 89% bis 98.5% der Höhe
+	   und von 24% bis 76% der Breite. Prozente statt Pixel, damit es an der Säule
+	   klebt, falls .pillar mal andere Maße bekommt. */
+	.pillar-price {
+		position: absolute;
+		left: 24%;
+		top: 89%;
+		width: 52%;
+		height: 9.5%;
+		align-items: center;
+		justify-content: center;
+		font-size: 32px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+		text-align: center;
+		pointer-events: none;
+	}
+
+	/* Schon gekauft: dieselbe Gunst nochmal kaufen geht nicht, also grün statt Preis. */
+	.pillar-price.owned {
+		color: rgba(24, 84, 32, 1);
+	}
+
+	/* Gratis-Wechsel des A/B-Item-Platzes – hebt sich vom normalen Preis ab. */
+	.pillar-price.swap {
+		color: rgba(150, 70, 10, 1);
+	}
+
+	/* Zu wenig PG: Preis bleibt lesbar, aber klar als "geht nicht" markiert. */
+	.pillar-price.locked {
+		color: rgba(140, 30, 24, 1);
+	}
+
 	/* ----------------------------- Götter-Buttons ----------------------------- */
 	/* Der sichtbare Button IST die Klickfläche (= Opfern für diesen Gott). Deckende
 	   Button-Textur (per Code gesetzt) -> s&box trifft ihn zuverlässig. */
@@ -291,8 +337,6 @@
 	int LocalPG => PublicityCurrencyManager.LocalCurrency;
 	ulong LocalSteamId => PublicityCurrencyManager.LocalSteamId;
 
-	GodId OwnedGod => AltarUpgradeManager.LocalGod;
-
 	// Buchstabe der Gunst, die dieser Gott für DIESEN Spieler ausgewürfelt hat (A/B/C).
 	// Leer, solange der Host noch nicht gewürfelt hat – dann bleibt das rote Band leer,
 	// statt einen falschen Buchstaben zu zeigen.
@@ -303,14 +347,52 @@
 	}
 
 	// ====================================================================
+	//  Preis-Schild am Säulenfuß
+	// ====================================================================
+
+	// Solange der Host für diesen Gott noch nichts gewürfelt hat, ist JEDE Preisaussage
+	// geraten: ein frisch verbundener Client hat noch einen leeren Mirror UND 0 PG, und
+	// beides zusammen sieht für CostForGod aus wie "pleite, also erste Gunst gratis" –
+	// das Schild würde kurz "Gratis" blinken und dann auf "30 PG" springen. Das rote Band
+	// bleibt im selben Zustand leer (OptionLetter), also bleibt das Schild es auch.
+	bool Rolled( GodId god ) => AltarUpgradeManager.LocalOption( god ) != AltarOption.None;
+
+	// Was im leeren Gold-Schild steht. Reine Anzeige des Zustands, den der
+	// AltarUpgradeManager ohnehin schon berechnet – hier wird NICHTS neu entschieden,
+	// sonst könnte das Schild einen anderen Preis zeigen als der Host abbucht.
+	string PriceLabel( GodId god )
+	{
+		if ( god == GodId.None || !Rolled( god ) ) return "";
+		if ( AltarUpgradeManager.LocalIsActive( god ) ) return "Aktiv";
+		if ( AltarUpgradeManager.LocalIsFreeSwap( god ) ) return "Wechseln";
+
+		int cost = AltarUpgradeManager.CostForGod( LocalSteamId, god );
+		if ( cost < 0 ) return "";        // alle Plätze belegt – hier gibt es nichts zu kaufen
+		if ( cost == 0 ) return "Gratis"; // Debug-Modus oder die Pleite-Regel (erste Gunst frei)
+		return $"{cost} PG";
+	}
+
+	// Einfärbung passend zum Text: gekauft / Gratis-Wechsel / zu teuer / normal.
+	string PriceClass( GodId god )
+	{
+		if ( god == GodId.None || !Rolled( god ) ) return "";
+		if ( AltarUpgradeManager.LocalIsActive( god ) ) return "owned";
+		if ( AltarUpgradeManager.LocalIsFreeSwap( god ) ) return "swap";
+
+		int cost = AltarUpgradeManager.CostForGod( LocalSteamId, god );
+		return cost > 0 && LocalPG < cost ? "locked" : "";
+	}
+
+	// ====================================================================
 	//  Interaktion
 	// ====================================================================
 
 	// Direktkauf: Ein Klick auf einen Götter-Button opfert sofort für diesen Gott und
-	// aktiviert dessen ausgewürfelte Gunst fürs nächste Rennen. Der Host prüft Kosten/PG
-	// erneut autoritativ; die lokalen Guards sind nur für sofortiges Feedback (kein
-	// Sound/RPC, wenn der Gott schon aktiv ist oder zu wenig PG da sind). Ein anderer
-	// Gott als der aktuell aktive = Wechsel (Host verwirft den alten).
+	// aktiviert dessen ausgewürfelte Gunst zusätzlich zu allem, was schon aktiv ist.
+	// Der Host prüft Kosten/PG erneut autoritativ; die lokalen Guards sind nur für
+	// sofortiges Feedback (kein Sound/RPC, wenn der Gott schon aktiv ist oder zu wenig
+	// PG da sind). Kostet 0 PG, wenn es ein A/B-Wechsel ist – den alten A/B-Gott nimmt
+	// dann der Host aus der aktiven Liste.
 	void BuyGod( int index )
 	{
 		if ( index < 0 || index >= PowerCount ) return;
@@ -319,7 +401,7 @@
 		if ( god == GodId.None ) return;
 
 		int cost = AltarUpgradeManager.CostForGod( LocalSteamId, god );
-		if ( cost < 0 ) return;         // dieser Gott ist bereits aktiv
+		if ( cost < 0 ) return;         // schon aktiv oder alle Plätze belegt
 		if ( LocalPG < cost ) return;   // zu wenig PG (Host lehnt sonst ohnehin ab)
 
 		LobbyUISFX.Instance?.PlayButtonSound();
@@ -347,21 +429,19 @@
 		SetBgAll( root, "back-btn", Button );
 		SetBgAll( root, "pillar-btn", Button );
 
-		var ownedGod = OwnedGod;
-
 		// Säulen in DOM-Reihenfolge den Powers zuordnen (gleiche Reihenfolge wie die
-		// for-Schleife im Markup). Die "aktive" (brennende) Säule ist der GEKAUFTE Gott.
+		// for-Schleife im Markup). Jede GEKAUFTE Säule brennt – es können mehrere
+		// gleichzeitig sein.
 		var cols = FindByClass( root, "pillar-col" ).ToList();
 		for ( int i = 0; i < cols.Count; i++ )
 		{
 			var pillar = FindByClass( cols[i], "pillar" ).FirstOrDefault();
 			var icon = FindByClass( cols[i], "pillar-icon" ).FirstOrDefault();
 
-			bool owned = i < PowerCount
-				&& ownedGod != GodId.None
-				&& AltarUpgradeManager.ParseGod( Powers[i].Name ) == ownedGod;
+			bool active = i < PowerCount
+				&& AltarUpgradeManager.LocalIsActive( AltarUpgradeManager.ParseGod( Powers[i].Name ) );
 
-			SetBg( pillar, owned ? PillarActive : PillarInactive );
+			SetBg( pillar, active ? PillarActive : PillarInactive );
 			if ( i < PowerCount )
 				SetBg( icon, Powers[i].Icon );
 		}
@@ -413,22 +493,25 @@
 		AltarUpgradeManager.DebugFreeUpgrades = DebugFreeUpgrades;
 	}
 
-	// Rebuild, sobald sich die PG, der aktive Gott oder ein ausgewürfelter Buchstabe
-	// ändern (BuildHash wird jeden Frame geprüft). Die Optionen müssen mit rein, sonst
-	// bleibt das rote Band leer, bis zufällig etwas anderes den Hash ändert.
+	// Rebuild, sobald sich die PG, die aktiven Götter oder ein ausgewürfelter Buchstabe
+	// ändern (BuildHash wird jeden Frame geprüft). Buchstabe UND Aktiv-Flag müssen je
+	// Gott mit rein: sonst bleibt das rote Band leer bzw. das Preis-Schild steht auf dem
+	// alten Wert, bis zufällig etwas anderes den Hash ändert. LocalPG deckt zusätzlich
+	// den Umschlag von "kaufbar" auf "locked" ab.
 	protected override int BuildHash()
 	{
 		var hash = new HashCode();
 		hash.Add( PowerCount );
 		hash.Add( LocalPG );
-		hash.Add( (int)OwnedGod );
 		hash.Add( DebugFreeUpgrades );
 		if ( Powers != null )
 		{
 			foreach ( var p in Powers )
 			{
+				var god = AltarUpgradeManager.ParseGod( p?.Name );
 				hash.Add( p?.Name );
-				hash.Add( (int)AltarUpgradeManager.LocalOption( AltarUpgradeManager.ParseGod( p?.Name ) ) );
+				hash.Add( (int)AltarUpgradeManager.LocalOption( god ) );
+				hash.Add( AltarUpgradeManager.LocalIsActive( god ) );
 			}
 		}
 		return hash.ToHashCode();
