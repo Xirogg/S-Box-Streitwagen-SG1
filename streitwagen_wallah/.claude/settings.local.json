@@ -36,7 +36,9 @@
       "PowerShell(dotnet build \"C:\\\\SandBox Projects\\\\S-Box-Streitwagen-SG1\\\\streitwagen_wallah\\\\Code\\\\streitwagen_wallah.csproj\" -v q --nologo 2>&1)",
       "Bash(python -)",
       "Bash(timeout 300 dotnet build \"Code/streitwagen_wallah.csproj\" -v q --nologo)",
-      "Bash(git --no-pager diff -- \"Code/Scripts/God Powers/LightningPower .cs\")"
+      "Bash(git --no-pager diff -- \"Code/Scripts/God Powers/LightningPower .cs\")",
+      "Bash(timeout 180 dotnet build streitwagen_wallah.slnx -v q --nologo)",
+      "Bash(cd \"C:/Program Files \\(x86\\)/Steam/steamapps/common/sbox\" && grep -rn --include=*.razor -iE \"<img[^>]*Texture\" . 2>/dev/null | head -20; echo \"--- addons/base ---\"; grep -rn --include=*.razor -iE \"Style\\\\.BackgroundImage|BackgroundImage\\\\s*=\" . 2>/dev/null | head -20)"
     ]
   }
 }
