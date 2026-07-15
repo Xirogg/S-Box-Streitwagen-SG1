@@ -162,19 +162,33 @@ public sealed class LightningPower : GodPower
 		// Fully charged → Sound C (stops the charge loop), proximity on the user.
 		ResolveNormalSfx()?.TaranisCharged();
 
+		// Tags are inherited from ancestors, so FindAllWithTag returns the chariot root
+		// AND every node under it (Wagen, Antrieb, Camera, ...). Identity therefore has
+		// to be decided on the resolved PlayerDamageSystem — one per player — and never
+		// on the tagged GameObject itself.
+		var casterDamageSystem = Owner.IsValid()
+			? Owner.Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndDescendants )
+			: null;
+
 		int hitCount = 0;
 		float radiusSq = BombRadius * BombRadius;
+		var alreadyHit = new HashSet<PlayerDamageSystem>();
 
-		foreach ( var player in Scene.FindAllWithTag( PlayerTag ) )
+		foreach ( var tagged in Scene.FindAllWithTag( PlayerTag ) )
 		{
-			if ( !player.IsValid() ) continue;
-			if ( Owner.IsValid() && player == Owner ) continue; // caster is exempt
+			if ( !tagged.IsValid() ) continue;
 
-			if ( Vector3.DistanceBetweenSquared( player.WorldPosition, origin ) > radiusSq )
-				continue;
-
-			var dmg = player.Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndDescendants );
+			var dmg = tagged.Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndDescendants );
 			if ( dmg is null ) continue;
+
+			if ( dmg == casterDamageSystem ) continue; // caster is exempt
+			if ( !alreadyHit.Add( dmg ) ) continue;    // one hit per player, not per tagged node
+
+			// Measure from the damage system's own node (the Wagen body) rather than the
+			// tagged node — the hierarchy spans hundreds of units, so distance has to come
+			// from a fixed point per player or the radius means nothing.
+			if ( Vector3.DistanceBetweenSquared( dmg.WorldPosition, origin ) > radiusSq )
+				continue;
 
 			dmg.Damage( BombDamage );
 			hitCount++;
@@ -208,17 +222,35 @@ public sealed class LightningPower : GodPower
 			casterDamage.DamageMultiplier = 0f;
 		}
 
-		foreach ( var root in Scene.FindAllWithTag( PlayerTag ) )
+		// Same tag-inheritance caveat as Detonate: one tagged node per player is a lie,
+		// so dedupe on the resolved PlayerDamageSystem. Without this the caster's own
+		// child nodes come back as separate, non-caster entries and each one subscribes
+		// its own crash handler — the caster gets zapped by their own Ultimate and
+		// everyone else takes CrashDamage once per node.
+		var seen = new HashSet<PlayerDamageSystem>();
+
+		foreach ( var tagged in Scene.FindAllWithTag( PlayerTag ) )
 		{
-			if ( !root.IsValid() ) continue;
+			if ( !tagged.IsValid() ) continue;
+
+			var damage = tagged.Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndDescendants );
+			if ( damage is null ) continue;
+			if ( !seen.Add( damage ) ) continue;
+
+			// Resolve the rest from the player root, not from `tagged` — which node of the
+			// chariot surfaced first is arbitrary, and a deep one wouldn't see components
+			// sitting on its siblings.
+			var playerRoot = damage.GameObject.Root;
 
 			var entry = new BoostedPlayer
 			{
-				Root = root,
-				IsCaster = (Owner.IsValid() && root == Owner),
-				Speed = root.Components.Get<ISpeedModifiable>( FindMode.EverythingInSelfAndDescendants ),
-				Chariot = root.Components.Get<ChariotPhysics>( FindMode.EverythingInSelfAndDescendants ),
-				Damage = root.Components.Get<PlayerDamageSystem>( FindMode.EverythingInSelfAndDescendants ),
+				Root = playerRoot,
+				// Component identity, not GameObject identity — the only reliable way to
+				// tell "this is the caster" when every child reports the player tag.
+				IsCaster = (casterDamage is not null && damage == casterDamage),
+				Speed = playerRoot.Components.Get<ISpeedModifiable>( FindMode.EverythingInSelfAndDescendants ),
+				Chariot = playerRoot.Components.Get<ChariotPhysics>( FindMode.EverythingInSelfAndDescendants ),
+				Damage = damage,
 			};
 
 			entry.Speed?.SetSpeedMultiplier( SpeedKey, SpeedBoost );
