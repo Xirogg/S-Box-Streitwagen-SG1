@@ -45,6 +45,45 @@ public enum AltarBonus
 }
 
 /// <summary>
+/// Wire format for ONE player's altar state. A separate plain-property class rather than the live
+/// PlayerAltar, so System.Text.Json has something straightforward to (de)serialise — same reason
+/// <see cref="PlayerNameTable"/> exists alongside the name manager's own dictionaries.
+///
+/// SteamId is a string, not a ulong, for the same reason PlayerNameTable keys by string: a 64-bit
+/// Steam ID is past the point where anything treating JSON numbers as doubles keeps every digit.
+/// </summary>
+public sealed class AltarPlayerState
+{
+	public string SteamId { get; set; } = "";
+
+	/// <summary>The Götter-Fluch. See <see cref="AltarUpgradeManager.IsCursed"/>.</summary>
+	public bool Cursed { get; set; }
+
+	/// <summary>godId -> rolled <see cref="AltarOption"/>, both as ints.</summary>
+	public Dictionary<string, int> Options { get; set; } = new();
+
+	/// <summary>godIds whose rolled favour this player has bought.</summary>
+	public List<int> Active { get; set; } = new();
+}
+
+/// <summary>
+/// The whole altar — every player's favours and purchases — in one payload. See
+/// <see cref="AltarUpgradeManager.BroadcastState"/> for why it goes over as a single snapshot
+/// instead of a per-god drip.
+/// </summary>
+public sealed class AltarStateTable
+{
+	public List<AltarPlayerState> Players { get; set; } = new();
+
+	/// <summary>
+	/// The HOST's debug flag. It rides along so a client prices favours exactly the way the host
+	/// charges for them — the flag is only meaningful on the authority, and a client that mirrored
+	/// its own unticked checkbox into the static would print "30 PG" while the host charged 0.
+	/// </summary>
+	public bool DebugFreeUpgrades { get; set; }
+}
+
+/// <summary>
 /// Host-authoritative backend for the Opferaltar (sacrifice altar).
 ///
 /// EVERY god independently rolls ONE favour per player before each race — 10% <see cref="AltarOption.A"/>,
@@ -84,6 +123,21 @@ public enum AltarBonus
 /// change (the roll happens in the lobby, the race must read what was bought there). Clients hold a mirror
 /// the host pushes via Broadcast RPC. Auto-spawned by <see cref="EnsureExists"/> from GameNetworkManager
 /// (lobby) and RaceManager (race), so it needs no manual scene placement.
+///
+/// TWO RULES KEEP THIS MULTIPLAYER-SAFE, and both exist because breaking either one silently gives the
+/// HOST what a client asked for — the failure this system originally shipped with:
+///
+///  * IDENTITY IS ALWAYS EXPLICIT. Anything acting on behalf of a player takes their Steam ID as an
+///    argument. Nothing derives the actor from ambient RPC state (<see cref="Rpc.Caller"/> /
+///    <see cref="Rpc.Calling"/>), because when that context is absent it doesn't fail loudly — it reads
+///    as <see cref="Connection.Local"/>, which ON THE HOST is the host. Every client sacrifice then hit
+///    the host's row: the host got the favours, the host ate the curse, and the client's own state never
+///    moved, so their UI had nothing to redraw. <see cref="RequestPurchase"/> is the pattern: the host
+///    applies directly, a client sends its own ID, and Rpc.Caller is used only to REJECT a mismatch.
+///
+///  * REPLICATION IS A SNAPSHOT, NOT A DIFF. The host ships the whole store
+///    (<see cref="BroadcastState"/>) rather than per-change messages, so a peer that wasn't listening
+///    yet is repaired by the next send instead of staying wrong forever.
 /// </summary>
 public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 {
@@ -115,9 +169,11 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 
 	/// <summary>
 	/// DEBUG: when true, every sacrifice is free — <see cref="CostForGod"/> reports 0 and
-	/// <see cref="RequestPurchaseRpc"/> skips the PG deduction entirely. Toggle it live via the
-	/// "Debug – Gratis-Upgrades" checkbox on the AltarGUI component (it mirrors this flag each
-	/// frame). Enforced on the host (the authority), so it works in solo/host editor sessions.
+	/// <see cref="ApplyPurchase"/> skips the PG deduction entirely. Toggle it live via the
+	/// "Debug – Gratis-Upgrades" checkbox on the AltarGUI component (the AUTHORITY mirrors this flag
+	/// each frame; clients receive the host's value in <see cref="AltarStateTable.DebugFreeUpgrades"/>,
+	/// so their price labels agree with what the host actually charges).
+	/// Enforced on the host (the authority), so it works in solo/host editor sessions.
 	/// The item-slot rule still applies — free favours are still only one A/B at a time.
 	/// </summary>
 	public static bool DebugFreeUpgrades { get; set; }
@@ -136,6 +192,10 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	// Delay after a player's tracker first appears before we grant the start item, so
 	// PlayerItemTracker.OnStart (which clears any stale HeldItemKey) has definitely run.
 	private const float GrantDelay = 0.75f;
+
+	// How often a client re-asks the host for a snapshot while it still has no favours of its own.
+	// See PollForState.
+	private const float SyncRetryInterval = 1f;
 
 	// ---------- God definitions (code constants) ----------
 
@@ -187,9 +247,36 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	private readonly HashSet<ulong> _applied = new();
 
 	/// <summary>True on the host, or when running with no network session (editor/solo).</summary>
-	private static bool IsAuthority => !Networking.IsActive || Networking.IsHost;
+	public static bool IsAuthority => !Networking.IsActive || Networking.IsHost;
+
+	/// <summary>
+	/// Set by anything that mutates <see cref="HostStore"/>; flushed once per frame by
+	/// <see cref="OnUpdate"/>. Coalescing matters: a single sacrifice can evict an old item god, add
+	/// a new one and land a curse, and a re-roll touches four gods for every player at once. One
+	/// snapshot per frame means peers can never observe a half-applied purchase.
+	/// </summary>
+	private bool _stateDirty;
+
+	// Client-side: when we last asked the host for a snapshot. See the pull in OnUpdate.
+	private float _lastSyncRequest;
+
+	// Authority-side: last value of DebugFreeUpgrades we sent, so flipping the AltarGUI checkbox
+	// reaches the clients' price labels instead of waiting for the next purchase to push it.
+	private bool _debugFreeSent;
 
 	// ---------- Lifecycle ----------
+
+	/// <summary>
+	/// DIAGNOSE: jede Zustands-Sendung/-Ankunft protokollieren. Beantwortet in EINEM Playtest,
+	/// welches Glied der Kette hängt, statt es zu erraten:
+	///   * Host zeigt "-&gt; sende", Client zeigt KEIN "&lt;- empfangen"  => das Objekt ist nicht
+	///     wirklich genetzwerkt, der Broadcast bleibt lokal (siehe die [Altar/Net]-Zeile).
+	///   * Client zeigt "&lt;- empfangen ... verflucht=False", Host hält ihn aber für verflucht
+	///     => der Fluch landet auf der falschen Zeile.
+	///   * Client zeigt "verflucht=True", aber kein Popup => Fluch ist da, das Problem liegt
+	///     in der AltarGUI (Frames/Flanke), nicht im Netzwerk.
+	/// </summary>
+	public static bool DebugSyncLog { get; set; } = true;
 
 	protected override void OnAwake()
 	{
@@ -197,6 +284,17 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 
 		if ( Networking.IsHost )
 			GameObject.NetworkSpawn();
+
+		// Die entscheidende Zeile: Network.Active = "Is this object networked?". Ist sie auf dem
+		// CLIENT false (oder existiert dieses Log dort gar nicht), dann laufen alle RPCs dieses
+		// Managers nur lokal ins Leere – dann ist es kein Fluch-Problem, sondern ein Spawn-Problem.
+		if ( DebugSyncLog )
+		{
+			Log.Info( $"[Altar/Net] IsHost={Networking.IsHost} IsActive={Networking.IsActive} " +
+				$"Authority={IsAuthority} | Manager networked={GameObject.Network.Active} " +
+				$"IsProxy={GameObject.Network.IsProxy} Owner={GameObject.Network.Owner?.DisplayName ?? "-"} " +
+				$"| ich={PublicityCurrencyManager.LocalSteamId}" );
+		}
 	}
 
 	protected override void OnStart()
@@ -218,17 +316,18 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		// everything, so freshly-loaded clients get the current purchases + favours.
 		bool newCycle = !RaceManager.Instance.IsValid();
 
-		// Debug: print who came OUT of the last race still cursed, before the re-roll wipes it.
 		if ( newCycle )
+		{
+			// Debug: print who came OUT of the last race still cursed, before the re-roll wipes it.
 			LogRoster( "Lobby (vor Neu-Würfeln)" );
 
-		foreach ( var kv in HostStore )
-		{
-			if ( newCycle )
-				RollFavours( kv.Key, kv.Value );   // rolls, clears purchases AND broadcasts
-			else
-				PushPlayer( kv.Key, kv.Value );
+			foreach ( var kv in HostStore )
+				RollFavours( kv.Key, kv.Value );   // rolls + clears purchases
 		}
+
+		// Either way every peer gets the current state: the re-roll above needs sending, and a race
+		// scene must re-state what the lobby left behind for clients that just loaded in.
+		MarkDirty();
 
 		// "If a player is cursed and goes to Race, he gets a Bounty" — this is that moment. The curse
 		// was rolled back in the lobby and rode here in the static store; the Kopfgeld only exists in a
@@ -249,7 +348,7 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	public void OnActive( Connection channel )
 	{
 		if ( !IsAuthority ) return;
-		PushAll();
+		MarkDirty();
 
 		// A player who joins (or reconnects) once the race is already running missed the OnStart pass,
 		// and their curse outlived the disconnect in the static store — so re-state the bounties. Curses
@@ -270,35 +369,134 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	public void RequestSyncRpc()
 	{
 		if ( !IsAuthority ) return;
-		PushAll();
-	}
-
-	/// <summary>Re-broadcast every known player's purchases + favours. Idempotent; tiny payload (max 4 players).</summary>
-	private void PushAll()
-	{
-		foreach ( var kv in HostStore )
-			PushPlayer( kv.Key, kv.Value );
-	}
-
-	private void PushPlayer( ulong steamId, PlayerAltar st )
-	{
-		foreach ( var god in st.Options.Keys )
-			PushGod( steamId, st, god );
-
-		// Outside the per-god loop on purpose: the curse is one flag for the whole player, and it must
-		// still reach a peer whose Options are somehow empty (nothing rolled yet) — otherwise a cursed
-		// player could show up clean on a client that joined at an awkward moment.
-		RpcSetCursed( steamId, st.Cursed );
+		MarkDirty();
 	}
 
 	/// <summary>
-	/// Send one god's full per-player state (letter + bought-or-not). Everything the host changes goes
-	/// out through here, so the mirror can never drift into a half-updated god.
+	/// Note that the whole store needs re-broadcasting. Never sends immediately — see
+	/// <see cref="_stateDirty"/>; <see cref="OnUpdate"/> does the actual send.
 	/// </summary>
-	private void PushGod( ulong steamId, PlayerAltar st, GodId god )
+	private void MarkDirty() => _stateDirty = true;
+
+	/// <summary>
+	/// Ship the ENTIRE store to every peer as one snapshot.
+	///
+	/// This used to be a drip of per-god RPCs (one per god, plus one for the curse), which had two
+	/// problems a snapshot doesn't. Ordering: a peer could apply the "god X is now inactive" half of a
+	/// free A/B swap without the "god Y is now active" half and render a state that never existed. And
+	/// completeness: the drip only ever described what CHANGED, so a peer whose object wasn't ready yet
+	/// missed those messages permanently — the client's mirror stayed empty, its price labels stayed
+	/// blank, and nothing would ever refill them because the host had no reason to re-send.
+	///
+	/// A snapshot is idempotent and self-healing: whatever a peer missed, the next one puts right. The
+	/// payload is four players' worth of four small ints, so re-sending everything is cheaper than the
+	/// bookkeeping needed to avoid it.
+	/// </summary>
+	private void BroadcastState()
 	{
-		var option = st.Options.TryGetValue( god, out var o ) ? o : AltarOption.None;
-		RpcSetGodState( steamId, (int)god, (int)option, st.Active.Contains( god ) );
+		var table = new AltarStateTable { DebugFreeUpgrades = DebugFreeUpgrades };
+
+		foreach ( var kv in HostStore )
+		{
+			var dto = new AltarPlayerState
+			{
+				SteamId = kv.Key.ToString(),
+				Cursed = kv.Value.Cursed,
+			};
+
+			foreach ( var opt in kv.Value.Options )
+				dto.Options[((int)opt.Key).ToString()] = (int)opt.Value;
+
+			foreach ( var god in kv.Value.Active )
+				dto.Active.Add( (int)god );
+
+			table.Players.Add( dto );
+		}
+
+		var json = Json.Serialize( table );
+
+		if ( DebugSyncLog )
+		{
+			Log.Info( $"[Altar/Sync] -> sende Schnappschuss: {table.Players.Count} Spieler, {json.Length} Zeichen, " +
+				$"networked={GameObject.Network.Active} " +
+				$"[{string.Join( "; ", table.Players.Select( p => $"{p.SteamId}:verflucht={p.Cursed},aktiv={p.Active.Count}" ) )}]" );
+		}
+
+		RpcSetState( json );
+	}
+
+	[Rpc.Broadcast]
+	private void RpcSetState( string json ) => ApplyStateFromJson( json );
+
+	/// <summary>
+	/// Rebuild the mirror from a host snapshot. Clears first, so a god going inactive or a player
+	/// leaving is carried by the absence of an entry rather than needing its own message.
+	///
+	/// Runs on the host too (Broadcast is local as well), where the mirror is only a shadow of the
+	/// authoritative <see cref="HostStore"/> — harmless, and it keeps the curse log identical on
+	/// every peer.
+	/// </summary>
+	private static void ApplyStateFromJson( string json )
+	{
+		// Snapshot the old curse flags BEFORE the clear: the log below reports transitions, and after
+		// a rebuild there is nothing left to compare against.
+		var wasCursed = new Dictionary<ulong, bool>();
+		foreach ( var kv in ClientMirror )
+			wasCursed[kv.Key] = kv.Value.Cursed;
+
+		try
+		{
+			var table = Json.Deserialize<AltarStateTable>( json );
+			if ( table is null ) return;
+
+			ClientMirror.Clear();
+			DebugFreeUpgrades = table.DebugFreeUpgrades;
+
+			foreach ( var dto in table.Players )
+			{
+				if ( !ulong.TryParse( dto.SteamId, out var steamId ) || steamId == 0 ) continue;
+
+				var st = new PlayerAltar { Cursed = dto.Cursed };
+
+				if ( dto.Options != null )
+				{
+					foreach ( var kv in dto.Options )
+						if ( int.TryParse( kv.Key, out var god ) )
+							st.Options[(GodId)god] = (AltarOption)kv.Value;
+				}
+
+				if ( dto.Active != null )
+				{
+					foreach ( var god in dto.Active )
+						st.Active.Add( (GodId)god );
+				}
+
+				ClientMirror[steamId] = st;
+
+				// Only on CHANGE — the host re-sends this snapshot on every join, scene load and
+				// purchase, so logging the state itself would scroll a curse line past for every
+				// player each time anything at all happened.
+				bool before = wasCursed.TryGetValue( steamId, out var b ) && b;
+				if ( before != st.Cursed )
+					Log.Info( $"[Curse] {NameFor( steamId )} ({steamId}) ist jetzt {(st.Cursed ? "VERFLUCHT" : "sauber")}." );
+			}
+		}
+		catch ( Exception e )
+		{
+			Log.Warning( $"[AltarUpgradeManager] Konnte Altar-Zustand nicht lesen: {e.Message}" );
+			return;
+		}
+
+		if ( DebugSyncLog )
+		{
+			ulong me = PublicityCurrencyManager.LocalSteamId;
+			var mine = ClientMirror.TryGetValue( me, out var m ) ? m : null;
+			Log.Info( $"[Altar/Sync] <- empfangen: {ClientMirror.Count} Spieler | ich={me} " +
+				$"im Schnappschuss={(mine is not null)} verflucht={mine?.Cursed} " +
+				$"gewürfelt={mine?.Options.Count ?? 0} aktiv={mine?.Active.Count ?? 0}" );
+		}
+
+		OnAltarChanged?.Invoke();
 	}
 
 	/// <summary>
@@ -334,7 +532,7 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 
 	/// <summary>
 	/// True when the gods have cursed this player for the coming race. Readable on EVERY peer (the host
-	/// broadcasts it via <see cref="RpcSetCursed"/>), which is what makes it safe for UI, race logic and
+	/// broadcasts it via <see cref="RpcSetState"/>), which is what makes it safe for UI, race logic and
 	/// client-side debug alike — unlike <see cref="PublicityCurrencyManager.HasBounty"/>, which is
 	/// host-only. In a race the two mean the same thing: cursed players are exactly the bounty carriers.
 	/// </summary>
@@ -420,7 +618,7 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	/// to buy: an unknown god, one that's already active, or a player who has filled every slot.
 	/// Returns 0 for a free item-slot swap, the broke-player pity favour, or debug mode.
 	///
-	/// <see cref="RequestPurchaseRpc"/> calls straight into this rather than re-deriving the price, so
+	/// <see cref="ApplyPurchase"/> calls straight into this rather than re-deriving the price, so
 	/// the number the UI prints and the number the host charges cannot drift apart.
 	/// </summary>
 	public static int CostForGod( ulong steamId, GodId god )
@@ -498,18 +696,13 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		// The curse is bought with the purchases, so it dies with them: one cursed race, then a clean
 		// slate. Dropping the bounty here too keeps the two from drifting apart — a player who is no
 		// longer cursed must not walk into the next race still carrying last race's Kopfgeld.
-		if ( st.Cursed )
-		{
-			st.Cursed = false;
-			RpcSetCursed( steamId, false );
-		}
+		st.Cursed = false;
 		PublicityCurrencyManager.SetBounty( steamId, false );
 
 		foreach ( var god in Gods.Keys )
-		{
 			st.Options[god] = RollOption();
-			PushGod( steamId, st, god );
-		}
+
+		MarkDirty();
 
 		Log.Info( $"[AltarUpgradeManager] Rolled favours for {steamId}: " +
 			string.Join( ", ", st.Options.Select( kv => $"{kv.Key}={kv.Value}" ) ) );
@@ -545,25 +738,58 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	// ---------- Purchase (host-authoritative) ----------
 
 	/// <summary>
-	/// Sacrifice to <paramref name="godId"/> for the CALLING player, activating whatever favour that god
-	/// rolled for them. Routed to the host; the caller is identified via <see cref="Rpc.Caller"/> (or the
-	/// local connection when the host itself buys). Prices through <see cref="CostForGod"/> and spends via
+	/// Sacrifice to <paramref name="god"/> for the LOCAL player, activating whatever favour that god
+	/// rolled for them. The entry point the UI calls; the host applies it directly and a client asks the
+	/// host via <see cref="RequestPurchaseRpc"/>. Prices through <see cref="CostForGod"/> and spends via
 	/// <see cref="PublicityCurrencyManager.TryModify"/>.
-	///
-	/// A god that rolled C simply joins the active set. A god that rolled A/B takes the item slot, which
-	/// evicts whoever held it — that eviction is the whole reason the swap is free, so the player is never
-	/// charged twice for the one item they get to start with.
 	/// </summary>
+	public static void RequestPurchase( GodId god )
+	{
+		ulong steamId = PublicityCurrencyManager.LocalSteamId;
+		if ( steamId == 0 ) return;
+
+		var mgr = Instance;
+		if ( !mgr.IsValid() )
+		{
+			Log.Warning( "[AltarUpgradeManager] Kein Manager in der Szene — Opfer geht ins Leere." );
+			return;
+		}
+
+		// The host owns the store, so it just applies the purchase. Only a client needs the RPC, and
+		// it names ITSELF as the buyer rather than letting the host infer it — same shape as
+		// PlayerNameManager.SendNameToHost, and the reason this works where Rpc.Caller didn't.
+		if ( IsAuthority )
+			mgr.ApplyPurchase( steamId, god );
+		else
+			mgr.RequestPurchaseRpc( steamId, (int)god );
+	}
+
 	[Rpc.Host]
-	public void RequestPurchaseRpc( int godId )
+	public void RequestPurchaseRpc( ulong steamId, int godId )
 	{
 		if ( !IsAuthority ) return;
 
-		var god = (GodId)godId;
-		if ( god == GodId.None || !Gods.ContainsKey( god ) ) return;
+		// The buyer is the ID the caller sent, NOT whoever the ambient RPC context thinks is calling.
+		// This is the whole multiplayer fix: the old code read the caller off Rpc.Caller and fell back
+		// to Connection.Local when Rpc.Calling was false — which on the host is the HOST. Every client
+		// sacrifice was charged to, activated on, and cursed the host instead of the player who clicked.
+		//
+		// Rpc.Caller is still used, but only to REJECT: if the engine does tell us who called, a client
+		// may only ever buy for itself. When it doesn't, we fall back to trusting the argument rather
+		// than silently attributing the purchase to the wrong player.
+		if ( Rpc.Calling && Rpc.Caller is not null && Rpc.Caller.SteamId != steamId )
+		{
+			Log.Warning( $"[AltarUpgradeManager] {Rpc.Caller.SteamId} wollte für {steamId} opfern — abgelehnt." );
+			return;
+		}
 
-		var conn = Rpc.Calling ? Rpc.Caller : Connection.Local;
-		ulong steamId = conn?.SteamId ?? 0UL;
+		ApplyPurchase( steamId, (GodId)godId );
+	}
+
+	private void ApplyPurchase( ulong steamId, GodId god )
+	{
+		if ( !IsAuthority ) return;
+		if ( god == GodId.None || !Gods.ContainsKey( god ) ) return;
 		if ( steamId == 0 ) return;
 
 		if ( !HostStore.TryGetValue( steamId, out var st ) )
@@ -593,16 +819,13 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		{
 			var previous = ActiveItemGod( steamId );
 			if ( previous != GodId.None )
-			{
 				st.Active.Remove( previous );
-				PushGod( steamId, st, previous );
-			}
 		}
 
 		st.Active.Add( god );
-		PushGod( steamId, st, god );
+		MarkDirty();
 
-		Log.Info( $"[AltarUpgradeManager] {conn?.DisplayName} -> {god} (Option {st.Options[god]}, paid {cost} PG, " +
+		Log.Info( $"[AltarUpgradeManager] {NameFor( steamId )} -> {god} (Option {st.Options[god]}, paid {cost} PG, " +
 			$"now active: {string.Join( ", ", st.Active )})" );
 
 		// "Chance always needs to be applied directly after purchase" — so roll here, not at race start.
@@ -633,48 +856,7 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		if ( !cursed ) return;
 
 		st.Cursed = true;
-		RpcSetCursed( steamId, true );
-	}
-
-	[Rpc.Broadcast]
-	private void RpcSetGodState( ulong steamId, int god, int option, bool active )
-	{
-		var st = MirrorFor( steamId );
-		st.Options[(GodId)god] = (AltarOption)option;
-
-		if ( active ) st.Active.Add( (GodId)god );
-		else st.Active.Remove( (GodId)god );
-
-		OnAltarChanged?.Invoke();
-	}
-
-	/// <summary>
-	/// Push one player's curse flag to every peer. Also the DEBUG hook the lobby relies on: it fires on
-	/// each machine the moment a curse lands, so every player sees who just got hit without needing a
-	/// visual indicator on the altar.
-	/// </summary>
-	[Rpc.Broadcast]
-	private void RpcSetCursed( ulong steamId, bool cursed )
-	{
-		var st = MirrorFor( steamId );
-
-		// PushAll/PushPlayer re-send the whole store on every join and scene load, so most calls here
-		// carry state the peer already has. Bail on those: otherwise a single player joining would print
-		// a curse line for everyone in the lobby, and "X is now clean" would scroll past every scene load.
-		if ( st.Cursed == cursed ) return;
-
-		st.Cursed = cursed;
-
-		Log.Info( $"[Curse] {NameFor( steamId )} ({steamId}) ist jetzt {(cursed ? "VERFLUCHT" : "sauber")}." );
-
-		OnAltarChanged?.Invoke();
-	}
-
-	private static PlayerAltar MirrorFor( ulong steamId )
-	{
-		if ( !ClientMirror.TryGetValue( steamId, out var st ) )
-			ClientMirror[steamId] = st = new PlayerAltar();
-		return st;
+		MarkDirty();
 	}
 
 	/// <summary>
@@ -717,7 +899,7 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	/// Composed on the host (only it can see the bounty set and the authoritative store) and shipped as
 	/// one finished string, because the clients cannot re-derive this: their mirror carries the curse but
 	/// never the Kopfgeld. Broadcasting also covers the case that would otherwise go silent on a client —
-	/// <see cref="RpcSetCursed"/> only logs on CHANGE, and <see cref="ClientMirror"/> is static, so a
+	/// <see cref="ApplyStateFromJson"/> only logs on CHANGE, and <see cref="ClientMirror"/> is static, so a
 	/// client walking a curse from the lobby into a race sees no change and would print nothing at all.
 	/// </summary>
 	private void LogRoster( string context )
@@ -745,7 +927,26 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 
 	protected override void OnUpdate()
 	{
-		if ( !IsAuthority ) return;
+		if ( !IsAuthority )
+		{
+			PollForState();
+			return;
+		}
+
+		// The debug flag is poked straight into the static by the AltarGUI checkbox, so nothing else
+		// would ever notice it changed.
+		if ( _debugFreeSent != DebugFreeUpgrades )
+		{
+			_debugFreeSent = DebugFreeUpgrades;
+			MarkDirty();
+		}
+
+		// Send at most one snapshot per frame, after every mutation this frame has landed.
+		if ( _stateDirty )
+		{
+			_stateDirty = false;
+			BroadcastState();
+		}
 
 		// Every player needs their four letters before they can pick, so roll in both scenes —
 		// the lobby is where they read them, and a late joiner in a race still needs a valid set.
@@ -773,6 +974,31 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 			ApplyLoadout( steamId, root, tracker );
 		}
 	}
+
+	/// <summary>
+	/// Client-side: keep asking the host for a snapshot until we have our OWN letters.
+	///
+	/// The single OnStart request isn't enough on its own. It is a fire-and-forget RPC sent the moment
+	/// this component appears on our machine, and there is no guarantee the host is in a position to
+	/// answer usefully yet — the host may not even have rolled for us at that point (EnsureRolled runs
+	/// off Connection.All on ITS next frame). A request that arrives a frame too early gets a snapshot
+	/// without us in it, and nothing would ever ask again: that is exactly the "prices and labels never
+	/// update" the client sees. Retrying until our own entry shows up costs one tiny RPC per second and
+	/// stops the moment it works.
+	/// </summary>
+	private void PollForState()
+	{
+		if ( HasRolled( PublicityCurrencyManager.LocalSteamId ) )
+			return;   // the host has told us about ourselves; nothing left to wait for
+
+		if ( Time.Now - _lastSyncRequest < SyncRetryInterval ) return;
+
+		_lastSyncRequest = Time.Now;
+		RequestSyncRpc();
+	}
+
+	/// <summary>True once this peer knows what <paramref name="steamId"/>'s gods rolled this cycle.</summary>
+	public static bool HasRolled( ulong steamId ) => Lookup( steamId )?.Options.Count > 0;
 
 	/// <summary>
 	/// Fire every favour this player bought. The C bonuses are summed into ONE modifier push rather than

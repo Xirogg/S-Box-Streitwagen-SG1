@@ -345,6 +345,1157 @@
                 },
                 "compiled": "textures/generated/imagefile/eb5e35387a7d08c6.vtex"
               },
+              "ClickAnywhereToClose": true,
+              "CurseButtonHeight": 12.6,
+              "CurseButtonLeft": 40.6,
+              "CurseButtonText": "Verstanden",
+              "CurseButtonTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/altar ui/cursed/altarui_cursebutton.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": null
+              },
+              "CurseButtonTop": 84,
+              "CurseButtonWidth": 18.8,
+              "CurseFrameRate": 10,
+              "CurseFrames": [
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_000.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_001.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_002.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_003.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_004.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_005.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_006.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_007.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_008.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_009.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_010.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_011.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_012.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_013.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_014.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_015.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_016.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_017.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_018.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_019.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_020.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_021.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_022.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_023.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_024.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_025.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_026.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_027.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                },
+                {
+                  "$compiler": "texture",
+                  "$source": "imagefile",
+                  "data": {
+                    "FilePath": "ui/2d lobby ui/altar ui/cursed/frames/cursed_028.png",
+                    "MaxSize": 4096,
+                    "ConvertHeightToNormals": false,
+                    "NormalScale": 1,
+                    "Rotate": 0,
+                    "FlipVertical": false,
+                    "FlipHorizontal": false,
+                    "Cropping": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "Padding": {
+                      "Left": 0,
+                      "Top": 0,
+                      "Right": 0,
+                      "Bottom": 0
+                    },
+                    "InvertColor": false,
+                    "Tint": "1,1,1,1",
+                    "Blur": 0,
+                    "Sharpen": 0,
+                    "Brightness": 1,
+                    "Contrast": 1,
+                    "Saturation": 1,
+                    "Hue": 0,
+                    "Colorize": false,
+                    "TargetColor": "1,1,1,1",
+                    "CacheToDisk": true,
+                    "FormatOverride": "RGBA8888"
+                  },
+                  "compiled": null
+                }
+              ],
+              "CursePopupHeight": 100,
+              "CursePopupWidth": 100,
               "DebugFreeUpgrades": true,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,

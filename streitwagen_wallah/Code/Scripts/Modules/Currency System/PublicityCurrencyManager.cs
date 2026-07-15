@@ -32,7 +32,7 @@ using System.Collections.Generic;
 /// (lobby) and <see cref="RaceManager"/> (race), so it doesn't need to be placed
 /// in every scene manually.
 /// </summary>
-public sealed class PublicityCurrencyManager : Component
+public sealed class PublicityCurrencyManager : Component, Component.INetworkListener
 {
 	public static PublicityCurrencyManager Instance { get; private set; }
 
@@ -137,6 +137,26 @@ public sealed class PublicityCurrencyManager : Component
 			if ( rm != null )
 				rm.OnPlayerFinished += HandlePlayerFinished;
 		}
+	}
+
+	/// <summary>
+	/// Re-send every total whenever a connection goes active.
+	///
+	/// <see cref="OnStart"/>'s push only covers peers that were already there when the HOST loaded the
+	/// scene. A player joining an existing lobby missed it, and nothing else would re-send: totals are
+	/// only broadcast when they CHANGE, so that player sat on an empty mirror reading 0 PG until they
+	/// next earned or spent something. The altar cares more than the PG counter does — a client showing
+	/// 0 PG trips <see cref="AltarUpgradeManager"/>'s broke-player pity rule client-side and labels
+	/// every pillar "Gratis", while the host prices them off the real total and charges properly.
+	///
+	/// Idempotent and tiny (max 4 players), so re-broadcasting to everyone is fine.
+	/// </summary>
+	public void OnActive( Connection channel )
+	{
+		if ( !Networking.IsHost ) return;
+
+		foreach ( var kv in HostStore )
+			RpcSetCurrency( kv.Key, kv.Value );
 	}
 
 	protected override void OnDestroy()

@@ -45,6 +45,29 @@
 	trotzdem funktionieren. Der Screen-Zustand kommt aus dem host-autoritativen
 	AltarUpgradeManager (aktive Götter + ausgewürfelte Gunst je Gott) und
 	PublicityCurrencyManager (PG).
+
+	FLUCH-POPUP: Ab der zweiten Gabe kann jeder Kauf den Spieler verfluchen
+	(AltarUpgradeManager.CurseChances). Bisher stand das nur im Log – jetzt legt sich
+	ein Popup mit der Fluch-Animation über den Screen, und auf ihrem letzten Bild
+	erscheint der Button, der es wieder schließt. Ausgelöst wird es rein optisch am
+	Flankenwechsel "sauber -> verflucht" von AltarUpgradeManager.LocalIsCursed; der
+	Fluch selbst bleibt komplett host-autoritativ.
+
+	Die Animation läuft als PNG-EINZELBILDER (Property "Curse Frames", im Editor in
+	Abspiel-Reihenfolge zuweisen), nicht als GIF. s&box kann animierte GIFs zwar
+	darstellen, gibt aber keinerlei Kontrolle über sie: kein Restart, kein Loop-Schalter,
+	kein "fertig"-Event. Die Textur wird global gecacht und läuft durch, auch wenn sie
+	niemand sieht – beim zweiten Öffnen startete das GIF also mitten in der Animation,
+	während der Timer fürs Einblenden des Buttons trotzdem bei 0 anfing. Mit Einzelbildern
+	gehört die Uhr uns: der Frame kommt aus der Zeit seit dem Öffnen, fängt garantiert bei
+	0 an und bleibt am letzten Bild stehen.
+
+	Die Frames kamen früher über einen Ordner-PFAD herein (FindFile + Texture.Load). Das
+	ist derselbe Fehler, den die Strecken-Vorschauen in der LobbyGUI schon hinter sich
+	haben: ein getippter String, den nichts prüft und den der Asset-Scanner nicht als
+	Referenz sieht – die PNGs landen dann nicht im Paket, das joinende Clients laden.
+	Deshalb sind es jetzt echte Texture-Referenzen aus dem Inspector, genau wie Säulen,
+	Buttons und Icons.
 *@
 
 <root>
@@ -54,7 +77,9 @@
 			<div class="btn-label">Zurück</div>
 		</div>
 		<div class="pg-display">Publikumsgunst: @LocalPG PG</div>
-		@if ( DebugFreeUpgrades )
+		@* Der WIRKSAME Schalter (vom Host gespiegelt), nicht die lokale Checkbox: auf einem
+		   Client sagt die eigene Checkbox nichts darüber aus, ob der Host gerade gratis abgibt. *@
+		@if ( FreeUpgradesActive )
 		{
 			<div class="debug-badge">DEBUG: Upgrades gratis</div>
 		}
@@ -86,6 +111,28 @@
 			</div>
 		}
 	</div>
+
+	<!-- ======================= Fluch-Popup ======================= -->
+	@if ( CursePopupOpen )
+	{
+		<!-- onclick liegt auf Abdunkler UND GIF-Fenster: s&box lässt Klicks nicht
+		     garantiert vom Kind zum Eltern-Panel durchblubbern, so trifft ein Klick
+		     neben den Button in jedem Fall. Schließt trotzdem erst, wenn das GIF
+		     durch ist – siehe OnCursePopupClick(). -->
+		<div class="curse-overlay" onclick="@OnCursePopupClick">
+			<div class="curse-window" onclick="@OnCursePopupClick">
+				@if ( CurseButtonVisible )
+				{
+					<!-- Reine Optik (CurseButtonTexture), auf voller Leinwand – fängt keine
+					     Klicks, die gehören dem .curse-btn darüber. -->
+					<div class="curse-btn-art"></div>
+					<div class="curse-btn" onclick="@CloseCursePopup">
+						<div class="curse-btn-label">@CurseButtonText</div>
+					</div>
+				}
+			</div>
+		</div>
+	}
 </root>
 
 <style>
@@ -291,6 +338,77 @@
 		text-align: center;
 		pointer-events: none;   /* nie Klicks abfangen -> gehen an den Button */
 	}
+
+	/* ----------------------------- Fluch-Popup ----------------------------- */
+	/* Vollflächiger Abdunkler. pointer-events: all ist hier nicht nur fürs Schließen
+	   da, sondern sperrt auch die Säulen darunter: solange der Fluch läuft, soll
+	   niemand blind weiterkaufen. z-index über allem anderen in diesem Screen. */
+	.curse-overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+		justify-content: center;
+		background-color: rgba(0, 0, 0, 0.75);
+		pointer-events: all;
+		z-index: 50;
+	}
+
+	/* Die Animation – Breite/Höhe kommen per Code aus CursePopupWidth/Height, das
+	   Einzelbild aus UpdateCurseFrame(). background-size: 100% 100% (gleiches Muster wie
+	   der Rest dieser UI) heißt: der Frame wird auf diese Maße GESTRECKT. Die Frames sind
+	   16:9 und laufen damit formatfüllend auf 100%/100%. */
+	.curse-window {
+		position: relative;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		pointer-events: all;
+	}
+
+	/* Button-Grafik auf voller Leinwand. AltarUI_CurseButton.png ist 1920x1080 mit dem
+	   Schild schon an der richtigen Stelle – auf 100%/100% gelegt landet es also exakt
+	   dort, wo es hingehört, ohne Prozent-Gefummel. Deshalb liegt die Grafik hier und
+	   nicht auf .curse-btn: das kleine Panel würde die fast leere Leinwand in die
+	   Schild-Größe stauchen und das Schild zum Punkt schrumpfen. */
+	.curse-btn-art {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		pointer-events: none;
+		z-index: 51;
+	}
+
+	/* Die Klickfläche: liegt auf dem goldenen Schild (aus dem letzten Frame bzw. aus
+	   .curse-btn-art), Position/Größe per Code aus den CurseButton*-Prozenten. Selbst
+	   ohne eigene Grafik sichtbar, weil die Schrift darauf liegt. */
+	.curse-btn {
+		position: absolute;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		pointer-events: all;
+		z-index: 52;   /* über .curse-btn-art, damit die Schrift auf dem Schild liegt */
+		transition: transform 0.1s ease;
+	}
+
+	.curse-btn:hover {
+		filter: brightness( 0.85 );
+		transform: scale( 1.05 );
+	}
+
+	.curse-btn-label {
+		font-size: 36px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+		text-align: center;
+		pointer-events: none;
+	}
 </style>
 
 @code
@@ -319,6 +437,81 @@
 	};
 
 	// ====================================================================
+	//  EDITOR-SLOTS — Fluch-Popup
+	// ====================================================================
+
+	// Die Fluch-Animation als EINZELBILDER – IM EDITOR ZUWEISEN, in Abspiel-Reihenfolge.
+	// Die Liste IST die Animation: Frame 0 ist der erste Eintrag, der letzte Eintrag ist das
+	// Standbild, auf dem der "Verstanden"-Button erscheint. Anzahl egal (siehe CurseFrameRate).
+	//
+	// Warum Editor-Slots und nicht der Ordner-Pfad von vorher: das Laden lief über
+	// FileSystem.Mounted.FindFile( "<pfad>", "*.png" ) + Texture.Load( ... ). Beides hängt
+	// daran, dass die PNGs unter genau diesem Pfad im gemounteten Dateisystem liegen – ein
+	// per Hand getippter String, den nichts prüft, und den der Asset-Scanner nicht als
+	// Referenz erkennt. Eine [Property] Texture ist dagegen eine echte Referenz: der
+	// Inspector zeigt, was zugewiesen ist, und der Asset-Scanner bündelt die PNGs ins Paket,
+	// das joinende Clients herunterladen. GENAU dieselbe Umstellung wie bei den
+	// Strecken-Vorschauen in LobbyManager (RomTrackImage & Co.), aus genau demselben Grund.
+	//
+	// Warum überhaupt Einzelbilder und nicht das GIF: s&box kann animierte GIFs zwar anzeigen,
+	// gibt aber KEINEN Zugriff auf ihre Wiedergabe – kein Restart, kein Loop-Schalter,
+	// kein "fertig"-Event (Sandbox.UI.Image hat nur Texture + SetTexture). Die Animation
+	// läuft an einer global gecachten Textur einfach durch, egal ob sie gerade sichtbar
+	// ist. Beim zweiten Öffnen startet das GIF deshalb irgendwo mittendrin. Als
+	// Einzelbilder gehört die Uhr uns (siehe CurrentCurseFrame) und das Popup fängt
+	// garantiert bei Frame 0 an.
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property] public List<Texture> CurseFrames { get; set; } = new();
+
+	// Bilder pro Sekunde. Das GIF hatte 0.10s pro Frame -> 10 fps. Die Laufzeit ergibt sich
+	// aus Anzahl der Frames / Rate von selbst – es gibt also keine Dauer, die zur Animation
+	// passen MUSS, und das Nachlegen oder Weglassen von Frames verstellt nichts.
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property, Range( 1f, 60f )] public float CurseFrameRate { get; set; } = 10f;
+
+	// Größe des Popups in % des Bildschirms. Die Frames sind 1920x1080, also exakt 16:9
+	// wie der Bildschirm -> formatfüllend, nichts verzerrt. Nur anfassen, wenn eine
+	// Animation mit anderem Seitenverhältnis kommt; dann gilt:
+	//   Höhe% = Breite% * (Bildschirm-Seitenverhältnis) / (Frame-Seitenverhältnis)
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property, Range( 10f, 100f )] public float CursePopupWidth { get; set; } = 100f;
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property, Range( 10f, 100f )] public float CursePopupHeight { get; set; } = 100f;
+
+	// NUR die Klickfläche + die Schrift, in % des Popups – nicht die Grafik (die kommt
+	// aus CurseButtonTexture bzw. steckt schon im letzten Frame). Die Standardwerte sind
+	// an AltarUI_CurseButton.png / cursed_028.png ausgemessen: das goldene Schild liegt
+	// dort bei x 779..1139, y 907..1042, also mittig unter der Schriftrolle.
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property, Range( 0f, 100f )] public float CurseButtonLeft { get; set; } = 40.6f;
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property, Range( 0f, 100f )] public float CurseButtonTop { get; set; } = 84f;
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property, Range( 0f, 100f )] public float CurseButtonWidth { get; set; } = 18.8f;
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property, Range( 0f, 100f )] public float CurseButtonHeight { get; set; } = 12.6f;
+
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property] public string CurseButtonText { get; set; } = "Verstanden";
+
+	// Optionale Button-Grafik, erwartet eine Vorlage in VOLLER Frame-Größe mit dem Schild
+	// an seiner Stelle (AltarUI_CurseButton.png: 1920x1080, Schild bei x 779..1139,
+	// y 907..1042) – die wird auf 100%/100% gelegt und sitzt damit von selbst richtig.
+	// Ein auf Schild-Größe zugeschnittenes PNG gehört hier NICHT rein, das würde
+	// gestreckt.
+	//
+	// Kann leer bleiben: das Schild ist im letzten Frame der Animation schon gezeichnet.
+	// Sinnvoll ist die Grafik trotzdem, wenn der Button unabhängig von der Animation
+	// aussehen/geändert werden soll.
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property] public Texture CurseButtonTexture { get; set; }
+
+	// Fallback fürs Schließen: ein Klick irgendwo aufs Popup zählt wie der Button
+	// (aber auch erst, wenn das GIF durch ist). Aus = nur der Button schließt.
+	[Group( "Altar UI – Fluch-Popup" )]
+	[Property] public bool ClickAnywhereToClose { get; set; } = true;
+
+	// ====================================================================
 	//  DEBUG
 	// ====================================================================
 
@@ -328,6 +521,11 @@
 	[Group( "Altar UI – Debug" )]
 	[Property] public bool DebugFreeUpgrades { get; set; } = false;
 
+	// Popup ohne Kauf/Fluch anzeigen – zum Einpassen von CursePopup*/CurseButton*.
+	[Group( "Altar UI – Debug" )]
+	[Button( "Fluch-Popup testen" )]
+	public void DebugShowCursePopup() => OpenCursePopup();
+
 	// ====================================================================
 	//  Abgeleitete Werte aus den host-autoritativen Managern
 	// ====================================================================
@@ -336,6 +534,11 @@
 
 	int LocalPG => PublicityCurrencyManager.LocalCurrency;
 	ulong LocalSteamId => PublicityCurrencyManager.LocalSteamId;
+
+	// Ob gerade WIRKLICH gratis geopfert wird. Auf dem Host ist das die Checkbox oben, auf
+	// einem Client der vom Host gespiegelte Wert – DebugFreeUpgrades (die [Property]) ist
+	// dort bedeutungslos.
+	bool FreeUpgradesActive => AltarUpgradeManager.DebugFreeUpgrades;
 
 	// Buchstabe der Gunst, die dieser Gott für DIESEN Spieler ausgewürfelt hat (A/B/C).
 	// Leer, solange der Host noch nicht gewürfelt hat – dann bleibt das rote Band leer,
@@ -400,12 +603,150 @@
 		var god = AltarUpgradeManager.ParseGod( Powers[index].Name );
 		if ( god == GodId.None ) return;
 
+		// Nichts kaufen, solange der Host für uns noch nicht gewürfelt hat: der Zustand, auf
+		// den sich die Guards unten stützen, ist dann schlicht noch nicht da. Ein frisch
+		// verbundener Client hat einen leeren Mirror UND 0 PG – für CostForGod sieht das aus
+		// wie "pleite, erste Gunst gratis" (siehe Rolled()), und der Klick würde ein Opfer
+		// auf einen Buchstaben abschicken, den der Spieler nie gesehen hat.
+		if ( !Rolled( god ) ) return;
+
 		int cost = AltarUpgradeManager.CostForGod( LocalSteamId, god );
 		if ( cost < 0 ) return;         // schon aktiv oder alle Plätze belegt
 		if ( LocalPG < cost ) return;   // zu wenig PG (Host lehnt sonst ohnehin ab)
 
 		LobbyUISFX.Instance?.PlayButtonSound();
-		AltarUpgradeManager.Instance?.RequestPurchaseRpc( (int)god );
+
+		// Geht auf dem Host direkt in den Store, auf einem Client per RPC – und nennt in
+		// beiden Fällen ausdrücklich DIESEN Spieler als Käufer.
+		AltarUpgradeManager.RequestPurchase( god );
+	}
+
+	// ====================================================================
+	//  Fluch-Popup
+	// ====================================================================
+
+	// Rein lokaler Anzeige-Zustand. Der Fluch selbst gehört dem AltarUpgradeManager –
+	// hier wird nichts entschieden, nur dargestellt.
+	bool _cursePopupOpen;
+	float _curseOpenedAt;
+	bool _sawCursed;      // LocalIsCursed vom letzten Frame -> Flankenerkennung
+	bool _curseSeeded;    // erster Frame gesehen? (siehe OnUpdate)
+
+	Panel _curseWindow;           // Ziel-Panel, aus ApplyCursePopup
+	int _curseFrameShown = -1;    // welcher Frame liegt gerade drin?
+
+	bool CursePopupOpen => _cursePopupOpen;
+
+	// Null-sicher: die Liste kommt aus dem Editor und kann dort leer ODER null sein.
+	int CurseFrameCount => CurseFrames?.Count ?? 0;
+
+	// Wie viele Frames auf DIESEM Rechner wirklich benutzbar sind. Der Unterschied zu
+	// CurseFrameCount ist die ganze Diagnose: 29 Einträge, aber 0 gültige heißt "die Liste ist
+	// zugewiesen, die Texturen sind hier aber nicht da" – also ein Asset-/Paket-Problem auf dem
+	// Client, kein Fluch- und kein Netzwerk-Problem.
+	int CurseFramesValid
+	{
+		get
+		{
+			int n = 0;
+			for ( int i = 0; i < CurseFrameCount; i++ )
+				if ( CurseFrames[i] is not null && CurseFrames[i].IsValid ) n++;
+			return n;
+		}
+	}
+
+	// DAS ist der Kern: der Frame wird aus der Zeit SEIT DEM ÖFFNEN gerechnet, nicht aus
+	// irgendeiner globalen Uhr. Öffnen setzt _curseOpenedAt neu -> die Animation fängt
+	// zwangsläufig bei 0 an, jedes Mal. RealTime statt Time, damit ein pausiertes oder
+	// zeitskaliertes Spiel das Popup nicht einfriert.
+	int CurrentCurseFrame
+	{
+		get
+		{
+			int count = CurseFrameCount;
+			if ( count == 0 ) return 0;
+
+			float rate = MathF.Max( CurseFrameRate, 0.001f );   // 0 fps würde durch 0 teilen
+			int i = (int)((RealTime.Now - _curseOpenedAt) * rate);
+			return Math.Clamp( i, 0, count - 1 );               // am letzten Frame stehenbleiben
+		}
+	}
+
+	// Der Button kommt, sobald der letzte Frame liegt.
+	bool CurseButtonVisible
+	{
+		get
+		{
+			if ( !_cursePopupOpen ) return false;
+
+			// Ohne Frames gibt es nichts, was den Button je auslösen würde – das Popup
+			// wäre unschließbar und der Spieler säße fest. Dann lieber sofort zeigen.
+			int count = CurseFrameCount;
+			if ( count == 0 ) return true;
+
+			return CurrentCurseFrame >= count - 1;
+		}
+	}
+
+	void OpenCursePopup()
+	{
+		_cursePopupOpen = true;
+		_curseOpenedAt = RealTime.Now;
+		_curseFrameShown = -1;   // erzwingt das Setzen von Frame 0 im nächsten Update
+
+		// DIAGNOSE: Kommt diese Zeile auf dem Client NICHT, ist er gar nicht verflucht (dann sagt
+		// die [Altar/Sync]-Zeile warum). Kommt sie mit "gültig=0/29", ist der Fluch da und nur die
+		// Texturen fehlen auf diesem Rechner – zwei völlig verschiedene Baustellen.
+		if ( AltarUpgradeManager.DebugSyncLog )
+		{
+			Log.Info( $"[Altar/Popup] geöffnet | Frames gültig={CurseFramesValid}/{CurseFrameCount} " +
+				$"fps={CurseFrameRate} ich={LocalSteamId}" );
+
+			if ( CurseFrameCount > 0 && CurseFramesValid == 0 )
+			{
+				Log.Warning( "[Altar/Popup] Alle Fluch-Frames sind hier UNGÜLTIG – die Liste ist zugewiesen, aber die " +
+					"Texturen sind auf diesem Peer nicht auflösbar. Das ist ein Asset-Problem (nicht kompiliert/nicht " +
+					"im Paket), kein Netzwerk-Problem: Szene im Editor speichern, damit die Frames eine kompilierte " +
+					"\"compiled\"-Referenz bekommen (wie PillarActive/Button)." );
+			}
+		}
+	}
+
+	void CloseCursePopup()
+	{
+		if ( !_cursePopupOpen ) return;
+		_cursePopupOpen = false;
+		LobbyUISFX.Instance?.PlayButtonSound();
+	}
+
+	// Klick auf den Abdunkler oder aufs Bild. Erst wirksam, wenn der Button da ist:
+	// sonst würde ein hektischer Klick direkt nach dem Kauf die Animation wegdrücken,
+	// bevor der Spieler überhaupt gelesen hat, dass er verflucht ist.
+	void OnCursePopupClick()
+	{
+		if ( !ClickAnywhereToClose ) return;
+		if ( !CurseButtonVisible ) return;
+		CloseCursePopup();
+	}
+
+	// Frame-Wechsel läuft bewusst NICHT über einen Rebuild: der Frame-Index im BuildHash
+	// würde den ganzen Panel-Baum (inkl. der vier Säulen) 10x pro Sekunde neu bauen. Hier
+	// wird nur das Hintergrundbild des schon existierenden Panels getauscht.
+	void UpdateCurseFrame()
+	{
+		if ( !_cursePopupOpen || _curseWindow is null ) return;
+
+		int i = CurrentCurseFrame;
+		if ( i == _curseFrameShown ) return;
+		if ( i >= CurseFrameCount ) return;
+
+		// Merken, BEVOR wir aussteigen: ein leerer Listen-Platz soll nur "kein Bildwechsel"
+		// heißen (das vorige Bild bleibt stehen), nicht "jeden Frame nochmal versuchen".
+		_curseFrameShown = i;
+
+		// SetBg ignoriert null von sich aus – ein nicht zugewiesener Slot lässt das vorherige
+		// Bild stehen, statt das Popup schwarz zu schalten.
+		SetBg( _curseWindow, CurseFrames[i] );
 	}
 
 	// Zurück zum Lobby-Screen (AltarGUI aus, LobbyGUI an). Zentral im LobbyManager.
@@ -445,6 +786,38 @@
 			if ( i < PowerCount )
 				SetBg( icon, Powers[i].Icon );
 		}
+
+		ApplyCursePopup( root );
+	}
+
+	// Fluch-Popup: Maße + Panel-Referenz. Läuft bei jedem Rebuild; das eigentliche
+	// Abspielen macht UpdateCurseFrame() auf dem hier gemerkten Panel.
+	void ApplyCursePopup( Panel root )
+	{
+		_curseWindow = FindByClass( root, "curse-window" ).FirstOrDefault();
+		if ( _curseWindow is not null )
+		{
+			_curseWindow.Style.Width = Length.Percent( CursePopupWidth );
+			_curseWindow.Style.Height = Length.Percent( CursePopupHeight );
+
+			// Der Rebuild hat ein frisches Panel gebaut, das noch kein Bild hat – der
+			// gemerkte Frame-Index gehört aber zum alten. Zurücksetzen, sonst bleibt das
+			// Popup bis zum nächsten Frame-Wechsel leer.
+			_curseFrameShown = -1;
+			UpdateCurseFrame();
+		}
+
+		// Grafik auf die volle Leinwand (die Vorlage hat das Schild schon an der richtigen
+		// Stelle), Klickfläche + Schrift auf das Schild.
+		SetBg( FindByClass( root, "curse-btn-art" ).FirstOrDefault(), CurseButtonTexture );
+
+		var button = FindByClass( root, "curse-btn" ).FirstOrDefault();
+		if ( button is null ) return;
+
+		button.Style.Left = Length.Percent( CurseButtonLeft );
+		button.Style.Top = Length.Percent( CurseButtonTop );
+		button.Style.Width = Length.Percent( CurseButtonWidth );
+		button.Style.Height = Length.Percent( CurseButtonHeight );
 	}
 
 	static void SetBgAll( Panel root, string cls, Texture tex )
@@ -481,6 +854,26 @@
 		for ( int i = 0; i < PowerCount; i++ )
 			if ( Powers[i].Icon is null || !Powers[i].Icon.IsValid )
 				Log.Warning( $"[AltarGUI] Icon fehlt/ungültig für Power '{Powers[i].Name}'" );
+
+		int frames = CurseFrameCount;
+
+		if ( frames == 0 )
+		{
+			Log.Warning( "[AltarGUI] Keine Fluch-Frames zugewiesen (Property \"Curse Frames\", Gruppe \"Altar UI – Fluch-Popup\") – " +
+				"das Fluch-Popup zeigt kein Bild. Der \"Verstanden\"-Button erscheint dann sofort, damit es trotzdem schließbar bleibt." );
+		}
+		else
+		{
+			// Leere Slots einzeln melden: die Liste in Abspiel-Reihenfolge von Hand zu füllen
+			// lädt zum Vertippen ein, und ein übersprungener Slot fällt beim Abspielen kaum
+			// auf (das vorherige Bild bleibt einfach einen Tick länger stehen).
+			for ( int i = 0; i < frames; i++ )
+				if ( CurseFrames[i] is null || !CurseFrames[i].IsValid )
+					Log.Warning( $"[AltarGUI] Fluch-Frame {i} ist leer/ungültig – an dieser Stelle bleibt das vorherige Bild stehen." );
+
+			Log.Info( $"[AltarGUI] Fluch-Animation: {CurseFramesValid}/{frames} Frames gültig @ {CurseFrameRate} fps = " +
+				$"{frames / MathF.Max( CurseFrameRate, 0.001f ):0.##}s" );
+		}
 	}
 
 	protected override void OnUpdate()
@@ -489,8 +882,32 @@
 		// läuft evtl. ohne aktiven LobbyGUIScreen, der das sonst setzt).
 		Mouse.Visibility = MouseVisibility.Visible;
 
-		// Debug-Schalter live in den (host-autoritativen) Manager spiegeln.
-		AltarUpgradeManager.DebugFreeUpgrades = DebugFreeUpgrades;
+		// Debug-Schalter live in den (host-autoritativen) Manager spiegeln – aber NUR auf der
+		// Autorität. Auf einem Client kommt der Wert des HOSTS mit dem Zustands-Schnappschuss
+		// (AltarStateTable.DebugFreeUpgrades); würde der Client hier seine eigene, praktisch
+		// immer leere Checkbox darüberschreiben, zeigte sein Preis-Schild "30 PG", während der
+		// Host in Wahrheit 0 abbucht.
+		if ( AltarUpgradeManager.IsAuthority )
+			AltarUpgradeManager.DebugFreeUpgrades = DebugFreeUpgrades;
+
+		// Fluch-Popup NUR an der Flanke "sauber -> verflucht" auslösen, nicht am reinen
+		// Zustand: LocalIsCursed bleibt die ganze Runde true, ein Zustands-Check würde
+		// das Popup also sofort wieder aufreißen.
+		//
+		// Der erste Frame merkt den Stand nur (_curseSeeded), statt ihn als Flanke zu
+		// werten. Sonst poppt es auch beim bloßen Öffnen des Altars, wenn der Spieler
+		// schon verflucht ist – und ein frisch verbundener Client fängt mit leerem
+		// Mirror an, bekommt den Fluch mit dem ersten Zustands-Schnappschuss nachgereicht
+		// und sähe das Nachreichen als Flanke.
+		bool cursed = AltarUpgradeManager.LocalIsCursed;
+		if ( !_curseSeeded )
+			_curseSeeded = true;
+		else if ( cursed && !_sawCursed )
+			OpenCursePopup();
+
+		_sawCursed = cursed;
+
+		UpdateCurseFrame();
 	}
 
 	// Rebuild, sobald sich die PG, die aktiven Götter oder ein ausgewürfelter Buchstabe
@@ -503,7 +920,13 @@
 		var hash = new HashCode();
 		hash.Add( PowerCount );
 		hash.Add( LocalPG );
-		hash.Add( DebugFreeUpgrades );
+		hash.Add( FreeUpgradesActive );   // der wirksame Schalter -> auch ein Client baut neu
+
+		// Nur diese zwei: Popup auf/zu und der Moment, in dem der Button dazukommt. Der
+		// laufende Frame gehört bewusst NICHT hier rein – der würde den ganzen Baum 10x
+		// pro Sekunde neu bauen; das Bild tauscht UpdateCurseFrame() direkt am Panel.
+		hash.Add( _cursePopupOpen );
+		hash.Add( CurseButtonVisible );
 		if ( Powers != null )
 		{
 			foreach ( var p in Powers )
