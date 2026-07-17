@@ -1450,6 +1450,44 @@
             "__guid": "5e117cae-cba8-483c-ba7e-77c6f351de39",
             "__enabled": true,
             "Flags": 0,
+            "CursedIcon": {
+              "$compiler": "texture",
+              "$source": "imagefile",
+              "data": {
+                "FilePath": "ui/race ui/race_cursed_icon.png",
+                "MaxSize": 4096,
+                "ConvertHeightToNormals": false,
+                "NormalScale": 1,
+                "Rotate": 0,
+                "FlipVertical": false,
+                "FlipHorizontal": false,
+                "Cropping": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "Padding": {
+                  "Left": 0,
+                  "Top": 0,
+                  "Right": 0,
+                  "Bottom": 0
+                },
+                "InvertColor": false,
+                "Tint": "1,1,1,1",
+                "Blur": 0,
+                "Sharpen": 0,
+                "Brightness": 1,
+                "Contrast": 1,
+                "Saturation": 1,
+                "Hue": 0,
+                "Colorize": false,
+                "TargetColor": "1,1,1,1",
+                "CacheToDisk": true,
+                "FormatOverride": "RGBA8888"
+              },
+              "compiled": null
+            },
             "DionysosIcon": {
               "$compiler": "texture",
               "$source": "imagefile",
@@ -1678,7 +1716,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/322570549400e871.vtex"
               },
               {
                 "$compiler": "texture",
@@ -1716,7 +1754,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/322570549400e871.vtex"
               },
               {
                 "$compiler": "texture",
@@ -1754,7 +1792,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/baf455c5a541f498.vtex"
               },
               {
                 "$compiler": "texture",
@@ -1792,7 +1830,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/2ef3ab7b820c71e6.vtex"
               }
             ],
             "LapSlashTexture": {
@@ -1831,7 +1869,7 @@
                 "CacheToDisk": true,
                 "FormatOverride": "RGBA8888"
               },
-              "compiled": null
+              "compiled": "textures/generated/imagefile/749116c2b7532197.vtex"
             },
             "LavernaIcon": {
               "$compiler": "texture",

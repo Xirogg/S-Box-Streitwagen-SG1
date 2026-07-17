@@ -42,6 +42,14 @@
 			}
 		</div>
 
+		@* Götter-Fluch indicator. Sits top-right, just left of the item slot, so a cursed player
+		   can see they're carrying a Kopfgeld into the race. Like the lap glyphs, the artwork is
+		   assigned in code (OnTreeBuilt) rather than via url() — see the CursedIcon property. *@
+		@if ( ShowCursedIcon )
+		{
+			<div class="cursed-icon" @ref="CursedImage"></div>
+		}
+
 		@if ( ShowPowerMessage )
 		{
 			<div class="power-message">@PowerMessage</div>
@@ -213,6 +221,22 @@
 	.item-icon.ultimate {
 		filter: saturate( 1.15 );
 	}
+	/* Curse indicator, top-right and slightly left of the item slot. The item slot is at
+	   right: 60px and 250px wide, so its LEFT edge sits at right: 310px — this box's right
+	   edge at right: 340px leaves a 30px gap. top: 35px vertically centres the 180px icon on
+	   the 250px-tall slot. background-image is pushed on from code (ApplyCursedImage) because
+	   the icon is an "Image File" texture with no ResourcePath; background-size: contain then
+	   letterboxes whatever aspect ratio the art has instead of stretching it. */
+	.cursed-icon {
+		position: absolute;
+		top: 35px;
+		right: 340px;
+		width: 180px;
+		height: 180px;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
 	.countdown {
 		position: absolute;
 		top: 50%;
@@ -362,6 +386,26 @@
 	[Group( "Item Slot (Ultimate)" ), Property] public Texture DionysosUltIcon { get; set; }
 
 	string ItemSlotPath => ItemSlotTexture?.ResourcePath ?? "";
+
+	// --- Curse indicator ------------------------------------------------------
+	// Shown top-right, just left of the item slot, while the LOCAL player carries the
+	// Götter-Fluch into this race (AltarUpgradeManager.LocalIsCursed — host-broadcast, so it's
+	// valid on every peer). Assign the icon PNG here in the inspector as an "Image File".
+	//
+	// It is NOT sourced through a url(@Path) like the item slot above: an "Image File" is a
+	// generated texture (ImageFileGenerator) that has no meaningful ResourcePath, so a url()
+	// would resolve empty and draw nothing. Instead the Texture object is pushed straight onto
+	// the panel in OnTreeBuilt via Style.BackgroundImage — exactly the same route the lap glyphs
+	// take, and the reason both work for generated and from-disk textures alike.
+	[Group( "Cursed Indicator" ), Property] public Texture CursedIcon { get; set; }
+
+	// Only draw the indicator when the player is actually cursed AND an icon has been assigned —
+	// never leave an empty box in the corner because the slot is blank.
+	bool ShowCursedIcon => CursedIcon is not null && AltarUpgradeManager.LocalIsCursed;
+
+	// Panel handle for the curse icon, so OnTreeBuilt can push the artwork onto it. Null whenever
+	// the matching @if didn't render the div (i.e. the player isn't cursed).
+	Panel CursedImage { get; set; }
 
 	// Normal-ability icon for a normalized god key. Split out from IconForKey so the
 	// Ultimate lookup can fall back to it.
@@ -542,6 +586,11 @@
 		ApplyLapImage( CurrentLapImage, CurrentLapTexture );
 		ApplyLapImage( SlashImage, LapSlashTexture );
 		ApplyLapImage( MaxLapImage, MaxLapTexture );
+
+		// Curse icon: same Texture-object route as the lap glyphs (an "Image File" has no
+		// ResourcePath). Size/position stay in the stylesheet — only the artwork comes from here.
+		if ( CursedImage is not null && CursedIcon is not null )
+			CursedImage.Style.BackgroundImage = CursedIcon;
 	}
 
 	// Local player's PG total. Host pushes per-peer mirrors via RpcSetCurrency.
@@ -683,7 +732,7 @@
 	// resolving, or when LapImageHeight is dragged in the inspector.
 	protected override int BuildHash() => System.HashCode.Combine(
 		System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder, Items?.HeldItemKey ),
-		System.HashCode.Combine( LocalCurrency, PowerMessage, BoardSignature, ShowUltimateGlow ),
+		System.HashCode.Combine( LocalCurrency, PowerMessage, BoardSignature, ShowUltimateGlow, ShowCursedIcon ),
 		System.HashCode.Combine( Lap?.MaxLaps, CurrentLapTexture, LapSlashTexture, MaxLapTexture, LapImageHeight )
 	);
 }
