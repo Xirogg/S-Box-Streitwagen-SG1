@@ -142,7 +142,6 @@ public sealed class LightningPower : GodPower
 	protected override void OnActivate()
 	{
 		fuseLit = true;
-		ResolveNotifier()?.ShowTimed( "Charging", FuseTime );
 		// Charge jingle (Sound A → Sound B loop), proximity on the user. Lives on the
 		// persistent player module so it keeps playing after this clone is destroyed.
 		ResolveNormalSfx()?.StartTaranisCharge();
@@ -158,7 +157,6 @@ public sealed class LightningPower : GodPower
 			: (Owner.IsValid() ? Owner.WorldPosition : WorldPosition);
 
 		LastLightningOrigin = origin;
-		ResolveNotifier()?.Show( "Juunge was ein Feuerball" );
 		// Fully charged → Sound C (stops the charge loop), proximity on the user.
 		ResolveNormalSfx()?.TaranisCharged();
 
@@ -205,7 +203,6 @@ public sealed class LightningPower : GodPower
 	{
 		ultimateActive = true;
 		boosted.Clear();
-		ResolveNotifier()?.ShowTimed( "Boden Charged", UltimateDuration );
 		// Sound A + voice, worldwide.
 		GodPowersUltimateSfxmodule.Instance?.PlayTaranisUltimate();
 		// Sky image, per-player (each aimed at their own chariot).

@@ -13,12 +13,21 @@
 	Werte direkt auf den lokalen (Owner-)Komponenten gesetzt werden und die
 	Physik ohnehin nur vom Owner simuliert wird.
 
-	Steuerung:
-	  "Debugging"        -> Menü auf/zu
-	  "DebugCyclePreset" -> nächstes Preset (wrap-around)
+	NUR IM EDITOR. Siehe DebugAvailable weiter unten: in einem veröffentlichten
+	Build ist das Menü komplett tot — keine Tastenabfrage, kein UI, kein
+	Eingriff in die Stats. Zum Playtesten im Editor bleibt alles wie gehabt.
+
+	Steuerung (Editor):
+	  ToggleKey (Standard "0")   -> Menü auf/zu
+	  CycleKey  (Standard "TAB") -> nächstes Preset (wrap-around)
+
+	Die Tasten werden absichtlich als ROHE Tastatur-Keys abgefragt und nicht
+	mehr über Input-Actions: Actions tauchen sonst im Einstellungs-/Steuerungs-
+	Menü des Spiels auf, und genau diese "Debug"-Gruppe soll im Release nicht
+	sichtbar sein. Die beiden Einträge wurden deshalb aus Input.config entfernt.
 *@
 
-@if ( !IsProxy && IsOpen )
+@if ( DebugAvailable && !IsProxy && IsOpen )
 {
 	<root>
 		<div class="panel">
@@ -69,11 +78,20 @@
 
 @code
 {
-	/// <summary>Input-Action zum Öffnen/Schließen des Menüs.</summary>
-	[Property, Group( "Input" )] public string ToggleAction { get; set; } = "Debugging";
+	/// <summary>
+	/// Hauptschalter für das gesamte Playtesting-Menü. Nur im s&amp;box-Editor
+	/// aktiv — in einem veröffentlichten Build ist <c>Game.IsEditor</c> false,
+	/// also werden die Tasten nie abgefragt, das UI nie gebaut und die Stats
+	/// nie angefasst. Der Code bleibt erhalten, damit das Balancing-Tool beim
+	/// Weiterentwickeln weiter zur Verfügung steht.
+	/// </summary>
+	private static bool DebugAvailable => Game.IsEditor;
 
-	/// <summary>Input-Action zum Durchschalten der Presets.</summary>
-	[Property, Group( "Input" )] public string CycleAction { get; set; } = "DebugCyclePreset";
+	/// <summary>Rohe Tastatur-Taste zum Öffnen/Schließen des Menüs (nur Editor).</summary>
+	[Property, Group( "Input" )] public string ToggleKey { get; set; } = "0";
+
+	/// <summary>Rohe Tastatur-Taste zum Durchschalten der Presets (nur Editor).</summary>
+	[Property, Group( "Input" )] public string CycleKey { get; set; } = "TAB";
 
 	/// <summary>
 	/// Deine Balancing-Presets. Lege beliebig viele an und setze pro Preset
@@ -93,12 +111,12 @@
 
 	private int TotalCount => 1 + (Presets?.Count ?? 0);
 
-	private string ToggleKeyHint => KeyHint( ToggleAction );
-	private string CycleKeyHint => KeyHint( CycleAction );
+	private string ToggleKeyHint => KeyHint( ToggleKey );
+	private string CycleKeyHint => KeyHint( CycleKey );
 
 	protected override void OnStart()
 	{
-		if ( IsProxy ) return;
+		if ( !DebugAvailable || IsProxy ) return;
 
 		ResolveComponents();
 
@@ -119,15 +137,17 @@
 
 	protected override void OnUpdate()
 	{
-		if ( IsProxy ) return;
+		// Erste Bedingung ist der Release-Riegel: außerhalb des Editors wird die
+		// Tastatur hier gar nicht erst abgefragt, das Menü kann also nie aufgehen.
+		if ( !DebugAvailable || IsProxy ) return;
 
-		if ( !string.IsNullOrEmpty( ToggleAction ) && Input.Pressed( ToggleAction ) )
+		if ( !string.IsNullOrEmpty( ToggleKey ) && Input.Keyboard.Pressed( ToggleKey ) )
 		{
 			IsOpen = !IsOpen;
 			if ( IsOpen ) ApplyCurrent(); // beim Öffnen aktuelle Auswahl sicherstellen
 		}
 
-		if ( IsOpen && !string.IsNullOrEmpty( CycleAction ) && Input.Pressed( CycleAction ) )
+		if ( IsOpen && !string.IsNullOrEmpty( CycleKey ) && Input.Keyboard.Pressed( CycleKey ) )
 		{
 			CurrentIndex = (CurrentIndex + 1) % TotalCount;
 			ApplyCurrent();
@@ -194,12 +214,10 @@
 		}
 	}
 
-	private string KeyHint( string action )
-	{
-		if ( string.IsNullOrEmpty( action ) ) return "?";
-		var glyph = Input.GetButtonOrigin( action );
-		return string.IsNullOrEmpty( glyph ) ? action : glyph.ToUpper();
-	}
+	// Der Key wird direkt angezeigt. Input.GetButtonOrigin ist hier nicht mehr
+	// nutzbar (und auch nicht nötig): es löst eine Input-Action auf ihre Bindung
+	// auf, und genau die Actions gibt es für das Debug-Menü nicht mehr.
+	private string KeyHint( string key ) => string.IsNullOrEmpty( key ) ? "?" : key.ToUpper();
 
 	/// <summary>
 	/// Beispiel-Presets, damit das Menü sofort funktioniert. Nach Belieben

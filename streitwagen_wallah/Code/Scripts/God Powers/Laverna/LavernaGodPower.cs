@@ -100,7 +100,6 @@ public sealed class LavernaPower : GodPower
 		if ( pool.Count == 0 )
 		{
 			Log.Info( "[LavernaPower] Item-Dieb found no eligible victim (nobody else is holding an item)." );
-			ResolveNotifier()?.Show( "Pech gehabt!" );
 			return;
 		}
 
@@ -109,7 +108,6 @@ public sealed class LavernaPower : GodPower
 		// Read the key now — by the time the deferred transfer runs the victim's
 		// slot has been wiped, so we'd lose the name otherwise.
 		string stolenKey = victim.HeldItemKey;
-		ResolveNotifier()?.Show( $"Meiner {stolenKey}" );
 
 		// Sound A → Sound B, heard only by the caster and the victim ("used one").
 		var victimRoot = victim.PlayerRoot.IsValid() ? victim.PlayerRoot : victim.GameObject?.Root;
@@ -179,7 +177,6 @@ public sealed class LavernaPower : GodPower
 			return;
 		}
 
-		ResolveNotifier()?.Show( "Heute gestohlen morgen in Polen" );
 		// Sound A + voice, worldwide.
 		GodPowersUltimateSfxmodule.Instance?.PlayLavernaUltimate();
 		// Sky image, per-player (each aimed at their own chariot).

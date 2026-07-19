@@ -82,7 +82,6 @@ public sealed class DionysosPower : GodPower
 	protected override void OnActivate()
 	{
 		//Log.Info( "Dionyoss ist dabei meine Freunde" );
-		ResolveNotifier()?.Show( "Pew Pew" );
 		// Random grape clip (A or B), proximity on the user.
 		ResolveNormalSfx()?.PlayDionysosGrapes();
 
@@ -144,7 +143,6 @@ public sealed class DionysosPower : GodPower
 
 	protected override void OnActivateUltimate()
 	{
-		ResolveNotifier()?.ShowTimed( "Jääägermeister", DrunkDuration );
 		// Sound A + voice, worldwide.
 		GodPowersUltimateSfxmodule.Instance?.PlayDionysosUltimate();
 		// Sky image, per-player (each aimed at their own chariot).

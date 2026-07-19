@@ -1349,7 +1349,7 @@
             "__guid": "b9d2f1a4-3c7e-4f0a-9e21-7d6c8a1b4e55",
             "__enabled": true,
             "Flags": 0,
-            "CycleAction": "DebugCyclePreset",
+            "CycleKey": "TAB",
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -1397,7 +1397,7 @@
                 "ChariotMass": null
               }
             ],
-            "ToggleAction": "Debugging"
+            "ToggleKey": "0"
           },
           {
             "__type": "PlayerCollisions",
