@@ -59,7 +59,7 @@
                 "$compiler": "texture",
                 "$source": "imagefile",
                 "data": {
-                  "FilePath": "ui/tracks/track_aegypten.png",
+                  "FilePath": "ui/tracks/final pictures/egypt_picture.png",
                   "MaxSize": 4096,
                   "ConvertHeightToNormals": false,
                   "NormalScale": 1,
@@ -91,14 +91,14 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": "textures/generated/imagefile/91ef7f0cb1b463ce.vtex"
+                "compiled": null
               },
               "AkropolisScene": "scenes/greece.scene",
               "AkropolisTrackImage": {
                 "$compiler": "texture",
                 "$source": "imagefile",
                 "data": {
-                  "FilePath": "ui/tracks/track_akropolis.png",
+                  "FilePath": "ui/tracks/final pictures/greece_picture.png",
                   "MaxSize": 4096,
                   "ConvertHeightToNormals": false,
                   "NormalScale": 1,
@@ -130,7 +130,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": "textures/generated/imagefile/405e3f80d5a11ab1.vtex"
+                "compiled": null
               },
               "AltarScreen": {
                 "_type": "component",
@@ -155,7 +155,7 @@
                 "$compiler": "texture",
                 "$source": "imagefile",
                 "data": {
-                  "FilePath": "ui/tracks/track_rom.png",
+                  "FilePath": "ui/tracks/final pictures/rome_picture.png",
                   "MaxSize": 4096,
                   "ConvertHeightToNormals": false,
                   "NormalScale": 1,
@@ -187,7 +187,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": "textures/generated/imagefile/39f84b7f5b0c5950.vtex"
+                "compiled": null
               }
             }
           ],
@@ -385,7 +385,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/bf028a648716bf18.vtex"
               },
               "CurseButtonTop": 84,
               "CurseButtonWidth": 18.8,
@@ -427,7 +427,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/cc12caa82ffe5960.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -465,7 +465,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/5815341608b3dc1e.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -503,7 +503,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/d0c4118739f2c0f7.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -541,7 +541,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/44c3ef391ebf4589.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -579,7 +579,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/f5bf7cf603e76a4e.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -617,7 +617,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/61b8824824aaef30.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -655,7 +655,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/e969a7d915ebf3d9.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -693,7 +693,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/7d6e596732a676a7.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -731,7 +731,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/bf49a61477cc3f3c.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -769,7 +769,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/2b4e58aa5081ba42.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -807,7 +807,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/35efef0e24bd301.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -845,7 +845,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/9759004ec506567f.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -883,7 +883,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/1f8825dff4474a96.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -921,7 +921,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/8b8fdb61d30acfe8.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -959,7 +959,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/3af348aece52e02f.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -997,7 +997,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/aef4b610e91f6551.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1035,7 +1035,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/26259381d85e79b8.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1073,7 +1073,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/b2226d3fff13fcc6.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1111,7 +1111,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/7005924cba79b55d.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1149,7 +1149,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/e4026cf29d343023.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1187,7 +1187,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/6653844aec02dec9.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1225,7 +1225,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/f2547af4cb4f5bb7.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1263,7 +1263,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/7a855f65fa0e475e.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1301,7 +1301,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/ee82a1dbdd43c220.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1339,7 +1339,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/5ffe3214c01bede7.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1377,7 +1377,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/cbf9ccaae7566899.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1415,7 +1415,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/4328e93bd6177470.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1453,7 +1453,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/d72f1785f15af10e.vtex"
                 },
                 {
                   "$compiler": "texture",
@@ -1491,7 +1491,7 @@
                     "CacheToDisk": true,
                     "FormatOverride": "RGBA8888"
                   },
-                  "compiled": null
+                  "compiled": "textures/generated/imagefile/1508e8f6b430b895.vtex"
                 }
               ],
               "CursePopupHeight": 100,
