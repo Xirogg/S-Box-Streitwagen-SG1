@@ -6873,7 +6873,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "dccb3269-2f2c-49ea-a74b-94623a0a0fd0"
+                      "$blob": "be74dbce-07b9-456c-80ce-70d774fb2088"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6929,7 +6929,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "b2bca9ee-bca9-498c-a323-b60f9bde62f5"
+                      "$blob": "c5c3eaf1-6b3d-4cc0-8c6f-df88a6dcc9ff"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6985,7 +6985,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "ec4c09ea-2db1-4bdb-ad39-bc60c3ef992f"
+                      "$blob": "9fb8bbdb-2a0e-481a-8c2f-766905bb88f4"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -7268,7 +7268,7 @@
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
-      "Enabled": false,
+      "Enabled": true,
       "NetworkMode": 2,
       "NetworkFlags": 0,
       "NetworkOrphaned": 0,
@@ -7342,242 +7342,6 @@
                 },
                 "Property": "Position",
                 "Value": "-525.533142,-10687.0117,-966.862122"
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "13d5a8e5-3f3f-49aa-902e-1d1ecbbcf79b"
-                },
-                "Property": "MaatSoundB",
-                "Value": null
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
-                },
-                "Property": "DebugLog",
-                "Value": true
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
-                },
-                "Property": "DebugSpawnMaatOnStart",
-                "Value": true
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
-                },
-                "Property": "DionysosImage",
-                "Value": {
-                  "$compiler": "texture",
-                  "$source": "imagefile",
-                  "data": {
-                    "FilePath": "ui/race ui/dionysos_sky_image.png",
-                    "MaxSize": 4096,
-                    "ConvertHeightToNormals": false,
-                    "NormalScale": 1,
-                    "Rotate": 0,
-                    "FlipVertical": false,
-                    "FlipHorizontal": false,
-                    "Cropping": {
-                      "Left": 0,
-                      "Top": 0,
-                      "Right": 0,
-                      "Bottom": 0
-                    },
-                    "Padding": {
-                      "Left": 0,
-                      "Top": 0,
-                      "Right": 0,
-                      "Bottom": 0
-                    },
-                    "InvertColor": false,
-                    "Tint": "1,1,1,1",
-                    "Blur": 0,
-                    "Sharpen": 0,
-                    "Brightness": 1,
-                    "Contrast": 1,
-                    "Saturation": 1,
-                    "Hue": 0,
-                    "Colorize": false,
-                    "TargetColor": "1,1,1,1",
-                    "CacheToDisk": true,
-                    "FormatOverride": "RGBA8888"
-                  },
-                  "compiled": "textures/generated/imagefile/2088e3e46cf88d2a.vtex"
-                }
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
-                },
-                "Property": "Distance",
-                "Value": 15000
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
-                },
-                "Property": "Duration",
-                "Value": 555
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
-                },
-                "Property": "Height",
-                "Value": 3000
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
-                },
-                "Property": "LavernaImage",
-                "Value": {
-                  "$compiler": "texture",
-                  "$source": "imagefile",
-                  "data": {
-                    "FilePath": "ui/race ui/laverna_sky_image.png",
-                    "MaxSize": 4096,
-                    "ConvertHeightToNormals": false,
-                    "NormalScale": 1,
-                    "Rotate": 0,
-                    "FlipVertical": false,
-                    "FlipHorizontal": false,
-                    "Cropping": {
-                      "Left": 0,
-                      "Top": 0,
-                      "Right": 0,
-                      "Bottom": 0
-                    },
-                    "Padding": {
-                      "Left": 0,
-                      "Top": 0,
-                      "Right": 0,
-                      "Bottom": 0
-                    },
-                    "InvertColor": false,
-                    "Tint": "1,1,1,1",
-                    "Blur": 0,
-                    "Sharpen": 0,
-                    "Brightness": 1,
-                    "Contrast": 1,
-                    "Saturation": 1,
-                    "Hue": 0,
-                    "Colorize": false,
-                    "TargetColor": "1,1,1,1",
-                    "CacheToDisk": true,
-                    "FormatOverride": "RGBA8888"
-                  },
-                  "compiled": "textures/generated/imagefile/b1f4b4021a22f27a.vtex"
-                }
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
-                },
-                "Property": "MaatImage",
-                "Value": {
-                  "$compiler": "texture",
-                  "$source": "imagefile",
-                  "data": {
-                    "FilePath": "ui/race ui/maat_sky_image.png",
-                    "MaxSize": 4096,
-                    "ConvertHeightToNormals": false,
-                    "NormalScale": 1,
-                    "Rotate": 0,
-                    "FlipVertical": false,
-                    "FlipHorizontal": false,
-                    "Cropping": {
-                      "Left": 0,
-                      "Top": 0,
-                      "Right": 0,
-                      "Bottom": 0
-                    },
-                    "Padding": {
-                      "Left": 0,
-                      "Top": 0,
-                      "Right": 0,
-                      "Bottom": 0
-                    },
-                    "InvertColor": false,
-                    "Tint": "1,1,1,1",
-                    "Blur": 0,
-                    "Sharpen": 0,
-                    "Brightness": 1,
-                    "Contrast": 1,
-                    "Saturation": 1,
-                    "Hue": 0,
-                    "Colorize": false,
-                    "TargetColor": "1,1,1,1",
-                    "CacheToDisk": true,
-                    "FormatOverride": "RGBA8888"
-                  },
-                  "compiled": "textures/generated/imagefile/51a7afa6253f3c06.vtex"
-                }
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
-                },
-                "Property": "ScalePercent",
-                "Value": 15000
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
-                },
-                "Property": "TaranisImage",
-                "Value": {
-                  "$compiler": "texture",
-                  "$source": "imagefile",
-                  "data": {
-                    "FilePath": "ui/race ui/taranis_sky_image.png",
-                    "MaxSize": 4096,
-                    "ConvertHeightToNormals": false,
-                    "NormalScale": 1,
-                    "Rotate": 0,
-                    "FlipVertical": false,
-                    "FlipHorizontal": false,
-                    "Cropping": {
-                      "Left": 0,
-                      "Top": 0,
-                      "Right": 0,
-                      "Bottom": 0
-                    },
-                    "Padding": {
-                      "Left": 0,
-                      "Top": 0,
-                      "Right": 0,
-                      "Bottom": 0
-                    },
-                    "InvertColor": false,
-                    "Tint": "1,1,1,1",
-                    "Blur": 0,
-                    "Sharpen": 0,
-                    "Brightness": 1,
-                    "Contrast": 1,
-                    "Saturation": 1,
-                    "Hue": 0,
-                    "Colorize": false,
-                    "TargetColor": "1,1,1,1",
-                    "CacheToDisk": true,
-                    "FormatOverride": "RGBA8888"
-                  },
-                  "compiled": "textures/generated/imagefile/edf07ae1b54eaab.vtex"
-                }
               }
             ],
             "MovedObjects": []
