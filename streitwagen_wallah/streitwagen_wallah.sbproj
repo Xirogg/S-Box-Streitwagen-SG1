@@ -1,7 +1,7 @@
 {
   "Title": "chonk",
   "Type": "game",
-  "Org": "local",
+  "Org": "angrypike",
   "Ident": "chonk",
   "Schema": 1,
   "IncludeSourceFiles": false,
