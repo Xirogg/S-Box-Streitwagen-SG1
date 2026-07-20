@@ -85,7 +85,7 @@
           },
           "Ma'at": {
             "_type": "gameobject",
-            "prefab": "prefabs/god prefabs/ma'at/ma'atscriptprefab .prefab"
+            "prefab": "prefabs/god prefabs/maat/maatscriptprefab.prefab"
           },
           "Taranis": {
             "_type": "gameobject",
