@@ -6873,7 +6873,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "7139504a-c2bf-48cc-8f1e-0425674a9a96"
+                      "$blob": "dccb3269-2f2c-49ea-a74b-94623a0a0fd0"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6929,7 +6929,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "0855e2d1-819e-463f-ae1a-f1e9ad6906ec"
+                      "$blob": "b2bca9ee-bca9-498c-a323-b60f9bde62f5"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6985,7 +6985,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "785780d7-3809-4012-9459-ff84c02270fa"
+                      "$blob": "ec4c09ea-2db1-4bdb-ad39-bc60c3ef992f"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"

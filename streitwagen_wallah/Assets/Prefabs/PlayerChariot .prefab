@@ -70,6 +70,32 @@
         },
         "Volume": 1,
         "WorldspacePlayback": true
+      },
+      {
+        "__type": "Sandbox.HorseVisuals",
+        "__guid": "b7e4a1c2-9f3d-4e88-a5c1-2d6f8b0e1a44",
+        "__enabled": true,
+        "Flags": 0,
+        "CrocodileHeadBodyGroup": "KrokoKopfSeperat",
+        "CrocodileHeadHiddenChoice": 1,
+        "CrocodileHeadShownChoice": 0,
+        "HorseModel": "models/chariot/m_cherd_rig_2.vmdl",
+        "HorseNodes": [
+          {
+            "_type": "gameobject",
+            "go": "fbab9d21-9ae1-4e3c-b8d7-ccfa671b8d1a"
+          },
+          {
+            "_type": "gameobject",
+            "go": "ef20ada2-33b7-4062-a329-a02e4706a3b5"
+          }
+        ],
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [
@@ -439,118 +465,6 @@
                 {
                   "Id": {
                     "Type": "Component",
-                    "IdValue": "f950ce9c-afed-4a5e-af01-686dfcfd38fb"
-                  },
-                  "Parent": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "PreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
-                  },
-                  "ContainerProperty": "Components",
-                  "IsContainerArray": true,
-                  "Data": {
-                    "__type": "Sandbox.SkinnedModelRenderer",
-                    "__guid": "f950ce9c-afed-4a5e-af01-686dfcfd38fb",
-                    "__enabled": false,
-                    "Flags": 0,
-                    "AnimationGraph": "animgraphs/m_cherd.vanmgrph",
-                    "BodyGroups": 18446744073709551615,
-                    "BoneMergeTarget": null,
-                    "CreateAttachments": false,
-                    "CreateBoneObjects": false,
-                    "LodOverride": null,
-                    "MaterialGroup": null,
-                    "MaterialOverride": null,
-                    "Materials": null,
-                    "Model": "models/a_cherd_rigged.vmdl",
-                    "Morphs": {},
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "Parameters": {
-                      "bools": {},
-                      "ints": {},
-                      "floats": {},
-                      "vectors": {},
-                      "rotations": {}
-                    },
-                    "PlaybackRate": 1,
-                    "RenderOptions": {
-                      "GameLayer": true,
-                      "OverlayLayer": false,
-                      "BloomLayer": false,
-                      "AfterUILayer": false
-                    },
-                    "RenderType": "On",
-                    "Sequence": {
-                      "Name": null,
-                      "Looping": true,
-                      "Blending": false
-                    },
-                    "Tint": "0.85116,0.85116,0.85116,1",
-                    "UseAnimGraph": true
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "09375d4c-820a-45e8-a45e-7e1d646536a7"
-                  },
-                  "Parent": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "PreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "f950ce9c-afed-4a5e-af01-686dfcfd38fb"
-                  },
-                  "ContainerProperty": "Components",
-                  "IsContainerArray": true,
-                  "Data": {
-                    "__type": "Sandbox.Rigidbody",
-                    "__guid": "09375d4c-820a-45e8-a45e-7e1d646536a7",
-                    "__enabled": false,
-                    "Flags": 0,
-                    "AngularDamping": 0,
-                    "EnableImpactDamage": true,
-                    "EnhancedCcd": false,
-                    "Gravity": true,
-                    "GravityScale": 1,
-                    "ImpactDamage": 0,
-                    "LinearDamping": 0,
-                    "Locking": {
-                      "X": false,
-                      "Y": false,
-                      "Z": false,
-                      "Pitch": false,
-                      "Yaw": false,
-                      "Roll": false
-                    },
-                    "MassCenterOverride": "0,0,0",
-                    "MassOverride": 0,
-                    "MinImpactDamageSpeed": 500,
-                    "MotionEnabled": true,
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "OverrideMassCenter": false,
-                    "RigidbodyFlags": 0,
-                    "SleepThreshold": 2,
-                    "StartAsleep": false
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
                     "IdValue": "7f000741-382a-4174-8cfa-9777bdd0be66"
                   },
                   "Parent": {
@@ -559,7 +473,7 @@
                   },
                   "PreviousElement": {
                     "Type": "Component",
-                    "IdValue": "09375d4c-820a-45e8-a45e-7e1d646536a7"
+                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
                   },
                   "ContainerProperty": "Components",
                   "IsContainerArray": true,
@@ -590,179 +504,24 @@
                 {
                   "Id": {
                     "Type": "Component",
-                    "IdValue": "4ef56b82-f7bb-48ef-a708-8f091f2a6a3a"
+                    "IdValue": "6326fd6f-20ef-42a5-9a99-fa7f357e62d6"
                   },
                   "Parent": {
                     "Type": "GameObject",
                     "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
                   },
                   "PreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "7f000741-382a-4174-8cfa-9777bdd0be66"
-                  },
-                  "ContainerProperty": "Components",
-                  "IsContainerArray": true,
-                  "Data": {
-                    "__type": "Sandbox.ModelCollider",
-                    "__guid": "4ef56b82-f7bb-48ef-a708-8f091f2a6a3a",
-                    "__enabled": true,
-                    "Flags": 0,
-                    "ColliderFlags": 0,
-                    "Elasticity": null,
-                    "Friction": null,
-                    "IsTrigger": false,
-                    "Model": "models/a_cherd_rigged.vmdl",
-                    "OnComponentDestroy": null,
-                    "OnComponentDisabled": null,
-                    "OnComponentEnabled": null,
-                    "OnComponentFixedUpdate": null,
-                    "OnComponentStart": null,
-                    "OnComponentUpdate": null,
-                    "OnObjectTriggerEnter": null,
-                    "OnObjectTriggerExit": null,
-                    "OnTriggerEnter": null,
-                    "OnTriggerExit": null,
-                    "RollingResistance": null,
-                    "Static": false,
-                    "Surface": null,
-                    "SurfaceVelocity": "0,0,0"
-                  }
-                }
-              ],
-              "RemovedObjects": [],
-              "PropertyOverrides": [
-                {
-                  "Target": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "Property": "Position",
-                  "Value": "-2.18444824,36.8434029,-26.945879"
-                },
-                {
-                  "Target": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "Property": "Scale",
-                  "Value": "2.5,2.5,2.5"
-                },
-                {
-                  "Target": {
-                    "Type": "Component",
-                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
-                  },
-                  "Property": "MaterialOverride",
-                  "Value": "materials/t_waves.vmat"
-                },
-                {
-                  "Target": {
-                    "Type": "Component",
-                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
-                  },
-                  "Property": "Tint",
-                  "Value": "0.85116,0.85116,0.85116,1"
-                },
-                {
-                  "Target": {
-                    "Type": "Component",
-                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
-                  },
-                  "Property": "Tint",
-                  "Value": "0.85116,0.85116,0.85116,1"
-                },
-                {
-                  "Target": {
                     "Type": "Component",
                     "IdValue": "90337549-471e-4551-af7e-547d2694ff2f"
-                  },
-                  "Property": "__enabled",
-                  "Value": false
-                }
-              ],
-              "MovedObjects": [
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
-                  },
-                  "NewParent": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "NewContainerProperty": "Components",
-                  "IsNewContainerArray": true,
-                  "NewPreviousElement": null
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
-                  },
-                  "NewParent": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "NewContainerProperty": "Components",
-                  "IsNewContainerArray": true,
-                  "NewPreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
-                  }
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "a923a3bb-2f46-4491-b70a-dda97de5970a"
-                  },
-                  "NewParent": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "NewContainerProperty": "Components",
-                  "IsNewContainerArray": true,
-                  "NewPreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "4ef56b82-f7bb-48ef-a708-8f091f2a6a3a"
-                  }
-                }
-              ]
-            },
-            "__PrefabIdToInstanceId": {
-              "6a3134c2-22a3-4c85-a222-a58993bd6f8d": "fbab9d21-9ae1-4e3c-b8d7-ccfa671b8d1a",
-              "dbf3f04c-40c5-4d53-8223-072162c80929": "9f48f98a-fe88-4844-8251-0f176f15e0c1",
-              "90337549-471e-4551-af7e-547d2694ff2f": "21283d16-60c0-4e81-b986-601e756b7d7b",
-              "a923a3bb-2f46-4491-b70a-dda97de5970a": "a8d224cc-6cb2-4098-b315-7a69af51e907",
-              "5e08b23a-98b2-4b0d-b033-2a4919e3d079": "138ca2a6-7167-47da-a82d-b7a3092bd917"
-            }
-          },
-          {
-            "__guid": "ef20ada2-33b7-4062-a329-a02e4706a3b5",
-            "__version": 2,
-            "__Prefab": "prefabs/horse.prefab",
-            "__PrefabInstancePatch": {
-              "AddedObjects": [
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "4cf8c5f5-293e-4874-9a4f-fb5b29b4bdf8"
-                  },
-                  "Parent": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "PreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
                   },
                   "ContainerProperty": "Components",
                   "IsContainerArray": true,
                   "Data": {
                     "__type": "Sandbox.SkinnedModelRenderer",
-                    "__guid": "4cf8c5f5-293e-4874-9a4f-fb5b29b4bdf8",
-                    "__enabled": false,
+                    "__guid": "6326fd6f-20ef-42a5-9a99-fa7f357e62d6",
+                    "__enabled": true,
                     "Flags": 0,
-                    "AnimationGraph": "animgraphs/m_cherd.vanmgrph",
+                    "AnimationGraph": null,
                     "BodyGroups": 18446744073709551615,
                     "BoneMergeTarget": null,
                     "CreateAttachments": false,
@@ -771,7 +530,7 @@
                     "MaterialGroup": null,
                     "MaterialOverride": null,
                     "Materials": null,
-                    "Model": "models/a_cherd_rigged.vmdl",
+                    "Model": "models/chariot/m_cherd_rig_2.vmdl",
                     "Morphs": {},
                     "OnComponentDestroy": null,
                     "OnComponentDisabled": null,
@@ -802,7 +561,107 @@
                     "Tint": "0.85116,0.85116,0.85116,1",
                     "UseAnimGraph": true
                   }
+                }
+              ],
+              "RemovedObjects": [
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  }
+                }
+              ],
+              "PropertyOverrides": [
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "Property": "Position",
+                  "Value": "-2.18444824,36.8434029,-26.945879"
                 },
+                {
+                  "Target": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "Property": "Scale",
+                  "Value": "2.5,2.5,2.5"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
+                  },
+                  "Property": "Model",
+                  "Value": "models/chariot/m_cherd_rig_2.vmdl"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
+                  },
+                  "Property": "Tint",
+                  "Value": "0.85116,0.85116,0.85116,1"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "a923a3bb-2f46-4491-b70a-dda97de5970a"
+                  },
+                  "Property": "__enabled",
+                  "Value": false
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "a923a3bb-2f46-4491-b70a-dda97de5970a"
+                  },
+                  "Property": "Model",
+                  "Value": "models/chariot/m_cherd_rig_2.vmdl"
+                },
+                {
+                  "Target": {
+                    "Type": "Component",
+                    "IdValue": "90337549-471e-4551-af7e-547d2694ff2f"
+                  },
+                  "Property": "__enabled",
+                  "Value": false
+                }
+              ],
+              "MovedObjects": [
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "a923a3bb-2f46-4491-b70a-dda97de5970a"
+                  },
+                  "NewParent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "NewContainerProperty": "Components",
+                  "IsNewContainerArray": true,
+                  "NewPreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "7f000741-382a-4174-8cfa-9777bdd0be66"
+                  }
+                }
+              ]
+            },
+            "__PrefabIdToInstanceId": {
+              "6a3134c2-22a3-4c85-a222-a58993bd6f8d": "fbab9d21-9ae1-4e3c-b8d7-ccfa671b8d1a",
+              "dbf3f04c-40c5-4d53-8223-072162c80929": "9f48f98a-fe88-4844-8251-0f176f15e0c1",
+              "90337549-471e-4551-af7e-547d2694ff2f": "21283d16-60c0-4e81-b986-601e756b7d7b",
+              "a923a3bb-2f46-4491-b70a-dda97de5970a": "a8d224cc-6cb2-4098-b315-7a69af51e907",
+              "5e08b23a-98b2-4b0d-b033-2a4919e3d079": "138ca2a6-7167-47da-a82d-b7a3092bd917"
+            }
+          },
+          {
+            "__guid": "ef20ada2-33b7-4062-a329-a02e4706a3b5",
+            "__version": 2,
+            "__Prefab": "prefabs/horse.prefab",
+            "__PrefabInstancePatch": {
+              "AddedObjects": [
                 {
                   "Id": {
                     "Type": "Component",
@@ -814,7 +673,7 @@
                   },
                   "PreviousElement": {
                     "Type": "Component",
-                    "IdValue": "4cf8c5f5-293e-4874-9a4f-fb5b29b4bdf8"
+                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
                   },
                   "ContainerProperty": "Components",
                   "IsContainerArray": true,
@@ -917,7 +776,7 @@
                     "Elasticity": null,
                     "Friction": null,
                     "IsTrigger": false,
-                    "Model": "models/a_cherd_rigged.vmdl",
+                    "Model": "models/chariot/m_cherd_rig_2.vmdl",
                     "OnComponentDestroy": null,
                     "OnComponentDisabled": null,
                     "OnComponentEnabled": null,
@@ -933,9 +792,77 @@
                     "Surface": null,
                     "SurfaceVelocity": "0,0,0"
                   }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "72d0a48d-4b3d-4ecf-b62d-b695fdf6289c"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "90337549-471e-4551-af7e-547d2694ff2f"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.SkinnedModelRenderer",
+                    "__guid": "72d0a48d-4b3d-4ecf-b62d-b695fdf6289c",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "AnimationGraph": null,
+                    "BodyGroups": 18446744073709551615,
+                    "BoneMergeTarget": null,
+                    "CreateAttachments": false,
+                    "CreateBoneObjects": false,
+                    "LodOverride": null,
+                    "MaterialGroup": null,
+                    "MaterialOverride": null,
+                    "Materials": null,
+                    "Model": "models/chariot/m_cherd_rig_2.vmdl",
+                    "Morphs": {},
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "Parameters": {
+                      "bools": {},
+                      "ints": {},
+                      "floats": {},
+                      "vectors": {},
+                      "rotations": {}
+                    },
+                    "PlaybackRate": 1,
+                    "RenderOptions": {
+                      "GameLayer": true,
+                      "OverlayLayer": false,
+                      "BloomLayer": false,
+                      "AfterUILayer": false
+                    },
+                    "RenderType": "On",
+                    "Sequence": {
+                      "Name": null,
+                      "Looping": true,
+                      "Blending": false
+                    },
+                    "Tint": "0.85116,0.85116,0.85116,1",
+                    "UseAnimGraph": true
+                  }
                 }
               ],
-              "RemovedObjects": [],
+              "RemovedObjects": [
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                  }
+                }
+              ],
               "PropertyOverrides": [
                 {
                   "Target": {
@@ -956,18 +883,10 @@
                 {
                   "Target": {
                     "Type": "Component",
-                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
+                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
                   },
-                  "Property": "MaterialOverride",
-                  "Value": "materials/t_waves.vmat"
-                },
-                {
-                  "Target": {
-                    "Type": "Component",
-                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
-                  },
-                  "Property": "Tint",
-                  "Value": "0.85116,0.85116,0.85116,1"
+                  "Property": "Model",
+                  "Value": "models/chariot/m_cherd_rig_2.vmdl"
                 },
                 {
                   "Target": {
@@ -987,35 +906,6 @@
                 }
               ],
               "MovedObjects": [
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
-                  },
-                  "NewParent": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "NewContainerProperty": "Components",
-                  "IsNewContainerArray": true,
-                  "NewPreviousElement": null
-                },
-                {
-                  "Id": {
-                    "Type": "Component",
-                    "IdValue": "dbf3f04c-40c5-4d53-8223-072162c80929"
-                  },
-                  "NewParent": {
-                    "Type": "GameObject",
-                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
-                  },
-                  "NewContainerProperty": "Components",
-                  "IsNewContainerArray": true,
-                  "NewPreviousElement": {
-                    "Type": "Component",
-                    "IdValue": "5e08b23a-98b2-4b0d-b033-2a4919e3d079"
-                  }
-                },
                 {
                   "Id": {
                     "Type": "Component",
@@ -1486,7 +1376,7 @@
                 "CacheToDisk": true,
                 "FormatOverride": "RGBA8888"
               },
-              "compiled": null
+              "compiled": "textures/generated/imagefile/742274ac75ffbea9.vtex"
             },
             "DionysosIcon": {
               "$compiler": "texture",

@@ -60,7 +60,13 @@
 	<div class="ability-panel">
 		<div class="ability-body">
 			<div class="ability-name">@( LocalPlayer is null ? "—" : DisplayNameFor( LocalPlayer ) )</div>
-			<div class="ability-hint">Fähigkeit &amp; Waagen folgen…</div>
+
+			<!-- Skin-Umschalter: gleiche Button-Grafik wie die Menü-Buttons (Klasse "menu-btn" ->
+			     bekommt die MenuButton-Textur über ApplyTextures). Linksklick wechselt zwischen den
+			     beiden Wagen-Skins; das Label zeigt den aktuell gewählten Skin. -->
+			<div class="menu-btn skin-btn" onclick="@ToggleSkin">
+				<div class="menu-label">@SkinLabel</div>
+			</div>
 		</div>
 	</div>
 
@@ -331,18 +337,24 @@
 		flex-direction: column;
 		align-items: center;
 		margin-bottom: 70px;
-		gap: 10px;
+		gap: 20px;
 	}
 
+	/* Name-Label: leicht nach links versetzt (per Transform, damit das restliche Layout bleibt). */
 	.ability-name {
 		font-size: 40px;
 		font-weight: bold;
 		color: rgba(74, 44, 12, 1);
+		transform: translateX( -40px );
 	}
 
-	.ability-hint {
-		font-size: 24px;
-		color: rgba(74, 44, 12, 0.7);
+	/* Skin-Umschalt-Button: nutzt die menu-btn-Grafik, hier nur Größe/Position im Fähigkeiten-Panel. */
+	.skin-btn {
+		width: 400px;
+		height: 110px;
+		margin-top: 10px;
+		z-index: 2;
+		pointer-events: all;
 	}
 
 	/* ----------------------------- Rechts: Map ----------------------------- */
@@ -1059,6 +1071,23 @@
 		LocalPlayer?.RequestCycleTrack();
 	}
 
+	// Anzeigetext des Skin-Buttons: der aktuell gewählte Wagen-Skin.
+	string SkinLabel => ChariotSkinPreference.Current switch
+	{
+		ChariotSkin.Krokodilkopf => "Krokodilkopf",
+		ChariotSkin.Pferdekopf => "Pferdekopf",
+		_ => "Skin"
+	};
+
+	// Linksklick auf den Skin-Button: zwischen den beiden Wagen-Skins wechseln. Rein lokale Wahl
+	// (pro Spieler). Beim Rennstart liest der eigene Wagen (HorseVisuals) sie aus und spiegelt sie
+	// per [Sync] an alle Peers.
+	void ToggleSkin()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
+		ChariotSkinPreference.Toggle();
+	}
+
 	// Rechtsklick auf die Map -> Bestenliste der aktuellen Strecke öffnen. Beim Öffnen die
 	// Rekorde frisch nachladen (Host liest die Datei neu & verteilt sie; Client bittet den
 	// Host darum) – so ist die Liste garantiert aktuell.
@@ -1156,6 +1185,7 @@
 		hash.Add( LocalIsReady );
 		hash.Add( LocalCurrency );
 		hash.Add( SlotCount );
+		hash.Add( ChariotSkinPreference.Current ); // Skin-Button-Label aktualisieren beim Wechsel
 		foreach ( var p in OrderedPlayers )
 		{
 			hash.Add( p.IsReady );
