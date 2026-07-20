@@ -6323,7 +6323,7 @@
                     {
                       "__type": "Sandbox.Rigidbody",
                       "__guid": "4b1c2a49-2d77-4110-a2d5-f4a5b098068c",
-                      "__enabled": true,
+                      "__enabled": false,
                       "Flags": 0,
                       "AngularDamping": 0,
                       "EnableImpactDamage": true,
@@ -6450,7 +6450,7 @@
                     {
                       "__type": "Sandbox.Rigidbody",
                       "__guid": "9408ab50-196b-4f9e-8fa8-1bfdc636a667",
-                      "__enabled": true,
+                      "__enabled": false,
                       "Flags": 0,
                       "AngularDamping": 0,
                       "EnableImpactDamage": true,
@@ -6577,7 +6577,7 @@
                     {
                       "__type": "Sandbox.Rigidbody",
                       "__guid": "51d6dbf6-cc35-47ef-a282-e146fcf0a306",
-                      "__enabled": true,
+                      "__enabled": false,
                       "Flags": 0,
                       "AngularDamping": 0,
                       "EnableImpactDamage": true,
@@ -6704,7 +6704,7 @@
                     {
                       "__type": "Sandbox.Rigidbody",
                       "__guid": "43d07452-c546-469b-969e-fb306164abb5",
-                      "__enabled": true,
+                      "__enabled": false,
                       "Flags": 0,
                       "AngularDamping": 0,
                       "EnableImpactDamage": true,
@@ -6873,7 +6873,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "7895f2b4-9b8c-4f79-bb68-7103a022c2fb"
+                      "$blob": "e2ff8cc1-8e1a-48ba-8dcf-858d9f4cbf3d"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6929,7 +6929,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "645ddda1-4077-4915-b108-c0f5580a3903"
+                      "$blob": "ea8e88f0-e317-4d94-883f-a5c336cf5420"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6985,7 +6985,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "fcbddcb9-8d8d-4bd8-9287-033f8a0c41c9"
+                      "$blob": "76005350-fdd4-45e2-a870-f4008c7a9296"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
