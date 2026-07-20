@@ -6818,7 +6818,6 @@
                 "compiled": null
               },
               "SubdivisionFactor": 1,
-              "SubdivisionLodCount": 3,
               "Surface": null,
               "SurfaceVelocity": "0,0,0",
               "TerrainHeight": 10000,
@@ -6874,7 +6873,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "96f8314d-7b53-477b-98ae-afc7da81329d"
+                      "$blob": "7139504a-c2bf-48cc-8f1e-0425674a9a96"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6930,7 +6929,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "d6a5fec7-5af5-442f-8a47-006f6e335d5c"
+                      "$blob": "0855e2d1-819e-463f-ae1a-f1e9ad6906ec"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6986,7 +6985,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "97f79f50-b4c4-4dc2-80ba-39b96a6e0fe6"
+                      "$blob": "785780d7-3809-4012-9459-ff84c02270fa"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
