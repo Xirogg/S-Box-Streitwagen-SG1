@@ -156,7 +156,7 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "RomScene": "scenes/rome(notdone).scene",
+              "RomScene": "scenes/rome.scene",
               "RomTrackImage": {
                 "$compiler": "texture",
                 "$source": "imagefile",
