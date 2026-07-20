@@ -561,6 +561,49 @@
                     "Tint": "0.85116,0.85116,0.85116,1",
                     "UseAnimGraph": true
                   }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "494c5549-9e17-45bc-8f07-053570ad2cf2"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "6326fd6f-20ef-42a5-9a99-fa7f357e62d6"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.CapsuleCollider",
+                    "__guid": "494c5549-9e17-45bc-8f07-053570ad2cf2",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "ColliderFlags": 0,
+                    "Elasticity": null,
+                    "End": "-29.649992,0,17.8800449",
+                    "Friction": null,
+                    "IsTrigger": false,
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OnObjectTriggerEnter": null,
+                    "OnObjectTriggerExit": null,
+                    "OnTriggerEnter": null,
+                    "OnTriggerExit": null,
+                    "Radius": 18.370039,
+                    "RollingResistance": null,
+                    "Start": "31.3201923,-5.08000278,17.5000458",
+                    "Static": false,
+                    "Surface": null,
+                    "SurfaceVelocity": "0,0,0"
+                  }
                 }
               ],
               "RemovedObjects": [
@@ -853,6 +896,49 @@
                     "Tint": "0.85116,0.85116,0.85116,1",
                     "UseAnimGraph": true
                   }
+                },
+                {
+                  "Id": {
+                    "Type": "Component",
+                    "IdValue": "c3068078-6261-4b2c-908c-a872e04f865f"
+                  },
+                  "Parent": {
+                    "Type": "GameObject",
+                    "IdValue": "6a3134c2-22a3-4c85-a222-a58993bd6f8d"
+                  },
+                  "PreviousElement": {
+                    "Type": "Component",
+                    "IdValue": "72d0a48d-4b3d-4ecf-b62d-b695fdf6289c"
+                  },
+                  "ContainerProperty": "Components",
+                  "IsContainerArray": true,
+                  "Data": {
+                    "__type": "Sandbox.CapsuleCollider",
+                    "__guid": "c3068078-6261-4b2c-908c-a872e04f865f",
+                    "__enabled": true,
+                    "Flags": 0,
+                    "ColliderFlags": 0,
+                    "Elasticity": null,
+                    "End": "-31.820015,0,14.3800316",
+                    "Friction": null,
+                    "IsTrigger": false,
+                    "OnComponentDestroy": null,
+                    "OnComponentDisabled": null,
+                    "OnComponentEnabled": null,
+                    "OnComponentFixedUpdate": null,
+                    "OnComponentStart": null,
+                    "OnComponentUpdate": null,
+                    "OnObjectTriggerEnter": null,
+                    "OnObjectTriggerExit": null,
+                    "OnTriggerEnter": null,
+                    "OnTriggerExit": null,
+                    "Radius": 16,
+                    "RollingResistance": null,
+                    "Start": "30.7413578,0,14.6293068",
+                    "Static": false,
+                    "Surface": null,
+                    "SurfaceVelocity": "0,0,0"
+                  }
                 }
               ],
               "RemovedObjects": [
@@ -1125,7 +1211,7 @@
             "__guid": "c3c6cc48-1331-42f8-b015-cc11ef08978f",
             "__enabled": true,
             "Flags": 0,
-            "Center": "1.98306084,-6.21181679,22.5079422",
+            "Center": "1.98306084,-6.21181679,22.9175854",
             "ColliderFlags": 0,
             "Elasticity": null,
             "Friction": null,
@@ -1141,7 +1227,7 @@
             "OnTriggerEnter": null,
             "OnTriggerExit": null,
             "RollingResistance": null,
-            "Scale": "35.0102348,47.9804306,17.2513866",
+            "Scale": "35.0102348,47.9804306,16.4321022",
             "Static": false,
             "Surface": null,
             "SurfaceVelocity": "0,0,0"
@@ -2025,6 +2111,33 @@
             "OnComponentUpdate": null,
             "ProbeCount": 3,
             "ProbeHalfWidth": 30
+          },
+          {
+            "__type": "Sandbox.CapsuleCollider",
+            "__guid": "df132e1a-d3c8-4f6c-a451-c6185d7f8847",
+            "__enabled": true,
+            "Flags": 0,
+            "ColliderFlags": 0,
+            "Elasticity": null,
+            "End": "2.68984842,-29.5899754,28.1501446",
+            "Friction": null,
+            "IsTrigger": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnObjectTriggerEnter": null,
+            "OnObjectTriggerExit": null,
+            "OnTriggerEnter": null,
+            "OnTriggerExit": null,
+            "Radius": 16,
+            "RollingResistance": null,
+            "Start": "1.1099999,19.6500816,27.070076",
+            "Static": false,
+            "Surface": null,
+            "SurfaceVelocity": "0,0,0"
           }
         ],
         "Children": [
