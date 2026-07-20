@@ -1,0 +1,76 @@
+{
+  "RootObject": {
+    "__guid": "efbf0231-d1ab-4b58-9738-4f0f08a5b1ac",
+    "__version": 2,
+    "Flags": 0,
+    "Name": "audience_sfx",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
+    "Tags": "",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkFlags": 0,
+    "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
+    "OwnerTransfer": 1,
+    "Components": [
+      {
+        "__type": "Sandbox.AudienceSfxmodule",
+        "__guid": "cf671fac-a2a0-40da-b4f3-7c90a0ce9ffe",
+        "__enabled": true,
+        "Flags": 0,
+        "CheerSound": "music/sfx/audience.sound",
+        "CullByDistance": true,
+        "CullFadeTime": 0.4,
+        "DebugLog": false,
+        "HearingRange": 4000,
+        "MaxGap": 2,
+        "MinGap": 1,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "PitchMax": 1.05,
+        "PitchMin": 0.95,
+        "SoundOrigin": {
+          "_type": "gameobject",
+          "go": "efbf0231-d1ab-4b58-9738-4f0f08a5b1ac"
+        },
+        "StartStagger": 6,
+        "Volume": 1
+      }
+    ],
+    "Children": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": false,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
+      }
+    },
+    "__variables": []
+  },
+  "ResourceVersion": 2,
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "DontBreakAsTemplate": false,
+  "__references": [],
+  "__version": 2
+}

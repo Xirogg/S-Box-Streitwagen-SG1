@@ -44,6 +44,6 @@
       "VR": false,
       "Gamepad": false
     },
-    "StartupScene": "scenes/gui scenes/lobbyscene .scene"
+    "StartupScene": "scenes/gui scenes/lobbyscene.scene"
   }
 }

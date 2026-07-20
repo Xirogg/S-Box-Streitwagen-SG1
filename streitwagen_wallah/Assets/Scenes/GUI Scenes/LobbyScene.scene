@@ -91,7 +91,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/96bff3592880416a.vtex"
               },
               "AkropolisScene": "scenes/greece.scene",
               "AkropolisTrackImage": {
@@ -130,7 +130,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/fe4f6db3892837d2.vtex"
               },
               "AltarScreen": {
                 "_type": "component",
@@ -193,7 +193,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/a85dfaf55078630b.vtex"
               }
             }
           ],
@@ -1502,7 +1502,7 @@
               ],
               "CursePopupHeight": 100,
               "CursePopupWidth": 100,
-              "DebugFreeUpgrades": true,
+              "DebugFreeUpgrades": false,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -1889,7 +1889,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/7cdf0fb7850e11ff.vtex"
               },
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -1934,7 +1934,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/44c58de2b7572d7c.vtex"
               },
               "PreviewFrame": {
                 "$compiler": "texture",
@@ -1972,7 +1972,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/1117e94c82d53629.vtex"
               },
               "SelectorButton": {
                 "$compiler": "texture",
@@ -2188,7 +2188,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/7cdf0fb7850e11ff.vtex"
               },
               "Laverna": {
                 "$compiler": "texture",
@@ -2460,7 +2460,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/44c58de2b7572d7c.vtex"
               },
               "PlayerAvatar": null,
               "PreviewFrame": {
@@ -2499,7 +2499,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/1117e94c82d53629.vtex"
               },
               "ReadyButton": {
                 "$compiler": "texture",

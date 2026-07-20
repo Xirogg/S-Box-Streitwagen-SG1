@@ -79,6 +79,33 @@
           }
         ],
         "Children": []
+      },
+      {
+        "__guid": "76572215-f502-445e-8c64-0f2bb071c06c",
+        "__version": 2,
+        "__Prefab": "prefabs/sfx/audience_sfx.prefab",
+        "__PrefabInstancePatch": {
+          "AddedObjects": [],
+          "RemovedObjects": [],
+          "PropertyOverrides": [
+            {
+              "Target": {
+                "Type": "Component",
+                "IdValue": "cf671fac-a2a0-40da-b4f3-7c90a0ce9ffe"
+              },
+              "Property": "SoundOrigin",
+              "Value": {
+                "_type": "gameobject",
+                "go": "0fb6df40-f067-4f9e-b1e9-bfcc72854cac"
+              }
+            }
+          ],
+          "MovedObjects": []
+        },
+        "__PrefabIdToInstanceId": {
+          "efbf0231-d1ab-4b58-9738-4f0f08a5b1ac": "76572215-f502-445e-8c64-0f2bb071c06c",
+          "cf671fac-a2a0-40da-b4f3-7c90a0ce9ffe": "10937a39-f607-46b3-b810-d6355bbe5630"
+        }
       }
     ],
     "__properties": {
