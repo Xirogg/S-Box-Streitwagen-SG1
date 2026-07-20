@@ -9,20 +9,20 @@
 			{
 				key = 
 				{
-					m_id = 74230024
+					m_id = 945508410
 				}
 				value = 
 				{
 					_class = "CSequenceAnimNode"
-					m_sName = "BirbFly"
-					m_vecPosition = [ -192.0, 16.0 ]
+					m_sName = "Unnamed"
+					m_vecPosition = [ -176.0, 16.0 ]
 					m_nNodeID = 
 					{
-						m_id = 74230024
+						m_id = 945508410
 					}
 					m_sNote = ""
 					m_tagSpans = [  ]
-					m_sequenceName = "ChonkBirb___Kopie"
+					m_sequenceName = "ChonkBirb"
 					m_playbackSpeed = 1.0
 					m_bLoop = true
 				}
@@ -46,7 +46,7 @@
 					{
 						m_nodeID = 
 						{
-							m_id = 74230024
+							m_id = 945508410
 						}
 						m_outputID = 
 						{
@@ -99,7 +99,7 @@
 	}
 	m_previewModels = 
 	[
-		"animation/chonkbirb - kopie.vmdl",
+		"models/chonkbirb.vmdl",
 	]
 	m_boneMergeModels = [  ]
 	m_cameraSettings = 
