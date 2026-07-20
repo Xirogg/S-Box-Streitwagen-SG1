@@ -57,13 +57,19 @@ public static class ChariotSkinPreference
 		{
 			if ( FileSystem.Data.FileExists( SkinFile )
 				&& Enum.TryParse<ChariotSkin>( (FileSystem.Data.ReadAllText( SkinFile ) ?? "").Trim(), out var v ) )
-				return v;
+			{
+				// Ein alter Speicherstand kann noch den Krokodilkopf enthalten, obwohl der Spieler ihn
+				// nie gekauft hat (früher war er der Standard-Look). Nur zurückgeben, was ihm laut
+				// ChariotSkinOwnership wirklich gehört, sonst spawnt er mit einem nicht besessenen Skin.
+				if ( ChariotSkinOwnership.IsOwned( v ) )
+					return v;
+			}
 		}
 		catch ( Exception e )
 		{
 			Log.Warning( $"[ChariotSkin] Konnte '{SkinFile}' nicht laden: {e.Message}" );
 		}
-		return ChariotSkin.Krokodilkopf; // Default = aktueller Look
+		return ChariotSkin.Pferdekopf; // Default = Basis-Skin, den jeder Spieler besitzt
 	}
 
 	static void SaveToDisk( ChariotSkin v )

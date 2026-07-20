@@ -38,6 +38,7 @@ public sealed class LobbyManager : Component
 	// bleiben dadurch immer aktiv.
 	[Property, Group( "Screens" )] public LobbyGUI LobbyScreen { get; set; }
 	[Property, Group( "Screens" )] public AltarGUI AltarScreen { get; set; }
+	[Property, Group( "Screens" )] public CharacterGUI CharacterScreen { get; set; }
 
 	// Was un-synced; only RpcSetTrack pushed it, so a client joining after the
 	// host had already cycled the track would default to Rom forever. [Sync]
@@ -104,30 +105,37 @@ public sealed class LobbyManager : Component
 	}
 
 	/// <summary>
-	/// Wechselt vom Lobby- auf den Altar-Screen: LobbyGUIScreen-Node aus,
-	/// AltarGUIScreen-Node an. Rein lokale UI-Umschaltung (kein Networking).
+	/// Wechselt auf den Altar-Screen. Rein lokale UI-Umschaltung (kein Networking).
 	/// </summary>
-	public void ShowAltar() => SwitchScreen( AltarScreen, LobbyScreen );
+	public void ShowAltar() => ShowOnly( AltarScreen );
 
-	/// <summary>Zurück zum Lobby-Screen (Gegenstück zu <see cref="ShowAltar"/>).</summary>
-	public void ShowLobby() => SwitchScreen( LobbyScreen, AltarScreen );
+	/// <summary>Zurück zum Lobby-Screen (Gegenstück zu <see cref="ShowAltar"/> / <see cref="ShowCharacter"/>).</summary>
+	public void ShowLobby() => ShowOnly( LobbyScreen );
 
-	// Schaltet den "show"-Node an und den "hide"-Node aus. Es wird das GameObject
-	// (der ganze Node) getoggelt, nicht die Component — dadurch geht der komplette
-	// Screen-Node mit allen Kindern an/aus. Nur wenn BEIDE zugewiesen sind, sonst
-	// säße man nach dem Ausschalten auf einem leeren Screen fest.
-	private void SwitchScreen( PanelComponent show, PanelComponent hide )
+	/// <summary>Wechselt auf den Charakter-/Skin-Screen (CharacterGUI). Rein lokale UI-Umschaltung.</summary>
+	public void ShowCharacter() => ShowOnly( CharacterScreen );
+
+	// Schaltet GENAU einen Screen-Node an und ALLE anderen bekannten aus. Es wird das GameObject
+	// (der ganze Node) getoggelt, nicht die Component — dadurch geht der komplette Screen-Node mit
+	// allen Kindern an/aus. Alle anderen ausschalten (statt nur einen bestimmten) heißt: egal von
+	// welchem Screen aus man wohin wechselt, es bleibt keiner überlagert liegen (z. B. "Zurück" aus
+	// dem Charakter-Screen ließ sonst die Lobby UND den Charakter-Screen gleichzeitig stehen).
+	private void ShowOnly( PanelComponent show )
 	{
-		Log.Info( $"[LobbyManager] SwitchScreen: show={(show is null ? "NULL" : show.GetType().Name)}, " +
-			$"hide={(hide is null ? "NULL" : hide.GetType().Name)}" );
+		Log.Info( $"[LobbyManager] ShowOnly: {(show is null ? "NULL" : show.GetType().Name)}" );
 
-		if ( show is null || hide is null )
+		if ( show is null )
 		{
-			Log.Warning( "[LobbyManager] Screen-Wechsel: LobbyScreen/AltarScreen nicht (beide) im Inspector zugewiesen." );
+			Log.Warning( "[LobbyManager] Screen-Wechsel: Ziel-Screen nicht im Inspector zugewiesen." );
 			return;
 		}
 
-		hide.GameObject.Enabled = false;
+		foreach ( var screen in new PanelComponent[] { LobbyScreen, AltarScreen, CharacterScreen } )
+		{
+			if ( screen is not null && screen != show )
+				screen.GameObject.Enabled = false;
+		}
+
 		show.GameObject.Enabled = true;
 	}
 

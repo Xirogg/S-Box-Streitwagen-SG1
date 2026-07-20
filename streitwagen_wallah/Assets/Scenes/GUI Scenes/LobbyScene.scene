@@ -138,6 +138,12 @@
                 "go": "348ef706-68ae-4801-ae82-512e5f92e633",
                 "component_type": "AltarGUI"
               },
+              "CharacterScreen": {
+                "_type": "component",
+                "component_id": "bbe84321-5c53-44e7-8327-6b7db7c25bc1",
+                "go": "c5e7476e-bb6b-4222-8ec4-4b7910a688ad",
+                "component_type": "CharacterGUI"
+              },
               "LobbyScreen": {
                 "_type": "component",
                 "component_id": "245ceaa2-4039-4339-90b9-42a162e41565",
@@ -1750,15 +1756,15 @@
           "Children": []
         },
         {
-          "__guid": "b4b148cc-5cd8-4d3b-8bf7-5a95ca423fa3",
+          "__guid": "c5e7476e-bb6b-4222-8ec4-4b7910a688ad",
           "__version": 2,
           "Flags": 0,
-          "Name": "LobbyGUIScreen",
+          "Name": "CharacterGUI",
           "Position": "0,0,0",
           "Rotation": "0,0,0,1",
           "Scale": "1,1,1",
           "Tags": "",
-          "Enabled": true,
+          "Enabled": false,
           "NetworkMode": 2,
           "NetworkFlags": 0,
           "NetworkOrphaned": 0,
@@ -1766,15 +1772,15 @@
           "OwnerTransfer": 1,
           "Components": [
             {
-              "__type": "Sandbox.Scripts.GUI.Lobby.LobbyGUI",
-              "__guid": "245ceaa2-4039-4339-90b9-42a162e41565",
+              "__type": "Sandbox.CharacterGUI",
+              "__guid": "bbe84321-5c53-44e7-8327-6b7db7c25bc1",
               "__enabled": true,
               "Flags": 0,
-              "AbilityPanel": {
+              "BackButton": {
                 "$compiler": "texture",
                 "$source": "imagefile",
                 "data": {
-                  "FilePath": "ui/2d lobby ui/main menu ui/ui_fähigkeit&waagen_mainmenu.png",
+                  "FilePath": "ui/2d lobby ui/main menu ui/button_mainmenu.png",
                   "MaxSize": 4096,
                   "ConvertHeightToNormals": false,
                   "NormalScale": 1,
@@ -1806,8 +1812,232 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": "textures/generated/imagefile/5e5e28a3102d07ee.vtex"
+                "compiled": "textures/generated/imagefile/b5b250e2e55a9011.vtex"
               },
+              "BuyButton": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/button_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/b5b250e2e55a9011.vtex"
+              },
+              "KrokodilkopfName": "Krokodilkopf",
+              "KrokodilkopfPreview": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/character ui/krokodilkopf_preview.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": null
+              },
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "PferdekopfName": "Pferdekopf",
+              "PferdekopfPreview": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/character ui/pferdekopf_preview.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": null
+              },
+              "PreviewFrame": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/character ui/characteruishop_frame.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": null
+              },
+              "SelectorButton": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/button_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": "textures/generated/imagefile/b5b250e2e55a9011.vtex"
+              }
+            }
+          ],
+          "Children": []
+        },
+        {
+          "__guid": "b4b148cc-5cd8-4d3b-8bf7-5a95ca423fa3",
+          "__version": 2,
+          "Flags": 0,
+          "Name": "LobbyGUIScreen",
+          "Position": "0,0,0",
+          "Rotation": "0,0,0,1",
+          "Scale": "1,1,1",
+          "Tags": "",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkFlags": 0,
+          "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
+          "OwnerTransfer": 1,
+          "Components": [
+            {
+              "__type": "Sandbox.Scripts.GUI.Lobby.LobbyGUI",
+              "__guid": "245ceaa2-4039-4339-90b9-42a162e41565",
+              "__enabled": true,
+              "Flags": 0,
+              "AbilityPanel": null,
               "CharacterSlot": {
                 "$compiler": "texture",
                 "$source": "imagefile",
@@ -1921,6 +2151,44 @@
                   "FormatOverride": "RGBA8888"
                 },
                 "compiled": "textures/generated/imagefile/f0f59d23c185ad22.vtex"
+              },
+              "KrokodilkopfPreview": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/character ui/krokodilkopf_preview.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": null
               },
               "Laverna": {
                 "$compiler": "texture",
@@ -2156,16 +2424,16 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "PlayerAvatar": {
+              "PferdekopfPreview": {
                 "$compiler": "texture",
                 "$source": "imagefile",
                 "data": {
-                  "FilePath": "ui/2d lobby ui/main menu ui/avatar_placeholder.png",
+                  "FilePath": "ui/2d lobby ui/character ui/pferdekopf_preview.png",
                   "MaxSize": 4096,
                   "ConvertHeightToNormals": false,
                   "NormalScale": 1,
                   "Rotate": 0,
-                  "FlipVertical": true,
+                  "FlipVertical": false,
                   "FlipHorizontal": false,
                   "Cropping": {
                     "Left": 0,
@@ -2192,7 +2460,46 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": "textures/generated/imagefile/bd412e464585751b.vtex"
+                "compiled": null
+              },
+              "PlayerAvatar": null,
+              "PreviewFrame": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/character ui/characteruishop_frame.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": null
               },
               "ReadyButton": {
                 "$compiler": "texture",
@@ -2270,7 +2577,7 @@
                 },
                 "compiled": "textures/generated/imagefile/5aea8905c0a7bab4.vtex"
               },
-              "SlotCount": 8,
+              "SlotCount": 6,
               "Taranis": {
                 "$compiler": "texture",
                 "$source": "imagefile",

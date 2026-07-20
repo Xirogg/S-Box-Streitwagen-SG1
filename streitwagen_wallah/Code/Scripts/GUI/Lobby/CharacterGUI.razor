@@ -1,0 +1,502 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using System;
+@using System.Linq;
+@using System.Collections.Generic;
+@inherits PanelComponent
+@namespace Sandbox
+
+@*
+	CHARAKTER- / SKIN-SCREEN  (Streitwagen-Wallah)
+
+	Eigenes Vollbild-Fenster wie der Opferaltar (AltarGUI): kein eigener Hintergrund, nutzt den
+	scrollenden Hintergrund vom GUI-Parent (LobbyBackgroundGUI); root ist daher transparent und liegt
+	per z-index darüber. Geöffnet wird der Screen über den "Charakter"-Button in der LobbyGUI
+	(LobbyManager.ShowCharacter), zurück geht es über den "Menü"-Button (LobbyManager.ShowLobby).
+
+	Aufbau (nach der Skizze):
+	  - Mitte:  große Vorschau des aktuell AUSGEWÄHLTEN Skins (Bild + Name). Darunter der
+	            Kaufen/Ausrüsten-Button.
+	  - Rechts: je ein Button pro Körperteil-Skin (aktuell zwei: Pferdekopf & Krokodilkopf). Ein Klick
+	            zeigt den Skin NUR in der Vorschau – er rüstet ihn NICHT aus.
+
+	Farb-Logik der rechten Buttons (wie in der Skizze):
+	  - GRÜN = aktuell ausgerüstet.
+	  - ROT  = gerade in der Vorschau gewählt (aber nicht ausgerüstet).
+
+	Kaufen/Ausrüsten-Button (Mitte, unter der Vorschau):
+	  - Der Pferdekopf ist der Basis-Skin und gehört jedem sofort; nur der Krokodilkopf kostet
+	    (ChariotSkinShop.KrokodilkopfPrice PG).
+	  - Vorschau-Skin NICHT besessen  -> "Kaufen  X PG" (kauft host-autoritativ, siehe ChariotSkinShop).
+	  - Besessen, aber nicht ausgerüstet -> "Ausrüsten" (setzt ChariotSkinPreference.Current).
+	  - Schon ausgerüstet -> Button verschwindet (nichts zu tun).
+	  Also erst KAUFEN (ein Klick), dann AUSRÜSTEN (zweiter Klick) – genau wie in der Skizze notiert.
+
+	Wie AltarGUI/LobbyGUI werden die Texturen per CODE gesetzt (Style.SetBackgroundImage), damit auch
+	Texturen ohne gültigen ResourcePath ("Image File" im Inspector) funktionieren. Klick-Muster: onclick
+	+ pointer-events:all + z-index sitzen IMMER auf dem sichtbaren Button mit deckender Textur (s&box
+	trifft fast durchsichtige Flächen nicht zuverlässig).
+*@
+
+<root>
+	<div class="topbar">
+		<!-- Zurück zum Lobby-/Hauptmenü. onclick sitzt direkt auf dem (deckenden) Button-Graphic. -->
+		<div class="back-btn" onclick="@GoBack">
+			<div class="btn-label">Menü</div>
+		</div>
+		<div class="pg-display">Publikumsgunst: @LocalPG PG</div>
+	</div>
+
+	<!-- ======================= Mitte: große Vorschau ======================= -->
+	<div class="preview-window">
+		<div class="preview-title">@SkinName( PreviewSkin )</div>
+		<div class="preview-image"></div>
+
+		<!-- Status/Preis-Hinweis unter dem Bild. -->
+		<div class="preview-hint">
+			@if ( PreviewEquipped )
+			{
+				<span class="hint-equipped">Aktuell ausgerüstet</span>
+			}
+			else if ( !OwnsPreview )
+			{
+				<span class="@( CanAfford ? "hint-price" : "hint-locked" )">Kostet @PreviewPrice PG</span>
+			}
+			else
+			{
+				<span class="hint-owned">Freigeschaltet</span>
+			}
+		</div>
+
+		<!-- Kaufen/Ausrüsten – verschwindet, sobald der Vorschau-Skin schon ausgerüstet ist. -->
+		@if ( !PreviewEquipped )
+		{
+			<div class="buy-btn @( BuyButtonLocked ? "locked" : "" )" onclick="@OnBuyEquipClicked">
+				<div class="btn-label">@BuyButtonLabel</div>
+			</div>
+		}
+	</div>
+
+	<!-- ======================= Rechts: Skin-Auswahl (nur Vorschau) ======================= -->
+	<div class="selector-col">
+		@foreach ( var skin in Skins )
+		{
+			var s = skin;
+			<div class="selector-btn @SelectorStateClass( s )" onclick="@(() => PreviewSkinClicked( s ))">
+				<div class="sel-tint"></div>
+				<div class="sel-label">@SkinName( s )</div>
+			</div>
+		}
+	</div>
+</root>
+
+<style>
+	root {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		font-family: Arial;
+		color: rgba(74, 44, 12, 1);
+		/* Über dem LobbyBackgroundGUI (z-index 0), damit der scrollende Hintergrund dahinter
+		   sichtbar bleibt (sonst nur die graue Kamera-Clearfarbe). */
+		z-index: 1;
+	}
+
+	/* ----------------------------- Topbar ----------------------------- */
+	.topbar {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 200px;
+	}
+
+	/* Zurück-Button: sichtbarer Button mit deckender Textur = zuverlässig klickbar. */
+	.back-btn {
+		position: absolute;
+		left: 40px;
+		top: 40px;
+		width: 320px;
+		height: 120px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		/* Parchment-Fallback, falls kein BackButton zugewiesen ist – eine Textur liegt darüber. */
+		background-color: rgba(255, 205, 120, 0.98);
+		border: 3px solid rgba(140, 90, 30, 0.85);
+		border-radius: 14px;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		pointer-events: all;
+		z-index: 20;
+		transition: transform 0.1s ease;
+	}
+
+	.back-btn:hover {
+		filter: brightness( 0.85 );
+		transform: scale( 1.04 );
+	}
+
+	.pg-display {
+		position: absolute;
+		right: 48px;
+		top: 56px;
+		font-size: 40px;
+		font-weight: bold;
+		color: rgba(250, 230, 150, 1);
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+	}
+
+	/* ----------------------------- Mitte: Vorschau ----------------------------- */
+	.preview-window {
+		position: absolute;
+		left: 360px;
+		top: 150px;
+		width: 780px;
+		height: 820px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		/* Parchment-Fallback, falls kein PreviewFrame zugewiesen ist – sonst ist das Fenster
+		   unsichtbar. Eine zugewiesene Textur liegt (per SetBackgroundImage) darüber. */
+		background-color: rgba(255, 235, 195, 0.97);
+		border: 5px solid rgba(140, 90, 30, 0.9);
+		border-radius: 20px;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.preview-title {
+		margin-top: 34px;
+		font-size: 72px;
+		font-weight: bold;
+		color: rgba(58, 36, 16, 1);
+		text-align: center;
+	}
+
+	/* Das Vorschau-PNG. background-size: contain hält das Seitenverhältnis der Zeichnung. */
+	.preview-image {
+		width: 86%;
+		height: 60%;
+		margin-top: 20px;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	.preview-hint {
+		margin-top: 10px;
+		font-size: 30px;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.hint-equipped { color: rgba(40, 120, 50, 1); }
+	.hint-owned    { color: rgba(58, 36, 16, 0.85); }
+	.hint-price    { color: rgba(90, 58, 16, 1); }
+	.hint-locked   { color: rgba(170, 40, 30, 1); }
+
+	/* Kaufen/Ausrüsten-Button: deckende Button-Textur -> zuverlässig klickbar; sitzt (per z-index +
+	   pointer-events) über dem sonst klick-inerten Rahmen. */
+	.buy-btn {
+		position: absolute;
+		bottom: 34px;
+		width: 340px;
+		height: 108px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		background-color: rgba(255, 205, 120, 0.98);
+		border: 3px solid rgba(140, 90, 30, 0.85);
+		border-radius: 14px;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		pointer-events: all;
+		z-index: 20;
+		transition: transform 0.1s ease, filter 0.1s ease;
+	}
+
+	.buy-btn:hover {
+		filter: brightness( 0.88 );
+		transform: scale( 1.05 );
+	}
+
+	/* Zu wenig PG: klar als "geht nicht" markiert (Klick ist im Code geblockt). */
+	.buy-btn.locked {
+		filter: grayscale( 0.5 ) brightness( 0.85 );
+	}
+
+	.buy-btn.locked .btn-label {
+		color: rgba(150, 40, 30, 1);
+	}
+
+	.btn-label {
+		font-size: 40px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+		text-align: center;
+		pointer-events: none;   /* nie Klicks abfangen -> gehen an den Button */
+	}
+
+	/* ----------------------------- Rechts: Skin-Auswahl ----------------------------- */
+	.selector-col {
+		position: absolute;
+		left: 1460px;
+		top: 170px;
+		width: 380px;
+		flex-direction: column;
+		gap: 28px;
+	}
+
+	/* Ein Auswahl-Button. Deckende Textur -> klickbar. Farb-Zustand liegt als Wash (.sel-tint)
+	   darüber, damit die Button-Textur erhalten bleibt. */
+	.selector-btn {
+		position: relative;
+		width: 380px;
+		height: 120px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		background-color: rgba(255, 205, 120, 0.98);
+		border: 3px solid rgba(140, 90, 30, 0.7);
+		border-radius: 14px;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		pointer-events: all;
+		z-index: 10;
+		transition: transform 0.1s ease;
+	}
+
+	.selector-btn:hover {
+		transform: scale( 1.05 );
+	}
+
+	/* Farb-Wash über der Button-Textur. Standard: transparent (normale gold-Button-Optik). */
+	.sel-tint {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 12px;
+		background-color: rgba(0, 0, 0, 0);
+		pointer-events: none;
+	}
+
+	/* GRÜN = ausgerüstet. ROT = in der Vorschau gewählt (nicht ausgerüstet). */
+	.selector-btn.equipped .sel-tint {
+		background-color: rgba(90, 170, 80, 0.55);
+	}
+
+	.selector-btn.equipped {
+		border-color: rgba(50, 120, 45, 0.95);
+		box-shadow: 0px 0px 20px rgba(120, 210, 100, 0.85);
+	}
+
+	.selector-btn.previewing .sel-tint {
+		background-color: rgba(205, 90, 80, 0.55);
+	}
+
+	.selector-btn.previewing {
+		border-color: rgba(160, 50, 40, 0.95);
+	}
+
+	.sel-label {
+		position: relative;
+		z-index: 2;   /* über dem Wash, damit die Schrift lesbar bleibt */
+		font-size: 38px;
+		font-weight: bold;
+		color: rgba(58, 36, 16, 1);
+		text-align: center;
+		pointer-events: none;
+	}
+</style>
+
+@code
+{
+	// ====================================================================
+	//  EDITOR-SLOTS
+	// ====================================================================
+
+	// Button-Grafiken. Können leer bleiben (Parchment-Fallback aus dem Stylesheet), sinnvoll ist aber
+	// dieselbe Button-Textur wie in der LobbyGUI/AltarGUI.
+	[Group( "Character UI – Buttons" )]
+	[Property] public Texture BackButton { get; set; }        // "Menü"-Button (wie Button_MainMenu)
+	[Group( "Character UI – Buttons" )]
+	[Property] public Texture SelectorButton { get; set; }    // Grafik der rechten Auswahl-Buttons
+	[Group( "Character UI – Buttons" )]
+	[Property] public Texture BuyButton { get; set; }         // Grafik des Kaufen/Ausrüsten-Buttons
+
+	// Rahmen um die große Vorschau (optional; sonst Parchment-Fallback).
+	[Group( "Character UI – Vorschau" )]
+	[Property] public Texture PreviewFrame { get; set; }
+
+	// DIE beiden Vorschau-PNGs – im Editor zuweisen. Welches gezeigt wird, hängt am aktuell
+	// AUSGEWÄHLTEN Skin (Vorschau), nicht am ausgerüsteten.
+	[Group( "Character UI – Vorschau" )]
+	[Property] public Texture PferdekopfPreview { get; set; }   // Basis-Skin
+	[Group( "Character UI – Vorschau" )]
+	[Property] public Texture KrokodilkopfPreview { get; set; } // Kauf-Skin
+
+	// Anzeigenamen (editierbar).
+	[Group( "Character UI – Namen" )]
+	[Property] public string PferdekopfName { get; set; } = "Pferdekopf";
+	[Group( "Character UI – Namen" )]
+	[Property] public string KrokodilkopfName { get; set; } = "Krokodilkopf";
+
+	// ====================================================================
+	//  Zustand
+	// ====================================================================
+
+	// Reihenfolge der Auswahl-Buttons (oben -> unten). Basis-Skin zuerst.
+	static readonly ChariotSkin[] Skins = { ChariotSkin.Pferdekopf, ChariotSkin.Krokodilkopf };
+
+	// Rein lokaler Vorschau-Zustand: welcher Skin wird gerade groß angezeigt. Rüstet NICHTS aus –
+	// das macht erst der Kaufen/Ausrüsten-Button. Startet beim aktuell ausgerüsteten Skin.
+	ChariotSkin PreviewSkin = ChariotSkin.Pferdekopf;
+
+	ChariotSkin EquippedSkin => ChariotSkinPreference.Current;
+
+	int LocalPG => PublicityCurrencyManager.LocalCurrency;
+
+	bool OwnsPreview => ChariotSkinOwnership.IsOwned( PreviewSkin );
+	int PreviewPrice => ChariotSkinShop.PriceFor( PreviewSkin );
+	bool PreviewEquipped => PreviewSkin == EquippedSkin;
+	bool CanAfford => LocalPG >= PreviewPrice;
+
+	// Button gesperrt = nicht besessen UND zu wenig PG (Kauf würde ohnehin abgelehnt).
+	bool BuyButtonLocked => !OwnsPreview && !CanAfford;
+
+	string BuyButtonLabel => OwnsPreview ? "Ausrüsten" : $"Kaufen  {PreviewPrice} PG";
+
+	string SkinName( ChariotSkin skin )
+		=> skin == ChariotSkin.Krokodilkopf ? KrokodilkopfName : PferdekopfName;
+
+	Texture PreviewTexture( ChariotSkin skin )
+		=> skin == ChariotSkin.Krokodilkopf ? KrokodilkopfPreview : PferdekopfPreview;
+
+	// GRÜN = ausgerüstet (hat Vorrang), ROT = in der Vorschau gewählt.
+	string SelectorStateClass( ChariotSkin skin )
+	{
+		if ( skin == EquippedSkin ) return "equipped";
+		if ( skin == PreviewSkin ) return "previewing";
+		return "";
+	}
+
+	// ====================================================================
+	//  Interaktion
+	// ====================================================================
+
+	// Rechter Button: Skin NUR in die Vorschau nehmen (kein Ausrüsten, kein Kauf).
+	void PreviewSkinClicked( ChariotSkin skin )
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();
+		PreviewSkin = skin;
+	}
+
+	// Mitte: Kaufen ODER Ausrüsten, je nach Zustand des Vorschau-Skins.
+	void OnBuyEquipClicked()
+	{
+		if ( PreviewEquipped ) return;   // nichts zu tun (Button ist dann ohnehin ausgeblendet)
+
+		LobbyUISFX.Instance?.PlayButtonSound();
+
+		if ( !OwnsPreview )
+		{
+			// Erst KAUFEN. Host bucht die PG ab und bestätigt; danach wird der Button zu "Ausrüsten"
+			// (ChariotSkinOwnership.IsOwned flippt und der BuildHash baut neu). Bewusst NICHT sofort
+			// ausrüsten – "erst kaufen, dann ausrüsten".
+			if ( !CanAfford ) return;                 // zu wenig PG (Host lehnt sonst ohnehin ab)
+			ChariotSkinShop.RequestBuy( PreviewSkin );
+			return;
+		}
+
+		// Besitzt ihn schon -> AUSRÜSTEN. Rein lokale Wahl; HorseVisuals liest sie beim Rennstart.
+		ChariotSkinPreference.Current = PreviewSkin;
+	}
+
+	// "Menü": zurück auf den Lobby-Screen (zentral im LobbyManager).
+	void GoBack()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();
+		LobbyManager.Instance?.ShowLobby();
+	}
+
+	// ====================================================================
+	//  Lebenszyklus
+	// ====================================================================
+
+	// Jedes Öffnen (Screen-Node wird enabled) startet die Vorschau beim aktuell ausgerüsteten Skin,
+	// damit man immer beim eigenen Look landet.
+	protected override void OnEnabled()
+	{
+		PreviewSkin = ChariotSkinPreference.Current;
+	}
+
+	// ====================================================================
+	//  Texturen per Code setzen (wie AltarGUI/LobbyGUI)
+	// ====================================================================
+
+	protected override void OnTreeBuilt() => ApplyTextures();
+
+	void ApplyTextures()
+	{
+		var root = Panel;
+		if ( root is null ) return;
+
+		SetBgAll( root, "back-btn", BackButton );
+		SetBgAll( root, "selector-btn", SelectorButton );
+		SetBgAll( root, "buy-btn", BuyButton );
+		SetBgAll( root, "preview-window", PreviewFrame );
+
+		// Das große Vorschau-Bild hängt am aktuell gewählten Skin.
+		SetBgAll( root, "preview-image", PreviewTexture( PreviewSkin ) );
+	}
+
+	static void SetBgAll( Panel root, string cls, Texture tex )
+	{
+		if ( tex is null ) return;
+		foreach ( var pnl in FindByClass( root, cls ) )
+			pnl.Style.SetBackgroundImage( tex );
+	}
+
+	// Alle Panels unter root (inkl. root) mit der CSS-Klasse cls.
+	static IEnumerable<Panel> FindByClass( Panel root, string cls )
+	{
+		if ( root is null ) yield break;
+		if ( root.HasClass( cls ) ) yield return root;
+		foreach ( var child in root.Children )
+			foreach ( var found in FindByClass( child, cls ) )
+				yield return found;
+	}
+
+	protected override void OnTreeFirstBuilt()
+	{
+		if ( PferdekopfPreview is null || !PferdekopfPreview.IsValid )
+			Log.Warning( "[CharacterGUI] Vorschau fehlt/ungültig: PferdekopfPreview (Gruppe \"Character UI – Vorschau\")." );
+		if ( KrokodilkopfPreview is null || !KrokodilkopfPreview.IsValid )
+			Log.Warning( "[CharacterGUI] Vorschau fehlt/ungültig: KrokodilkopfPreview (Gruppe \"Character UI – Vorschau\")." );
+	}
+
+	protected override void OnUpdate()
+	{
+		// Maus sichtbar halten, damit die Buttons anklickbar sind (dieser Screen läuft evtl. ohne
+		// aktiven LobbyGUIScreen, der das sonst setzt) – gleiches Muster wie AltarGUI.
+		Mouse.Visibility = MouseVisibility.Visible;
+	}
+
+	// Neu bauen, sobald sich die Vorschau, der ausgerüstete Skin, der Besitz-Stand oder die PG ändern.
+	protected override int BuildHash()
+	{
+		var hash = new HashCode();
+		hash.Add( PreviewSkin );
+		hash.Add( EquippedSkin );
+		hash.Add( LocalPG );
+		// Besitz kann sich nach einem Kauf (Host-Bestätigung) asynchron ändern -> in den Hash, damit
+		// der Button dann von "Kaufen" auf "Ausrüsten" umschaltet.
+		hash.Add( ChariotSkinOwnership.IsOwned( ChariotSkin.Krokodilkopf ) );
+		return hash.ToHashCode();
+	}
+}

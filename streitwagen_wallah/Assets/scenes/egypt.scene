@@ -6873,7 +6873,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "be74dbce-07b9-456c-80ce-70d774fb2088"
+                      "$blob": "3656b3db-37cf-4a52-9d80-9941a8ab47d5"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6929,7 +6929,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "c5c3eaf1-6b3d-4cc0-8c6f-df88a6dcc9ff"
+                      "$blob": "26e67353-baa4-4729-a679-4f9f9dac09bd"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6985,7 +6985,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "9fb8bbdb-2a0e-481a-8c2f-766905bb88f4"
+                      "$blob": "c1353412-f465-4406-b572-d9484098414b"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -7342,6 +7342,22 @@
                 },
                 "Property": "Position",
                 "Value": "-525.533142,-10687.0117,-966.862122"
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "DebugLog",
+                "Value": false
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "662ec8a8-f08b-4743-9716-0622d19e77b8"
+                },
+                "Property": "DebugSpawnMaatOnStart",
+                "Value": false
               }
             ],
             "MovedObjects": []
@@ -7371,69 +7387,6 @@
       "OwnerTransfer": 1,
       "Components": [],
       "Children": [
-        {
-          "__guid": "c6d8b942-f26f-4037-818e-945c261d4d75",
-          "__version": 2,
-          "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
-          "__PrefabInstancePatch": {
-            "AddedObjects": [],
-            "RemovedObjects": [],
-            "PropertyOverrides": [
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-                },
-                "Property": "Name",
-                "Value": "itemprefab (1)"
-              },
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-                },
-                "Property": "Position",
-                "Value": "5101.50244,-4566.95312,-17510.7227"
-              },
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
-                },
-                "Property": "Rotation",
-                "Value": "-0.0228838772,0.0913012922,0.242041335,0.96568954"
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
-                },
-                "Property": "ItemPool",
-                "Value": {
-                  "Taranis": {
-                    "_type": "gameobject",
-                    "prefab": "prefabs/god prefabs/taranis/taranisscriptprefab.prefab"
-                  }
-                }
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
-                },
-                "Property": "UltimateChance",
-                "Value": 1
-              }
-            ],
-            "MovedObjects": []
-          },
-          "__PrefabIdToInstanceId": {
-            "eea33dba-6300-4d41-b7a3-f10869e90daa": "c6d8b942-f26f-4037-818e-945c261d4d75",
-            "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "6808ee4b-cc96-46e5-b594-79bc75cbadef",
-            "71306516-0416-4962-ad57-604bccf93274": "271b608a-40cf-48f1-8b5a-7aefcccfb99d",
-            "143114ab-4f92-4888-96ae-a120972ec204": "4a098530-1eb1-4a12-8c0b-e8dfb632ef35"
-          }
-        },
         {
           "__guid": "b347fd29-97f3-4f84-b747-231b56219560",
           "__version": 2,

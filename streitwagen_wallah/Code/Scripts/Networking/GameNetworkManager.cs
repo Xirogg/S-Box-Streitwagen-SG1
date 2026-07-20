@@ -74,6 +74,10 @@ public sealed class GameNetworkManager : Component, Component.INetworkListener
 		// Opferaltar backend (active god + per-race random favour roll per player, PG spending).
 		// Lives in the lobby for the shop UI; same host-gated idempotent pattern as the others.
 		AltarUpgradeManager.EnsureExists( Scene );
+
+		// Skin-Shop backend (host-autoritativer PG-Abzug beim Kauf des Krokodilkopfs für die
+		// CharacterGUI). Nur in der Lobby gebraucht; gleiches host-gegatetes, idempotentes Muster.
+		ChariotSkinShop.EnsureExists( Scene );
 	}
 
 

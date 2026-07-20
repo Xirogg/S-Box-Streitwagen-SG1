@@ -36,10 +36,10 @@
 	<!-- ======================= LINKS: Menü + Titel ======================= -->
 	<div class="menu-col">
 		<div class="menu-btn" onclick="@TestSwitchToAltar">
-			<div class="menu-label">Opferaltar</div>
+			<div class="menu-label">Opfer-Altar</div>
 		</div>
-		<div class="menu-btn disabled">
-			<div class="menu-label"> Charakter</div>
+		<div class="menu-btn">
+			<div class="menu-label"> Chimären-Stall</div>
 		</div>
 		<div class="menu-btn disabled">
 			<div class="menu-label">Einstellungen</div>
@@ -61,11 +61,13 @@
 		<div class="ability-body">
 			<div class="ability-name">@( LocalPlayer is null ? "—" : DisplayNameFor( LocalPlayer ) )</div>
 
-			<!-- Skin-Umschalter: gleiche Button-Grafik wie die Menü-Buttons (Klasse "menu-btn" ->
-			     bekommt die MenuButton-Textur über ApplyTextures). Linksklick wechselt zwischen den
-			     beiden Wagen-Skins; das Label zeigt den aktuell gewählten Skin. -->
-			<div class="menu-btn skin-btn" onclick="@ToggleSkin">
-				<div class="menu-label">@SkinLabel</div>
+			<!-- Skin-Vorschau: verkleinerte Kopie des Vorschau-Fensters aus der CharacterGUI. Zeigt
+			     den aktuell AUSGERÜSTETEN Skin (ChariotSkinPreference.Current) – rein optisch, kein
+			     Umschalten mehr (das passiert jetzt komplett im Charakter-Screen). Sitzt im
+			     Fähigkeiten-Panel, also direkt links neben den Spieler-Slots. -->
+			<div class="skin-preview-frame">
+				<div class="skin-preview-image"></div>
+				<div class="skin-preview-caption">@EquippedSkinName</div>
 			</div>
 		</div>
 	</div>
@@ -137,9 +139,9 @@
 
 	<!-- ======================= Charakter-Button (über "Charakter") ======================= -->
 	<!-- Klickfläche genau über dem "Charakter"-Menü-Button (2. Button der menu-col:
-	     left 40, top 190, 380x120). Zeigt nur den Hover-Effekt (Abdunkeln), löst aber
-	     KEINE Aktion aus – bewusst ohne onclick. -->
-	<div class="character-btn"></div>
+	     left 40, top 190, 380x120). Öffnet den Charakter-/Skin-Screen (CharacterGUI) über
+	     dieselbe Screen-Umschaltung wie der Opferaltar (LobbyManager.ShowCharacter). -->
+	<div class="character-btn" onclick="@OpenCharacter"></div>
 
 	<!-- ======================= Strecken-Button (über der Map) ======================= -->
 	<!-- Klickfläche genau über der Map-Frame (left 1060, top 40, 800x480). LINKSKLICK
@@ -357,13 +359,45 @@
 		padding: 6px 24px;
 	}
 
-	/* Skin-Umschalt-Button: nutzt die menu-btn-Grafik, hier nur Größe/Position im Fähigkeiten-Panel. */
-	.skin-btn {
-		width: 400px;
-		height: 110px;
-		margin-top: 10px;
-		z-index: 2;
-		pointer-events: all;
+	/* Skin-Vorschau im Fähigkeiten-Panel: verkleinerte Kopie des CharacterGUI-Vorschaufensters
+	   (dort 780x820). Sitzt unter dem Namen und füllt den frei gewordenen unteren Panel-Bereich –
+	   direkt links neben den Spieler-Slots. */
+	.skin-preview-frame {
+		width: 410px;
+		height: 500px;
+		margin-top: 16px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		/* Parchment-Fallback, falls kein PreviewFrame zugewiesen ist – Textur liegt darüber. */
+		background-color: rgba(255, 235, 195, 0.85);
+		border: 4px solid rgba(140, 90, 30, 0.85);
+		border-radius: 16px;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		pointer-events: none;   /* rein optisch, fängt keine Klicks */
+	}
+
+	/* Das Vorschau-PNG (aktuell ausgerüsteter Skin). contain hält das Seitenverhältnis.
+	   Auf 150 % der ursprünglichen Größe (vorher 88% / 78%) skaliert – ragt damit etwas über
+	   den Rahmen hinaus. */
+	.skin-preview-image {
+		width: 132%;
+		height: 117%;
+		margin-top: -10%;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	/* Negativer margin-top: das vergrößerte Bild (117% Höhe) schiebt die Caption sonst nach unten
+	   aus dem Rahmen – so rutscht sie wieder hoch an den Fuß des Rahmens. */
+	.skin-preview-caption {
+		margin-top: -160px;
+		font-size: 34px;
+		font-weight: bold;
+		color: rgba(74, 44, 12, 1);
+		text-align: center;
 	}
 
 	/* ----------------------------- Rechts: Map ----------------------------- */
@@ -883,6 +917,15 @@
 	[Group( "Lobby UI – Rahmen" )]
 	[Property] public Texture PlayerAvatar { get; set; }         // Avatar-Bild im Charakter-Slot
 
+	// Skin-Vorschau im Fähigkeiten-Panel. Dieselben PNGs wie in der CharacterGUI zuweisen
+	// ("duplizierte" Vorschau) – gezeigt wird der aktuell AUSGERÜSTETE Skin.
+	[Group( "Lobby UI – Skin Vorschau" )]
+	[Property] public Texture PreviewFrame { get; set; }         // Rahmen (optional; sonst Parchment-Fallback)
+	[Group( "Lobby UI – Skin Vorschau" )]
+	[Property] public Texture PferdekopfPreview { get; set; }    // Basis-Skin
+	[Group( "Lobby UI – Skin Vorschau" )]
+	[Property] public Texture KrokodilkopfPreview { get; set; }  // Kauf-Skin
+
 	[Group( "Lobby UI – Buttons" )]
 	[Property] public Texture MenuButton { get; set; }           // Button_MainMenu (orange)
 	[Group( "Lobby UI – Buttons" )]
@@ -1004,6 +1047,10 @@
 		SetBgAll( root, "ready-bar", LocalIsReady ? ReadyButton : NotReadyButton );
 		SetBgAll( root, "map-preview", LobbyManager.Instance?.GetTrackTexture( CurrentTrack ) );
 
+		// Skin-Vorschau: Rahmen + PNG des aktuell ausgerüsteten Skins.
+		SetBgAll( root, "skin-preview-frame", PreviewFrame );
+		SetBgAll( root, "skin-preview-image", EquippedPreview );
+
 		// Spieler-Slots in DOM-Reihenfolge den Spielern zuordnen (gleiche
 		// Reihenfolge wie die for-Schleife im Markup -> OrderedPlayers).
 		var players = OrderedPlayers;
@@ -1080,22 +1127,19 @@
 		LocalPlayer?.RequestCycleTrack();
 	}
 
-	// Anzeigetext des Skin-Buttons: der aktuell gewählte Wagen-Skin.
-	string SkinLabel => ChariotSkinPreference.Current switch
+	// Name des aktuell AUSGERÜSTETEN Skins (Caption unter der Vorschau). Das Umschalten selbst
+	// passiert jetzt komplett im Charakter-Screen (CharacterGUI); hier wird nur angezeigt.
+	string EquippedSkinName => ChariotSkinPreference.Current switch
 	{
 		ChariotSkin.Krokodilkopf => "Krokodilkopf",
 		ChariotSkin.Pferdekopf => "Pferdekopf",
 		_ => "Skin"
 	};
 
-	// Linksklick auf den Skin-Button: zwischen den beiden Wagen-Skins wechseln. Rein lokale Wahl
-	// (pro Spieler). Beim Rennstart liest der eigene Wagen (HorseVisuals) sie aus und spiegelt sie
-	// per [Sync] an alle Peers.
-	void ToggleSkin()
-	{
-		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
-		ChariotSkinPreference.Toggle();
-	}
+	// Vorschau-PNG des aktuell ausgerüsteten Skins.
+	Texture EquippedPreview => ChariotSkinPreference.Current == ChariotSkin.Krokodilkopf
+		? KrokodilkopfPreview
+		: PferdekopfPreview;
 
 	// Rechtsklick auf die Map -> Bestenliste der aktuellen Strecke öffnen. Beim Öffnen die
 	// Rekorde frisch nachladen (Host liest die Datei neu & verteilt sie; Client bittet den
@@ -1161,6 +1205,14 @@
 		LobbyManager.Instance?.ShowAltar();
 	}
 
+	// Linksklick auf den "Charakter"-Button: auf den Charakter-/Skin-Screen wechseln
+	// (CharacterGUI). Gleiche, getestete Screen-Umschaltung wie beim Opferaltar.
+	void OpenCharacter()
+	{
+		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
+		LobbyManager.Instance?.ShowCharacter();
+	}
+
 	void QuitGame()
 	{
 		LobbyUISFX.Instance?.PlayButtonSound();   // lokaler Klick-Sound (nur dieser Spieler)
@@ -1194,7 +1246,7 @@
 		hash.Add( LocalIsReady );
 		hash.Add( LocalCurrency );
 		hash.Add( SlotCount );
-		hash.Add( ChariotSkinPreference.Current ); // Skin-Button-Label aktualisieren beim Wechsel
+		hash.Add( ChariotSkinPreference.Current ); // Skin-Vorschau (Bild + Caption) aktualisieren beim Wechsel
 		foreach ( var p in OrderedPlayers )
 		{
 			hash.Add( p.IsReady );
