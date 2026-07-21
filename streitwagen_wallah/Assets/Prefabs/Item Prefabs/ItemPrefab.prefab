@@ -83,7 +83,7 @@
             "_type": "gameobject",
             "prefab": "prefabs/god prefabs/laverna/lavernascriptprefab.prefab"
           },
-          "Ma'at": {
+          "MaAt": {
             "_type": "gameobject",
             "prefab": "prefabs/god prefabs/maat/maatscriptprefab.prefab"
           },

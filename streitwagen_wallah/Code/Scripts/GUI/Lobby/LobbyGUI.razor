@@ -41,9 +41,6 @@
 		<div class="menu-btn">
 			<div class="menu-label"> Chimären-Stall</div>
 		</div>
-		<div class="menu-btn disabled">
-			<div class="menu-label">Einstellungen</div>
-		</div>
 		<div class="menu-btn" onclick="@QuitGame">
 			<div class="menu-label">Verlassen</div>
 		</div>
@@ -150,8 +147,8 @@
 	<div class="track-btn" onclick="@CycleTrack" onrightclick="@OpenRecords"></div>
 
 	<!-- ======================= Verlassen-Button (über "Verlassen") ======================= -->
-	<!-- Klickfläche genau über dem "Verlassen"-Menü-Button (4. Button der menu-col:
-	     left 40, top 40 + 3*(120+30) = 490, 380x120). Beendet das Spiel über
+	<!-- Klickfläche genau über dem "Verlassen"-Menü-Button (3. Button der menu-col:
+	     left 40, top 40 + 2*(120+30) = 340, 380x120). Beendet das Spiel über
 	     QuitGame. z-index hält sie über dem Button; pointer-events + ein (fast
 	     unsichtbarer) Hintergrund sichern den Treffer. -->
 	<div class="quit-btn" onclick="@QuitGame"></div>
@@ -685,13 +682,13 @@
 
 	/* ----------------------------- Verlassen-Button ----------------------------- */
 	/* Klickfläche genau über dem "Verlassen"-Button (4. Button der menu-col:
-	   left 40, top 490, 380x120). Beendet das Spiel. z-index hält sie über dem
+	   left 40, top 340, 380x120). Beendet das Spiel. z-index hält sie über dem
 	   Button; pointer-events + ein (fast unsichtbarer) Hintergrund sichern den
 	   Treffer. */
 	.quit-btn {
 		position: absolute;
 		left: 40px;
-		top: 490px;
+		top: 340px;
 		width: 380px;
 		height: 120px;
 		z-index: 100;

@@ -16,7 +16,7 @@
     "OwnerTransfer": 1,
     "Components": [
       {
-        "__type": "MaatPower",
+        "__type": "MaAtPower",
         "__guid": "5cf9a6ab-afac-48c6-956a-a931862fba38",
         "__enabled": true,
         "Flags": 0,

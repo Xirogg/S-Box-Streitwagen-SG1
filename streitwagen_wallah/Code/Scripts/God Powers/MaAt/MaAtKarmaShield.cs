@@ -2,12 +2,12 @@ using Sandbox;
 using System;
 
 /// <summary>
-/// Passiver Karma-Schild von Ma'at. Wird vom MaatPower aktiviert und liegt
+/// Passiver Karma-Schild von MaAt. Wird vom MaAtPower aktiviert und liegt
 /// auf dem Spieler-Prefab. Andere Powers fragen via TryConsume() ab, ob sie
 /// reflektiert werden müssen. Trauben-Projektile werden direkt hier per
 /// Kollision behandelt (Velocity invertieren — kein Auto-Aim).
 /// </summary>
-public sealed class MaatKarmaShield : Component, Component.ICollisionListener
+public sealed class MaAtKarmaShield : Component, Component.ICollisionListener
 {
 	[Property, Group( "Reflection" )]
 	public string GrapeTag { get; set; } = "grape";
@@ -49,7 +49,7 @@ public sealed class MaatKarmaShield : Component, Component.ICollisionListener
 	/// <summary>
 	/// Aktiviert den Schild. Er läuft bewusst NICHT per Timer ab — er bleibt aktiv,
 	/// bis ihn eine gegnerische Fähigkeit über <see cref="TryConsume"/> verbraucht
-	/// (Ma'at-Ult, Laverna-Ult oder eine Traube). Es gibt daher keine Restlaufzeit.
+	/// (MaAt-Ult, Laverna-Ult oder eine Traube). Es gibt daher keine Restlaufzeit.
 	/// </summary>
 	public void Activate()
 	{
@@ -68,7 +68,7 @@ public sealed class MaatKarmaShield : Component, Component.ICollisionListener
 	}
 
 	/// <summary>
-	/// Route Ma'at's normal sound through the player's persistent SFX module. The shield
+	/// Route MaAt's normal sound through the player's persistent SFX module. The shield
 	/// itself isn't erased like the GodPower clone, so it can safely own this call.
 	/// </summary>
 	private void PlayShieldSound()
@@ -107,14 +107,14 @@ public sealed class MaatKarmaShield : Component, Component.ICollisionListener
 		{
 			if ( !_warnedNoModel )
 			{
-				Log.Warning( "[MaatKarmaShield] ShieldModel nicht gesetzt — Schild bleibt unsichtbar." );
+				Log.Warning( "[MaAtKarmaShield] ShieldModel nicht gesetzt — Schild bleibt unsichtbar." );
 				_warnedNoModel = true;
 			}
 			return;
 		}
 
 		_visualObject = Scene.CreateObject();
-		_visualObject.Name = "MaatShieldVisual";
+		_visualObject.Name = "MaAtShieldVisual";
 		_visualObject.SetParent( GameObject, false );
 		_visualObject.LocalPosition = ShieldOffset;
 		_visualObject.LocalScale = ShieldRadius; // uniform: unit sphere → radius world units

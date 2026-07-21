@@ -1404,7 +1404,7 @@
             "VerticalLift": 0.35
           },
           {
-            "__type": "MaatKarmaShield",
+            "__type": "MaAtKarmaShield",
             "__guid": "67591755-f7c9-41e1-89c8-a8cc73fa38ec",
             "__enabled": true,
             "Flags": 0,

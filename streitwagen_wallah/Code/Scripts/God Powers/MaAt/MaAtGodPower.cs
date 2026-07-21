@@ -3,17 +3,17 @@ using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// Ma'at:
-///   Normal — Karma-Schild: aktiviert den passiven MaatKarmaShield am Spieler.
+/// MaAt:
+///   Normal — Karma-Schild: aktiviert den passiven MaAtKarmaShield am Spieler.
 ///   Der Schild reflektiert eine eingehende Aktion (Dionysos-Traube,
-///   Laverna-Hehler, Ma'at-Ult-Debuff) und verbraucht sich dabei.
+///   Laverna-Hehler, MaAt-Ult-Debuff) und verbraucht sich dabei.
 ///
 ///   Ultimate — Das jüngste Gericht: alle Spieler werden zufällig 50/50 in
 ///   Buff/Debuff aufgeteilt (kein Ranking-System vorhanden). Geschützte
 ///   Spieler bekommen statt des Debuffs den Buff — der Caster zahlt mit dem
 ///   Debuff drauf.
 /// </summary>
-public sealed class MaatPower : GodPower
+public sealed class MaAtPower : GodPower
 {
 	[Property, Group( "Judgement (Ult)" )]
 	public string PlayerTag { get; set; } = "player";
@@ -40,10 +40,10 @@ public sealed class MaatPower : GodPower
 	{
 		if ( !Owner.IsValid() ) return;
 
-		var shield = Owner.Components.Get<MaatKarmaShield>( FindMode.EverythingInSelfAndDescendants );
+		var shield = Owner.Components.Get<MaAtKarmaShield>( FindMode.EverythingInSelfAndDescendants );
 		if ( shield is null )
 		{
-			Log.Warning( "[MaatPower] Owner hat keinen MaatKarmaShield." );
+			Log.Warning( "[MaAtPower] Owner hat keinen MaAtKarmaShield." );
 			return;
 		}
 
@@ -81,7 +81,7 @@ public sealed class MaatPower : GodPower
 			var chariot = player.Components.Get<ChariotPhysics>( FindMode.EverythingInSelfAndDescendants );
 			if ( chariot is null )
 			{
-				Log.Warning( $"[MaatPower] Spieler '{player.Name}' hat keine ChariotPhysics — übersprungen." );
+				Log.Warning( $"[MaAtPower] Spieler '{player.Name}' hat keine ChariotPhysics — übersprungen." );
 				continue;
 			}
 
@@ -90,7 +90,7 @@ public sealed class MaatPower : GodPower
 			// Karma-Schild: Debuff-Ziele dürfen reflektieren.
 			if ( !wantsBuff )
 			{
-				var shield = player.Components.Get<MaatKarmaShield>( FindMode.EverythingInSelfAndDescendants );
+				var shield = player.Components.Get<MaAtKarmaShield>( FindMode.EverythingInSelfAndDescendants );
 				if ( shield is not null && shield.TryConsume() )
 				{
 					ApplyBuff( chariot );
@@ -106,7 +106,7 @@ public sealed class MaatPower : GodPower
 				ApplyDebuff( chariot );
 		}
 
-		//Log.Info( $"[MaatPower] Buff: {buffed.Count}, Debuff: {debuffed.Count} für {EffectDuration}s" );
+		//Log.Info( $"[MaAtPower] Buff: {buffed.Count}, Debuff: {debuffed.Count} für {EffectDuration}s" );
 
 		Invoke( EffectDuration, RevertEffect );
 	}

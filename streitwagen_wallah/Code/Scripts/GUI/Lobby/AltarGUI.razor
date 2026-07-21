@@ -96,9 +96,10 @@
 			<div class="pillar-col">
 				<div class="pillar @( active ? "active" : "" )">
 					<div class="pillar-icon"></div>
-					<!-- Ausgewürfelte Gunst dieses Gottes für DIESEN Spieler (A/B/C),
+					<!-- Ausgewürfelte Gunst dieses Gottes für DIESEN Spieler – als kurzer
+					     Tooltip-Text (was die Gunst bewirkt) statt des bloßen Buchstabens,
 					     liegt im roten Trommel-Bereich der Säulen-Textur. -->
-					<div class="pillar-option">@OptionLetter( god )</div>
+					<div class="pillar-option">@OptionLabel( god )</div>
 					<!-- Preis/Status im leeren Gold-Schild am Säulenfuß (Teil der Textur). -->
 					<div class="pillar-price @PriceClass( god )">@PriceLabel( god )</div>
 				</div>
@@ -263,20 +264,26 @@
 	/* Sitzt auf dem roten Trommel-Band der Säulen-Textur. Die Werte sind aus
 	   AltarSäule_Aktiv/Inaktiv.png (437x804) ausgemessen: das rote Band läuft von
 	   58.1% bis 76.5% der Höhe und von 12% bis 89% der Breite. Prozente statt Pixel,
-	   damit es an der Säule klebt, falls .pillar mal andere Maße bekommt. */
+	   damit es an der Säule klebt, falls .pillar mal andere Maße bekommt.
+	   Kleinere Schrift als früher (war 72px für einen einzelnen Buchstaben): jetzt
+	   steht hier ein kurzer Tooltip-Text, der bei Bedarf im Band umbricht. */
 	.pillar-option {
 		position: absolute;
 		left: 12%;
 		top: 58%;
 		width: 77%;
 		height: 18.4%;
+		padding: 0px 10px;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		font-size: 72px;
+		font-size: 30px;
+		line-height: 1.15;
 		font-weight: bold;
 		color: rgba(250, 230, 150, 1);
 		text-align: center;
-		text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.85);
+		white-space: normal;
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.85);
 		pointer-events: none;
 	}
 
@@ -444,7 +451,7 @@
 	[Group( "Altar UI – Götter" )]
 	[Property] public List<AltarPower> Powers { get; set; } = new()
 	{
-		new AltarPower { Name = "Maat" },
+		new AltarPower { Name = "MaAt" },
 		new AltarPower { Name = "Dionysos" },
 		new AltarPower { Name = "Laverna" },
 		new AltarPower { Name = "Taranis" },
@@ -554,14 +561,33 @@
 	// dort bedeutungslos.
 	bool FreeUpgradesActive => AltarUpgradeManager.DebugFreeUpgrades;
 
-	// Buchstabe der Gunst, die dieser Gott für DIESEN Spieler ausgewürfelt hat (A/B/C).
-	// Leer, solange der Host noch nicht gewürfelt hat – dann bleibt das rote Band leer,
-	// statt einen falschen Buchstaben zu zeigen.
-	string OptionLetter( GodId god )
+	// Kurzer Tooltip-Text der Gunst, die dieser Gott für DIESEN Spieler ausgewürfelt hat –
+	// statt des bloßen Buchstabens A/B/C steht jetzt da, WAS die Gunst bewirkt (siehe
+	// Opferaltar-Dokument). A/B sind für alle Götter gleich (Ult- bzw. normales Start-Item),
+	// C ist die gott-spezifische Dauer-Boni. Leer, solange der Host noch nicht gewürfelt hat –
+	// dann bleibt das rote Band leer, statt eine falsche Gunst zu zeigen.
+	string OptionLabel( GodId god )
 	{
 		var option = AltarUpgradeManager.LocalOption( god );
-		return option == AltarOption.None ? "" : option.ToString();
+		return option switch
+		{
+			AltarOption.A => "Chance für Ult",
+			AltarOption.B => "Chance für Fähigkeit",
+			AltarOption.C => CBonusLabel( god ),
+			_ => "",
+		};
 	}
+
+	// Der Dauer-Bonus hinter Option C hängt am Gott (Opferaltar-Dokument, jeweils Punkt c):
+	// Taranis +Angriff, MaAt +Verteidigung, Laverna +Ult-Chance, Dionysos +Publikumsgunst.
+	static string CBonusLabel( GodId god ) => god switch
+	{
+		GodId.Taranis  => "Mehr Angriff",
+		GodId.MaAt     => "Mehr Verteidigung",
+		GodId.Laverna  => "Höhere Ult-Chance",
+		GodId.Dionysos => "Mehr Publikumsgunst",
+		_ => "",
+	};
 
 	// ====================================================================
 	//  Preis-Schild am Säulenfuß
@@ -571,7 +597,7 @@
 	// geraten: ein frisch verbundener Client hat noch einen leeren Mirror UND 0 PG, und
 	// beides zusammen sieht für CostForGod aus wie "pleite, also erste Gunst gratis" –
 	// das Schild würde kurz "Gratis" blinken und dann auf "30 PG" springen. Das rote Band
-	// bleibt im selben Zustand leer (OptionLetter), also bleibt das Schild es auch.
+	// bleibt im selben Zustand leer (OptionLabel), also bleibt das Schild es auch.
 	bool Rolled( GodId god ) => AltarUpgradeManager.LocalOption( god ) != AltarOption.None;
 
 	// Was im leeren Gold-Schild steht. Reine Anzeige des Zustands, den der

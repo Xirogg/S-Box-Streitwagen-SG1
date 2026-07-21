@@ -82,7 +82,7 @@ public sealed class GodPowersNormalSfxmodule : Component
 		PlayProximity( clip );
 	}
 
-	/// <summary>Ma'at normal: shield raised or destroyed, proximity. Called by MaatKarmaShield.</summary>
+	/// <summary>MaAt normal: shield raised or destroyed, proximity. Called by MaAtKarmaShield.</summary>
 	public void PlayMaatShield() => PlayProximity( NormalClip.MaatShield );
 
 	/// <summary>Taranis normal: start the charge jingle (A, then B on a loop), proximity.</summary>

@@ -13,7 +13,7 @@ public enum GodId
 {
 	None = 0,
 	Taranis,
-	Maat,
+	MaAt,
 	Laverna,
 	Dionysos,
 }
@@ -39,7 +39,7 @@ public enum AltarBonus
 {
 	None = 0,
 	Attack,     // Taranis  — +% Attack   (PlayerStats.Attack)
-	Defense,    // Ma'at    — +% Defense  (PlayerStats.Defense)
+	Defense,    // MaAt     — +% Defense  (PlayerStats.Defense)
 	UltChance,  // Laverna  — +% ULT roll (PlayerRaceModifiers -> ItemPrefab)
 	Currency,   // Dionysos — +% PG earn  (PublicityCurrencyManager)
 }
@@ -211,7 +211,7 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	private static readonly Dictionary<GodId, GodDef> Gods = new()
 	{
 		[GodId.Taranis]  = new GodDef { Id = GodId.Taranis,  DisplayName = "Taranis",  ItemKey = "Taranis",  Bonus = AltarBonus.Attack,    BonusText = "+5% Angriff" },
-		[GodId.Maat]     = new GodDef { Id = GodId.Maat,     DisplayName = "Ma'at",    ItemKey = "Ma'at",    Bonus = AltarBonus.Defense,   BonusText = "+5% Verteidigung" },
+		[GodId.MaAt]     = new GodDef { Id = GodId.MaAt,     DisplayName = "MaAt",     ItemKey = "MaAt",     Bonus = AltarBonus.Defense,   BonusText = "+5% Verteidigung" },
 		[GodId.Laverna]  = new GodDef { Id = GodId.Laverna,  DisplayName = "Laverna",  ItemKey = "Laverna",  Bonus = AltarBonus.UltChance, BonusText = "+5% ULT-Chance" },
 		[GodId.Dionysos] = new GodDef { Id = GodId.Dionysos, DisplayName = "Dionysos", ItemKey = "Dionysos", Bonus = AltarBonus.Currency,  BonusText = "+5% Publikumsgunst" },
 	};
@@ -653,7 +653,7 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 	public static string DisplayName( GodId god ) => Gods.TryGetValue( god, out var d ) ? d.DisplayName : god.ToString();
 	public static string BonusText( GodId god ) => Gods.TryGetValue( god, out var d ) ? d.BonusText : "";
 
-	/// <summary>Map an altar display name ("Maat", "Ma'at", ...) to its <see cref="GodId"/>.</summary>
+	/// <summary>Map an altar display name ("MaAt", "Ma'at", ...) to its <see cref="GodId"/>.</summary>
 	public static GodId ParseGod( string name )
 	{
 		if ( string.IsNullOrWhiteSpace( name ) ) return GodId.None;
@@ -661,7 +661,7 @@ public sealed class AltarUpgradeManager : Component, Component.INetworkListener
 		return n switch
 		{
 			"taranis" => GodId.Taranis,
-			"maat" => GodId.Maat,
+			"maat" => GodId.MaAt,
 			"laverna" => GodId.Laverna,
 			"dionysos" => GodId.Dionysos,
 			_ => GodId.None,

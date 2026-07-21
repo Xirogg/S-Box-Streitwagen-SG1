@@ -217,7 +217,7 @@ public sealed class LavernaPower : GodPower
 		for ( int i = donors.Count - 1; i >= 0; i-- )
 		{
 			var donor = donors[i];
-			var shield = donor.GameObject.Components.Get<MaatKarmaShield>( FindMode.EverythingInSelfAndDescendants );
+			var shield = donor.GameObject.Components.Get<MaAtKarmaShield>( FindMode.EverythingInSelfAndDescendants );
 			if ( shield is null || !shield.TryConsume() ) continue;
 
 			float refund = donor.MaxHP - donor.CurrentHP;

@@ -156,7 +156,7 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "RomScene": "scenes/rome.scene",
+              "RomScene": "scenes/rome(notdone).scene",
               "RomTrackImage": {
                 "$compiler": "texture",
                 "$source": "imagefile",
@@ -214,7 +214,7 @@
       "NetworkMode": 2,
       "NetworkFlags": 0,
       "NetworkOrphaned": 0,
-      "NetworkTransmit": false,
+      "NetworkTransmit": true,
       "OwnerTransfer": 1,
       "Components": [
         {
@@ -305,7 +305,7 @@
           "NetworkMode": 2,
           "NetworkFlags": 0,
           "NetworkOrphaned": 0,
-          "NetworkTransmit": false,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -1545,7 +1545,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/77083b7c55bf7c5f.vtex"
               },
               "PillarInactive": {
                 "$compiler": "texture",
@@ -1583,11 +1583,11 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": null
+                "compiled": "textures/generated/imagefile/b13bd2d7ef805f5d.vtex"
               },
               "Powers": [
                 {
-                  "Name": "Maat",
+                  "Name": "MaAt",
                   "Icon": {
                     "$compiler": "texture",
                     "$source": "imagefile",
@@ -1768,7 +1768,7 @@
           "NetworkMode": 2,
           "NetworkFlags": 0,
           "NetworkOrphaned": 0,
-          "NetworkTransmit": false,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -2029,7 +2029,7 @@
           "NetworkMode": 2,
           "NetworkFlags": 0,
           "NetworkOrphaned": 0,
-          "NetworkTransmit": false,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -2038,44 +2038,7 @@
               "__enabled": true,
               "Flags": 0,
               "AbilityPanel": null,
-              "CharacterSlot": {
-                "$compiler": "texture",
-                "$source": "imagefile",
-                "data": {
-                  "FilePath": "ui/2d lobby ui/main menu ui/ui_character_mainmenu.png",
-                  "MaxSize": 4096,
-                  "ConvertHeightToNormals": false,
-                  "NormalScale": 1,
-                  "Rotate": 0,
-                  "FlipVertical": false,
-                  "FlipHorizontal": false,
-                  "Cropping": {
-                    "Left": 0,
-                    "Top": 0,
-                    "Right": 0,
-                    "Bottom": 0
-                  },
-                  "Padding": {
-                    "Left": 0,
-                    "Top": 0,
-                    "Right": 0,
-                    "Bottom": 0
-                  },
-                  "InvertColor": false,
-                  "Tint": "1,1,1,1",
-                  "Blur": 0,
-                  "Sharpen": 0,
-                  "Brightness": 1,
-                  "Contrast": 1,
-                  "Saturation": 1,
-                  "Hue": 0,
-                  "Colorize": false,
-                  "TargetColor": "1,1,1,1",
-                  "CacheToDisk": true,
-                  "FormatOverride": "RGBA8888"
-                },
-                "compiled": "textures/generated/imagefile/f9a1fefccde8fd42.vtex"
-              },
+              "CharacterSlot": null,
               "Dionysos": {
                 "$compiler": "texture",
                 "$source": "imagefile",
