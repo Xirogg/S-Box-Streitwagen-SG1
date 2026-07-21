@@ -6873,7 +6873,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "85bbef1a-fdfa-4a05-83e9-4bab9daf8c56"
+                      "$blob": "3e39a315-f7cb-4472-8ea8-2219a524e530"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6929,7 +6929,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "40a9ade5-57f0-43e5-bf20-bb0c634b799b"
+                      "$blob": "dede0a57-b0b3-4a6e-a6c5-1e4ea7b74bf7"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6985,7 +6985,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "ab2662a6-389a-421c-be05-b719acc1db15"
+                      "$blob": "4385bb81-9a56-4b5f-a1b0-0740e2940dee"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -7443,6 +7443,148 @@
             "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "d9c9e086-0d5b-4b11-b159-100724796f7b",
             "71306516-0416-4962-ad57-604bccf93274": "e4166da4-b8f7-4d39-9431-09220f211793",
             "143114ab-4f92-4888-96ae-a120972ec204": "0fd2ac86-ad05-41f4-bb08-07e1b96d211f"
+          }
+        },
+        {
+          "__guid": "255b08a0-963f-4659-aa5c-70f871ffcf49",
+          "__version": 2,
+          "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
+                },
+                "Property": "Name",
+                "Value": "itemprefab (5)"
+              },
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
+                },
+                "Property": "Position",
+                "Value": "4246.89209,-4274.61035,-17478.8301"
+              },
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
+                },
+                "Property": "Rotation",
+                "Value": "-0.0228838772,0.0913012922,0.242041335,0.96568954"
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+                },
+                "Property": "ItemPool",
+                "Value": {
+                  "Taranis": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/god prefabs/taranis/taranisscriptprefab.prefab"
+                  }
+                }
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+                },
+                "Property": "MaxRespawnSeconds",
+                "Value": 5
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+                },
+                "Property": "MinRespawnSeconds",
+                "Value": 5
+              }
+            ],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "eea33dba-6300-4d41-b7a3-f10869e90daa": "255b08a0-963f-4659-aa5c-70f871ffcf49",
+            "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "872e615c-5349-438d-bd4e-7f1365c93ace",
+            "71306516-0416-4962-ad57-604bccf93274": "3990ef69-ffa8-4532-85c6-5fcb02126d20",
+            "143114ab-4f92-4888-96ae-a120972ec204": "2f07abaf-b7c4-4e44-963d-445b2ec7e751"
+          }
+        },
+        {
+          "__guid": "91a61ca8-55c3-4ab6-8e72-40fe2ce09035",
+          "__version": 2,
+          "__Prefab": "prefabs/item prefabs/itemprefab.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
+                },
+                "Property": "Name",
+                "Value": "itemprefab (5)"
+              },
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
+                },
+                "Property": "Position",
+                "Value": "4208.58203,-3943.54492,-17456.5352"
+              },
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "eea33dba-6300-4d41-b7a3-f10869e90daa"
+                },
+                "Property": "Rotation",
+                "Value": "-0.0228838772,0.0913012922,0.242041335,0.96568954"
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+                },
+                "Property": "ItemPool",
+                "Value": {
+                  "Laverna": {
+                    "_type": "gameobject",
+                    "prefab": "prefabs/god prefabs/laverna/lavernascriptprefab.prefab"
+                  }
+                }
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+                },
+                "Property": "MaxRespawnSeconds",
+                "Value": 5
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "143114ab-4f92-4888-96ae-a120972ec204"
+                },
+                "Property": "MinRespawnSeconds",
+                "Value": 5
+              }
+            ],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "eea33dba-6300-4d41-b7a3-f10869e90daa": "91a61ca8-55c3-4ab6-8e72-40fe2ce09035",
+            "854a9a97-dde3-4d54-83c1-83f9e60b44f5": "1aeddc66-9196-4d0a-8dec-215a61ed30fa",
+            "71306516-0416-4962-ad57-604bccf93274": "a197dd9a-cb64-4562-b848-13d7ffe30875",
+            "143114ab-4f92-4888-96ae-a120972ec204": "596a96e3-804a-4888-bcf4-745863472bc2"
           }
         },
         {

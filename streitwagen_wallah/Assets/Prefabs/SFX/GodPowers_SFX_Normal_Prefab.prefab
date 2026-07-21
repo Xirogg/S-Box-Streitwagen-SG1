@@ -38,6 +38,36 @@
         "TaranisLoopRepeats": 2,
         "TaranisLoopSound": "music/sfx/god powers/taranis/taranis_sfx_ult_beep.sound",
         "Volume": 1
+      },
+      {
+        "__type": "Sandbox.GodPowersNormalVfxmodule",
+        "__guid": "06ffca3b-96f0-4923-8352-095df8c6c5ad",
+        "__enabled": true,
+        "Flags": 0,
+        "DebugLog": false,
+        "LightningChargePrefab": {
+          "_type": "gameobject",
+          "prefab": "vfx/lightning_charge.prefab"
+        },
+        "LightningStrikePrefab": {
+          "_type": "gameobject",
+          "prefab": "vfx/lightning_strike.prefab"
+        },
+        "MaxChargeSeconds": 6,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RauchLavernaPrefab": {
+          "_type": "gameobject",
+          "prefab": "vfx/rauch_laverna.prefab"
+        },
+        "SmokeDuration": 4,
+        "StrikeDuration": 1.5,
+        "VfxOrigin": null,
+        "WagenNodeName": "Wagen"
       }
     ],
     "Children": [],

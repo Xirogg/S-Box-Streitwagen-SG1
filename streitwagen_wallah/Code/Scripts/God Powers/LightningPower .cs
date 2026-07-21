@@ -148,6 +148,8 @@ public sealed class LightningPower : GodPower
 		// Charge jingle (Sound A → Sound B loop), proximity on the user. Lives on the
 		// persistent player module so it keeps playing after this clone is destroyed.
 		ResolveNormalSfx()?.StartTaranisCharge();
+		// Looping charge VFX on the Wagen, broadcast to everyone. Destroyed by TaranisStrike().
+		ResolveNormalVfx()?.StartTaranisCharge();
 		// Detonation will use the LIVE position of the Wagen, not a snapshot — the
 		// chariot keeps moving during the fuse, the bomb travels with it.
 		Invoke( FuseTime, Detonate );
@@ -162,6 +164,8 @@ public sealed class LightningPower : GodPower
 		LastLightningOrigin = origin;
 		// Fully charged → Sound C (stops the charge loop), proximity on the user.
 		ResolveNormalSfx()?.TaranisCharged();
+		// Charge VFX off, strike VFX on the Wagen, broadcast to everyone.
+		ResolveNormalVfx()?.TaranisStrike();
 
 		// Tags are inherited from ancestors, so FindAllWithTag returns the chariot root
 		// AND every node under it (Wagen, Antrieb, Camera, ...). Identity therefore has

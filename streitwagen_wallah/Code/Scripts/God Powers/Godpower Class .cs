@@ -181,4 +181,18 @@ public abstract class GodPower : Component
 		if ( !Owner.IsValid() ) return null;
 		return Owner.Components.Get<GodPowersNormalSfxmodule>( FindMode.EverythingInSelfAndDescendants );
 	}
+
+	// ---------- VFX ----------
+
+	/// <summary>
+	/// Find the casting player's <see cref="GodPowersNormalVfxmodule"/> (one lives on
+	/// each player prefab, alongside the SFX module). Powers route their NORMAL visual
+	/// effects through it so the VFX outlives this short-lived clone and every client
+	/// sees them on the caster's Wagen. Returns null if Owner isn't assigned yet.
+	/// </summary>
+	protected GodPowersNormalVfxmodule ResolveNormalVfx()
+	{
+		if ( !Owner.IsValid() ) return null;
+		return Owner.Components.Get<GodPowersNormalVfxmodule>( FindMode.EverythingInSelfAndDescendants );
+	}
 }

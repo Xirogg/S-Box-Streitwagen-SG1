@@ -58,6 +58,10 @@ public sealed class LavernaPower : GodPower
 			return;
 		}
 
+		// Smoke on the caster's Wagen the moment they cast (whether or not a victim is
+		// found), broadcast so everyone sees it. Auto-destroyed by the VFX module.
+		ResolveNormalVfx()?.PlayLavernaSteal();
+
 		var thief = Owner.Components.Get<PlayerItemTracker>( FindMode.EverythingInSelfAndDescendants );
 		if ( thief is null )
 		{
