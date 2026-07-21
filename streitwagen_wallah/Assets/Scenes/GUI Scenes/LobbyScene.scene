@@ -156,7 +156,7 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
-              "RomScene": "scenes/rome(notdone).scene",
+              "RomScene": "scenes/rome.scene",
               "RomTrackImage": {
                 "$compiler": "texture",
                 "$source": "imagefile",
@@ -2038,7 +2038,44 @@
               "__enabled": true,
               "Flags": 0,
               "AbilityPanel": null,
-              "CharacterSlot": null,
+              "CharacterSlot": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "ui/2d lobby ui/main menu ui/ui_character_mainmenu.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true,
+                  "FormatOverride": "RGBA8888"
+                },
+                "compiled": null
+              },
               "Dionysos": {
                 "$compiler": "texture",
                 "$source": "imagefile",
