@@ -154,6 +154,21 @@ public abstract class GodPower : Component
 		OnConsumed?.Invoke( this );
 	}
 
+	// ---------- HUD ----------
+
+	/// <summary>
+	/// Find — or lazily create — the <see cref="GodPowerNotifier"/> on the
+	/// player root so this power can push status text to the HUD. Returns null
+	/// if Owner isn't assigned yet.
+	/// </summary>
+	protected GodPowerNotifier ResolveNotifier()
+	{
+		if ( !Owner.IsValid() ) return null;
+		var n = Owner.Components.Get<GodPowerNotifier>( FindMode.EverythingInSelfAndDescendants );
+		if ( n is null ) n = Owner.Components.Create<GodPowerNotifier>();
+		return n;
+	}
+
 	// ---------- SFX ----------
 
 	/// <summary>

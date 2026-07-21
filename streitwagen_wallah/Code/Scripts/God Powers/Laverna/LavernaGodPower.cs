@@ -100,6 +100,7 @@ public sealed class LavernaPower : GodPower
 		if ( pool.Count == 0 )
 		{
 			Log.Info( "[LavernaPower] Item-Dieb found no eligible victim (nobody else is holding an item)." );
+			ResolveNotifier()?.Show( "Du konntest nichts klauen" );
 			return;
 		}
 
@@ -108,6 +109,9 @@ public sealed class LavernaPower : GodPower
 		// Read the key now — by the time the deferred transfer runs the victim's
 		// slot has been wiped, so we'd lose the name otherwise.
 		string stolenKey = victim.HeldItemKey;
+		ResolveNotifier()?.Show( string.IsNullOrEmpty( stolenKey )
+			? "Du hast ein Item gestohlen"
+			: $"Du hast {stolenKey} gestohlen" );
 
 		// Sound A → Sound B, heard only by the caster and the victim ("used one").
 		var victimRoot = victim.PlayerRoot.IsValid() ? victim.PlayerRoot : victim.GameObject?.Root;
@@ -256,6 +260,9 @@ public sealed class LavernaPower : GodPower
 		}
 
 		ownerDamage.Heal( totalStolen );
+
+		if ( totalStolen > 0f )
+			ResolveNotifier()?.Show( $"Du heilst dich um {totalStolen:0} Leben" );
 
 		if ( DebugLog )
 			Log.Info( $"[LavernaPower] {donors.Count} donors × ~{perPlayer:F0} HP → stole {totalStolen:F0}, caster now {ownerDamage.CurrentHP:F0}/{ownerDamage.MaxHP:F0}." );

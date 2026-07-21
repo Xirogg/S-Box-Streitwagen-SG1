@@ -82,6 +82,7 @@ public sealed class DionysosPower : GodPower
 	protected override void OnActivate()
 	{
 		//Log.Info( "Dionyoss ist dabei meine Freunde" );
+		ResolveNotifier()?.Show( "Schuss" );
 		// Random grape clip (A or B), proximity on the user.
 		ResolveNormalSfx()?.PlayDionysosGrapes();
 
@@ -172,6 +173,11 @@ public sealed class DionysosPower : GodPower
 
 			hits++;
 		}
+
+		// Caster-lokale Bilanz (der Caster selbst ist oben schon herausgefiltert).
+		ResolveNotifier()?.Show( hits == 1
+			? "Du hast 1 Spieler betrunken gemacht"
+			: $"Du hast {hits} Spieler betrunken gemacht" );
 
 		Log.Info( $"[DionysosPower] {hits} Spieler bekommen +{DrunkDuration}s Drunk" );
 	}

@@ -142,6 +142,9 @@ public sealed class LightningPower : GodPower
 	protected override void OnActivate()
 	{
 		fuseLit = true;
+		// Ladehinweis mit Countdown bis zur Detonation. Wird in Detonate() durch die
+		// Trefferbilanz ersetzt.
+		ResolveNotifier()?.ShowTimed( "Du lädst einen Blitz auf", FuseTime );
 		// Charge jingle (Sound A → Sound B loop), proximity on the user. Lives on the
 		// persistent player module so it keeps playing after this clone is destroyed.
 		ResolveNormalSfx()?.StartTaranisCharge();
@@ -192,6 +195,13 @@ public sealed class LightningPower : GodPower
 			hitCount++;
 		}
 
+		// Trefferbilanz für den Caster (der Caster ist oben via casterDamageSystem
+		// ausgenommen, zählt sich also nicht selbst).
+		ResolveNotifier()?.Show(
+			hitCount == 0 ? "Du hast niemanden getroffen"
+			: hitCount == 1 ? "Du hast 1 Spieler Schaden gemacht"
+			: $"Du hast {hitCount} Spielern Schaden gemacht" );
+
 		Log.Info( $"[LightningPower] Blitz-Bombe detonated at {origin} → {hitCount} player(s) damaged for {BombDamage} HP." );
 	}
 
@@ -203,6 +213,7 @@ public sealed class LightningPower : GodPower
 	{
 		ultimateActive = true;
 		boosted.Clear();
+		ResolveNotifier()?.ShowTimed( "Alle aufgeladen – Crashs tun weh", UltimateDuration );
 		// Sound A + voice, worldwide.
 		GodPowersUltimateSfxmodule.Instance?.PlayTaranisUltimate();
 		// Sky image, per-player (each aimed at their own chariot).

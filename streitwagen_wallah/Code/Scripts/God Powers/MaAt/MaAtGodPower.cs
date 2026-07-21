@@ -48,6 +48,7 @@ public sealed class MaAtPower : GodPower
 		}
 
 		shield.Activate();
+		ResolveNotifier()?.Show( "Schild aktiv" );
 	}
 
 	// ---------- Ult ----------
@@ -59,6 +60,7 @@ public sealed class MaAtPower : GodPower
 		effectActive = true;
 		buffed.Clear();
 		debuffed.Clear();
+		ResolveNotifier()?.Show( "Maat verteilt Gerechtigkeit" );
 		// Sound A + voice, worldwide.
 		GodPowersUltimateSfxmodule.Instance?.PlayMaatUltimate();
 		// Sky image, per-player (each aimed at their own chariot).

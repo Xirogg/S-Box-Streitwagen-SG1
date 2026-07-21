@@ -50,6 +50,11 @@
 			<div class="cursed-icon" @ref="CursedImage"></div>
 		}
 
+		@if ( ShowPowerMessage )
+		{
+			<div class="power-message">@PowerMessage</div>
+		}
+
 		@if ( ShowCountdown )
 		{
 			<div class="countdown">@CountdownDisplay</div>
@@ -245,6 +250,25 @@
 		font-weight: bold;
 		text-shadow: 0px 4px 8px black;
 
+	}
+	/* God-Power-Statusmeldung. Klein und oben mittig (auf Wunsch verkleinert und
+	   nach oben geholt): war vorher font-size 64px bei top 132px. Horizontale
+	   Zentrierung über left:50% + translateX(-50%), identisch zur .countdown, damit
+	   beide gleich sitzen. Der Text kommt vom GodPowerNotifier (owner-lokal). */
+	.power-message {
+		position: absolute;
+		top: 24px;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 12px 28px;
+		background-color: rgba(0, 0, 0, 0.55);
+		border-radius: 10px;
+		color: white;
+		font-size: 34px;
+		font-family: Arial;
+		font-weight: bold;
+		text-shadow: 0px 2px 4px black;
+		white-space: nowrap;
 	}
 
 	.finish-overlay {
@@ -475,6 +499,26 @@
 		}
 	}
 
+	// Same ancestor-walk pattern as Items — the notifier lives on the player root
+	// (auto-created by GodPower.ResolveNotifier on first activation).
+	GodPowerNotifier Notifier
+	{
+		get
+		{
+			var node = GameObject;
+			while ( node.IsValid() )
+			{
+				var n = node.Components.Get<GodPowerNotifier>( FindMode.EverythingInSelfAndDescendants );
+				if ( n is not null ) return n;
+				node = node.Parent;
+			}
+			return null;
+		}
+	}
+
+	string PowerMessage => Notifier?.CurrentText ?? "";
+	bool ShowPowerMessage => !string.IsNullOrEmpty( PowerMessage );
+
 	// --- Lap counter artwork --------------------------------------------------
 	// Replaces the old "0/3" text label. Same strongly-typed-Texture reasoning as the
 	// HP bar and item slot above: assign these in the inspector on the HUD prefab so the
@@ -694,7 +738,7 @@
 	// resolving, or when LapImageHeight is dragged in the inspector.
 	protected override int BuildHash() => System.HashCode.Combine(
 		System.HashCode.Combine( IsProxy, Lap?.CurrentLap, Damage?.CurrentHP, CurrentPosition, Race?.StartCountdownTimeLeft, LocalRankingEntry?.RaceFinished, LocalRankingEntry?.FinishOrder, Items?.HeldItemKey ),
-		System.HashCode.Combine( LocalCurrency, BoardSignature, ShowUltimateGlow, ShowCursedIcon ),
+		System.HashCode.Combine( LocalCurrency, PowerMessage, BoardSignature, ShowUltimateGlow, ShowCursedIcon ),
 		System.HashCode.Combine( Lap?.MaxLaps, CurrentLapTexture, LapSlashTexture, MaxLapTexture, LapImageHeight )
 	);
 }

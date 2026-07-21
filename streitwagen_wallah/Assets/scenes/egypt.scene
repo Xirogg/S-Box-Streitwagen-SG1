@@ -108,7 +108,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "2173.2583,2542.03467,-896.552612",
+              "Position": "2173.2583,2542.03467,-1055.26538",
               "Rotation": "0,-0,-0.240312636,0.970695555",
               "Scale": "1,1,1",
               "Tags": "",
@@ -126,7 +126,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "2154.64307,2536.59619,-864.092407",
+              "Position": "2154.64307,2536.59619,-1022.80518",
               "Rotation": "0,-0,-0.211068988,0.977471173",
               "Scale": "1,1,1",
               "Tags": "",
@@ -144,7 +144,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "2212.20703,2720.41553,-908.82605",
+              "Position": "2212.20703,2720.41553,-1067.53882",
               "Rotation": "0,-0,-0.213882953,0.976859272",
               "Scale": "1,1,1",
               "Tags": "",
@@ -162,7 +162,7 @@
               "__version": 2,
               "Flags": 0,
               "Name": "SP\" ",
-              "Position": "2264.68945,2616.72021,-830.358521",
+              "Position": "2264.68945,2616.72021,-989.071289",
               "Rotation": "0,-0,-0.188324377,0.982106864",
               "Scale": "1,1,1",
               "Tags": "",
@@ -6873,7 +6873,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "40fbd243-de68-4acf-8a10-ec7d204401fd"
+                      "$blob": "85bbef1a-fdfa-4a05-83e9-4bab9daf8c56"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6929,7 +6929,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "b83944f1-8261-40df-a4cc-8f0768faf118"
+                      "$blob": "40a9ade5-57f0-43e5-bf20-bb0c634b799b"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
@@ -6985,7 +6985,7 @@
                   "IsTrigger": false,
                   "Mesh": {
                     "Data": {
-                      "$blob": "ab856238-6b99-44a7-b3f1-b741c4477a5e"
+                      "$blob": "ab2662a6-389a-421c-be05-b719acc1db15"
                     },
                     "Materials": [
                       "materials/t_waves_pyramide.vmat"
