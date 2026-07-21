@@ -63,7 +63,7 @@ public sealed class RaceManager : Component
 	private const float ReturnCountdownDuration = 6f;
 
 	private float startCountdownStartTime;
-	private const float StartCountdownDuration = 25f;
+	private const float StartCountdownDuration = 5f;
 	private const float GoDisplayDuration = 1f;
 
 	// Host-local timer bookkeeping. raceStartTime is the exact host-clock moment of GO
