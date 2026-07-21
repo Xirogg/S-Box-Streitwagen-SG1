@@ -1513,7 +1513,7 @@
                 "$compiler": "texture",
                 "$source": "imagefile",
                 "data": {
-                  "FilePath": "ui/2d lobby ui/altar ui/altarsäule_aktiv.png",
+                  "FilePath": "ui/2d lobby ui/altar ui/altarsaule_aktiv.png",
                   "MaxSize": 4096,
                   "ConvertHeightToNormals": false,
                   "NormalScale": 1,
@@ -1545,13 +1545,13 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": "textures/generated/imagefile/98411587834ca505.vtex"
+                "compiled": null
               },
               "PillarInactive": {
                 "$compiler": "texture",
                 "$source": "imagefile",
                 "data": {
-                  "FilePath": "ui/2d lobby ui/altar ui/altarsäule_inaktiv.png",
+                  "FilePath": "ui/2d lobby ui/altar ui/altarsaule_inaktiv.png",
                   "MaxSize": 4096,
                   "ConvertHeightToNormals": false,
                   "NormalScale": 1,
@@ -1583,7 +1583,7 @@
                   "CacheToDisk": true,
                   "FormatOverride": "RGBA8888"
                 },
-                "compiled": "textures/generated/imagefile/a281d4d356085f36.vtex"
+                "compiled": null
               },
               "Powers": [
                 {

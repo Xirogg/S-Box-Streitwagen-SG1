@@ -32,6 +32,19 @@
 </root>
 
 <style>
+	/* Component-Root füllt den Screen. Früher in LobbyBackgroundGUI.razor.scss – inline
+	   gezogen, weil s&box beim Laden eines veröffentlichten Packages die Companion-.scss
+	   nicht auflösen kann ("A path on Windows must start by /mnt/") und dann das GANZE
+	   Stylesheet der Komponente verwirft ("Skipping malformed rule"). Dadurch fehlte der
+	   Hintergrund auf Clients. Inline gibt es keinen Pfad aufzulösen -> parst sauber. */
+	LobbyBackgroundGUI {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
 	root {
 		position: absolute;
 		left: 0;
